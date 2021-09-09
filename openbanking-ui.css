@@ -1265,7 +1265,8 @@
   flex: 1;
   -ms-flex-align: center;
   font-family: Titillium Web, sans-serif;
-  color: #fff
+  color: #fff;
+  display: none;
 }
 
 .swagger-ui .topbar a span {
@@ -1665,4 +1666,8 @@
 
  .swagger-ui .topbar .download-url-wrapper .select-label select {
   border: 2px solid #005F78!important;
+}
+
+.link{
+  display: none;
 }

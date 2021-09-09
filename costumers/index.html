@@ -57,7 +57,13 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        layout: "StandaloneLayout"
+        layout: "StandaloneLayout",
+onComplete: function() {
+          var logo = document.getElementsByClassName('link');
+          logo[0].children[0].alt = "OpenBanking Brasil";
+          logo[0].children[0].src = "https://openbankingbrasil.org.br/wp-content/themes/openbank//assets/img/logo-white.png";
+          logo[0].style.setProperty('display','flex');
+        }
       });
       // End Swagger UI call region
 
