@@ -1,0 +1,2149 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "API Accounts - Open Banking Brasil",
+    "description" : "API de contas de depósito à vista, contas de poupança e contas pré-pagas do Open Banking Brasil – Fase 2.\nAPI que retorna informações de contas de depósito à vista, contas de poupança e contas de pagamento pré-pagas mantidas nas instituições transmissoras por seus clientes,\nincluindo dados de identificação da conta, saldos, limites e transações.\\\nNão possui segregação entre pessoa natural e pessoa jurídica.\\\nRequer consentimento do cliente para todos os `endpoints`.\n\n# Orientações\nA `Role`  do diretório de participantes relacionada à presente API é a `DADOS`.\\\nPara todos os `endpoints` desta API é previsto o envio de um `token` através do header `Authorization`.\\\nEste token deverá estar relacionado ao consentimento (`consentId`) mantido na instituição transmissora dos dados, o qual permitirá a pesquisa e retorno, na API em questão, dos \ndados relacionados ao `consentId` específico relacionado.\\\nOs dados serão devolvidos na consulta desde que o `consentId` relacionado corresponda a um consentimento válido e com o status `AUTHORISED`.\\\nÉ também necessário que o recurso em questão (conta, contrato, etc) esteja disponível na instituição transmissora (ou seja, sem boqueios de qualquer natureza e com todas as autorizações/consentimentos já autorizados).\\\nAlém disso as `permissions` necessárias deverão ter sido solicitadas quando da criação do consentimento relacionado (`consentId`).\\\nRelacionamos a seguir as `permissions` necessárias para a consulta de dados em cada `endpoint` da presente API.\n\n## Permissions necessárias para a API Accounts\n\nPara cada um dos paths desta API, além dos escopos (`scopes`) indicados existem `permissions` que deverão ser observadas:\n\n### `/accounts`\n  - permissions:\n    - GET: **ACCOUNTS_READ**\n### `/accounts/{accountId}`\n  - permissions:\n    - GET: **ACCOUNTS_READ**\n### `/accounts/{accountId}/balances`\n  - permissions:\n    - GET: **ACCOUNTS_BALANCES_READ**\n### `/accounts/{accountId}/transactions`\n  - permissions:\n    - GET: **ACCOUNTS_TRANSACTIONS_READ**\n### `/accounts/{accountId}/overdraft-limits`\n  - permissions:\n    - GET: **ACCOUNTS_OVERDRAFT_LIMITS_READ**\n",
+    "contact" : {
+      "name" : "Governança do Open Banking Brasil – Especificações",
+      "url" : "https://openbanking-brasil.github.io/areadesenvolvedor/",
+      "email" : "gt-interfaces@openbankingbr.org"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version" : "1.0.1"
+  },
+  "servers" : [ {
+    "url" : "https://api.banco.com.br/open-banking/accounts/v1",
+    "description" : "Servidor de Produção"
+  }, {
+    "url" : "https://apih.banco.com.br/open-banking/accounts/v1",
+    "description" : "Servidor de Homologação"
+  } ],
+  "tags" : [ {
+    "name" : "Accounts",
+    "description" : "Operações para listagem das informações da Conta do Cliente"
+  } ],
+  "paths" : {
+    "/accounts" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém a lista de contas consentidas pelo cliente.",
+        "description" : "Método para obter a lista de contas depósito à vista, poupança e pagamento pré-pagas mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento.",
+        "operationId" : "accountsGetAccounts",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Cabeçalho HTTP padrão. Permite que as credenciais sejam fornecidas dependendo do tipo de recurso solicitado",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 2048,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-auth-date",
+          "in" : "header",
+          "description" : "Data em que o usuário logou pela última vez com o receptor. Representada de acordo com a [RFC7231](https://tools.ietf.org/html/rfc7231).Exemplo: Sun, 10 Sep 2017 19:43:31 UTC",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 29,
+            "minLength" : 29,
+            "pattern" : "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4} \\d{2}:\\d{2}:\\d{2} (GMT|UTC)$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-customer-ip-address",
+          "in" : "header",
+          "description" : "O endereço IP do usuário se estiver atualmente logado com o receptor.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-interaction-id",
+          "in" : "header",
+          "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-customer-user-agent",
+          "in" : "header",
+          "description" : "Indica o user-agent que o usuário utiliza.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 1000,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 25
+          }
+        }, {
+          "name" : "accountType",
+          "in" : "query",
+          "description" : "Tipos de contas. Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica. Vide Enum.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EnumAccountType"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados de identificação das contas obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Cabeçalho de autenticação ausente/inválido ou token inválido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "O token tem escopo incorreto ou uma política de segurança foi violada",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "O recurso solicitado não existe ou não foi implementado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "405" : {
+            "description" : "O consumidor tentou acessar o recurso com um método não suportado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Ocorreu um erro no gateway da API ou no microsserviço",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Dados de identificação das contas obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountList"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OpenId" : [ "openid" ],
+          "OAuth2Security" : [ "consent:consentId", "accounts" ]
+        } ]
+      }
+    },
+    "/accounts/{accountId}" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém os dados de identificação da conta identificada por accountId.",
+        "description" : "Método para obter os dados de identificação da conta de depósito à vista, poupança ou pagamento pré-paga identificada por accountId mantida pelo cliente na instituição transmissora.",
+        "operationId" : "accountsGetAccountsAccountId",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Cabeçalho HTTP padrão. Permite que as credenciais sejam fornecidas dependendo do tipo de recurso solicitado",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 2048,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-auth-date",
+          "in" : "header",
+          "description" : "Data em que o usuário logou pela última vez com o receptor. Representada de acordo com a [RFC7231](https://tools.ietf.org/html/rfc7231).Exemplo: Sun, 10 Sep 2017 19:43:31 UTC",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 29,
+            "minLength" : 29,
+            "pattern" : "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4} \\d{2}:\\d{2}:\\d{2} (GMT|UTC)$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-customer-ip-address",
+          "in" : "header",
+          "description" : "O endereço IP do usuário se estiver atualmente logado com o receptor.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-interaction-id",
+          "in" : "header",
+          "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-customer-user-agent",
+          "in" : "header",
+          "description" : "Indica o user-agent que o usuário utiliza.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "accountId",
+          "in" : "path",
+          "description" : "Identificador da conta de depósito à vista, de poupança ou de pagamento pré-paga.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados de identificação da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountIdentification"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Cabeçalho de autenticação ausente/inválido ou token inválido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "O token tem escopo incorreto ou uma política de segurança foi violada",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "O recurso solicitado não existe ou não foi implementado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "405" : {
+            "description" : "O consumidor tentou acessar o recurso com um método não suportado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Ocorreu um erro no gateway da API ou no microsserviço",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Dados de identificação da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountIdentification"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OpenId" : [ "openid" ],
+          "OAuth2Security" : [ "consent:consentId", "accounts" ]
+        } ]
+      }
+    },
+    "/accounts/{accountId}/balances" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém os saldos da conta identificada por accountId.",
+        "description" : "Método para obter os saldos da conta de depósito à vista, poupança ou pagamento pré-paga identificada por accountId mantida pelo cliente na instituição transmissora.",
+        "operationId" : "accountsGetAccountsAccountIdBalances",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Cabeçalho HTTP padrão. Permite que as credenciais sejam fornecidas dependendo do tipo de recurso solicitado",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 2048,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-auth-date",
+          "in" : "header",
+          "description" : "Data em que o usuário logou pela última vez com o receptor. Representada de acordo com a [RFC7231](https://tools.ietf.org/html/rfc7231).Exemplo: Sun, 10 Sep 2017 19:43:31 UTC",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 29,
+            "minLength" : 29,
+            "pattern" : "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4} \\d{2}:\\d{2}:\\d{2} (GMT|UTC)$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-customer-ip-address",
+          "in" : "header",
+          "description" : "O endereço IP do usuário se estiver atualmente logado com o receptor.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-interaction-id",
+          "in" : "header",
+          "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-customer-user-agent",
+          "in" : "header",
+          "description" : "Indica o user-agent que o usuário utiliza.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "accountId",
+          "in" : "path",
+          "description" : "Identificador da conta de depósito à vista, de poupança ou de pagamento pré-paga.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados relativos aos saldos da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountBalances"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Cabeçalho de autenticação ausente/inválido ou token inválido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "O token tem escopo incorreto ou uma política de segurança foi violada",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "O recurso solicitado não existe ou não foi implementado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "405" : {
+            "description" : "O consumidor tentou acessar o recurso com um método não suportado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Ocorreu um erro no gateway da API ou no microsserviço",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Dados relativos aos saldos da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountBalances"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OpenId" : [ "openid" ],
+          "OAuth2Security" : [ "consent:consentId", "accounts" ]
+        } ]
+      }
+    },
+    "/accounts/{accountId}/transactions" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém a lista de transações da conta identificada por accountId.",
+        "description" : "Método para obter a lista de transações da conta de depósito à vista, poupança ou pagamento pré-paga identificada por accountId mantida pelo cliente na instituição transmissora.",
+        "operationId" : "accountsGetAccountsAccountIdTransactions",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Cabeçalho HTTP padrão. Permite que as credenciais sejam fornecidas dependendo do tipo de recurso solicitado",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 2048,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-auth-date",
+          "in" : "header",
+          "description" : "Data em que o usuário logou pela última vez com o receptor. Representada de acordo com a [RFC7231](https://tools.ietf.org/html/rfc7231).Exemplo: Sun, 10 Sep 2017 19:43:31 UTC",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 29,
+            "minLength" : 29,
+            "pattern" : "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4} \\d{2}:\\d{2}:\\d{2} (GMT|UTC)$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-customer-ip-address",
+          "in" : "header",
+          "description" : "O endereço IP do usuário se estiver atualmente logado com o receptor.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-interaction-id",
+          "in" : "header",
+          "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-customer-user-agent",
+          "in" : "header",
+          "description" : "Indica o user-agent que o usuário utiliza.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "accountId",
+          "in" : "path",
+          "description" : "Identificador da conta de depósito à vista, de poupança ou de pagamento pré-paga.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 1000,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 25
+          }
+        }, {
+          "name" : "fromBookingDate",
+          "in" : "query",
+          "description" : "Data inicial de filtragem.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "format" : "date",
+            "example" : "2021-05-21"
+          }
+        }, {
+          "name" : "toBookingDate",
+          "in" : "query",
+          "description" : "Data final de filtragem.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "format" : "date",
+            "example" : "2021-05-21"
+          }
+        }, {
+          "name" : "creditDebitIndicator",
+          "in" : "query",
+          "description" : "Indicador do tipo de lançamento",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/EnumCreditDebitIndicator"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados da lista de transações da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountTransactions"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Cabeçalho de autenticação ausente/inválido ou token inválido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "O token tem escopo incorreto ou uma política de segurança foi violada",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "O recurso solicitado não existe ou não foi implementado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "405" : {
+            "description" : "O consumidor tentou acessar o recurso com um método não suportado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Ocorreu um erro no gateway da API ou no microsserviço",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Dados da lista de transações da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountTransactions"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OpenId" : [ "openid" ],
+          "OAuth2Security" : [ "consent:consentId", "accounts" ]
+        } ]
+      }
+    },
+    "/accounts/{accountId}/overdraft-limits" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém os limites da conta identificada por accountId.",
+        "description" : "Método para obter os limites da conta de depósito à vista, poupança ou pagamento pré-paga identificada por accountId mantida pelo cliente na instituição transmissora.",
+        "operationId" : "accountsGetAccountsAccountIdOverdraftLimits",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Cabeçalho HTTP padrão. Permite que as credenciais sejam fornecidas dependendo do tipo de recurso solicitado",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 2048,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-auth-date",
+          "in" : "header",
+          "description" : "Data em que o usuário logou pela última vez com o receptor. Representada de acordo com a [RFC7231](https://tools.ietf.org/html/rfc7231).Exemplo: Sun, 10 Sep 2017 19:43:31 UTC",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 29,
+            "minLength" : 29,
+            "pattern" : "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4} \\d{2}:\\d{2}:\\d{2} (GMT|UTC)$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-customer-ip-address",
+          "in" : "header",
+          "description" : "O endereço IP do usuário se estiver atualmente logado com o receptor.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-fapi-interaction-id",
+          "in" : "header",
+          "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        }, {
+          "name" : "x-customer-user-agent",
+          "in" : "header",
+          "description" : "Indica o user-agent que o usuário utiliza.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string"
+          }
+        }, {
+          "name" : "accountId",
+          "in" : "path",
+          "description" : "Identificador da conta de depósito à vista, de poupança ou de pagamento pré-paga.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 100,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados de limites da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountOverdraftLimits"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Cabeçalho de autenticação ausente/inválido ou token inválido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "O token tem escopo incorreto ou uma política de segurança foi violada",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "O recurso solicitado não existe ou não foi implementado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "405" : {
+            "description" : "O consumidor tentou acessar o recurso com um método não suportado",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "406" : {
+            "description" : "A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Ocorreu um erro no gateway da API ou no microsserviço",
+            "content" : {
+              "application/json; charset=utf-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Dados de limites da conta identificada por accountId obtidos com sucesso.",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "$ref" : "#/components/schemas/XFapiInteractionId"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseAccountOverdraftLimits"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "OpenId" : [ "openid" ],
+          "OAuth2Security" : [ "consent:consentId", "accounts" ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AccountBalancesData" : {
+        "required" : [ "automaticallyInvestedAmount", "automaticallyInvestedAmountCurrency", "availableAmount", "availableAmountCurrency", "blockedAmount", "blockedAmountCurrency" ],
+        "type" : "object",
+        "properties" : {
+          "availableAmount" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Saldo disponível para utilização imediata. No caso de conta de depósito a vista, sem considerar cheque especial e investimentos atrelados a conta. Admite saldo negativo. Expresso em valor monetário com 4 casas decimais.",
+            "format" : "double",
+            "nullable" : true,
+            "example" : 100000.04
+          },
+          "availableAmountCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor do saldo disponível, segundo modelo ISO-4217. p.ex. 'BRL'. Pode ser preenchido com “NA” caso a instituição não possua a informação.",
+            "example" : "BRL"
+          },
+          "blockedAmount" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Saldo bloqueado, não disponível para utilização imediata, por motivo de bloqueio apresentado para o cliente nos canais eletrônicos Expresso em valor monetário com 4 casas decimais.",
+            "format" : "double",
+            "nullable" : true,
+            "example" : 99.9999
+          },
+          "blockedAmountCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor do saldo bloqueado, segundo modelo ISO-4217. p.ex. 'BRL'. Pode ser preenchido com “NA” caso a instituição não possua a informação.",
+            "example" : "BRL"
+          },
+          "automaticallyInvestedAmount" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Saldo disponível com aplicação automática - corresponde a soma do saldo disponível acrescido do valor obtido a partir da aplicação automática Expresso em valor monetário com 4 casas decimais.",
+            "format" : "double",
+            "nullable" : true,
+            "example" : 100000.04
+          },
+          "automaticallyInvestedAmountCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor do saldo disponível com aplicação automática, segundo modelo ISO-4217. p.ex. 'BRL'. Pode ser preenchido com “NA” caso a instituição não possua a informação.",
+            "example" : "BRL"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Conjunto de informações das Contas de: depósito à vista, poupança e de pagamento pré-paga\n"
+      },
+      "AccountData" : {
+        "required" : [ "accountId", "branchCode", "brandName", "checkDigit", "companyCnpj", "compeCode", "number", "type" ],
+        "type" : "object",
+        "properties" : {
+          "brandName" : {
+            "maxLength" : 80,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.",
+            "example" : "Organização A"
+          },
+          "companyCnpj" : {
+            "maxLength" : 14,
+            "pattern" : "\\d{14}|^NA$",
+            "type" : "string",
+            "description" : "Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara",
+            "example" : "21128159000166"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/EnumAccountType"
+          },
+          "compeCode" : {
+            "maxLength" : 3,
+            "pattern" : "\\d{3}|^NA$",
+            "type" : "string",
+            "description" : "Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas).O Compe (Sistema de Compensação de Cheques e Outros Papéis) é um sistema que identifica e processa as compensações bancárias. Ele é representado por um código de três dígitos que serve como identificador de bancos, sendo assim, cada instituição bancária possui um número exclusivo",
+            "example" : "001"
+          },
+          "branchCode" : {
+            "maxLength" : 4,
+            "pattern" : "\\d{4}|^NA$",
+            "type" : "string",
+            "description" : "Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)",
+            "example" : "6272"
+          },
+          "number" : {
+            "maxLength" : 20,
+            "pattern" : "^\\d{8,20}$|^NA$",
+            "type" : "string",
+            "description" : "Número da conta",
+            "example" : "94088392"
+          },
+          "checkDigit" : {
+            "maxLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Dígito da conta",
+            "example" : "4"
+          },
+          "accountId" : {
+            "maxLength" : 100,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string",
+            "description" : "Identifica de forma única  a conta do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.",
+            "example" : "92792126019929279212650822221989319252576"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "AccountIdentificationData" : {
+        "required" : [ "branchCode", "checkDigit", "compeCode", "currency", "number", "subtype", "type" ],
+        "type" : "object",
+        "properties" : {
+          "compeCode" : {
+            "maxLength" : 3,
+            "pattern" : "\\d{3}|^NA$",
+            "type" : "string",
+            "description" : "Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas). O número-código substituiu o antigo código COMPE. Todos os participantes do STR, exceto as Infraestruturas do Mercado Financeiro (IMF) e a Secretaria do Tesouro Nacional, possuem um número-código independentemente de participarem da Centralizadora da Compensação de Cheques (Compe). O campo tem a anotação “n/a” (“não se aplica”) para os participantes do STR aos quais não é atribuído um número-código",
+            "example" : "001"
+          },
+          "branchCode" : {
+            "maxLength" : 4,
+            "pattern" : "\\d{4}|^NA$",
+            "type" : "string",
+            "description" : "Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)\n",
+            "example" : "6272"
+          },
+          "number" : {
+            "maxLength" : 20,
+            "pattern" : "^\\d{8,20}$|^NA$",
+            "type" : "string",
+            "description" : "Número da conta\n",
+            "example" : "24550245"
+          },
+          "checkDigit" : {
+            "maxLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Dígito da conta\n",
+            "example" : "4"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/EnumAccountType"
+          },
+          "subtype" : {
+            "$ref" : "#/components/schemas/EnumAccountSubType"
+          },
+          "currency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor da transação, segundo modelo ISO-4217. p.ex. 'BRL' \nTodos os saldos informados estão representados com a moeda vigente do Brasil\n",
+            "example" : "BRL"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Conjunto dos atributos que caracterizam as Contas de: depósito à vista, poupança e de pagamento pré-paga\n"
+      },
+      "AccountOverdraftLimitsData" : {
+        "required" : [ "overdraftContractedLimit", "overdraftContractedLimitCurrency", "overdraftUsedLimit", "overdraftUsedLimitCurrency", "unarrangedOverdraftAmount", "unarrangedOverdraftAmountCurrency" ],
+        "type" : "object",
+        "properties" : {
+          "overdraftContractedLimit" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Valor do limite contratado do cheque especial.",
+            "format" : "double",
+            "nullable" : true,
+            "example" : 99.9999
+          },
+          "overdraftContractedLimitCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor do limite contratado do cheque especial, segundo modelo ISO-4217. p.ex. 'BRL'. Pode ser preenchido com “NA” caso a instituição não possua a informação.",
+            "example" : "BRL"
+          },
+          "overdraftUsedLimit" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Valor utilizado total do limite do cheque especial e o adiantamento a depositante.",
+            "format" : "double",
+            "nullable" : true,
+            "example" : 10000.9999
+          },
+          "overdraftUsedLimitCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor utilizado total do limite do cheque especial e o adiantamento a depositante, segundo modelo ISO-4217. p.ex. 'BRL'. Pode ser preenchido com “NA” caso a instituição não possua a informação.",
+            "example" : "BRL"
+          },
+          "unarrangedOverdraftAmount" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial.",
+            "format" : "double",
+            "nullable" : true,
+            "example" : 99.9999
+          },
+          "unarrangedOverdraftAmountCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial, segundo modelo ISO-4217. p.ex. 'BRL'. Pode ser preenchido com “NA” caso a instituição não possua a informação.",
+            "example" : "BRL"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Conjunto de informações da Conta de: depósito à vista\n"
+      },
+      "AccountTransactionsData" : {
+        "required" : [ "amount", "completedAuthorisedPaymentType", "creditDebitType", "partieBranchCode", "partieCheckDigit", "partieCnpjCpf", "partieCompeCode", "partieNumber", "partiePersonType", "transactionCurrency", "transactionDate", "transactionName", "type" ],
+        "type" : "object",
+        "properties" : {
+          "transactionId" : {
+            "maxLength" : 100,
+            "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+            "type" : "string",
+            "description" : "Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual.",
+            "example" : "TXpRMU9UQTROMWhZV2xSU1FUazJSMDl"
+          },
+          "completedAuthorisedPaymentType" : {
+            "$ref" : "#/components/schemas/EnumCompletedAuthorisedPaymentIndicator"
+          },
+          "creditDebitType" : {
+            "$ref" : "#/components/schemas/EnumCreditDebitIndicator"
+          },
+          "transactionName" : {
+            "maxLength" : 60,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Campo livre que corresponde ao identificador da transação na instituição financeira",
+            "example" : "TRANSFCWAR5TXHCX5I9IDBHML8082N8NEO30M6LNNG7ANAYIJYRM00ZBZPU8"
+          },
+          "type" : {
+            "$ref" : "#/components/schemas/EnumTransactionTypes"
+          },
+          "amount" : {
+            "maxLength" : 20,
+            "minLength" : 0,
+            "pattern" : "^-?\\d{1,15}\\.\\d{2,4}$",
+            "type" : "number",
+            "description" : "Valor da transação. Expressa em valor monetário com 4 casas decimais.",
+            "format" : "double",
+            "example" : 500.54
+          },
+          "transactionCurrency" : {
+            "maxLength" : 3,
+            "pattern" : "^(\\w{3}){1}$",
+            "type" : "string",
+            "description" : "Moeda referente ao valor da transação, segundo modelo ISO-4217. p.ex. 'BRL'.",
+            "example" : "BRL"
+          },
+          "transactionDate" : {
+            "maxLength" : 10,
+            "pattern" : "^(\\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$",
+            "type" : "string",
+            "description" : "Se indicador de transação:\nTRANSACAO_EFETIVADA - corresponde a data de lançamento da transação\nLANCAMENTO_FUTURO - corresponde a data prevista de efetivação da transação\n",
+            "example" : "2021-01-07"
+          },
+          "partieCnpjCpf" : {
+            "maxLength" : 14,
+            "pattern" : "^\\d{11}$|^\\d{14}$|^NA$",
+            "type" : "string",
+            "description" : "Identificação da pessoa envolvida na transação: pagador ou recebedor (Preencher com o CPF ou CNPJ, sem formatação)\n",
+            "example" : "43908445778"
+          },
+          "partiePersonType" : {
+            "$ref" : "#/components/schemas/EnumPartiePersonType"
+          },
+          "partieCompeCode" : {
+            "maxLength" : 3,
+            "pattern" : "\\d{3}|^NA$",
+            "type" : "string",
+            "description" : "Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas) referente à pessoa envolvida na transação. O número-código substituiu o antigo código COMPE. Todos os participantes do STR, exceto as Infraestruturas do Mercado Financeiro (IMF) e a Secretaria do Tesouro Nacional, possuem um número-código independentemente de participarem da Centralizadora da Compensação de Cheques (Compe). O campo tem a anotação “n/a” (“não se aplica”) para os participantes do STR aos quais não é atribuído um número-código",
+            "example" : "001"
+          },
+          "partieBranchCode" : {
+            "maxLength" : 4,
+            "pattern" : "\\d{4}|^NA$",
+            "type" : "string",
+            "description" : "Código da Agência detentora da conta da pessoa envolvida na transação. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)",
+            "example" : "6272"
+          },
+          "partieNumber" : {
+            "maxLength" : 20,
+            "pattern" : "^\\d{8,20}$|^NA$",
+            "type" : "string",
+            "description" : "Número da conta da pessoa envolvida na transação",
+            "example" : "67890854360"
+          },
+          "partieCheckDigit" : {
+            "maxLength" : 1,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Dígito da conta da pessoa envolvida na transação",
+            "example" : "4"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "EnumAccountSubType" : {
+        "type" : "string",
+        "description" : "Subtipo de conta (vide Enum): \nConta individual - possui um único titular\nConta conjunta simples - onde as movimentações financeiras só podem serem realizadas mediante autorização de TODOS os correntistas da conta.\nConta conjunta solidária - é a modalidade cujos titulares podem realizar movimentações de forma isolada, isto é, sem que seja necessária a autorização dos demais titulares\n",
+        "example" : "INDIVIDUAL",
+        "enum" : [ "INDIVIDUAL", "CONJUNTA_SIMPLES", "CONJUNTA_SOLIDARIA" ]
+      },
+      "EnumAccountType" : {
+        "type" : "string",
+        "description" : "Tipos de contas. Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica. Vide Enum\nConta de depósito à vista ou Conta corrente - é o tipo mais comum. Nela, o dinheiro fica à sua disposição para ser sacado a qualquer momento. Essa conta não gera rendimentos para o depositante\nConta poupança - foi criada para estimular as pessoas a pouparem. O dinheiro que ficar na conta por trinta dias passa a gerar rendimentos, com isenção de imposto de renda para quem declara. Ou seja, o dinheiro “cresce” (rende) enquanto ficar guardado na conta. Cada depósito terá rendimentos de mês em mês, sempre no dia do mês em que o dinheiro tiver sido depositado\nConta de pagamento pré-paga: segundo CIRCULAR Nº 3.680, BCB de  2013, é a 'destinada à execução de transações de pagamento em moeda eletrônica realizadas com base em fundos denominados em reais previamente aportados'\n",
+        "example" : "CONTA_DEPOSITO_A_VISTA",
+        "enum" : [ "CONTA_DEPOSITO_A_VISTA", "CONTA_POUPANCA", "CONTA_PAGAMENTO_PRE_PAGA" ]
+      },
+      "EnumCompletedAuthorisedPaymentIndicator" : {
+        "maxLength" : 19,
+        "type" : "string",
+        "description" : "Indicador da transação: \n- Transação efetivada\n- Lançamento futuro\n",
+        "example" : "TRANSACAO_EFETIVADA",
+        "enum" : [ "TRANSACAO_EFETIVADA", "LANCAMENTO_FUTURO" ]
+      },
+      "EnumCreditDebitIndicator" : {
+        "maxLength" : 7,
+        "type" : "string",
+        "description" : "Indicador do tipo de lançamento: \nDébito (no extrato) Em um extrato bancário, os débitos, marcados com a letra “D” ao lado do valor registrado, informam as saídas de dinheiro na conta-corrente.\nCrédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.\n",
+        "example" : "DEBITO",
+        "enum" : [ "CREDITO", "DEBITO" ]
+      },
+      "EnumPartiePersonType" : {
+        "type" : "string",
+        "description" : "Identificação do Tipo de Pessoa da pessoa envolvida na transação.\nPessoa Natural - Informar CPF no campo “payerCnpjCpf”\nPessoa Jurídica - Informar CNPJ no campo “payerCnpjCpf”\n",
+        "nullable" : true,
+        "example" : "PESSOA_NATURAL",
+        "enum" : [ "PESSOA_NATURAL", "PESSOA_JURIDICA", null ]
+      },
+      "EnumTransactionTypes" : {
+        "maxLength" : 31,
+        "type" : "string",
+        "description" : "Tipo de Transação\n",
+        "example" : "PIX",
+        "enum" : [ "TED", "DOC", "PIX", "TRANSFERENCIA_MESMA_INSTITUICAO", "BOLETO", "CONVENIO_ARRECADACAO", "PACOTE_TARIFA_SERVICOS", "TARIFA_SERVICOS_AVULSOS", "FOLHA_PAGAMENTO", "DEPOSITO", "SAQUE", "CARTAO", "ENCARGOS_JUROS_CHEQUE_ESPECIAL", "RENDIMENTO_APLIC_FINANCEIRA", "PORTABILIDADE_SALARIO", "RESGATE_APLIC_FINANCEIRA", "OPERACAO_CREDITO", "OUTROS" ]
+      },
+      "Links" : {
+        "required" : [ "self" ],
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "maxLength" : 2000,
+            "pattern" : "^(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)$",
+            "type" : "string",
+            "description" : "URI completo que gerou a resposta atual.",
+            "format" : "uri",
+            "example" : "https://api.banco.com.br/open-banking/api/v1/resource"
+          },
+          "first" : {
+            "maxLength" : 2000,
+            "pattern" : "^(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)$",
+            "type" : "string",
+            "description" : "URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta",
+            "format" : "uri",
+            "example" : "https://api.banco.com.br/open-banking/api/v1/resource"
+          },
+          "prev" : {
+            "maxLength" : 2000,
+            "pattern" : "^(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)$",
+            "type" : "string",
+            "description" : "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta",
+            "format" : "uri",
+            "example" : "https://api.banco.com.br/open-banking/api/v1/resource"
+          },
+          "next" : {
+            "maxLength" : 2000,
+            "pattern" : "^(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)$",
+            "type" : "string",
+            "description" : "URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta",
+            "format" : "uri",
+            "example" : "https://api.banco.com.br/open-banking/api/v1/resource"
+          },
+          "last" : {
+            "maxLength" : 2000,
+            "pattern" : "^(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)$",
+            "type" : "string",
+            "description" : "URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta",
+            "format" : "uri",
+            "example" : "https://api.banco.com.br/open-banking/api/v1/resource"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Referências para outros recusos da API requisitada."
+      },
+      "Meta" : {
+        "required" : [ "requestDateTime", "totalPages", "totalRecords" ],
+        "type" : "object",
+        "properties" : {
+          "totalRecords" : {
+            "type" : "integer",
+            "description" : "Número total de registros no resultado",
+            "format" : "int32",
+            "example" : 1
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "description" : "Número total de páginas no resultado",
+            "format" : "int32",
+            "example" : 1
+          },
+          "requestDateTime" : {
+            "maxLength" : 20,
+            "type" : "string",
+            "description" : "Data e hora da consulta, conforme especificação RFC-3339, formato UTC.",
+            "format" : "date-time",
+            "example" : "2021-05-21T08:30:00Z"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Meta informações referente a API requisitada."
+      },
+      "ResponseAccountList" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de contas depósito à vista, poupança e pagamento pré-pagas mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento",
+            "items" : {
+              "$ref" : "#/components/schemas/AccountData"
+            }
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "ResponseAccountBalances" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/AccountBalancesData"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "ResponseAccountIdentification" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/AccountIdentificationData"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "ResponseAccountOverdraftLimits" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/AccountOverdraftLimitsData"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "ResponseAccountTransactions" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos lançamentos referentes às transações realizadas e de lançamentos futuros para as contas de: depósito à vista, poupança e de pagamento pré-paga\n",
+            "items" : {
+              "$ref" : "#/components/schemas/AccountTransactionsData"
+            }
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "ResponseError" : {
+        "required" : [ "errors" ],
+        "type" : "object",
+        "properties" : {
+          "errors" : {
+            "maxItems" : 13,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ResponseError_errors"
+            }
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "XFapiInteractionId" : {
+        "maxLength" : 100,
+        "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+        "type" : "string",
+        "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta."
+      },
+      "ResponseError_errors" : {
+        "required" : [ "code", "detail", "title" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 255,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Código de erro específico do endpoint"
+          },
+          "title" : {
+            "maxLength" : 255,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Título legível por humanos deste erro específico"
+          },
+          "detail" : {
+            "maxLength" : 2048,
+            "pattern" : "[\\w\\W\\s]*",
+            "type" : "string",
+            "description" : "Descrição legível por humanos deste erro específico"
+          }
+        },
+        "additionalProperties" : false
+      }
+    },
+    "responses" : {
+      "OKResponseAccountList" : {
+        "description" : "Dados de identificação das contas obtidos com sucesso.",
+        "headers" : {
+          "x-fapi-interaction-id" : {
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "$ref" : "#/components/schemas/XFapiInteractionId"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseAccountList"
+            }
+          }
+        }
+      },
+      "OKResponseAccountIdentification" : {
+        "description" : "Dados de identificação da conta identificada por accountId obtidos com sucesso.",
+        "headers" : {
+          "x-fapi-interaction-id" : {
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "$ref" : "#/components/schemas/XFapiInteractionId"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseAccountIdentification"
+            }
+          }
+        }
+      },
+      "OKResponseAccountBalances" : {
+        "description" : "Dados relativos aos saldos da conta identificada por accountId obtidos com sucesso.",
+        "headers" : {
+          "x-fapi-interaction-id" : {
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "$ref" : "#/components/schemas/XFapiInteractionId"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseAccountBalances"
+            }
+          }
+        }
+      },
+      "OKResponseAccountTransactions" : {
+        "description" : "Dados da lista de transações da conta identificada por accountId obtidos com sucesso.",
+        "headers" : {
+          "x-fapi-interaction-id" : {
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "$ref" : "#/components/schemas/XFapiInteractionId"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseAccountTransactions"
+            }
+          }
+        }
+      },
+      "OKResponseAccountOverdraftLimits" : {
+        "description" : "Dados de limites da conta identificada por accountId obtidos com sucesso.",
+        "headers" : {
+          "x-fapi-interaction-id" : {
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "$ref" : "#/components/schemas/XFapiInteractionId"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseAccountOverdraftLimits"
+            }
+          }
+        }
+      },
+      "BadRequest" : {
+        "description" : "A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "Forbidden" : {
+        "description" : "O token tem escopo incorreto ou uma política de segurança foi violada",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "InternalServerError" : {
+        "description" : "Ocorreu um erro no gateway da API ou no microsserviço",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "MethodNotAllowed" : {
+        "description" : "O consumidor tentou acessar o recurso com um método não suportado",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "NotAcceptable" : {
+        "description" : "A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "NotFound" : {
+        "description" : "O recurso solicitado não existe ou não foi implementado",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "TooManyRequests" : {
+        "description" : "A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      },
+      "Unauthorized" : {
+        "description" : "Cabeçalho de autenticação ausente/inválido ou token inválido",
+        "content" : {
+          "application/json; charset=utf-8" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResponseError"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "accountId" : {
+        "name" : "accountId",
+        "in" : "path",
+        "description" : "Identificador da conta de depósito à vista, de poupança ou de pagamento pré-paga.",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 100,
+          "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+          "type" : "string"
+        }
+      },
+      "accountsBranchCode" : {
+        "name" : "branchCode",
+        "in" : "query",
+        "description" : "Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maxLength" : 4,
+          "pattern" : "\\d{4}|^NA$",
+          "type" : "string"
+        }
+      },
+      "accountsCheckDigit" : {
+        "name" : "checkDigit",
+        "in" : "query",
+        "description" : "Dígito da conta",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maxLength" : 1,
+          "pattern" : "[\\w\\W\\s]*",
+          "type" : "string"
+        }
+      },
+      "accountsCompeCode" : {
+        "name" : "compeCode",
+        "in" : "query",
+        "description" : "Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas). O número-código substituiu o antigo código COMPE. Todos os participantes do STR, exceto as Infraestruturas do Mercado Financeiro (IMF) e a Secretaria do Tesouro Nacional, possuem um número-código independentemente de participarem da Centralizadora da Compensação de Cheques (Compe). O campo tem a anotação “n/a” (“não se aplica”) para os participantes do STR aos quais não é atribuído um número-código",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maxLength" : 3,
+          "pattern" : "\\d{3}|^NA$",
+          "type" : "string"
+        }
+      },
+      "accountsNumber" : {
+        "name" : "number",
+        "in" : "query",
+        "description" : "Número da conta",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maxLength" : 20,
+          "pattern" : "\\d{20}|^NA$",
+          "type" : "string"
+        }
+      },
+      "accountType" : {
+        "name" : "accountType",
+        "in" : "query",
+        "description" : "Tipos de contas. Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica. Vide Enum.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "$ref" : "#/components/schemas/EnumAccountType"
+        }
+      },
+      "Authorization" : {
+        "name" : "Authorization",
+        "in" : "header",
+        "description" : "Cabeçalho HTTP padrão. Permite que as credenciais sejam fornecidas dependendo do tipo de recurso solicitado",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 2048,
+          "pattern" : "[\\w\\W\\s]*",
+          "type" : "string"
+        }
+      },
+      "creditDebitIndicator" : {
+        "name" : "creditDebitIndicator",
+        "in" : "query",
+        "description" : "Indicador do tipo de lançamento",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "$ref" : "#/components/schemas/EnumCreditDebitIndicator"
+        }
+      },
+      "fromBookingDate" : {
+        "name" : "fromBookingDate",
+        "in" : "query",
+        "description" : "Data inicial de filtragem.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maxLength" : 10,
+          "type" : "string",
+          "format" : "date",
+          "example" : "2021-05-21"
+        }
+      },
+      "page" : {
+        "name" : "page",
+        "in" : "query",
+        "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "minimum" : 1,
+          "type" : "integer",
+          "format" : "int32",
+          "default" : 1
+        }
+      },
+      "pageSize" : {
+        "name" : "page-size",
+        "in" : "query",
+        "description" : "Quantidade total de registros por páginas.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maximum" : 1000,
+          "minimum" : 1,
+          "type" : "integer",
+          "format" : "int32",
+          "default" : 25
+        }
+      },
+      "toBookingDate" : {
+        "name" : "toBookingDate",
+        "in" : "query",
+        "description" : "Data final de filtragem.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maxLength" : 10,
+          "type" : "string",
+          "format" : "date",
+          "example" : "2021-05-21"
+        }
+      },
+      "xCustomerUserAgent" : {
+        "name" : "x-customer-user-agent",
+        "in" : "header",
+        "description" : "Indica o user-agent que o usuário utiliza.",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 100,
+          "minLength" : 1,
+          "pattern" : "[\\w\\W\\s]*",
+          "type" : "string"
+        }
+      },
+      "xFapiAuthDate" : {
+        "name" : "x-fapi-auth-date",
+        "in" : "header",
+        "description" : "Data em que o usuário logou pela última vez com o receptor. Representada de acordo com a [RFC7231](https://tools.ietf.org/html/rfc7231).Exemplo: Sun, 10 Sep 2017 19:43:31 UTC",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 29,
+          "minLength" : 29,
+          "pattern" : "^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \\d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4} \\d{2}:\\d{2}:\\d{2} (GMT|UTC)$",
+          "type" : "string"
+        }
+      },
+      "xFapiCustomerIpAddress" : {
+        "name" : "x-fapi-customer-ip-address",
+        "in" : "header",
+        "description" : "O endereço IP do usuário se estiver atualmente logado com o receptor.",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 100,
+          "minLength" : 1,
+          "pattern" : "[\\w\\W\\s]*",
+          "type" : "string"
+        }
+      },
+      "xFapiInteractionId" : {
+        "name" : "x-fapi-interaction-id",
+        "in" : "header",
+        "description" : "Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. Se fornecido, o transmissor deve \"reproduzir\" esse valor no cabeçalho de resposta.",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 100,
+          "minLength" : 1,
+          "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+          "type" : "string"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "OpenId" : {
+        "type" : "openIdConnect",
+        "openIdConnectUrl" : "https://auth.mockbank.poc.raidiam.io/.well-known/openid-configuration"
+      },
+      "OAuth2Security" : {
+        "type" : "oauth2",
+        "description" : "Fluxo OAuth necessário para que a receptora tenha acesso aos dados na instituição transmissora. Requer o processo de redirecionamento e autenticação do usuário a que se referem os dados.",
+        "flows" : {
+          "authorizationCode" : {
+            "authorizationUrl" : "https://authserver.example/authorization",
+            "tokenUrl" : "https://authserver.example/token",
+            "scopes" : {
+              "accounts" : "Escopo necessário para acesso à API Accounts. O controle dos endpoints específicos é feito via permissions."
+            }
+          }
+        }
+      }
+    }
+  }
+}
