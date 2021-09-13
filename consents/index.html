@@ -40,10 +40,12 @@
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
         urls: [
+          {name: "1.0.3",  url: "./doc/1.0.3.json"},
           {name: "1.0.2",  url: "./doc/1.0.2.json"},
+          {name: "1.0.1",  url: "./doc/1.0.1.json"},
           {name: "1.0.0", url: "./doc/1.0.0.json"}
         ],
-        "urls.primaryName": "1.0.2",  // default spec
+        "urls.primaryName": "1.0.3",  // default spec
         dom_id: '#swagger-ui',
         deepLinking: true,
         supportedSubmitMethods:[],
