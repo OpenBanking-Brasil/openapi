@@ -1,0 +1,3181 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "API's OpenData do Open Banking Brasil",
+    "description" : "As API's descritas neste documento são referentes as API's da fase OpenData do Open Banking Brasil.",
+    "contact" : {
+      "url" : "https://servicedesk.openbankingbrasil.org.br/Login.jsp?navLanguage=pt-BR"
+    },
+    "version" : "1.0.2"
+  },
+  "servers" : [ {
+    "url" : "http://api.banco.com.br/open-banking/products-services/v1"
+  } ],
+  "tags" : [ {
+    "name" : "Accounts"
+  }, {
+    "name" : "Loans"
+  }, {
+    "name" : "Credit Cards"
+  }, {
+    "name" : "Financings"
+  }, {
+    "name" : "Invoice Financings"
+  }, {
+    "name" : "Unarranged Account Overdraft"
+  } ],
+  "paths" : {
+    "/personal-accounts" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém dados das contas pessoa natural",
+        "description" : "Obtém dados das contas",
+        "operationId" : "getPersonalAccounts",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados sobre contas pessoa natural obtidos com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponsePersonalAccounts"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/business-accounts" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Obtém dados das contas pessoa jurídica",
+        "description" : "Obtém dados das contas pessoa jurídica",
+        "operationId" : "getBusinessAccounts",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados sobre contas pessoa jurídica obtidos com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseBusinessAccounts"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personal-loans" : {
+      "get" : {
+        "tags" : [ "Loans" ],
+        "summary" : "Obtém dados sobre empréstimos pessoa natural",
+        "description" : "Obtém dados sobre empréstimos pessoa natural",
+        "operationId" : "getPersonalLoans",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados sobre empréstimos pessoa natural obtidos com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponsePersonalLoans"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/business-loans" : {
+      "get" : {
+        "tags" : [ "Loans" ],
+        "summary" : "Obtém dados sobre empréstimos pessoa jurídica",
+        "description" : "Obtém dados sobre empréstimos pessoa jurídica",
+        "operationId" : "getBusinessLoans",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados sobre empréstimos pessoa jurídica obtidos com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseBusinessLoans"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personal-credit-cards" : {
+      "get" : {
+        "tags" : [ "Credit Cards" ],
+        "summary" : "Obtém dados sobre cartões de crédito pessoa natural",
+        "description" : "Obtém dados sobre cartões de crédito pessoa natural",
+        "operationId" : "getPersonalCreditCards",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados sobre cartão de crédito pessoa natural obtidos com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PersonalCreditCardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/business-credit-cards" : {
+      "get" : {
+        "tags" : [ "Credit Cards" ],
+        "summary" : "Obtém dados sobre cartões de crédito pessoa jurídica",
+        "description" : "Obtém dados sobre cartões de crédito pessoa jurídica",
+        "operationId" : "getBusinessCreditCards",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Dados sobre cartões de crédito pessoa jurídica obtidos com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BusinessCreditCardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personal-financings" : {
+      "get" : {
+        "tags" : [ "Financings" ],
+        "summary" : "Obtém a lista de Financiamentos de Pessoa Natural.",
+        "description" : "Obtém a lista de Financiamentos de Pessoa Natural",
+        "operationId" : "getPersonalFinancings",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lista de financiamentos de pessoa natural obtida com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponsePersonalFinancings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/business-financings" : {
+      "get" : {
+        "tags" : [ "Financings" ],
+        "summary" : "Obtém a lista de Financiamentos de Pessoa Jurídica.",
+        "description" : "Obtém a lista de Financiamentos de Pessoa Jurídica.",
+        "operationId" : "getBusinessFinancings",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lista de financiamentos de pessoa jurídica obtida com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseBusinessFinancings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personal-invoice-financings" : {
+      "get" : {
+        "tags" : [ "Invoice Financings" ],
+        "summary" : "Obtém a lista de Adiantamento de Recebíveis de Pessoa Natural.",
+        "description" : "Obtém a lista de Adiantamento de Recebíveis de Pessoa Natural.",
+        "operationId" : "getPersonalInvoiceFinancings",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lista de adiantamento de recebíveis de pessoa natural obtida com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponsePersonalInvoiceFinancings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/business-invoice-financings" : {
+      "get" : {
+        "tags" : [ "Invoice Financings" ],
+        "summary" : "Obtém a lista de Adiantamento de Recebíveis de Pessoa Jurídica.",
+        "description" : "Obtém a lista de Adiantamento de Recebíveis de Pessoa Jurídica.",
+        "operationId" : "getBusinessInvoiceFinancings",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lista de adiantamento de recebíveis de pessoa jurídica obtida com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseBusinessInvoiceFinancings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/personal-unarranged-account-overdraft" : {
+      "get" : {
+        "tags" : [ "Unarranged Account Overdraft" ],
+        "summary" : "Obtém a lista de adiantamento de depositante de Pessoa Natural.",
+        "description" : "Obtém a lista de adiantamento de depositante de Pessoa Natural.",
+        "operationId" : "getPersonalUnarrangedAccountOverdraft",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lista de adiantamento de depositante de pessoa natural obtida com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponsePersonalUnarrangedAccountOverdraft"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/business-unarranged-account-overdraft" : {
+      "get" : {
+        "tags" : [ "Unarranged Account Overdraft" ],
+        "summary" : "Obtém a lista de adiantamento de depositante de Pessoa Jurídica.",
+        "description" : "Obtém a lista de adiantamento de depositante de Pessoa Jurídica.",
+        "operationId" : "getBusinessUnarrangedAccountOverdraft",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "page-size",
+          "in" : "query",
+          "description" : "Quantidade total de registros por páginas.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 25
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Lista de adiantamento de depositante de pessoa jurídica obtida com sucesso.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseBusinessUnarrangedAccountOverdraft"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AccountsTermsConditions" : {
+        "required" : [ "closingProcessInfo", "elegibilityCriteriaInfo", "minimumBalance" ],
+        "type" : "object",
+        "properties" : {
+          "minimumBalance" : {
+            "$ref" : "#/components/schemas/MinimumBalance"
+          },
+          "elegibilityCriteriaInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Critérios de qualificação do cliente com a finalidade de definir sua elegibilidade para a aquisição do tipo de conta. Campo Aberto",
+            "example" : "https://example.com/mobile-banking"
+          },
+          "closingProcessInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Procedimentos de encerramento para o tipo de conta tratado. Possibilidade de inscrição da URL. Endereço eletrônico de acesso ao canal. p.ex. 'https://example.com/mobile-banking' ",
+            "example" : "https://example.com/mobile-banking"
+          }
+        },
+        "description" : "Objeto que reúne informações relativas a Termos e Condições para as modalidades tratadas"
+      },
+      "ResponsePersonalAccounts" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponsePersonalAccounts_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PersonalAccountBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalAccountCompany"
+            }
+          }
+        }
+      },
+      "PersonalAccountCompany" : {
+        "type" : "object",
+        "properties" : {
+          "personalAccounts" : {
+            "maxItems" : 3,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de tipos de conta",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalAccount"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "PersonalAccount" : {
+        "required" : [ "fees", "incomeRates", "openingClosingChannels", "serviceBundles", "termsConditions", "transactionMethods", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/AccountType"
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/AccountFee"
+          },
+          "serviceBundles" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos Pacotes de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/ServiceBundle"
+            }
+          },
+          "openingClosingChannels" : {
+            "maxItems" : 7,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos canais para aberturas e encerramento",
+            "items" : {
+              "$ref" : "#/components/schemas/OpeningClosingChannels"
+            }
+          },
+          "additionalInfo" : {
+            "maxLength" : 100,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Texto livre para complementar informação relativa ao Canal disponível, quando no campo ''openingClosingChannels'' estiver preenchida a opção ''Outros''\nRestrição: Campo de preenchimento obrigatório se ''openingCloseChannels'' estiver preenchida a opção ''OUTROS''\n",
+            "example" : "NA"
+          },
+          "transactionMethods" : {
+            "maxItems" : 4,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de formas de movimentação",
+            "items" : {
+              "$ref" : "#/components/schemas/TransactionMethods"
+            }
+          },
+          "termsConditions" : {
+            "$ref" : "#/components/schemas/AccountsTermsConditions"
+          },
+          "incomeRate" : {
+            "$ref" : "#/components/schemas/AccountsIncomeRate"
+          }
+        }
+      },
+      "AccountFee" : {
+        "required" : [ "priorityServices" ],
+        "type" : "object",
+        "properties" : {
+          "priorityServices" : {
+            "maxItems" : 40,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços Prioritários",
+            "items" : {
+              "$ref" : "#/components/schemas/AccountPriorityService"
+            }
+          },
+          "otherServices" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre outros Serviços, que não prioritários",
+            "items" : {
+              "$ref" : "#/components/schemas/AccountOtherService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "AccountPriorityService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "$ref" : "#/components/schemas/PriorityServiceName"
+          },
+          "code" : {
+            "$ref" : "#/components/schemas/AccountPriorityServiceCode"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatos geradores de cobrança que incidem sobre os serviços prioritários, segundo Resolução 3.919 do Bacen, para pessoa natural.",
+            "example" : "Fornecimento de extrato com a movimentação de um período em guichê de caixa ou por outras formas de atendimento pessoal, tal como atendimento telefônico realizado por atendente."
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição preços tarifas de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "AccountType" : {
+        "type" : "string",
+        "description" : "Tipos de contas ofertadas para pessoa natural ou jurídica, p.ex. 'CONTA_DEPOSITO_A_VISTA'.\nConta de depósito à vista ou Conta corrente - é o tipo mais comum. Nela, o dinheiro fica à sua disposição para ser sacado a qualquer momento. Essa conta não gera rendimentos para o depositante\nConta poupança - foi criada para estimular as pessoas a pouparem. O dinheiro que ficar na conta por trinta dias passa a gerar rendimentos, com isenção de imposto de renda para quem declara. Ou seja, o dinheiro “cresce” (rende) enquanto ficar guardado na conta. Cada depósito terá rendimentos de mês em mês, sempre no dia do mês em que o dinheiro tiver sido depositado\nConta de pagamento pré-paga: segundo CIRCULAR Nº 3.680, BCB de  2013, é a 'destinada à execução de transações de pagamento em moeda eletrônica realizadas com base em fundos denominados em reais previamente aportados'\n",
+        "example" : "CONTA_DEPOSITO_A_VISTA",
+        "enum" : [ "CONTA_DEPOSITO_A_VISTA", "CONTA_POUPANCA", "CONTA_PAGAMENTO_PRE_PAGA" ]
+      },
+      "OpeningClosingChannels" : {
+        "type" : "string",
+        "description" : "Canais disponíveis para abertura e encerramento de contas, p.ex. 'DEPENDENCIAS_PROPRIAS'",
+        "example" : "DEPENDENCIAS_PROPRIAS",
+        "enum" : [ "DEPENDENCIAS_PROPRIAS", "CORRESPONDENTES_BANCARIOS", "INTERNET_BANKING", "MOBILE_BANKING", "CENTRAL_TELEFONICA", "CHAT", "OUTROS" ]
+      },
+      "TransactionMethods" : {
+        "type" : "string",
+        "description" : "Lista de formas de movimentação possíveis para a conta",
+        "example" : "MOVIMENTACAO_CARTAO",
+        "enum" : [ "MOVIMENTACAO_ELETRONICA", "MOVIMENTACAO_CHEQUE", "MOVIMENTACAO_CARTAO", "MOVIMENTACAO_PRESENCIAL" ]
+      },
+      "PriorityServiceName" : {
+        "type" : "string",
+        "description" : "Nome dos Serviços prioritários, segundo Resolução 3.919 do Bacen, para pessoa natural.",
+        "example" : "TRANSFERENCIA_TED_PESSOAL_OU_PRESENCIAL",
+        "enum" : [ "CONFECCAO_CADASTRO_INICIO_RELACIONAMENTO", "FORNECIMENTO_2_VIA_CARTAO_FUNCAO_DEBITO", "FORNECIMENTO_2_VIA_CARTAO_FUNCAO_MOVIMENTACAO_CONTA_POUPANCA", "EXCLUSAO_CADASTRO_EMITENTES_CHEQUES_SEM_FUNDO_CCF", "CONTRA_ORDEM_REVOGACAO_E_OPOSICAO_OU_SUSTACAO_PAGAMENTO_CHEQUE", "FORNECIMENTO_FOLHAS_CHEQUE", "CHEQUE_ADMINISTRATIVO", "CHEQUE_VISADO", "SAQUE_CONTA_DEPOSITO_A_VISTA_POUPANCA_PRESENCIAL_OU_PESSOAL", "SAQUE_CONTA_DEPOSITO_A_VISTA_POUPANCA_TERMINAL_AUTOATENDIMENTO", "SAQUE_CONTA_DEPOSITO_A_VISTA_POUPANCA_CORRESPONDENTES_PAIS", "DEPOSITO_IDENTIFICADO", "FORNECIMENTO_EXTRATO_MENSAL_CONTA_DEPOSITOS_A_VISTA_E_POUPANCA_PRESENCIAL_OU_PESSOAL", "FORNECIMENTO_EXTRATO_MENSAL_CONTA_DEPOSITOS_A_VISTA_E_POUPANCA_TERMINAL_AUTOATENDIMENTO", "FORNECIMENTO_EXTRATO_MENSAL_CONTA_DEPOSITOS_A_VISTA_E_POUPANCA_CORRESPONDENTES_PAIS", "FORNECIMENTO_EXTRATO_DE_UM_PERIODO_CONTA_DEPOSITOS_A_VISTA_E_POUPANCA_PRESENCIAL_OU_PESSOAL", "FORNECIMENTO_EXTRATO_DE_UM_PERIODO_CONTA_DEPOSITOS_A_VISTA_E_POUPANCA_TERMINAL_AUTOATENDIMENTO", "FORNECIMENTO_EXTRATO_DE_UM_PERIODO_CONTA_DEPOSITOS_A_VISTA_E_POUPANCA_CORRESPONDENTES_PAIS", "FORNECIMENTO_COPIA_MICROFILME_MICROFICHA_ASSEMELHADO", "TRANSFERENCIA_DOC_PESSOAL_OU_PRESENCIAL", "TRANSFERENCIA_DOC_TERMINAL_AUTOATENDIMENTO_OUTROS_MEIOS_ELETRONICOS", "TRANSFERENCIA_DOC_INTERNET", "TRANSFERENCIA_TED_PESSOAL_OU_PRESENCIAL", "TRANSFERENCIA_TED_TERMINAL_AUTOATENDIMENTO_OUTROS_MEIOS_ELETRONICOS", "TRANSFERENCIA_TED_INTERNET", "TRANSFERENCIA_DOC_TED_PESSOAL_OU_PRESENCIAL", "TRANSFERENCIA_DOC_TED_TERMINAL_AUTOATENDIMENTO_OUTROS_MEIOS_ELETRONICOS", "TRANSFERENCIA_DOC_TED_INTERNET", "TRANSFERENCIA_ENTRE_CONTAS_PROPRIA_INSTITUICAO_PESSOAL_OU_PRESENCIAL", "TRANSFERENCIA_ENTRE_CONTAS_PROPRIA_INSTITUICAO_TERMINAL_AUTOATENDIMENTO_OUTROS_MEIOS_ELETRONICOS_INCLUSIVE_INTERNET", "ORDEM_PAGAMENTO", "ANUIDADE_CARTAO_BASICO_NACIONAL", "ANUIDADE_CARTAO_BASICO_INTERNACIONAL", "ANUIDADE_DIFERENCIADA", "UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_BRASIL", "UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_EXTERIOR", "AVALIACAO_EMERGENCIAL_CREDITO", "FORNECIMENTO_SEGUNDA_VIA_FUNCAO_CREDITO", "PAGAMENTO_CONTAS_UTILIZANDO_FUNCAO_CREDITO", "SMS" ]
+      },
+      "AccountOtherService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 250,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome do Serviço que incide sobre tipo de conta (Campo Livre)",
+            "example" : "Evento personalizado"
+          },
+          "code" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Siglas de identificação do Serviço (Campo Livre)",
+            "example" : "TALAO_DOMICILIO"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatos geradores de cobrança que incidem sobre outros serviços para pessoa natural. (Campo Livre)",
+            "example" : "Cobrança devido a evento personalizado"
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição preços tarifas de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "AccountPriorityServiceCode" : {
+        "type" : "string",
+        "description" : "Lista das Siglas de identificação do Serviço Prioritário, segundo Resolução 3.919 do Bacen.",
+        "enum" : [ "CADASTRO", "2_VIA_CARTAO_DEBITO", "2_VIA_CARTAO_POUPANCA", "EXCLUSAO_CCF", "SUSTACAO_REVOGACAO", "FOLHA_CHEQUE", "CHEQUE_ADMINISTRATIVO", "CHEQUE_VISADO", "SAQUE_PESSOAL", "SAQUE_TERMINAL", "SAQUE_CORRESPONDENTE", "DEPOSITO_IDENTIFICADO", "EXTRATO_MES_P", "EXTRATO_MES_E", "EXTRATO_MES_C", "EXTRATO_MOVIMENTO_P", "EXTRATO_MOVIMENTO_E", "EXTRATO_MOVIMENTO_C", "MICROFILME", "DOC_PESSOAL", "DOC_ELETRONICO", "DOC_INTERNET", "TED_PESSOAL", "TED_ELETRONICO", "TED_INTERNET", "DOC_TED_AGENDADO_P", "DOC_TED_AGENDADO_E", "DOC_TED_AGENDADO_I", "TRANSF_RECURSO_P", "TRANSF_RECURSO_E", "ORDEM_PAGAMENTO", "ANUIDADE_NACIONAL", "ANUIDADE_INTERNACIONAL", "ANUIDADE_DIFERENCIADA", "SAQUE_CARTAO_BRASIL", "SAQUE_CARTAO_EXTERIOR", "AVALIACAO_EMERGENCIAL_CREDITO", "EMISSAO_SEGUNDA_VIA", "TARIFA_PAGAMENTO_CONTAS", "SMS" ]
+      },
+      "ServiceBundle" : {
+        "required" : [ "maximum", "minimum", "name", "prices", "services" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 250,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome do Pacote de Serviços dado pela instituição.",
+            "example" : "Conta de depósitos à vista Movimentação com cartão (sem cheque)"
+          },
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos serviços que compõe o pacote de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/ServiceBundleServiceDetail"
+            }
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição preços tarifas de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/MonthlyPrice"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "ServiceBundleServiceDetail" : {
+        "required" : [ "chargingTriggerInfo", "code", "eventLimitQuantity", "freeEventQuantity" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 100,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Código que identifica o Serviço que compõe o Pacote de Serviços, podendo ser da lista de Serviços Prioritários ou Outros Serviços. p.ex. segundo Resolução 3.919 do Bacen: 'SAQUE_TERMINAL'.\n",
+            "example" : "SAQUE_TERMINAL"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatos geradores de cobrança que incidem sobre serviço que compõe o Pacote de Serviços.\n",
+            "example" : "Realização de pesquisa em serviços de proteção ao crédito, base de dados e informações cadastrais, e tratamento de dados e informações necessários ao início relacionamento decorrente da abertura de conta de depósitos à vista ou de poupança ou contratação de operação de crédito ou de arrendamento mercantil, não podendo ser cobrada cumulativamente\n"
+          },
+          "eventLimitQuantity" : {
+            "maxLength" : 6,
+            "pattern" : "^(\\d{1,6}){1}$",
+            "type" : "string",
+            "description" : "Segundo Resolução  4196, BCB, de 2013: Quantidade de eventos previstos no Pacote de Serviços (Número de eventos incluídos no mês) p.ex.'2'. No caso de quantidade ilimitada, reportar 999999\n",
+            "example" : "2"
+          },
+          "freeEventQuantity" : {
+            "maxLength" : 6,
+            "pattern" : "^(\\d{1,6}){1}$",
+            "type" : "string",
+            "description" : "Segundo Resolução  4196, BCB, de 2013: Quantidade de eventos previstos no Pacote de Serviços com isenção de Tarifa.p.ex.'1'  No caso de quantidade ilimitada, reportar 999999\n",
+            "example" : "1"
+          }
+        }
+      },
+      "AccountsIncomeRate" : {
+        "type" : "object",
+        "properties" : {
+          "savingAccount" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "maxItems" : 1,
+            "minItems" : 1,
+            "type" : "string",
+            "description" : "Descrição da Remuneração especificamente para Conta de Poupança. Deve ser preenchido com a determinação legal vigente.\nRestrição: De preenchimento obrigatório para CONTA_POUPANCA.\n",
+            "example" : "Para depósitos até 03/05/2012 – remuneração trimestral de 1,5% + TR, sempre creditada no aniversário da conta; Para depósitos a partir de 04/05/2012 – 70% da Selic + TR quando a Selic for igual ou inferior a 8,5% ao ano e 1,5% + TR caso a Selic seja superior a 8,5%."
+          },
+          "prepaidPaymentAccount" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "maxItems" : 1,
+            "minItems" : 1,
+            "type" : "string",
+            "description" : "Campo Livre. Deve explicitar o Percentual em favor do titular da conta de pagamento pré-paga.",
+            "example" : "40% Rendimento a.m."
+          }
+        }
+      },
+      "ResponseBusinessAccounts" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponseBusinessAccounts_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "BusinessAccountsBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Instituição, pertencente à marca, responsável pela comercialização dos produtos e serviços",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessAccountsCompany"
+            }
+          }
+        }
+      },
+      "BusinessAccountsCompany" : {
+        "required" : [ "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "businessAccounts" : {
+            "maxItems" : 3,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "lista de tipos de conta",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessAccounts"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "BusinessAccounts" : {
+        "required" : [ "fees", "incomeRate", "openingClosingChannels", "serviceBundles", "termsConditions", "transactionMethods", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "$ref" : "#/components/schemas/AccountType"
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/BusinessAccounts_fees"
+          },
+          "serviceBundles" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos serviços que compõe o pacote de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/ServiceBundle"
+            }
+          },
+          "openingClosingChannels" : {
+            "maxItems" : 7,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos canais para aberturas e encerramento",
+            "items" : {
+              "$ref" : "#/components/schemas/OpeningClosingChannels"
+            }
+          },
+          "additionalInfo" : {
+            "maxLength" : 100,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Texto livre para complementar informação relativa ao Canal disponível, quando no campo ''openingClosingChannels'' estiver preenchida a opção ''Outros''\nRestrição: Campo de preenchimento obrigatório se ''openingCloseChannels'' estiver preenchida a opção ''OUTROS''\n",
+            "example" : "NA"
+          },
+          "transactionMethods" : {
+            "maxItems" : 4,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de formas de movimentação",
+            "items" : {
+              "$ref" : "#/components/schemas/TransactionMethods"
+            }
+          },
+          "termsConditions" : {
+            "$ref" : "#/components/schemas/AccountsTermsConditions"
+          },
+          "incomeRate" : {
+            "$ref" : "#/components/schemas/AccountsIncomeRate"
+          }
+        }
+      },
+      "BusinessAccountsService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 250,
+            "type" : "string",
+            "description" : "Nome do Serviço que incide sobre tipo de conta selecionado para pessoa jurídica(Campo Livre)",
+            "example" : "Evento personalizado"
+          },
+          "code" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Sigla de identificação de Outros Serviços que incidem sobre os tipos de contas informados.",
+            "example" : "EVENTO_PERSONALIZADO"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatos geradores de cobrança que incidem sobre serviço que compõe o Pacote de Serviços.",
+            "example" : "Cobrança devido a evento personalizado"
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição preços tarifas de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "ResponsePersonalLoans" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponsePersonalLoans_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PersonalLoanBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Marca.",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalLoanCompany"
+            }
+          }
+        }
+      },
+      "PersonalLoanCompany" : {
+        "required" : [ "cnpjNumber", "name", "personalLoans" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Instituição, pertencente à marca, responsável pela comercialização dos produtos e serviços",
+            "example" : "Empresa da Marca A"
+          },
+          "urlComplementaryList" : {
+            "maxLength" : 1024,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "URL do link que conterá a lista complementar com os nomes e CNPJs agrupados sob o mesmo cnpjNumber. Os contidos nessa lista possuem as mesmas características para produtos e serviços. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://example.com/mobile-banking"
+          },
+          "personalLoans" : {
+            "maxItems" : 6,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de modalidades de empréstimos",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalLoan"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CNPJ"
+        } ]
+      },
+      "ResponseBusinessLoans" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponseBusinessLoans_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "BusinessLoanBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessLoanCompany"
+            }
+          }
+        }
+      },
+      "BusinessLoanCompany" : {
+        "required" : [ "businessLoans", "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Instituição, pertencente à marca, responsável pela modalidade de Empréstimos. p.ex.'Empresa da Organização A'",
+            "example" : "Empresa A1"
+          },
+          "urlComplementaryList" : {
+            "maxLength" : 1024,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "URL do link que conterá a lista complementar com os nomes e CNPJs agrupados sob o mesmo cnpjNumber. Os contidos nessa lista possuem as mesmas características para produtos e serviços. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://example.com/mobile-banking"
+          },
+          "businessLoans" : {
+            "maxItems" : 6,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de modalidades de empréstimos",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessLoan"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CNPJ"
+        } ]
+      },
+      "PersonalLoan" : {
+        "required" : [ "fees", "interestRate", "requiredWarranties", "termsConditions", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Modalidades de empréstimos ofertados para pessoa Natural, conforme Circular 4015-Bacen. Segundo cartilha do Bacen: Empréstimo é um contrato entre o cliente e uma instituição financeira (banco, cooperativa de crédito, caixa econômica) pelo qual o cliente recebe uma quantia em dinheiro que deverá ser devolvida em prazo determinado, acrescida dos juros acertados. Os recursos obtidos no empréstimo não tem destinação específica.\n  * `EMPRESTIMO_CREDITO_PESSOAL_CONSIGNADO` -  operações de crédito com retenção de parcela do salário ou benefício do tomador, para o pagamento das prestações do empréstimo – desconto em folha de pagamento – nos termos da legislação em vigor\n  * `EMPRESTIMO_CREDITO_PESSOAL_SEM_CONSIGNACAO` - operações de empréstimos às pessoa natural, sem vinculação com aquisição de bem ou serviço e sem retenção de parcela do salário ou benefício do tomador para o pagamento das prestações do empréstimo\n  * `EMPRESTIMO_HOME_EQUITY` - empréstimos pessoa natural, garantidos por hipoteca ou por alienação fiduciária de bens imóveis residenciais, sem vinculação a aquisição de bens\n  * `EMPRESTIMO_MICROCREDITO_PRODUTIVO_ORIENTADO` - segundo PNMPO é o crédito concedido para financiamento das atividades produtivas, cuja metodologia será estabelecida em regulamento, observada a preferência do relacionamento direto com os empreendedores, admitido o uso de tecnologias digitais e eletrônicas que possam substituir o contato presencial\n  * `EMPRESTIMO_CHEQUE_ESPECIAL` - operações de crédito vinculadas à conta corrente, nas quais determinado limite de crédito é disponibilizado aos clientes para utilização de acordo com suas conveniências, sem necessidade de comunicação prévia à instituição financeira\n  * `EMPRESTIMO_CONTA_GARANTIDA` - operações de crédito rotativo, nas quais determinado limite de crédito é disponibilizado para utilização pelo cliente, através da simples movimentação da conta corrente e/ou solicitação formal à instituição financeira. As operações classificadas nessa modalidade não devem ter data definida para a amortização do saldo devedor, exceto a estabelecida para vigência do contrato\n",
+            "example" : "EMPRESTIMO_CREDITO_PESSOAL_CONSIGNADO",
+            "enum" : [ "EMPRESTIMO_CREDITO_PESSOAL_CONSIGNADO", "EMPRESTIMO_CREDITO_PESSOAL_SEM_CONSIGNACAO", "EMPRESTIMO_HOME_EQUITY", "EMPRESTIMO_MICROCREDITO_PRODUTIVO_ORIENTADO", "EMPRESTIMO_CHEQUE_ESPECIAL", "EMPRESTIMO_CONTA_GARANTIDA" ]
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/LoanFees"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/LoanInterestRate"
+            }
+          },
+          "requiredWarranties" : {
+            "maxItems" : 14,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das garantias exigidas",
+            "items" : {
+              "$ref" : "#/components/schemas/RequiredWarranty"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Financiamentos para pessoa jurídica informada. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/personal_loans"
+          }
+        }
+      },
+      "BusinessLoan" : {
+        "required" : [ "fees", "interestRate", "requiredWarranties", "termsConditions", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Modalidades de empréstimos ofertados para pessoas Jurídicas, conforme Circular 4015-Bacen. Segundo cartilha do Bacen: Empréstimo é um contrato entre o cliente e uma instituição financeira (banco, cooperativa de crédito, caixa econômica) pelo qual o cliente recebe uma quantia em dinheiro que deverá ser devolvida em prazo determinado, acrescida dos juros acertados. Os recursos obtidos no empréstimo não tem destinação específica.\n* Empréstimo-Microcrédito Produtivo Orientado - segundo PNMPO é o crédito concedido para financiamento das atividades produtivas, cuja metodologia será estabelecida em regulamento, observada a preferência do relacionamento direto com os empreendedores, admitido o uso de tecnologias digitais e eletrônicas que possam substituir o contato presencial\n* Empréstimo-Cheque especial - operações de crédito vinculadas à conta corrente, nas quais determinado limite de crédito é disponibilizado aos clientes para utilização de acordo com suas conveniências, sem necessidade de comunicação prévia à instituição financeira\n* Empréstimo-Conta garantida - operações de crédito rotativo, nas quais determinado limite de crédito é disponibilizado para utilização pelo cliente, através da simples movimentação da conta corrente e/ou solicitação formal à instituição financeira. As operações classificadas nessa modalidade não devem ter data definida para a amortização do saldo devedor, exceto a estabelecida para vigência do contrato\n* Empréstimo-Capital de giro com prazo de vencimento até 365 dias: operações de crédito voltadas para o financiamento de curto prazo (igual ou inferior a 365 dias) das pessoas jurídicas, vinculadas às necessidades de capital de giro e a um contrato específico que estabeleça prazos, taxas e garantias\n* Empréstimo-Capital de giro com prazo vencimento superior a 365 dias: operações de crédito voltadas para o financiamento de médio e longo prazo (superior a 365 dias) das pessoas jurídicas, vinculadas às necessidades de capital de giro e a um contrato específico que estabeleça prazos, taxas e garantias\n* Empréstimo-Capital de giro rotativo: operações de crédito voltadas para o financiamento de capital de giro, vinculadas a um contrato que estabeleça linha de crédito rotativo, de forma que, à medida que a empresa devedora amortize os empréstimos já tomados, o limite disponível para utilização seja restituído, e amortizações com datas predeterminadas, podendo ser facultado ao devedor repactuar o fluxo de pagamentos ao longo da vigência do contrato\n",
+            "example" : "EMPRESTIMO_MICROCREDITO_PRODUTIVO_ORIENTADO",
+            "enum" : [ "EMPRESTIMO_MICROCREDITO_PRODUTIVO_ORIENTADO", "EMPRESTIMO_CHEQUE_ESPECIAL", "EMPRESTIMO_CONTA_GARANTIDA", "EMPRESTIMO_CAPITAL_GIRO_PRAZO_VENCIMENTO_ATE_365_DIAS", "EMPRESTIMO_CAPITAL_GIRO_PRAZO_VENCIMENTO_SUPERIOR_365_DIAS", "EMPRESTIMO_CAPITAL_GIRO_ROTATIVO" ]
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/LoanFees"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/LoanInterestRate"
+            }
+          },
+          "requiredWarranties" : {
+            "maxItems" : 14,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das garantias exigidas",
+            "items" : {
+              "$ref" : "#/components/schemas/RequiredWarranty"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Empréstimo para pessoa jurídica informada. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/personal_loans"
+          }
+        }
+      },
+      "LoanFees" : {
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/LoanService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "LoanService" : {
+        "required" : [ "chargingTriggerInfo", "code", "customers", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 250,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nomes das Tarifas cobradas sobre Serviços relacionados à Modalidade informada do Empréstimo para pessoa natural/jurídica.",
+            "example" : "Taxa de Abertura"
+          },
+          "code" : {
+            "maxLength" : 100,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Sigla de identificação do serviço relacionado à Modalidade informada de Empréstimo para pessoa natural/jurídica.",
+            "example" : "NA"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatores geradores de cobrança que incidem sobre as Modalidades informada de Empréstimos para pessoa natural/jurídica.",
+            "example" : "3% do valor do contrato"
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "LoanInterestRate" : {
+        "required" : [ "applications", "maximumRate", "minimumRate" ],
+        "type" : "object",
+        "properties" : {
+          "applications" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista  das faixas de cobrança da taxa efetiva aplicada pela contratação de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationRate"
+            }
+          },
+          "minimumRate" : {
+            "maxLength" : 6,
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o Empréstimo contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)",
+            "example" : "0.0456"
+          },
+          "maximumRate" : {
+            "maxLength" : 6,
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual máximo cobrado (taxa efetiva) no mês de referência, para o Empréstimo contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)",
+            "example" : "0.6865"
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/InterestRateFee"
+        } ]
+      },
+      "ApplicationRate" : {
+        "required" : [ "customers", "indexer", "interval" ],
+        "type" : "object",
+        "properties" : {
+          "interval" : {
+            "$ref" : "#/components/schemas/ApplicationIntervals"
+          },
+          "indexer" : {
+            "$ref" : "#/components/schemas/Indexer"
+          },
+          "customers" : {
+            "$ref" : "#/components/schemas/Customer"
+          }
+        }
+      },
+      "Indexer" : {
+        "type" : "object",
+        "properties" : {
+          "rate" : {
+            "maxLength" : 6,
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual que corresponde a mediana da taxa efetiva cobrada do cliente pela contratação do crédito, no intervalo informado. p.ex. '0,8700%'. A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.8700"
+          }
+        }
+      },
+      "InterestRateFee" : {
+        "required" : [ "rate", "referentialRateIndexer" ],
+        "type" : "object",
+        "properties" : {
+          "referentialRateIndexer" : {
+            "type" : "string",
+            "description" : "Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040",
+            "example" : "PRE_FIXADO",
+            "enum" : [ "SEM_INDEXADOR_TAXA", "PRE_FIXADO", "POS_FIXADO_TR_TBF", "POS_FIXADO_TJLP", "POS_FIXADO_LIBOR", "POS_FIXADO_TLP", "OUTRAS_TAXAS_POS_FIXADAS", "FLUTUANTES_CDI", "FLUTUANTES_SELIC", "OUTRAS_TAXAS_FLUTUANTES", "INDICES_PRECOS_IGPM", "INDICES_PRECOS_IPCA", "INDICES_PRECOS_IPCC", "OUTROS_INDICES_PRECO", "CREDITO_RURAL_TCR_PRE", "CREDITO_RURAL_TCR_POS", "CREDITO_RURAL_TRFC_PRE", "CREDITO_RURAL_TRFC_POS", "OUTROS_INDEXADORES" ]
+          },
+          "rate" : {
+            "maxLength" : 4,
+            "pattern" : "(^[0-1](\\.[0-9]{2})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%) A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.15"
+          }
+        }
+      },
+      "PriceIntervals" : {
+        "maxItems" : 1,
+        "minItems" : 1,
+        "type" : "string",
+        "description" : "Segundo Normativa nº 32, BCB, de 2020: Distribuição de frequência relativa dos valores de tarifas cobradas dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana em cada uma dessas faixas. Informando: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa\n",
+        "example" : "1_FAIXA",
+        "enum" : [ "1_FAIXA", "2_FAIXA", "3_FAIXA", "4_FAIXA" ]
+      },
+      "ApplicationIntervals" : {
+        "type" : "string",
+        "description" : "Faixas para cobrança da taxa efetiva aplicada pela contratação do crédito, no intervalo informado: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa. Segundo Normativa nº32 de 2020: 'Distribuição de frequência relativa dos valores de tarifas e taxas de juros cobrados dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana e o percentual de clientes em cada uma dessas faixas.\n",
+        "enum" : [ "1_FAIXA", "2_FAIXA", "3_FAIXA", "4_FAIXA" ]
+      },
+      "RequiredWarranty" : {
+        "type" : "string",
+        "description" : "Relação de garantias exigidas, segundo documento 3040 do Bacen:\n* `cessão de direitos creditórios`: o cedente transfere ao credor/cessionário a titularidade de direitos creditórios, até a liquidação da dívida. O credor/cessionário passa a recebê-los diretamente dos devedores e credita o produto da operação para o cedente na operação que originou a cessão, até a sua liquidação\n* `caução`: garantia instituída sobre créditos do garantidor\n* `penhor`: direito real que consiste na tradição de uma coisa móvel ou mobilizável, suscetível de alienação, realizada pelo devedor ou por terceiro ao credor, a fim de garantir o pagamento do débito\n* `alienação fiduciária`: transferência ao credor, ou fiduciário, da propriedade do bem\n* `hipoteca`: direito real de garantia que afeta um bem imóvel para o cumprimento da obrigação\n* `operações garantidas pelo governo`: nas instâncias federal, estadual ou municipal\n* `outras garantias não fidejussórias`: as garantias reais não descritas como: cessão de direitos creditórios, caução, penhor, alienação fiduciária, hipoteca ou operação garantida pelo governo\n* `seguros e assemelhados`: os seguros (e assemelhados) contratados para garantir o pagamento da operação em circunstâncias adversas\n* `garantia fidejussória`: baseada na fidelidade do garantidor em cumprir as obrigações, caso o devedor não o faça\n* `bens arrendados`: bem objeto do arrendamento financeiro\n* `garantias internacionais`: declarar se a garantia é mitigadora ou não, observados os critérios definidos pela Circular 3.644, de 4 de março de 2013\n* `operações garantidas por outras entidade`: declarar as garantias prestadas pelas entidades descritas no item 3. Informações de Garantias (i) do documento 3040 - Bacen\n* `acordos de compensação`: operações que sejam abrangidas por acordos para a compensação e liquidação de obrigações no âmbito do SFN, nos termos da Resolução 3.263, de 24 de fevereiro de 2005\n* `não aplicável`\n",
+        "example" : "CESSAO_DIREITOS_CREDITORIOS",
+        "enum" : [ "CESSAO_DIREITOS_CREDITORIOS", "CAUCAO", "PENHOR", "ALIENACAO_FIDUCIARIA", "HIPOTECA", "OPERACOES_GARANTIDAS_PELO_GOVERNO", "OUTRAS_GARANTIAS_NAO_FIDEJUSSORIAS", "SEGUROS_ASSEMELHADOS", "GARANTIA_FIDEJUSSORIA", "BENS_ARRENDADOS", "GARANTIAS_INTERNACIONAIS", "OPERACOES_GARANTIDAS_OUTRAS_ENTIDADES", "ACORDOS_COMPENSACAO", "NAO_APLICAVEL" ]
+      },
+      "CreditCardIdentification" : {
+        "required" : [ "creditCard", "product" ],
+        "type" : "object",
+        "properties" : {
+          "product" : {
+            "$ref" : "#/components/schemas/CreditCardIdentification_product"
+          },
+          "creditCard" : {
+            "$ref" : "#/components/schemas/CreditCardIdentification_creditCard"
+          }
+        }
+      },
+      "CreditCardRewardsProgram" : {
+        "required" : [ "hasRewardProgram" ],
+        "type" : "object",
+        "properties" : {
+          "hasRewardProgram" : {
+            "type" : "boolean",
+            "description" : "Indicador da existência de programa de fidelidade/recompensa associado à conta de pagamento pós-paga (cartão) true false",
+            "example" : false
+          },
+          "rewardProgramInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Informações de termos e condições do programa de fidelidade/recompensa. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Será de preenchimento obrigatório caso o campo hasRewardProgram esteja preenchido como true",
+            "example" : "https://empresaa1.com/credit_cards_rewards"
+          }
+        }
+      },
+      "CreditCardTermsConditions" : {
+        "required" : [ "closingProcessInfo", "elegibilityCriteriaInfo", "minimumFeeRate" ],
+        "type" : "object",
+        "properties" : {
+          "minimumFeeRate" : {
+            "maxLength" : 4,
+            "pattern" : "(^[0-9](\\.[0-9]{2})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual para pagamento mínimo sobre o saldo devedor da fatura.",
+            "example" : "0.25"
+          },
+          "additionalInfo" : {
+            "maxLength" : 500,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para detalhamento de taxas de juros",
+            "example" : "NA"
+          },
+          "elegibilityCriteriaInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Informação sobre as condições e critérios de elegibilidade do emissor do cartão. Pode ser informada a URL referente ao endereço onde constam as condições informadas.",
+            "example" : "https://empresaa1.com/creditcards_elegibility_criteria"
+          },
+          "closingProcessInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Descrição dos procedimentos para encerramento da conta de pagamento pós paga. Pode ser informada a URL referente ao endereço onde constam as condições informadas.",
+            "example" : "https://empresaa1.com/creditcards_closing_process"
+          }
+        }
+      },
+      "CreditCardInterest" : {
+        "required" : [ "instalmentRates", "otherCredits", "rates" ],
+        "type" : "object",
+        "properties" : {
+          "rates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista da representação que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios para crédito rotativo",
+            "items" : {
+              "$ref" : "#/components/schemas/InterestRate"
+            }
+          },
+          "instalmentRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista da representação que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios para parcelamento do saldo devedor",
+            "items" : {
+              "$ref" : "#/components/schemas/InterestRate"
+            }
+          },
+          "otherCredits" : {
+            "maxItems" : 3,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de outras operações de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/CreditCardInterestRate"
+            }
+          }
+        },
+        "description" : "Informações sobre taxas de juros"
+      },
+      "CreditCardInterestRate" : {
+        "required" : [ "additionalInfo", "code" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string",
+            "description" : "Lista de outras operações de crédito",
+            "example" : "SAQUE_A_CREDITO",
+            "enum" : [ "SAQUE_A_CREDITO", "PAGAMENTOS_CONTAS", "OUTROS" ]
+          },
+          "additionalInfo" : {
+            "maxLength" : 50,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo Texto para descrever outras operações de crédito marcadas como 'OUTROS'. Se o campo 'code' vier selecionado com 'OUTROS' é obrigatório o preenchimento do additionalInfo",
+            "example" : "NA"
+          }
+        }
+      },
+      "PersonalCreditCardResponse" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/PersonalCreditCardResponse_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PersonalCreditCardBrand" : {
+        "required" : [ "companies" ],
+        "type" : "object",
+        "properties" : {
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalCreditCardCompany"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Brand"
+        } ]
+      },
+      "PersonalCreditCardCompany" : {
+        "required" : [ "cnpjNumber", "name", "personalCreditCards" ],
+        "type" : "object",
+        "properties" : {
+          "personalCreditCards" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das contas de pagamento pós-paga",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalCreditCard"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "BusinessCreditCardResponse" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/BusinessCreditCardResponse_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "BusinessCreditCardBrand" : {
+        "required" : [ "companies" ],
+        "type" : "object",
+        "properties" : {
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessCreditCardCompany"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Brand"
+        } ]
+      },
+      "BusinessCreditCardCompany" : {
+        "required" : [ "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "businessCreditCards" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista dos nomes de conta de pagamento pós-paga",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessCreditCard"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "CreditCardService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "Denominação de Serviços relacionados à Modalidade de Contas de Pagamento Pós-Pagas (Vide ENUM)",
+            "example" : "ANUIDADE_CARTAO_BASICO_NACIONAL",
+            "enum" : [ "ANUIDADE_CARTAO_BASICO_NACIONAL", "ANUIDADE_CARTAO_BASICO_INTERNACIONAL", "ANUIDADE_DIFERENCIADA", "UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_BRASIL", "UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_EXTERIOR", "AVALIACAO_EMERGENCIAL_CREDITO", "FORNECIMENTO_SEGUNDA_VIA_FUNCAO_CREDITO", "PAGAMENTO_CONTAS_UTILIZANDO_FUNCAO_CREDITO", "SMS" ]
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "Sigla de identificação do Serviço relacionado à Modalidade de Contas de Pagamento Pós-Pagas (Vide ENUM)",
+            "example" : "ANUIDADE_NACIONAL",
+            "enum" : [ "ANUIDADE_NACIONAL", "ANUIDADE_INTERNACIONAL", "ANUIDADE_DIFERENCIADA", "SAQUE_CARTAO_BRASIL", "SAQUE_CARTAO_EXTERIOR", "AVALIACAO_EMERGENCIAL_CREDITO", "EMISSAO_SEGUNDA_VIA", "TARIFA_PAGAMENTO_CONTAS", "SMS" ]
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatos geradores de cobrança que incidem sobre as Modalidades de Contas de Pagamento Pós-Pagas informada, para pessoa jurídica. (Campo Livre)",
+            "example" : "Disponibilização de rede de estabelecimentos afiliados, instalada no País, para pagamentos de bens e serviços, cobrada no máximo uma vez a cada doze meses, admitido o parcelamento da cobrança"
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição preços tarifas de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "ResponsePersonalFinancings" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponsePersonalFinancings_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PersonalFinancingBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de instituições pertencentes à marca",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalFinancingCompany"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Brand"
+        } ]
+      },
+      "PersonalFinancingCompany" : {
+        "required" : [ "cnpjNumber", "name", "personalFinancings" ],
+        "type" : "object",
+        "properties" : {
+          "personalFinancings" : {
+            "maxItems" : 9,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de financiamentos",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalFinancing"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "PersonalFinancing" : {
+        "required" : [ "fees", "interestRates", "requiredWarranties", "termsConditions", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Modalidades de financiamentos ofertados para pessoas naturais, conforme Circular 4015-Bacen. Segundo cartilha do Bacen: Financiamento é um contrato entre o cliente e uma instituição financeira, mas com, destinação específica como para a aquisição de veículo ou de bem imóvel, que funcionam como garantia para o crédito concedido",
+            "example" : "FINANCIAMENTO_AQUISICAO_BENS_VEICULOS_AUTOMOTORES",
+            "enum" : [ "FINANCIAMENTO_AQUISICAO_BENS_VEICULOS_AUTOMOTORES", "FINANCIAMENTO_AQUISICAO_BENS_OUTROS_BENS", "FINANCIAMENTO_MICROCREDITO", "FINANCIAMENTO_RURAL_CUSTEIO", "FINANCIAMENTO_RURAL_INVESTIMENTO", "FINANCIAMENTO_RURAL_COMERCIALIZACAO", "FINANCIAMENTO_RURAL_INDUSTRIALIZACAO", "FINANCIAMENTO_IMOBILIARIO_SISTEMA_FINANCEIRO_HABITACAO_SFH", "FINANCIAMENTO_IMOBILIARIO_SISTEMA_FINANCEIRO_HABITACAO_SFI" ]
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/PersonalFinancingFee"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/FinancingInterestRate"
+            }
+          },
+          "requiredWarranties" : {
+            "maxItems" : 14,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RequiredWarranty"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas ao produto ou serviço informado. Pode ser informada a URL referente ao endereço onde constam as condições informadas.",
+            "example" : "https://empresaa1.com/personal_financing"
+          }
+        }
+      },
+      "PersonalFinancingFee" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FinancingService"
+            }
+          }
+        }
+      },
+      "FinancingService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 250,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nomes das Tarifas cobradas sobre Serviços ofertados à Modalidade de Financiamento, para pessoa natural",
+            "example" : "Avaliação, Reavaliação e Substituição de Bens Recebidos em Garantia"
+          },
+          "code" : {
+            "maxLength" : 100,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Sigla de identificação do serviço relacionado à Modalidade de Financiamento informada, para pessoa natural. Campo aberto",
+            "example" : "AQBAM009"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatores geradores de cobrança que incidem sobre as Modalidades de Financiamentos, para pessoa natural. Campo Livre",
+            "example" : "R$ 570.00 Por solicitação"
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "FinancingInterestRate" : {
+        "required" : [ "applications", "maximumRate", "minimumRate" ],
+        "type" : "object",
+        "properties" : {
+          "applications" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "example" : [ {
+              "interval" : "1_FAIXA",
+              "indexer" : {
+                "rate" : "0.0987"
+              },
+              "customers" : {
+                "rate" : "0.1500"
+              }
+            }, {
+              "interval" : "2_FAIXA",
+              "indexer" : {
+                "rate" : "0.1600"
+              },
+              "customers" : {
+                "rate" : "0.3500"
+              }
+            }, {
+              "interval" : "3_FAIXA",
+              "indexer" : {
+                "rate" : "0.3600"
+              },
+              "customers" : {
+                "rate" : "0.2000"
+              }
+            }, {
+              "interval" : "4_FAIXA",
+              "indexer" : {
+                "rate" : "0.5890"
+              },
+              "customers" : {
+                "rate" : "0.3000"
+              }
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationRate"
+            }
+          },
+          "minimumRate" : {
+            "maxLength" : 6,
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)",
+            "example" : "0.0456"
+          },
+          "maximumRate" : {
+            "maxLength" : 6,
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual máximo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)",
+            "example" : "0.6865"
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/InterestRateFee"
+        } ]
+      },
+      "ResponseBusinessFinancings" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponseBusinessFinancings_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "BusinessFinancingBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de instituições pertencentes à marga",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessFinancingCompany"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Brand"
+        } ]
+      },
+      "BusinessFinancingCompany" : {
+        "required" : [ "businessFinancings", "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "businessFinancings" : {
+            "maxItems" : 9,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de financiamentos",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessFinancing"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "BusinessFinancing" : {
+        "required" : [ "fees", "interestRates", "requiredWarranties", "termsConditions", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Modalidades de financiamentos ofertados para pessoas jurídicas, conforme Circular 4015-Bacen. Segundo cartilha do Bacen: Financiamento é um contrato entre o cliente e uma instituição financeira, mas com, destinação específica como para a aquisição de veículo ou de bem imóvel, que funcionam como garantia para o crédito concedido",
+            "example" : "FINANCIAMENTO_AQUISICAO_BENS_VEICULOS_AUTOMOTORES",
+            "enum" : [ "FINANCIAMENTO_AQUISICAO_BENS_VEICULOS_AUTOMOTORES", "FINANCIAMENTO_AQUISICAO_BENS_OUTROS_BENS", "FINANCIAMENTO_MICROCREDITO", "FINANCIAMENTO_RURAL_CUSTEIO", "FINANCIAMENTO_RURAL_INVESTIMENTO", "FINANCIAMENTO_RURAL_COMERCIALIZACAO", "FINANCIAMENTO_RURAL_INDUSTRIALIZACAO", "FINANCIAMENTO_IMOBILIARIO_SISTEMA_FINANCEIRO_HABITACAO_SFH", "FINANCIAMENTO_IMOBILIARIO_SISTEMA_FINANCEIRO_HABITACAO_SFI" ]
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/BusinessFinancingFee"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/FinancingInterestRate"
+            }
+          },
+          "requiredWarranties" : {
+            "maxItems" : 14,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RequiredWarranty"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Financiamentos para pessoa jurídica informada. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/personal_financing"
+          }
+        }
+      },
+      "BusinessFinancingFee" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FinancingService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "ResponsePersonalInvoiceFinancings" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponsePersonalInvoiceFinancings_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PersonalInvoiceFinancingsBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da marca.",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalInvoiceFinancingsCompanies"
+            }
+          }
+        }
+      },
+      "PersonalInvoiceFinancingsCompanies" : {
+        "required" : [ "cnpjNumber", "name", "personalInvoiceFinancings" ],
+        "type" : "object",
+        "properties" : {
+          "personalInvoiceFinancings" : {
+            "maxItems" : 5,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de Modalidades de Direitos Creditórios Descontados ofertados",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalInvoiceFinancings"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "PersonalInvoiceFinancings" : {
+        "required" : [ "fees", "interestRates", "requiredWarranties", "termsConditions", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Modalidades de direitos creditórios descontados ofertados para pessoas naturais, conforme Circular 4015-Bacen. Direito creditório descontado é a antecipação de créditos relativos por ex. ao: desconto de duplicatas, desconto de cheques,antecipação de fatura de cartão de crédito",
+            "example" : "DESCONTO_DUPLICATAS",
+            "enum" : [ "DESCONTO_DUPLICATAS", "DESCONTO_CHEQUES", "ANTECIPACAO_FATURA_CARTAO_CREDITO", "OUTROS_DIREITOS_CREDITORIOS_DESCONTADOS", "OUTROS_TITULOS_DESCONTADOS" ]
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/PersonalInvoiceFinancingsFees"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito.",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalInvoiceFinancingsInterestRates"
+            }
+          },
+          "requiredWarranties" : {
+            "maxItems" : 14,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das  garantias exigidas",
+            "items" : {
+              "$ref" : "#/components/schemas/RequiredWarranty"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Financiamentos para pessoa natural informada. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/personal_invoice_financings"
+          }
+        }
+      },
+      "PersonalInvoiceFinancingsFees" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/InvoiceFinancingsService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "InvoiceFinancingsService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 250,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nomes das Tarifas cobradas sobre Serviços ofertados à Modalidade de direitos creditórios descontados, para pessoa natural. (Campo Livre)",
+            "example" : "Custódia de Duplicatas"
+          },
+          "code" : {
+            "maxLength" : 100,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Sigla de identificação do serviço relacionado à Modalidade de direitos creditórios descontados, para pessoa natural. Campo aberto",
+            "example" : "NA"
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fatores geradores de cobrança que incidem sobre as Modalidades de direitos creditórios descontados, para pessoa natural. Campo Livre",
+            "example" : "5% do valor do contrato"
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição preços tarifas de serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        }
+      },
+      "PersonalInvoiceFinancingsInterestRates" : {
+        "required" : [ "applications", "customers", "maximumRate", "minimumRate" ],
+        "type" : "object",
+        "properties" : {
+          "applications" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista  das faixas de cobrança da taxa efetiva de remuneração",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationRate"
+            }
+          },
+          "minimumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual mínimo cobrado (taxa efetiva) no mês de referência, para os Direitos Creditórios Descontados contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.15. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.0889"
+          },
+          "maximumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual máximo cobrado (taxa efetiva) no mês de referência, para os Direitos Creditórios Descontados contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.15. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.6865"
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/InterestRateFee"
+        } ]
+      },
+      "ResponseBusinessInvoiceFinancings" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponseBusinessInvoiceFinancings_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "BusinessInvoiceFinancingsBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 30,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da marca.",
+            "example" : "Marca A"
+          },
+          "companies" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessInvoiceFinancingsCompanies"
+            }
+          }
+        }
+      },
+      "BusinessInvoiceFinancingsCompanies" : {
+        "required" : [ "businessInvoiceFinancings", "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "businessInvoiceFinancings" : {
+            "maxItems" : 5,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista de Modalidades de Direitos Creditórios Descontados",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessInvoiceFinancings"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "BusinessInvoiceFinancings" : {
+        "required" : [ "fees", "interestRates", "requiredWarranties", "termsConditions", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Modalidades de direitos creditórios descontados ofertados para pessoas Jurídicas, conforme Circular 4015-Bacen. Direito creditório descontado é a antecipação de créditos relativos por ex. ao: desconto de duplicatas, desconto de cheques,antecipação de fatura de cartão de crédito",
+            "enum" : [ "DESCONTO_DUPLICATAS", "DESCONTO_CHEQUES", "ANTECIPACAO_FATURA_CARTAO_CREDITO", "OUTROS_DIREITOS_CREDITORIOS_DESCONTADOS", "OUTROS_TITULOS_DESCONTADOS" ]
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/BusinessInvoiceFinancingsFees"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessInvoiceFinancingsInterestRates"
+            }
+          },
+          "requiredWarranties" : {
+            "maxItems" : 14,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das  garantias exigidas",
+            "items" : {
+              "$ref" : "#/components/schemas/RequiredWarranty"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Financiamentos para pessoa jurídica informada. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/personal_invoice_financings"
+          }
+        }
+      },
+      "BusinessInvoiceFinancingsFees" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/InvoiceFinancingsService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "BusinessInvoiceFinancingsInterestRates" : {
+        "required" : [ "applications", "fees", "maximumRate", "minimumRate" ],
+        "type" : "object",
+        "properties" : {
+          "applications" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista  das faixas de cobrança da taxa efetiva de remuneração",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationRate"
+            }
+          },
+          "minimumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual mínimo cobrado (taxa efetiva) no mês de referência, para os Direitos Creditórios Descontados contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.15. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.1500"
+          },
+          "maximumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual máximo cobrado (taxa efetiva) no mês de referência, para os Direitos Creditórios Descontados contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.15. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.6865"
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/InterestRateFee"
+        } ]
+      },
+      "ResponseBusinessUnarrangedAccountOverdraft" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponseBusinessUnarrangedAccountOverdraft_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "BusinessUnarrangedAccountOverdraftBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessUnarrangedAccountOverdraftCompany"
+            }
+          }
+        }
+      },
+      "BusinessUnarrangedAccountOverdraftCompany" : {
+        "required" : [ "businessUnarrangedAccountOverdraft", "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "businessUnarrangedAccountOverdraft" : {
+            "type" : "array",
+            "description" : "Lista de adiantamento a depositante",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessUnarrangedAccountOverdraft"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "BusinessUnarrangedAccountOverdraft" : {
+        "required" : [ "fees", "interestRate", "termsConditions" ],
+        "type" : "object",
+        "properties" : {
+          "fees" : {
+            "$ref" : "#/components/schemas/BusinessUnarrangedAccountOverdraftFee"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/UnarrangedAccountOverdraftRate"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Adiantamento a depositante para pessoa natural. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/business_unarranged_account_overdraft"
+          }
+        }
+      },
+      "BusinessUnarrangedAccountOverdraftFee" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "maxItems" : 31,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços Prioritários",
+            "items" : {
+              "$ref" : "#/components/schemas/UnarrangedAccountOverdraftService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "UnarrangedAccountOverdraftService" : {
+        "required" : [ "chargingTriggerInfo", "code", "maximum", "minimum", "name", "prices" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "Nome da Tarifa cobrada sobre Serviço que incide sobre Adiantamento a depositante, para pessoa jurídica.",
+            "default" : "CONCESSAO_ADIANTAMENTO_DEPOSITANTE",
+            "enum" : [ "CONCESSAO_ADIANTAMENTO_DEPOSITANTE" ]
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "Sigla de identificação do serviço relacionado à Modalidade de Adiantamento a depositante, para pessoa jurídica.",
+            "default" : "ADIANT_DEPOSITANTE",
+            "enum" : [ "ADIANT_DEPOSITANTE" ]
+          },
+          "chargingTriggerInfo" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Fato gerador de cobrança que incide sobre a Modalidade de Adiantamento a depositante informada, para pessoa jurídica."
+          },
+          "prices" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "lista das faixas dos  valores de tarfas cobradas",
+            "items" : {
+              "$ref" : "#/components/schemas/Price"
+            }
+          },
+          "minimum" : {
+            "$ref" : "#/components/schemas/MinimumPrice"
+          },
+          "maximum" : {
+            "$ref" : "#/components/schemas/MaximumPrice"
+          }
+        },
+        "example" : {
+          "name" : "CONCESSAO_ADIANTAMENTO_DEPOSITANTE",
+          "code" : "ADIANT_DEPOSITANTE",
+          "chargingTriggerInfo" : "Levantamento de informações e avaliação de viabilidade e de riscos para a concessão de crédito em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite previamente pactuado de cheque especial, cobrada no máximo uma vez nos últimos trinta dias",
+          "prices" : [ {
+            "interval" : "1_FAIXA",
+            "value" : "500.00",
+            "currency" : "BRL",
+            "customers" : {
+              "rate" : "0.1500"
+            }
+          }, {
+            "interval" : "2_FAIXA",
+            "value" : "860.00",
+            "currency" : "BRL",
+            "customers" : {
+              "rate" : "0.3500"
+            }
+          }, {
+            "interval" : "3_FAIXA",
+            "value" : "1090.40",
+            "currency" : "BRL",
+            "customers" : {
+              "rate" : "0.2000"
+            }
+          }, {
+            "interval" : "4_FAIXA",
+            "value" : "2100.00",
+            "currency" : "BRL",
+            "customers" : {
+              "rate" : "0.3000"
+            }
+          } ],
+          "minimum" : {
+            "value" : "430.00",
+            "currency" : "BRL"
+          },
+          "maximum" : {
+            "value" : "2200.00",
+            "currency" : "BRL"
+          }
+        }
+      },
+      "UnarrangedAccountOverdraftRate" : {
+        "required" : [ "applications", "maximumRate", "minimumRate" ],
+        "type" : "object",
+        "properties" : {
+          "applications" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista  das faixas de cobrança da taxa efetiva de remuneração.",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationRate"
+            }
+          },
+          "minimumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})|NA)$",
+            "type" : "string",
+            "description" : "Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o crédito contratado A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)\n"
+          },
+          "maximumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})|NA)$",
+            "type" : "string",
+            "description" : "Percentual máximo cobrado (taxa efetiva) no mês de referência, para o crédito contratado A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)\n"
+          }
+        },
+        "example" : {
+          "referentialRateIndexer" : "SEM_INDEXADOR_TAXA",
+          "rate" : "0.65",
+          "applications" : [ {
+            "interval" : "1_FAIXA",
+            "indexer" : {
+              "rate" : "0.0187"
+            },
+            "customers" : {
+              "rate" : "0.1500"
+            }
+          }, {
+            "interval" : "2_FAIXA",
+            "indexer" : {
+              "rate" : "0.2900"
+            },
+            "customers" : {
+              "rate" : "0.3500"
+            }
+          }, {
+            "interval" : "3_FAIXA",
+            "indexer" : {
+              "rate" : "0.3600"
+            },
+            "customers" : {
+              "rate" : "0.2000"
+            }
+          }, {
+            "interval" : "4_FAIXA",
+            "indexer" : {
+              "rate" : "0.7990"
+            },
+            "customers" : {
+              "rate" : "0.3000"
+            }
+          } ],
+          "minimumRate" : "0.0056",
+          "maximumRate" : "0.8565"
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/FeeReferentialRateIndexer"
+        } ]
+      },
+      "FeeReferentialRateIndexer" : {
+        "required" : [ "rate", "referentialRateIndexer" ],
+        "type" : "object",
+        "properties" : {
+          "referentialRateIndexer" : {
+            "$ref" : "#/components/schemas/ReferentialRateIndexer"
+          },
+          "rate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{2})|NA)$",
+            "type" : "string",
+            "description" : "Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.15"
+          }
+        },
+        "description" : "Tarifas cobradas sobre Serviços ofertados"
+      },
+      "ResponsePersonalUnarrangedAccountOverdraft" : {
+        "required" : [ "data", "links", "meta" ],
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/ResponsePersonalUnarrangedAccountOverdraft_data"
+          },
+          "links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PersonalUnarrangedAccountOverdraftBrand" : {
+        "required" : [ "companies", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.",
+            "example" : "Organização A"
+          },
+          "companies" : {
+            "type" : "array",
+            "description" : "Companies traz uma lista de todas as instituições da Marca",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalUnarrangedAccountOverdraftCompany"
+            }
+          }
+        }
+      },
+      "PersonalUnarrangedAccountOverdraftCompany" : {
+        "required" : [ "cnpjNumber", "name", "personalUnarrangedAccountOverdraft" ],
+        "type" : "object",
+        "properties" : {
+          "personalUnarrangedAccountOverdraft" : {
+            "type" : "array",
+            "description" : "Lista de produtos e serviços referente adiantamento a depositante",
+            "items" : {
+              "$ref" : "#/components/schemas/PersonalUnarrangedAccountOverdraft"
+            }
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Company"
+        } ]
+      },
+      "PersonalUnarrangedAccountOverdraft" : {
+        "required" : [ "fees", "interestRate", "termsConditions" ],
+        "type" : "object",
+        "properties" : {
+          "fees" : {
+            "$ref" : "#/components/schemas/PersonalUnarrangedAccountOverdraftFee"
+          },
+          "interestRates" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito",
+            "items" : {
+              "$ref" : "#/components/schemas/UnarrangedAccountOverdraftRate"
+            }
+          },
+          "termsConditions" : {
+            "maxLength" : 2000,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Campo aberto para informar as condições contratuais relativas à Modalidade de Adiantamento a depositante para pessoa natural. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.",
+            "example" : "https://empresaa1.com/personal_unarranged_account_overdraft"
+          }
+        }
+      },
+      "PersonalUnarrangedAccountOverdraftFee" : {
+        "required" : [ "priorityServices" ],
+        "type" : "object",
+        "properties" : {
+          "priorityServices" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços Prioritários",
+            "items" : {
+              "$ref" : "#/components/schemas/UnarrangedAccountOverdraftService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "Price" : {
+        "required" : [ "currency", "customers", "interval", "value" ],
+        "type" : "object",
+        "properties" : {
+          "interval" : {
+            "$ref" : "#/components/schemas/PriceIntervals"
+          },
+          "value" : {
+            "maxLength" : 12,
+            "pattern" : "^((\\d{1,9}\\.\\d{2}){1}|NA)$",
+            "type" : "string",
+            "description" : "Valor da mediana de cada faixa relativa ao serviço ofertado, informado no período, conforme Res nº 32 BCB, 2020. p.ex. '45.00' (representa um valor monetário. p.ex: 1547368.92. Este valor, considerando que a moeda seja BRL, significa R$ 1.547.368,92. O único separador presente deve ser o '.' (ponto) para indicar a casa decimal. Não deve haver separador de milhar)\n",
+            "example" : "2000.00",
+            "x-cds-type" : "AmountString"
+          },
+          "currency" : {
+            "$ref" : "#/components/schemas/Currency"
+          },
+          "customers" : {
+            "$ref" : "#/components/schemas/Customer"
+          }
+        }
+      },
+      "MonthlyPrice" : {
+        "required" : [ "currency", "customers", "interval", "monthlyFee" ],
+        "type" : "object",
+        "properties" : {
+          "interval" : {
+            "$ref" : "#/components/schemas/PriceIntervals"
+          },
+          "monthlyFee" : {
+            "maxLength" : 12,
+            "pattern" : "^((\\d{1,9}\\.\\d{2}){1}|NA)$",
+            "type" : "string",
+            "description" : "Valor da mediana de cada faixa relativa ao serviço ofertado, informado no período, conforme Res nº 32 BCB, 2020. p.ex. ''45.00''\n(representa um valor monetário. p.ex: 1547368.92. Este valor, considerando que a moeda seja BRL, significa R$ 1.547.368,92. O único separador presente deve ser o ''.'' (ponto) para indicar a casa decimal. Não deve haver separador de milhar)\n",
+            "example" : "2000.00",
+            "x-cds-type" : "AmountString"
+          },
+          "currency" : {
+            "$ref" : "#/components/schemas/Currency"
+          },
+          "customers" : {
+            "$ref" : "#/components/schemas/Customer"
+          }
+        }
+      },
+      "MinimumPrice" : {
+        "required" : [ "currency", "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "maxLength" : 12,
+            "pattern" : "^((\\d{1,9}\\.\\d{2}){1}|NA)$",
+            "type" : "string",
+            "description" : "Valor mínimo apurado para a tarifa de serviços sobre a base de clientes no mês de referência",
+            "example" : "1350.00",
+            "x-cds-type" : "AmountString"
+          },
+          "currency" : {
+            "$ref" : "#/components/schemas/Currency"
+          }
+        }
+      },
+      "MaximumPrice" : {
+        "required" : [ "currency", "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "maxLength" : 12,
+            "pattern" : "^((\\d{1,9}\\.\\d{2}){1}|NA)$",
+            "type" : "string",
+            "description" : "Valor máximo apurado para a tarifa de serviços sobre a base de clientes no mês de referência",
+            "example" : "8800.00",
+            "x-cds-type" : "AmountString"
+          },
+          "currency" : {
+            "$ref" : "#/components/schemas/Currency"
+          }
+        }
+      },
+      "Customer" : {
+        "required" : [ "rate" ],
+        "type" : "object",
+        "properties" : {
+          "rate" : {
+            "maxLength" : 6,
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual de clientes em cada faixa.\n",
+            "example" : "0.1500"
+          }
+        }
+      },
+      "MinimumBalance" : {
+        "required" : [ "currency", "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "maxLength" : 12,
+            "pattern" : "^((\\d{1,9}\\.\\d{2}){1}|NA)$",
+            "type" : "string",
+            "description" : "Saldo mínimo exigido nos Termos e condições contratuais, que regem as contas comercializadas.",
+            "example" : "200.00"
+          },
+          "currency" : {
+            "$ref" : "#/components/schemas/Currency"
+          }
+        }
+      },
+      "Currency" : {
+        "maxLength" : 3,
+        "pattern" : "^(\\w{3}){1}$",
+        "type" : "string",
+        "description" : "Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217",
+        "example" : "BRL",
+        "x-cds-type" : "CurrencyString"
+      },
+      "InterestRate" : {
+        "required" : [ "applications", "maximumRate", "minimumRate", "rate", "referentialRateIndexer" ],
+        "type" : "object",
+        "properties" : {
+          "referentialRateIndexer" : {
+            "$ref" : "#/components/schemas/ReferentialRateIndexer"
+          },
+          "rate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{2})|NA)$",
+            "type" : "string",
+            "description" : "Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)\n",
+            "example" : "0.15"
+          },
+          "applications" : {
+            "maxItems" : 4,
+            "minItems" : 4,
+            "type" : "array",
+            "description" : "Lista distribuição percentuais relativos à taxa de juros remuneratórios",
+            "items" : {
+              "$ref" : "#/components/schemas/ApplicationRate"
+            }
+          },
+          "minimumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)",
+            "example" : "0.0456"
+          },
+          "maximumRate" : {
+            "pattern" : "(^[0-9](\\.[0-9]{4})$|^NA$)",
+            "type" : "string",
+            "description" : "Percentual máximo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)",
+            "example" : "0.6865"
+          }
+        }
+      },
+      "ReferentialRateIndexer" : {
+        "type" : "string",
+        "description" : "Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040\n",
+        "example" : "SEM_INDEXADOR_TAXA",
+        "enum" : [ "SEM_INDEXADOR_TAXA", "PRE_FIXADO", "POS_FIXADO_TR_TBF", "POS_FIXADO_TJLP", "POS_FIXADO_LIBOR", "POS_FIXADO_TLP", "OUTRAS_TAXAS_POS_FIXADAS", "FLUTUANTES_CDI", "FLUTUANTES_SELIC", "OUTRAS_TAXAS_FLUTUANTES", "INDICES_PRECOS_IGPM", "INDICES_PRECOS_IPCA", "INDICES_PRECOS_IPCC", "OUTROS_INDICES_PRECO", "CREDITO_RURAL_TCR_PRE", "CREDITO_RURAL_TCR_POS", "CREDITO_RURAL_TRFC_PRE", "CREDITO_RURAL_TRFC_POS", "OUTROS_INDEXADORES" ]
+      },
+      "PersonalCreditCard" : {
+        "required" : [ "fees", "identification", "interest", "name", "rewardsProgram", "termsConditions" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 50,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Denominação/Identificação do nome da conta (cartão de crédito)",
+            "example" : "Cartão Universitário"
+          },
+          "identification" : {
+            "$ref" : "#/components/schemas/CreditCardIdentification"
+          },
+          "rewardsProgram" : {
+            "$ref" : "#/components/schemas/CreditCardRewardsProgram"
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/PersonalCreditCard_fees"
+          },
+          "interest" : {
+            "$ref" : "#/components/schemas/CreditCardInterest"
+          },
+          "termsConditions" : {
+            "$ref" : "#/components/schemas/CreditCardTermsConditions"
+          }
+        }
+      },
+      "BusinessCreditCard" : {
+        "required" : [ "fees", "identification", "interest", "name", "rewardsProgram", "termsConditions" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 50,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Denominação/Identificação do nome da conta (cartão de crédito)",
+            "example" : "Cartão Vantagens"
+          },
+          "identification" : {
+            "$ref" : "#/components/schemas/CreditCardIdentification"
+          },
+          "rewardsProgram" : {
+            "$ref" : "#/components/schemas/CreditCardRewardsProgram"
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/PersonalCreditCard_fees"
+          },
+          "interest" : {
+            "$ref" : "#/components/schemas/CreditCardInterest"
+          },
+          "termsConditions" : {
+            "$ref" : "#/components/schemas/CreditCardTermsConditions"
+          }
+        }
+      },
+      "Brand" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Marca selecionada pelas Organizações",
+            "example" : "Organização A"
+          }
+        }
+      },
+      "Company" : {
+        "required" : [ "cnpjNumber", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 80,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Nome da Instituição, pertencente à marca, responsável pela modalidade de Empréstimos. p.ex.'Empresa da Organização A'",
+            "example" : "Empresa A1"
+          },
+          "urlComplementaryList" : {
+            "maxLength" : 1024,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "URL do link que conterá a lista complementar com os nomes e CNPJs agrupados sob o mesmo cnpjNumber. Os contidos nessa lista possuem as mesmas características para produtos e serviços. Endereço eletrônico de acesso ao canal. Será obrigatoriamente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada.\nRestrição: Será obrigatorimente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada\n",
+            "example" : "https://empresadaorganizacaoa.com/complementarylist"
+          }
+        },
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CNPJ"
+        } ]
+      },
+      "CNPJ" : {
+        "required" : [ "cnpjNumber" ],
+        "type" : "object",
+        "properties" : {
+          "cnpjNumber" : {
+            "maxLength" : 14,
+            "pattern" : "^(\\d{14})$|^NA$",
+            "type" : "string",
+            "description" : "CNPJ",
+            "example" : "50685362000135"
+          }
+        }
+      },
+      "Links" : {
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "type" : "string",
+            "description" : "URL da página atualmente requisitada",
+            "example" : "https://api.banco.com.br/open-banking/products-services/v1/<resource>"
+          },
+          "first" : {
+            "type" : "string",
+            "description" : "URL da primeira página de registros",
+            "example" : "https://api.banco.com.br/open-banking/products-services/v1/<resource>"
+          },
+          "prev" : {
+            "type" : "string",
+            "description" : "URL da página anterior de registros"
+          },
+          "next" : {
+            "type" : "string",
+            "description" : "URL da próxima página de registros"
+          },
+          "last" : {
+            "type" : "string",
+            "description" : "URL da última página de registros",
+            "example" : "https://api.banco.com.br/open-banking/products-services/v1/<resource>"
+          }
+        }
+      },
+      "Meta" : {
+        "required" : [ "totalPages", "totalRecords" ],
+        "type" : "object",
+        "properties" : {
+          "totalRecords" : {
+            "type" : "integer",
+            "description" : "Total de registros encontrados",
+            "example" : 1
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "description" : "Total de páginas para os registros encontrados",
+            "example" : 1
+          }
+        }
+      },
+      "ResponsePersonalAccounts_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/PersonalAccountBrand"
+          }
+        }
+      },
+      "ResponseBusinessAccounts_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/BusinessAccountsBrand"
+          }
+        }
+      },
+      "BusinessAccounts_fees" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviços",
+            "items" : {
+              "$ref" : "#/components/schemas/BusinessAccountsService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      },
+      "ResponsePersonalLoans_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/PersonalLoanBrand"
+          }
+        }
+      },
+      "ResponseBusinessLoans_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/BusinessLoanBrand"
+          }
+        }
+      },
+      "CreditCardIdentification_product" : {
+        "required" : [ "additionalInfo", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "Categoria atribuída a um cartão de pagamento, sob uma certa denominação, que lhe agrega um conjunto de vantagens, diferenciando-o de acordo com o perfil do portador. Essa categoria é definida pelo BACEN e está contida no documento de nome 'Elaboração e Remessa de Informações Relativas aos Cartões de Pagamento  Emissores'",
+            "example" : "PLATINUM",
+            "enum" : [ "CLASSIC_NACIONAL", "CLASSIC_INTERNACIONAL", "GOLD", "PLATINUM", "INFINITE", "ELECTRON", "STANDARD_NACIONAL", "STANDARD_INTERNACIONAL", "ELETRONIC", "BLACK", "REDESHOP", "MAESTRO_MASTERCARD_MAESTRO", "GREEN", "BLUE", "BLUEBOX", "PROFISSIONAL_LIBERAL", "CHEQUE_ELETRONICO", "CORPORATIVO", "EMPRESARIAL", "COMPRAS", "OUTROS" ]
+          },
+          "additionalInfo" : {
+            "maxLength" : 50,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Informações complementares se tipo de Cartão 'OUTROS'. Campo deve ser obrigatoriamente preenchido se selecionado 'OUTROS'",
+            "example" : "NA"
+          }
+        }
+      },
+      "CreditCardIdentification_creditCard" : {
+        "required" : [ "additionalInfo", "network" ],
+        "type" : "object",
+        "properties" : {
+          "network" : {
+            "type" : "string",
+            "description" : "Categoria de Bandeiras de Cartões de Crédito (Instituidor do arranjo de pagamento). Bandeira é a detentora de todos os direitos e deveres da utilização da marca estampada no cartão, inclusive as bandeiras pertencentes aos emissores. p.ex. \"American Express\", \"Diners Club\" Essas bandeiras estão definidas em documento do BACEN de nome \"Elaboração e Remessa de Informações Relativas aos Cartões de Pagamento  Emissores\"",
+            "example" : "MASTERCARD",
+            "enum" : [ "VISA", "MASTERCARD", "AMERICAN_EXPRESS", "DINERS_CLUB", "HIPERCARD", "BANDEIRA_PROPRIA", "CHEQUE_ELETRONICO", "ELO", "OUTRAS" ]
+          },
+          "additionalInfo" : {
+            "maxLength" : 50,
+            "pattern" : "\\w*\\W*",
+            "type" : "string",
+            "description" : "Texto livre para especificar categoria de bandeira marcada como 'OUTRAS'. Campo deve ser obrigatoriamente preenchido se campo network vier selecionado como 'OUTROS'",
+            "example" : "NA"
+          }
+        }
+      },
+      "PersonalCreditCardResponse_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/PersonalCreditCardBrand"
+          }
+        }
+      },
+      "BusinessCreditCardResponse_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/BusinessCreditCardBrand"
+          }
+        }
+      },
+      "ResponsePersonalFinancings_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/PersonalFinancingBrand"
+          }
+        }
+      },
+      "ResponseBusinessFinancings_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/BusinessFinancingBrand"
+          }
+        }
+      },
+      "ResponsePersonalInvoiceFinancings_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/PersonalInvoiceFinancingsBrand"
+          }
+        }
+      },
+      "ResponseBusinessInvoiceFinancings_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/BusinessInvoiceFinancingsBrand"
+          }
+        }
+      },
+      "ResponseBusinessUnarrangedAccountOverdraft_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/BusinessUnarrangedAccountOverdraftBrand"
+          }
+        }
+      },
+      "ResponsePersonalUnarrangedAccountOverdraft_data" : {
+        "required" : [ "brand" ],
+        "type" : "object",
+        "properties" : {
+          "brand" : {
+            "$ref" : "#/components/schemas/PersonalUnarrangedAccountOverdraftBrand"
+          }
+        }
+      },
+      "PersonalCreditCard_fees" : {
+        "required" : [ "services" ],
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "maxItems" : 9,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Lista das Tarifas cobradas sobre Serviço relacionadas a Modalidade de Pagamento Pós-Pagas",
+            "items" : {
+              "$ref" : "#/components/schemas/CreditCardService"
+            }
+          }
+        },
+        "description" : "Objeto que reúne informações de tarifas de serviços"
+      }
+    },
+    "parameters" : {
+      "page" : {
+        "name" : "page",
+        "in" : "query",
+        "description" : "Número da página que está sendo requisitada (o valor da primeira página é 1).",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "minimum" : 1,
+          "type" : "integer",
+          "default" : 1
+        }
+      },
+      "pageSize" : {
+        "name" : "page-size",
+        "in" : "query",
+        "description" : "Quantidade total de registros por páginas.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "minimum" : 1,
+          "type" : "integer",
+          "default" : 25
+        }
+      }
+    },
+    "securitySchemes" : {
+      "APIKey1" : {
+        "type" : "apiKey",
+        "name" : "API Key",
+        "in" : "query"
+      },
+      "APIKey2" : {
+        "type" : "apiKey",
+        "name" : "API Key",
+        "in" : "query"
+      }
+    }
+  }
+}
