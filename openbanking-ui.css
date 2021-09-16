@@ -1098,6 +1098,9 @@
   top: 5px
 }
 
+.swagger-ui section.models .model-container{
+  background-color: #FFF!important;
+}
 .swagger-ui section.models .model-container {
   margin: 0 20px 15px;
   -webkit-transition: all .5s;
