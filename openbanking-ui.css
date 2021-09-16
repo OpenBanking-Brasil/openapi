@@ -9,7 +9,7 @@
 
 .swagger-ui body {
   margin: 0;
-  background: #fafafa
+  background: #fff
 }
 
 .swagger-ui .wrapper {
@@ -1096,10 +1096,6 @@
 .swagger-ui section.models .model-jump-to-path {
   position: relative;
   top: 5px
-}
-
-.swagger-ui section.models .model-container{
-  background-color: #FFF!important;
 }
 .swagger-ui section.models .model-container {
   margin: 0 20px 15px;
