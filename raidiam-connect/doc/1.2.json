@@ -1,0 +1,5305 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Raidiam Connect Trust Framework",
+    "description" : "Raidiam Trust Services API",
+    "license" : {
+      "name" : "MIT"
+    },
+    "version" : "1.2"
+  },
+  "servers" : [ {
+    "url" : "https://matls-api.directory.openbankingbrasil.org.br",
+    "description" : "Directory Production"
+  }, {
+    "url" : "https://matls-api.sandbox.directory.openbankingbrasil.org.br",
+    "description" : "Directory Sandbox"
+  } ],
+  "paths" : {
+    "/organisations" : {
+      "get" : {
+        "tags" : [ "Organisations" ],
+        "summary" : "Get all organisations.",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "The page number to return of the result set",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the pages to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "The field name to sort",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "displayMine",
+          "in" : "query",
+          "description" : "Set to an email value to instruct the backend to only return organisations related to the user",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : ""
+          }
+        }, {
+          "name" : "filterBy",
+          "in" : "query",
+          "description" : "Will return organisations with data like the provided value",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "default" : ""
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All organisations",
+            "headers" : {
+              "x-fapi-interaction-id" : {
+                "description" : "An RFC4122 UID used as a correlation id.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "maxLength" : 100,
+                  "minLength" : 1,
+                  "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+                  "type" : "string",
+                  "example" : "73cac523-d3ae-2289-b106-330a6218710d"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationsPage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}" : {
+      "get" : {
+        "tags" : [ "Organisations" ],
+        "summary" : "Get the given organisation's details",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Full details of the organisation including TnC information",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationWithTnc"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorities" : {
+      "get" : {
+        "tags" : [ "References - Authority" ],
+        "summary" : "Reference Data of all authorities",
+        "responses" : {
+          "200" : {
+            "description" : "Reference data table for all authorities with their countries\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Authorities"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorities/{AuthorityId}" : {
+      "get" : {
+        "tags" : [ "References - Authority" ],
+        "summary" : "Get a reference authority by Id",
+        "parameters" : [ {
+          "name" : "AuthorityId",
+          "in" : "path",
+          "description" : "The reference authority Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorityId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Get a reference authority by Id\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Authority"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorisationdomains" : {
+      "get" : {
+        "tags" : [ "References - Authorisation Domain" ],
+        "summary" : "Reference data of all authorisation domains",
+        "responses" : {
+          "200" : {
+            "description" : "All data of authorisation domains mapped to an authority",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationDomains"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorisationdomains/{AuthorisationDomainName}" : {
+      "get" : {
+        "tags" : [ "References - Authorisation Domain" ],
+        "summary" : "Get an authorisation domain by Name",
+        "parameters" : [ {
+          "name" : "AuthorisationDomainName",
+          "in" : "path",
+          "description" : "Authorisation Domain Name. Eg:PSD2",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationDomainName"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Data of an authorisation domain mapped to an authority",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationDomain"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorisationdomainroles" : {
+      "get" : {
+        "tags" : [ "References - Authorisation Domain Role" ],
+        "summary" : "Reference data of all authorisation domain roles",
+        "responses" : {
+          "200" : {
+            "description" : "All roles data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationDomainRoles"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorisationdomainroles/{AuthorisationDomainRoleName}" : {
+      "get" : {
+        "tags" : [ "References - Authorisation Domain Role" ],
+        "summary" : "Get an authorisation domain role by Name",
+        "parameters" : [ {
+          "name" : "AuthorisationDomainRoleName",
+          "in" : "path",
+          "description" : "Authorisation Domain Role Name. Eg:TPP",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationDomainRoleName"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationDomainRole"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authoritydomainmapping" : {
+      "get" : {
+        "tags" : [ "References - Authority Authorisation Domain" ],
+        "summary" : "Mappings of authorities with authorisation domains",
+        "responses" : {
+          "200" : {
+            "description" : "All authority to domain mappings data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorityAuthorisationDomains"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorities/{AuthorityId}/authorisationdomains" : {
+      "get" : {
+        "tags" : [ "References - Authority Authorisation Domain" ],
+        "summary" : "Reference data of all authorisation domains for an Authority ID",
+        "parameters" : [ {
+          "name" : "AuthorityId",
+          "in" : "path",
+          "description" : "The reference authority Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorityId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All authority to domain mappings data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorityAuthorisationDomains"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/references/authorities/{AuthorityId}/authorisationdomains/{AuthorityAuthorisationDomainId}" : {
+      "get" : {
+        "tags" : [ "References - Authority Authorisation Domain" ],
+        "summary" : "Get an authority authorisation domain by Id",
+        "parameters" : [ {
+          "name" : "AuthorityId",
+          "in" : "path",
+          "description" : "The reference authority Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorityId"
+          }
+        }, {
+          "name" : "AuthorityAuthorisationDomainId",
+          "in" : "path",
+          "description" : "ID of the Authority mapped with Authorisation Domain",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorityAuthorisationDomainId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authority to domain mapping data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorityAuthorisationDomain"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authoritydomainclaims" : {
+      "get" : {
+        "tags" : [ "Organisation Authority Domain Claims" ],
+        "summary" : "Get the authority domain claims for the given organisation",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All authority to domain mappings data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaims"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authoritydomainclaims/{OrganisationAuthorityDomainClaimId}" : {
+      "get" : {
+        "tags" : [ "Organisation Authority Domain Claims" ],
+        "summary" : "Get an authority domain claim by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "OrganisationAuthorityDomainClaimId",
+          "in" : "path",
+          "description" : "Organisation Authority Domain Claim Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaimId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All authority to domain mappings data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaim"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorityclaims" : {
+      "get" : {
+        "tags" : [ "Organisation Authority Claims" ],
+        "summary" : "Get the authority claims for the given organisation",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All authority claims for the organisation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationAuthorityClaims"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorityclaims/{OrganisationAuthorityClaimId}" : {
+      "get" : {
+        "tags" : [ "Organisation Authority Claims" ],
+        "summary" : "Get an authority claim by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "OrganisationAuthorityClaimId",
+          "in" : "path",
+          "description" : "The Authority claims ID for an organisation",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaimId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authority claim for the given Id",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationAuthorityClaim"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorityclaims/{OrganisationAuthorityClaimId}/authorisations" : {
+      "get" : {
+        "tags" : [ "Organisation Authority Claims Authorisations" ],
+        "summary" : "Get an authority claims' authorisations",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "OrganisationAuthorityClaimId",
+          "in" : "path",
+          "description" : "The Authority claims ID for an organisation",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaimId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisations response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationAuthorityClaimAuthorisations"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorityclaims/{OrganisationAuthorityClaimId}/authorisations/{OrganisationAuthorisationId}" : {
+      "get" : {
+        "tags" : [ "Organisation Authority Claims Authorisations" ],
+        "summary" : "Get a claim authorisation",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "OrganisationAuthorityClaimId",
+          "in" : "path",
+          "description" : "The Authority claims ID for an organisation",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaimId"
+          }
+        }, {
+          "name" : "OrganisationAuthorisationId",
+          "in" : "path",
+          "description" : "The authorisation ID for an organisation's authority claims",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisations response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganisationAuthorityClaimAuthorisation"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/{AuthorisationDomainName}/users" : {
+      "get" : {
+        "tags" : [ "Organisation Domain Users" ],
+        "summary" : "All users for the given authorisation domain",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationDomainName",
+          "in" : "path",
+          "description" : "Authorisation Domain Name. Eg:PSD2",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationDomainName"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All users belonging to an authorisation domain",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationDomainUsers"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/{AuthorisationDomainName}/users/{UserEmailId}" : {
+      "get" : {
+        "tags" : [ "Organisation Domain Users" ],
+        "summary" : "Authorisation Domain user details",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationDomainName",
+          "in" : "path",
+          "description" : "Authorisation Domain Name. Eg:PSD2",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationDomainName"
+          }
+        }, {
+          "name" : "UserEmailId",
+          "in" : "path",
+          "description" : "Email address of the super user",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/UserEmailId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All users belonging to an authorisation domain",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationDomainUsers"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/contacts" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get the contacts for the given organisation",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All contacts for the org",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Contacts"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/contacts/{ContactId}" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get a contact by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "ContactId",
+          "in" : "path",
+          "description" : "The contact id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ContactId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A contact object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorisationservers" : {
+      "get" : {
+        "tags" : [ "Authorisation Servers" ],
+        "summary" : "Get all Authorisation Servers for the given organisation",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All authorisation servers for the org",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationServers"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorisationservers/{AuthorisationServerId}" : {
+      "get" : {
+        "tags" : [ "Authorisation Servers" ],
+        "summary" : "Get an authorisation server by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationServerId",
+          "in" : "path",
+          "description" : "The authorisation server Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisation server response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthorisationServer"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorisationservers/{AuthorisationServerId}/apiresources" : {
+      "get" : {
+        "tags" : [ "Authorisation Servers - API Resources" ],
+        "summary" : "Get all Api Resources for the given Authorisation Server",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationServerId",
+          "in" : "path",
+          "description" : "The authorisation server Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisation server Api Resources response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiResources"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorisationservers/{AuthorisationServerId}/apiresources/{ApiResourceId}" : {
+      "get" : {
+        "tags" : [ "Authorisation Servers - API Resources" ],
+        "summary" : "Get an authorisation server API resource by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationServerId",
+          "in" : "path",
+          "description" : "The authorisation server Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          }
+        }, {
+          "name" : "ApiResourceId",
+          "in" : "path",
+          "description" : "The api version Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisation server Api Resource response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiResource"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorisationservers/{AuthorisationServerId}/apiresources/{ApiResourceId}/apidiscoveryendpoints" : {
+      "get" : {
+        "tags" : [ "Authorisation Servers - API Discovery Endpoints" ],
+        "summary" : "Get all Api Discovery Endpoints for the given Authorisation Server and Api Version",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationServerId",
+          "in" : "path",
+          "description" : "The authorisation server Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          }
+        }, {
+          "name" : "ApiResourceId",
+          "in" : "path",
+          "description" : "The api version Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisation server response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiDiscoveryEndpoints"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/authorisationservers/{AuthorisationServerId}/apiresources/{ApiResourceId}/apidiscoveryendpoints/{ApiDiscoveryEndpointId}" : {
+      "get" : {
+        "tags" : [ "Authorisation Servers - API Discovery Endpoints" ],
+        "summary" : "Get an authorisation server API discovery endpoint by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "AuthorisationServerId",
+          "in" : "path",
+          "description" : "The authorisation server Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          }
+        }, {
+          "name" : "ApiResourceId",
+          "in" : "path",
+          "description" : "The api version Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          }
+        }, {
+          "name" : "ApiDiscoveryEndpointId",
+          "in" : "path",
+          "description" : "The api discovery endpoint Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/ApiDiscoveryEndpointId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authorisation server response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiDiscoveryEndpoint"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements" : {
+      "get" : {
+        "tags" : [ "Software Statements" ],
+        "summary" : "Get all software statements for the given organisation",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All software statements for the org",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SoftwareStatements"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements/{SoftwareStatementId}" : {
+      "get" : {
+        "tags" : [ "Software Statements" ],
+        "summary" : "Get a software statement",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "SoftwareStatementId",
+          "in" : "path",
+          "description" : "The software statement ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Get the software statements with the given id",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SoftwareStatement"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements/{SoftwareStatementId}/authorityclaims" : {
+      "get" : {
+        "tags" : [ "Software Statement Authority Claims" ],
+        "summary" : "Get the authority claims for the given software statement",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "SoftwareStatementId",
+          "in" : "path",
+          "description" : "The software statement ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authority claim for the given Id",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SoftwareAuthorityClaims"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements/{SoftwareStatementId}/authorityclaims/{SoftwareAuthorityClaimId}" : {
+      "get" : {
+        "tags" : [ "Software Statement Authority Claims" ],
+        "summary" : "Get an authority claim by Id",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "SoftwareStatementId",
+          "in" : "path",
+          "description" : "The software statement ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          }
+        }, {
+          "name" : "SoftwareAuthorityClaimId",
+          "in" : "path",
+          "description" : "The software statement's authority claim ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareAuthorityClaimId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Authority claim for the given Id",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SoftwareAuthorityClaim"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements/{SoftwareStatementId}/certificates" : {
+      "get" : {
+        "tags" : [ "Software Statement Certificates" ],
+        "summary" : "Get certificates for the given software statement",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "SoftwareStatementId",
+          "in" : "path",
+          "description" : "The software statement ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All certificates for the org",
+            "content" : {
+              "application/jwk-set+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CertificatesOrKeys"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements/{SoftwareStatementId}/certificates/{SoftwareStatementCertificateOrKeyType}/{CertificateOrKeyId}" : {
+      "get" : {
+        "tags" : [ "Software Statement Certificates" ],
+        "summary" : "Get the certificate of the given type and ID for the given software statement",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "SoftwareStatementId",
+          "in" : "path",
+          "description" : "The software statement ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          }
+        }, {
+          "name" : "SoftwareStatementCertificateOrKeyType",
+          "in" : "path",
+          "description" : "The certificate or key type that can be associated with a software statement",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementCertificateOrKeyType"
+          }
+        }, {
+          "name" : "CertificateOrKeyId",
+          "in" : "path",
+          "description" : "The certificate or key Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/CertificateOrKeyId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A certificate object",
+            "content" : {
+              "application/jwk+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CertificateOrKey"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "Not found"
+          },
+          "406" : {
+            "description" : "Not Acceptable"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    },
+    "/organisations/{OrganisationId}/softwarestatements/{SoftwareStatementId}/assertion" : {
+      "get" : {
+        "tags" : [ "Software Statement Assertions" ],
+        "summary" : "Get a Software Statement Assertion for the given SoftwareStatementID.",
+        "parameters" : [ {
+          "name" : "OrganisationId",
+          "in" : "path",
+          "description" : "The organisation ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          }
+        }, {
+          "name" : "SoftwareStatementId",
+          "in" : "path",
+          "description" : "The software statement ID",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/jwt" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SoftwareStatementAssertion"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SoftwareStatementAssertion"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal Server Error"
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          }
+        },
+        "security" : [ {
+          "oAuth-sandbox" : [ "directory:software" ]
+        }, {
+          "oAuth-production" : [ "directory:software" ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "OrganisationsPage" : {
+        "type" : "object",
+        "properties" : {
+          "totalPages" : {
+            "type" : "integer"
+          },
+          "totalSize" : {
+            "type" : "integer"
+          },
+          "pageable" : {
+            "$ref" : "#/components/schemas/Pageable"
+          },
+          "numberOfElements" : {
+            "type" : "integer"
+          },
+          "size" : {
+            "type" : "integer"
+          },
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Organisation"
+            }
+          },
+          "offset" : {
+            "type" : "integer"
+          },
+          "empty" : {
+            "type" : "boolean"
+          },
+          "pageNumber" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "BadRequest" : {
+        "type" : "object",
+        "properties" : {
+          "errors" : {
+            "type" : "array",
+            "description" : "Validation Error messages",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "StatusEnum" : {
+        "type" : "string",
+        "enum" : [ "Active", "Inactive" ]
+      },
+      "OrganisationAuthorityClaims" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/OrganisationAuthorityClaim"
+        }
+      },
+      "OrganisationAuthorityClaim" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "OrganisationAuthorityClaimId" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaimId"
+          },
+          "AuthorityId" : {
+            "$ref" : "#/components/schemas/AuthorityId"
+          },
+          "Status" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/StatusEnum"
+            }, {
+              "description" : "Is this software statement Active/Inactive"
+            }, { } ]
+          },
+          "AuthorisationDomain" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Authorisation Domain for the authority"
+          },
+          "Role" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Roles for the Authority i.e. ASPSP, AISP, PISP, CBPII"
+          },
+          "Authorisations" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityClaim_Authorisations"
+            }
+          },
+          "RegistrationId" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Registration ID for the organisation"
+          },
+          "UniqueTechnicalIdenifier" : {
+            "type" : "array",
+            "items" : {
+              "maxLength" : 256,
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "OrganisationAuthorityClaimAuthorisations" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/OrganisationAuthorityClaimAuthorisation"
+        }
+      },
+      "OrganisationAuthorityClaimAuthorisation" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationAuthorisationId" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorisationId"
+          },
+          "OrganisationAuthorityClaimId" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaimId"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this authority claim Active/Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          },
+          "MemberState" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Abbreviated states information i.e. GB, IE, NL etc"
+          }
+        }
+      },
+      "AuthorisationServers" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/AuthorisationServer"
+        }
+      },
+      "AutoRegistrationSupported" : {
+        "type" : "boolean"
+      },
+      "CustomerFriendlyDescription" : {
+        "maxLength" : 256,
+        "type" : "string"
+      },
+      "CustomerFriendlyLogoUri" : {
+        "maxLength" : 256,
+        "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+        "type" : "string",
+        "description" : "A compliant URI",
+        "format" : "uri",
+        "x-pattern-message" : "CustomerFriendlyLogoUri must be in a URI format https://... or http://..."
+      },
+      "CustomerFriendlyName" : {
+        "maxLength" : 256,
+        "type" : "string"
+      },
+      "DeveloperPortalUri" : {
+        "maxLength" : 256,
+        "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+        "type" : "string",
+        "description" : "A compliant URI",
+        "format" : "uri",
+        "x-pattern-message" : "DeveloperPortalUri must be in a URI format https://... or http://..."
+      },
+      "TermsOfServiceUri" : {
+        "maxLength" : 256,
+        "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+        "type" : "string",
+        "description" : "A compliant URI",
+        "format" : "uri",
+        "x-pattern-message" : "TermsOfServiceUri must be in a URI format https://... or http://..."
+      },
+      "NotificationWebhook" : {
+        "maxLength" : 256,
+        "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+        "type" : "string",
+        "description" : "A compliant URI",
+        "format" : "uri",
+        "x-pattern-message" : "WebhookUri must be in a URI format https://... or http://..."
+      },
+      "OpenIDDiscoveryDocument" : {
+        "maxLength" : 256,
+        "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+        "type" : "string",
+        "description" : "A compliant URI",
+        "format" : "uri",
+        "x-pattern-message" : "OpenIDDiscoveryDocument must be in a URI format https://... or http://..."
+      },
+      "PayloadSigningCertLocationUri" : {
+        "maxLength" : 256,
+        "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+        "type" : "string",
+        "description" : "A compliant URI",
+        "format" : "uri",
+        "x-pattern-message" : "PayloadSigningCertLocationUri must be in a URI format https://... or http://..."
+      },
+      "AuthorisationServer" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationServerId" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          },
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "AutoRegistrationSupported" : {
+            "$ref" : "#/components/schemas/AutoRegistrationSupported"
+          },
+          "ApiResources" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ApiResource"
+            }
+          },
+          "CustomerFriendlyDescription" : {
+            "$ref" : "#/components/schemas/CustomerFriendlyDescription"
+          },
+          "CustomerFriendlyLogoUri" : {
+            "$ref" : "#/components/schemas/CustomerFriendlyLogoUri"
+          },
+          "CustomerFriendlyName" : {
+            "$ref" : "#/components/schemas/CustomerFriendlyName"
+          },
+          "DeveloperPortalUri" : {
+            "$ref" : "#/components/schemas/DeveloperPortalUri"
+          },
+          "TermsOfServiceUri" : {
+            "$ref" : "#/components/schemas/TermsOfServiceUri"
+          },
+          "NotificationWebhook" : {
+            "$ref" : "#/components/schemas/NotificationWebhook"
+          },
+          "NotificationWebhookStatus" : {
+            "$ref" : "#/components/schemas/NotificationWebhookStatusEnum"
+          },
+          "OpenIDDiscoveryDocument" : {
+            "$ref" : "#/components/schemas/OpenIDDiscoveryDocument"
+          },
+          "PayloadSigningCertLocationUri" : {
+            "$ref" : "#/components/schemas/PayloadSigningCertLocationUri"
+          },
+          "ParentAuthorisationServerId" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          }
+        }
+      },
+      "AuthorisationServerId" : {
+        "maxLength" : 40,
+        "type" : "string"
+      },
+      "CertificateOrKeyId" : {
+        "maxLength" : 256,
+        "type" : "string"
+      },
+      "CertificatesOrKeys" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/CertificateOrKey"
+        }
+      },
+      "CertificateOrKey" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "SoftwareStatementIds" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SoftwareStatementId"
+            }
+          },
+          "ClientName" : {
+            "maxLength" : 40,
+            "type" : "string"
+          },
+          "Status" : {
+            "maxLength" : 40,
+            "type" : "string"
+          },
+          "ValidFromDateTime" : {
+            "maxLength" : 30,
+            "type" : "string"
+          },
+          "ExpiryDateTime" : {
+            "maxLength" : 30,
+            "type" : "string"
+          },
+          "e" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "keyType" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "kid" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "kty" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "n" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "use" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "x5c" : {
+            "type" : "array",
+            "items" : {
+              "maxLength" : 256,
+              "type" : "string",
+              "description" : "A PKIX certificate [RFC5280]"
+            }
+          },
+          "x5t" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "x5thashS256" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "x5u" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "SignedCertPath" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Used to display location of the signed certificate in PEM format"
+          },
+          "JwkPath" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Used to display path to JWKS containing this certificate"
+          },
+          "OrgJwkPath" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Used to display path to Org JWKS containing org certificates"
+          }
+        }
+      },
+      "ContactDetails" : {
+        "type" : "object",
+        "properties" : {
+          "EmailAddress" : {
+            "maxLength" : 256,
+            "pattern" : "^(.{1,}@[^.]{1,}).*",
+            "type" : "string",
+            "x-pattern-message" : "EmailAddress must be a valid email"
+          },
+          "FirstName" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "LastName" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "Department" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "AddressLine1" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Address line 1"
+          },
+          "AddressLine2" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Address line 2"
+          },
+          "City" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "City"
+          },
+          "Postcode" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Postcode"
+          },
+          "Country" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Country"
+          },
+          "AdditionalInformation" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Any additional user information"
+          },
+          "PgpPublicKey" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "A PGP Public Key in text form"
+          }
+        }
+      },
+      "ContactType" : {
+        "type" : "string",
+        "default" : "Business",
+        "enum" : [ "Business", "Technical", "Billing", "Incident", "Security" ]
+      },
+      "PhoneNumber" : {
+        "maxLength" : 18,
+        "minLength" : 8,
+        "type" : "string"
+      },
+      "Contacts" : {
+        "type" : "array",
+        "description" : "The list of contacts",
+        "items" : {
+          "$ref" : "#/components/schemas/Contact"
+        }
+      },
+      "Contact" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "ContactId" : {
+              "type" : "string",
+              "description" : "Unique contact ID for the row."
+            },
+            "OrganisationId" : {
+              "$ref" : "#/components/schemas/OrganisationId"
+            },
+            "ContactType" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/ContactType"
+              } ]
+            },
+            "PhoneNumber" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/PhoneNumber"
+              } ]
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/ContactDetails"
+        } ]
+      },
+      "ContactId" : {
+        "maxLength" : 256,
+        "type" : "string"
+      },
+      "OrganisationCertificateType" : {
+        "type" : "string",
+        "default" : "rtsseal",
+        "enum" : [ "qwac", "qseal", "rtswac", "rtsseal", "brseal" ]
+      },
+      "OrganisationId" : {
+        "maxLength" : 40,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique ID associated with the organisation"
+      },
+      "OrganisationAuthorityClaimId" : {
+        "maxLength" : 40,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique ID associated with the authority claims"
+      },
+      "OrganisationAuthorisationId" : {
+        "maxLength" : 40,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique ID associated with authorisations for organisation's authority claims"
+      },
+      "SoftwareAuthorityClaimId" : {
+        "maxLength" : 40,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique ID associated with the authority claims for a software statement"
+      },
+      "AuthorityId" : {
+        "maxLength" : 40,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique ID associated with the Authorisation reference schema"
+      },
+      "Organisations" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Organisation"
+        }
+      },
+      "Organisation" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Status of the directory registration of an organisation",
+            "default" : "Active",
+            "enum" : [ "Active", "Pending", "Withdrawn" ]
+          },
+          "OrganisationName" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Name of the organisation."
+          },
+          "CreatedOn" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "JSONDatetime of organisation creation."
+          },
+          "LegalEntityName" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Legal Entity name for the org. Usually the same as org name"
+          },
+          "CountryOfRegistration" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Country of registration for the org"
+          },
+          "CompanyRegister" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Legal company register for the country, i.e. Companies House"
+          },
+          "RegistrationNumber" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Company registration number from company register i.e. Companies House registration number"
+          },
+          "RegistrationId" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Registered ID for the organisation i.e. Legal Entity identifier number"
+          },
+          "RegisteredName" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "AddressLine1" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Address line 1"
+          },
+          "AddressLine2" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Address line 2"
+          },
+          "City" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "City"
+          },
+          "Postcode" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Postcode"
+          },
+          "Country" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Country"
+          },
+          "ParentOrganisationReference" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Parent Organisation Reference"
+          },
+          "RequiresParticipantTermsAndConditionsSigning" : {
+            "type" : "boolean",
+            "description" : "true - this organisation requires terms and conditions to be signed. false - this organisation does not require terms and conditions to be signed"
+          }
+        }
+      },
+      "OrganisationWithTnc" : {
+        "type" : "object",
+        "properties" : {
+          "OrgDetails" : {
+            "$ref" : "#/components/schemas/Organisation"
+          },
+          "TncDetails" : {
+            "$ref" : "#/components/schemas/OrganisationWithTnc_TncDetails"
+          }
+        }
+      },
+      "OrgTermsAndConditionsDetail" : {
+        "type" : "object",
+        "properties" : {
+          "InitiatedBy" : {
+            "type" : "string",
+            "description" : "Email of the user who initiated the External signing for this participant"
+          },
+          "Role" : {
+            "type" : "string",
+            "description" : "Role of the user who initiated the External signing for this participant"
+          },
+          "TermsAndConditionsDetail" : {
+            "$ref" : "#/components/schemas/TermsAndConditionsDetail"
+          }
+        },
+        "description" : "Participant TnC details"
+      },
+      "TermsAndConditionsDetail" : {
+        "type" : "object",
+        "properties" : {
+          "TermsAndConditionsItem" : {
+            "$ref" : "#/components/schemas/TermsAndConditionsItem"
+          },
+          "InititatedDate" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Terms and Conditions initiated date"
+          },
+          "ExternalSigningServiceEnvelopeId" : {
+            "$ref" : "#/components/schemas/ExternalSigningServiceEnvelopeId"
+          },
+          "ExternalSigningServiceEnvelopeStatus" : {
+            "$ref" : "#/components/schemas/ExternalSigningServiceEnvelopeStatus"
+          },
+          "ExternalSigningServiceEnvelopePasscode" : {
+            "type" : "string",
+            "description" : "Access code for the specifier to fill in the signer details. This will be populated only once, when signing is initiated"
+          }
+        },
+        "description" : "TnC details Parent"
+      },
+      "NotificationWebhookStatusEnum" : {
+        "type" : "string",
+        "default" : "Pending",
+        "enum" : [ "Pending", "Confirmed", "Deactivated" ]
+      },
+      "ExternalSigningServiceEnvelopeStatus" : {
+        "type" : "string",
+        "enum" : [ "Completed", "Created", "Declined", "Deleted", "Delivered", "Processing", "Sent", "Signed", "Template", "Voided", "Expired" ]
+      },
+      "OrganisationSnapshotPage" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "content" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/OrganisationSnapshot"
+              }
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/Pages"
+        } ]
+      },
+      "Pageable" : {
+        "type" : "object",
+        "properties" : {
+          "number" : {
+            "type" : "integer",
+            "description" : "Page number"
+          },
+          "sort" : {
+            "$ref" : "#/components/schemas/Sort"
+          },
+          "size" : {
+            "type" : "integer",
+            "description" : "Size of the page"
+          },
+          "offset" : {
+            "type" : "integer",
+            "description" : "Offset"
+          },
+          "sorted" : {
+            "type" : "boolean",
+            "description" : "Is the page sorted"
+          }
+        }
+      },
+      "Sort" : {
+        "type" : "object",
+        "properties" : {
+          "sorted" : {
+            "type" : "boolean"
+          },
+          "orderBy" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Sort_orderBy"
+            }
+          }
+        }
+      },
+      "OrganisationsSnapshot" : {
+        "type" : "object",
+        "additionalProperties" : {
+          "$ref" : "#/components/schemas/OrganisationSnapshot"
+        }
+      },
+      "OrganisationSnapshot" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationDetails" : {
+            "$ref" : "#/components/schemas/Organisation"
+          },
+          "Contacts" : {
+            "$ref" : "#/components/schemas/Contacts"
+          },
+          "AuthorisationServers" : {
+            "$ref" : "#/components/schemas/AuthorisationServers"
+          },
+          "OrgDomainClaims" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaims"
+          },
+          "OrgDomainRoleClaims" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaims"
+          },
+          "SoftwareStatements" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/OrganisationSnapshot_SoftwareStatements"
+            }
+          },
+          "OrganisationCertificates" : {
+            "$ref" : "#/components/schemas/CertificatesOrKeys"
+          }
+        }
+      },
+      "OrganisationsExportOpenData" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/OrganisationExportOpenData"
+        }
+      },
+      "OrganisationExportOpenData" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Status of the directory registration of an organisation",
+            "default" : "Active",
+            "enum" : [ "Active", "Pending", "Withdrawn" ]
+          },
+          "OrganisationName" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Name of the organisation."
+          },
+          "CreatedOn" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "JSONDatetime of organisation creation."
+          },
+          "LegalEntityName" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Legal Entity name for the org. Usually the same as org name"
+          },
+          "CountryOfRegistration" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Country of registration for the org"
+          },
+          "CompanyRegister" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Legal company register for the country, i.e. Companies House"
+          },
+          "RegistrationNumber" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Company registration number from company register i.e. Companies House registration number"
+          },
+          "RegistrationId" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Registered ID for the organisation i.e. Legal Entity identifier number"
+          },
+          "RegisteredName" : {
+            "maxLength" : 256,
+            "type" : "string"
+          },
+          "AddressLine1" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Address line 1"
+          },
+          "AddressLine2" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Address line 2"
+          },
+          "City" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "City"
+          },
+          "Postcode" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Postcode"
+          },
+          "Country" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Country"
+          },
+          "ParentOrganisationReference" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Parent Organisation Reference"
+          },
+          "Contacts" : {
+            "$ref" : "#/components/schemas/Contacts"
+          },
+          "AuthorisationServers" : {
+            "$ref" : "#/components/schemas/AuthorisationServers"
+          },
+          "OrgDomainClaims" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaims"
+          },
+          "OrgDomainRoleClaims" : {
+            "$ref" : "#/components/schemas/OrganisationAuthorityClaims"
+          }
+        }
+      },
+      "Authorities" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Authority"
+        }
+      },
+      "Authority" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorityId" : {
+            "$ref" : "#/components/schemas/AuthorityId"
+          },
+          "AuthorityName" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Name of the Authority i.e. FCA, etc"
+          },
+          "AuthorityCode" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Code of the Authority i.e. FCA, etc",
+            "x-required-message" : "AuthorityCode must be provided"
+          },
+          "AuthorityUri" : {
+            "type" : "string",
+            "description" : "URI of the authority"
+          },
+          "AuthorityCountry" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "country of the Authority"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this Authority Active/Inactive",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      },
+      "Introspection" : {
+        "type" : "object",
+        "properties" : {
+          "active" : {
+            "type" : "boolean",
+            "description" : "if the token has expired"
+          },
+          "client_id" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "id of client who owns the token"
+          },
+          "exp" : {
+            "type" : "string",
+            "description" : "expiration time in ms"
+          },
+          "iat" : {
+            "type" : "string",
+            "description" : "when the token was issued"
+          },
+          "iss" : {
+            "type" : "string",
+            "description" : "the issuer"
+          },
+          "jti" : {
+            "type" : "string",
+            "description" : "unique string"
+          },
+          "scope" : {
+            "type" : "string",
+            "description" : "scope"
+          },
+          "token_type" : {
+            "type" : "string",
+            "description" : "type of token"
+          },
+          "sub" : {
+            "type" : "string",
+            "description" : "subject of token (not always present, depending on the token)"
+          }
+        }
+      },
+      "SoftwareStatementCertificateOrKeyType" : {
+        "type" : "string",
+        "default" : "rtssigning",
+        "enum" : [ "rtstransport", "rtssigning", "sigkey", "enckey", "brcac" ]
+      },
+      "SoftwareStatements" : {
+        "type" : "array",
+        "description" : "The list of Software Statements",
+        "items" : {
+          "$ref" : "#/components/schemas/SoftwareStatement"
+        }
+      },
+      "SoftwareStatement" : {
+        "type" : "object",
+        "properties" : {
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this software statement Active/Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          },
+          "ClientId" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Software Statement client Id"
+          },
+          "ClientName" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Software Statement client name"
+          },
+          "Description" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Software Statement description"
+          },
+          "Environment" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "The additional check for software statement, this field can avoid"
+          },
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "SoftwareStatementId" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          },
+          "Mode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Software Statement mode",
+            "default" : "Live",
+            "enum" : [ "Live", "Test" ]
+          },
+          "RtsClientCreated" : {
+            "type" : "boolean",
+            "description" : "Client created flag"
+          },
+          "OnBehalfOf" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "A reference to fourth party organisation resource on the RTS Directory if the registering Org is acting on behalf of another"
+          },
+          "PolicyUri" : {
+            "maxLength" : 256,
+            "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+            "type" : "string",
+            "description" : "The Software Statement policy compliant URI",
+            "x-pattern-message" : "PolicyUri must be in a URI format https://... or http://..."
+          },
+          "ClientUri" : {
+            "maxLength" : 256,
+            "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+            "type" : "string",
+            "description" : "The Software Statement client compliant URI",
+            "x-pattern-message" : "ClientUri must be in a URI format https://... or http://..."
+          },
+          "LogoUri" : {
+            "maxLength" : 256,
+            "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+            "type" : "string",
+            "description" : "The Software Statement logo compliant URI",
+            "format" : "uri",
+            "x-pattern-message" : "LogoUri must be in a URI format https://... or http://..."
+          },
+          "RedirectUri" : {
+            "maxLength" : 256,
+            "type" : "array",
+            "description" : "The Software Statement redirect compliant URI",
+            "items" : {
+              "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+              "type" : "string",
+              "format" : "uri",
+              "x-pattern-message" : "RedirectUri must be in a URI format https://... or http://..."
+            }
+          },
+          "TermsOfServiceUri" : {
+            "maxLength" : 256,
+            "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+            "type" : "string",
+            "description" : "The Software Statement terms of service compliant URI",
+            "format" : "uri",
+            "x-pattern-message" : "TermsOfServiceUri must be in a URI format https://... or http://..."
+          },
+          "Version" : {
+            "maxLength" : 40,
+            "type" : "number",
+            "description" : "Software Statement version as provided by the organisation's PTC"
+          },
+          "Locked" : {
+            "type" : "boolean",
+            "description" : "Flag shows if assertion has been generated on the software statement - will be set to true when assertion is generated"
+          }
+        }
+      },
+      "SoftwareStatementId" : {
+        "maxLength" : 40,
+        "type" : "string",
+        "description" : "Unique Software Statement Id"
+      },
+      "SoftwareStatementAssertion" : {
+        "maxLength" : 4000,
+        "type" : "string",
+        "description" : "A signed JWT (JWS)"
+      },
+      "SoftwareAuthorityClaims" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/SoftwareAuthorityClaim"
+        }
+      },
+      "SoftwareAuthorityClaim" : {
+        "type" : "object",
+        "properties" : {
+          "SoftwareStatementId" : {
+            "$ref" : "#/components/schemas/SoftwareStatementId"
+          },
+          "SoftwareAuthorityClaimId" : {
+            "$ref" : "#/components/schemas/SoftwareAuthorityClaimId"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this authority claim Active/Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          },
+          "AuthorisationDomain" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Authorisation domain for the authority"
+          },
+          "Role" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Roles for the Authority i.e. ASPSP, AISP, PISP, CBPII"
+          }
+        }
+      },
+      "ClientCreationResponse" : {
+        "type" : "object",
+        "properties" : {
+          "application_type" : {
+            "type" : "string",
+            "description" : "OIDC application type response",
+            "default" : "web",
+            "enum" : [ "web" ]
+          },
+          "tls_client_auth_subject_dn" : {
+            "type" : "string",
+            "description" : "the subject dn used to authenticate this client"
+          },
+          "grant_types" : {
+            "type" : "array",
+            "description" : "grant_types",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "id_token_signed_response_alg" : {
+            "type" : "string"
+          },
+          "require_auth_time" : {
+            "type" : "boolean"
+          },
+          "subject_type" : {
+            "type" : "string"
+          },
+          "response_types" : {
+            "type" : "array",
+            "description" : "response_types",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "post_logout_redirect_uris" : {
+            "type" : "array",
+            "description" : "post_logout_redirect_uris",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "token_endpoint_auth_method" : {
+            "type" : "string"
+          },
+          "introspection_endpoint_auth_method" : {
+            "type" : "string"
+          },
+          "revocation_endpoint_auth_method" : {
+            "type" : "string"
+          },
+          "client_id_issued_at" : {
+            "type" : "number"
+          },
+          "client_id" : {
+            "type" : "string"
+          },
+          "jwks_uri" : {
+            "type" : "string"
+          },
+          "registration_client_uri" : {
+            "type" : "string",
+            "description" : "management uri location to manage client post creation"
+          },
+          "registration_access_token" : {
+            "type" : "string",
+            "description" : "token used to manage client post creation"
+          },
+          "redirect_uris" : {
+            "type" : "array",
+            "description" : "redirect_uris",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "request_uris" : {
+            "type" : "array",
+            "description" : "request_uris",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "UserEmailId" : {
+        "maxLength" : 50,
+        "type" : "string",
+        "description" : "User email address"
+      },
+      "SuperUsers" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/SuperUser"
+        }
+      },
+      "SuperUser" : {
+        "type" : "object",
+        "properties" : {
+          "Email" : {
+            "type" : "string",
+            "description" : "The super user email address"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this super user Active or Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      },
+      "AuthorisationDomainName" : {
+        "maxLength" : 30,
+        "type" : "string",
+        "description" : "Authorisation Domain Name"
+      },
+      "AuthorisationDomainRoleName" : {
+        "maxLength" : 30,
+        "type" : "string",
+        "description" : "Authorisation Domain Role Name"
+      },
+      "AuthorityAuthorisationDomainId" : {
+        "maxLength" : 50,
+        "type" : "string",
+        "description" : "Mapping ID between Authority and Authorisation Domain"
+      },
+      "AuthorisationDomainUsers" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/AuthorisationDomainUser"
+        }
+      },
+      "AuthorisationDomainUser" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationDomainUserId" : {
+            "type" : "string",
+            "description" : "Unique record ID"
+          },
+          "Email" : {
+            "type" : "string",
+            "description" : "The user email address"
+          },
+          "AuthorisationDomain" : {
+            "type" : "string",
+            "description" : "The authorisation domain for this user"
+          },
+          "AuthorisationDomainRole" : {
+            "type" : "string",
+            "description" : "The authorisation domain role for this user"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this user Active or Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          },
+          "ContactRole" : {
+            "$ref" : "#/components/schemas/ContactRoleEnum"
+          }
+        }
+      },
+      "AuthorisationDomains" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/AuthorisationDomain"
+        }
+      },
+      "AuthorisationDomain" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationDomainName" : {
+            "type" : "string",
+            "description" : "The authorisation domain name"
+          },
+          "AuthorisationDomainRegion" : {
+            "type" : "string",
+            "description" : "The authorisation domain region"
+          },
+          "AuthorisationDomainDescription" : {
+            "type" : "string",
+            "description" : "The authorisation domain description"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this Domain Active or Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      },
+      "AuthorisationDomainRoles" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/AuthorisationDomainRole"
+        }
+      },
+      "AuthorisationDomainRole" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationDomainName" : {
+            "type" : "string",
+            "description" : "The authorisation domain name"
+          },
+          "AuthorisationDomainRoleName" : {
+            "type" : "string",
+            "description" : "The authorisation domain role"
+          },
+          "AuthorisationDomainRoleDescription" : {
+            "type" : "string",
+            "description" : "The authorisation domain role description"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this mapping Active or Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      },
+      "AuthorityAuthorisationDomains" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/AuthorityAuthorisationDomain"
+        }
+      },
+      "AuthorityAuthorisationDomain" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationDomainName" : {
+            "type" : "string",
+            "description" : "The authorisation domain name"
+          },
+          "AuthorityId" : {
+            "type" : "string",
+            "description" : "The GUID of the Authority"
+          },
+          "AuthorityAuthorisationDomainId" : {
+            "type" : "string",
+            "description" : "The GUID of the Authority-Domain mapping"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this user Active or Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      },
+      "OrganisationAuthorityDomainClaimId" : {
+        "maxLength" : 50,
+        "type" : "string",
+        "description" : "Organisation Authority Domain Claim ID"
+      },
+      "OrganisationAuthorityDomainClaims" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaim"
+        }
+      },
+      "OrganisationAuthorityDomainClaim" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationAuthorityDomainClaimId" : {
+            "type" : "string",
+            "description" : "The unique org authority domain claim ID"
+          },
+          "AuthorisationDomainName" : {
+            "type" : "string",
+            "description" : "The authorisation domain name"
+          },
+          "AuthorityId" : {
+            "type" : "string",
+            "description" : "The GUID of the Authority"
+          },
+          "AuthorityName" : {
+            "type" : "string",
+            "description" : "The name of the Authority"
+          },
+          "RegistrationId" : {
+            "type" : "string",
+            "description" : "The registration ID"
+          },
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this user Active or Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      },
+      "AuthorisationDomainUserId" : {
+        "maxLength" : 50,
+        "type" : "string",
+        "description" : "Unique record ID to identify Domain user"
+      },
+      "UserDetail" : {
+        "type" : "object",
+        "properties" : {
+          "SuperUser" : {
+            "type" : "boolean",
+            "description" : "Is the user a super user"
+          },
+          "SystemUser" : {
+            "type" : "boolean",
+            "description" : "Is the user a system user"
+          },
+          "BasicInformation" : {
+            "$ref" : "#/components/schemas/UserDetail_BasicInformation"
+          },
+          "OrgAccessDetails" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/OrgAccessDetail"
+            },
+            "description" : "Map Key - Org ID, Map Value - Org Access Detail(contaning info about org admin and domain role details)"
+          },
+          "DirectoryTermsAndConditionsDetails" : {
+            "$ref" : "#/components/schemas/TermsAndConditionsDetails"
+          }
+        }
+      },
+      "TermsAndConditionsDetails" : {
+        "type" : "object",
+        "properties" : {
+          "RequiresSigning" : {
+            "type" : "boolean",
+            "description" : "Does the Directory TnC require signing"
+          },
+          "Updated" : {
+            "type" : "boolean",
+            "description" : "Has the document updated since the user signed"
+          },
+          "TermsAndConditionsItem" : {
+            "$ref" : "#/components/schemas/TermsAndConditionsItem"
+          }
+        },
+        "description" : "Details of TnC"
+      },
+      "UserOPInfo" : {
+        "type" : "object",
+        "properties" : {
+          "sub" : {
+            "type" : "string",
+            "description" : "Contains the email address"
+          },
+          "family_name" : {
+            "type" : "string",
+            "description" : "Family name"
+          },
+          "given_name" : {
+            "type" : "string",
+            "description" : "Given name"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Full name"
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "Email address"
+          },
+          "email_verified" : {
+            "type" : "boolean",
+            "description" : "Is the email verified"
+          },
+          "address" : {
+            "type" : "string",
+            "description" : "Address"
+          },
+          "phone_number" : {
+            "type" : "string",
+            "description" : "Phone number"
+          },
+          "phone_number_verified" : {
+            "type" : "boolean",
+            "description" : "Is the phone number verified"
+          }
+        },
+        "description" : "The information contained within is subject to the scopes passed during token generation"
+      },
+      "WellKnown" : {
+        "type" : "object",
+        "properties" : {
+          "acr_values_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "authorization_endpoint" : {
+            "type" : "string",
+            "description" : "REQUIRED. URL of the OP's OAuth 2.0 Authorization Endpoint"
+          },
+          "claims_parameter_supported" : {
+            "type" : "boolean",
+            "description" : "OPTIONAL. Boolean value specifying whether the OP supports use of the claims parameter, with true indicating support. If omitted, the default value is false"
+          },
+          "claims_supported" : {
+            "type" : "array",
+            "description" : "RECOMMENDED. JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for",
+            "items" : { }
+          },
+          "code_challenge_methods_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "end_session_endpoint" : {
+            "type" : "string"
+          },
+          "check_session_endpoint" : {
+            "type" : "string"
+          },
+          "grant_types_supported" : {
+            "type" : "array",
+            "description" : "OPTIONAL. JSON array containing a list of the OAuth 2.0 Grant Type values that this OP supports",
+            "items" : { }
+          },
+          "id_token_signing_alg_values_supported" : {
+            "type" : "array",
+            "description" : "REQUIRED. JSON array containing a list of the JWS signing algorithms (alg values) supported by the OP for the ID Token to encode the Claims in a JWT",
+            "items" : { }
+          },
+          "issuer" : {
+            "type" : "string",
+            "description" : "REQUIRED. URL using the https scheme with no query or fragment component that the OP asserts as its Issuer Identifier"
+          },
+          "jwks_uri" : {
+            "type" : "string",
+            "description" : "REQUIRED. URL of the OP's JSON Web Key Set [JWK] document."
+          },
+          "registration_endpoint" : {
+            "type" : "string",
+            "description" : "RECOMMENDED. URL of the OP's Dynamic Client Registration Endpoint"
+          },
+          "request_object_signing_alg_values_supported" : {
+            "type" : "string",
+            "description" : "OPTIONAL. JSON array containing a list of the JWS signing algorithms (alg values) supported by the OP for Request Objects"
+          },
+          "request_parameter_supported" : {
+            "type" : "boolean",
+            "description" : "OPTIONAL. Boolean value specifying whether the OP supports use of the request parameter, with true indicating support. If omitted, the default value is false"
+          },
+          "request_uri_parameter_supported" : {
+            "type" : "boolean",
+            "description" : "OPTIONAL. Boolean value specifying whether the OP supports use of the request_uri parameter, with true indicating support. If omitted, the default value is true"
+          },
+          "require_request_uri_registration" : {
+            "type" : "boolean",
+            "description" : "OPTIONAL. Boolean value specifying whether the OP requires any request_uri values used to be pre-registered using the request_uris registration parameter"
+          },
+          "pushed_authorization_request_endpoint" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "response_modes_supported" : {
+            "type" : "array",
+            "description" : "OPTIONAL. JSON array containing a list of the OAuth 2.0 response_mode values that this OP supports",
+            "items" : { }
+          },
+          "response_types_supported" : {
+            "type" : "array",
+            "description" : "REQUIRED. JSON array containing a list of the OAuth 2.0 response_type values that this OP supports",
+            "items" : { }
+          },
+          "scopes_supported" : {
+            "type" : "array",
+            "description" : "RECOMMENDED. JSON array containing a list of the OAuth 2.0 [RFC6749] scope values that this server supports",
+            "items" : { }
+          },
+          "subject_types_supported" : {
+            "type" : "array",
+            "description" : "REQUIRED. JSON array containing a list of the Subject Identifier types that this OP supports",
+            "items" : { }
+          },
+          "token_endpoint_auth_methods_supported" : {
+            "type" : "array",
+            "description" : "OPTIONAL. JSON array containing a list of Client Authentication methods supported by this Token Endpoint",
+            "items" : { }
+          },
+          "token_endpoint_auth_signing_alg_values_supported" : {
+            "type" : "array",
+            "description" : "OPTIONAL. JSON array containing a list of the JWS signing algorithms (alg values) supported by the Token Endpoint for the signature on the JWT",
+            "items" : { }
+          },
+          "token_endpoint" : {
+            "type" : "string",
+            "description" : "URL of the OP's OAuth 2.0 Token Endpoint"
+          },
+          "userinfo_endpoint" : {
+            "type" : "string",
+            "description" : "RECOMMENDED. URL of the OP's UserInfo Endpoint"
+          },
+          "userinfo_signing_alg_values_supported" : {
+            "type" : "array",
+            "description" : "OPTIONAL. JSON array containing a list of the JWS signing algorithms (alg values) [JWA] supported by the UserInfo Endpoint to encode the Claims in a JWT",
+            "items" : { }
+          },
+          "authorization_signing_alg_values_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "introspection_endpoint" : {
+            "type" : "string"
+          },
+          "introspection_endpoint_auth_methods_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "introspection_endpoint_auth_signing_alg_values_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "revocation_endpoint" : {
+            "type" : "string"
+          },
+          "revocation_endpoint_auth_methods_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "revocation_endpoint_auth_signing_alg_values_supported" : {
+            "type" : "array",
+            "items" : { }
+          },
+          "frontchannel_logout_supported" : {
+            "type" : "boolean"
+          },
+          "frontchannel_logout_session_supported" : {
+            "type" : "boolean"
+          },
+          "tls_client_certificate_bound_access_tokens" : {
+            "type" : "boolean"
+          },
+          "claim_types_supported" : {
+            "type" : "array",
+            "description" : "OPTIONAL. JSON array containing a list of the Claim Types that the OpenID Provider supports",
+            "items" : { }
+          }
+        }
+      },
+      "OrgAccessDetail" : {
+        "type" : "object",
+        "properties" : {
+          "OrgAdmin" : {
+            "type" : "boolean",
+            "description" : "Is the user the org admin of the current org"
+          },
+          "DomainRoleDetails" : {
+            "type" : "array",
+            "description" : "Array of domain, role and status of domain role mapping",
+            "items" : {
+              "$ref" : "#/components/schemas/DomainRoleDetail"
+            }
+          }
+        }
+      },
+      "DomainRoleDetail" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationDomainName" : {
+            "type" : "string"
+          },
+          "AuthorisationDomainRoleName" : {
+            "type" : "string"
+          },
+          "Status" : {
+            "$ref" : "#/components/schemas/StatusEnum"
+          },
+          "ContactRole" : {
+            "$ref" : "#/components/schemas/ContactRoleEnum"
+          }
+        }
+      },
+      "TnCId" : {
+        "type" : "integer",
+        "description" : "TnC unique identifier"
+      },
+      "Pages" : {
+        "type" : "object",
+        "properties" : {
+          "totalPages" : {
+            "type" : "integer"
+          },
+          "totalSize" : {
+            "type" : "integer"
+          },
+          "pageable" : {
+            "$ref" : "#/components/schemas/Pageable"
+          },
+          "numberOfElements" : {
+            "type" : "integer"
+          },
+          "size" : {
+            "type" : "integer"
+          },
+          "offset" : {
+            "type" : "integer"
+          },
+          "empty" : {
+            "type" : "boolean"
+          },
+          "pageNumber" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "TermsAndConditionsPage" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "content" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/TermsAndConditionsItem"
+              }
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/Pages"
+        } ]
+      },
+      "TermsAndConditionsItem" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "TnCId" : {
+              "$ref" : "#/components/schemas/TnCId"
+            },
+            "Status" : {
+              "type" : "string",
+              "description" : "Is the TnC Active or Inactive",
+              "enum" : [ "Active", "Inactive" ]
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/TermsAndConditionsCreateRequest"
+        } ]
+      },
+      "TermsAndConditionsCreateRequest" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "Name" : {
+              "minLength" : 1,
+              "type" : "string",
+              "description" : "The Name of the TnC",
+              "x-required-message" : "Name must be provided"
+            },
+            "Type" : {
+              "minLength" : 1,
+              "type" : "string",
+              "description" : "Role for which this TnC applies",
+              "enum" : [ "Participant", "Directory" ],
+              "x-required-message" : "Type must be provided"
+            }
+          }
+        }, {
+          "required" : [ "Name", "Type" ]
+        }, {
+          "$ref" : "#/components/schemas/TermsAndConditionsUpdateRequest"
+        } ]
+      },
+      "ExternalSigningServiceSignerTemplateConfig" : {
+        "type" : "object",
+        "properties" : {
+          "Signer1TemplateId" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Template ID for 1 signer"
+          },
+          "Signer1Version" : {
+            "type" : "integer",
+            "description" : "Version of the TnC document",
+            "readOnly" : true
+          },
+          "Signer2TemplateId" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Template ID for 2 signers"
+          },
+          "Signer2Version" : {
+            "type" : "integer",
+            "description" : "Version of the TnC document",
+            "readOnly" : true
+          },
+          "Signer3TemplateId" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Template ID for 3 signers"
+          },
+          "Signer3Version" : {
+            "type" : "integer",
+            "description" : "Version of the TnC document",
+            "readOnly" : true
+          },
+          "Signer4TemplateId" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Template ID for 4 signers"
+          },
+          "Signer4Version" : {
+            "type" : "integer",
+            "description" : "Version of the TnC document",
+            "readOnly" : true
+          },
+          "Signer5TemplateId" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Template ID for 5 signers"
+          },
+          "Signer5Version" : {
+            "type" : "integer",
+            "description" : "Version of the TnC document",
+            "readOnly" : true
+          },
+          "Signer6TemplateId" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Template ID for 6 signers"
+          },
+          "Signer6Version" : {
+            "type" : "integer",
+            "description" : "Version of the TnC document",
+            "readOnly" : true
+          }
+        }
+      },
+      "TermsAndConditionsUpdateRequest" : {
+        "required" : [ "Content" ],
+        "type" : "object",
+        "properties" : {
+          "Content" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "The MarkDown of the TnC",
+            "x-required-message" : "MarkDown must be provided"
+          },
+          "ExternalSigningServiceName" : {
+            "type" : "string",
+            "description" : "The Name of the External Signing Service",
+            "enum" : [ "DocuSign" ],
+            "x-required-message" : "External signing service name must be provided"
+          },
+          "ExternalSigningServiceSignerTemplateConfig" : {
+            "$ref" : "#/components/schemas/ExternalSigningServiceSignerTemplateConfig"
+          },
+          "ExternalSigningServiceSubject" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "The Subject of the External Signing Service",
+            "x-required-message" : "Subject must be provided"
+          }
+        }
+      },
+      "OrganisationAdminUsers" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/OrganisationAdminUser"
+        }
+      },
+      "OrganisationAdminUser" : {
+        "type" : "object",
+        "properties" : {
+          "Status" : {
+            "type" : "string",
+            "description" : "Is the admin user active",
+            "enum" : [ "Active", "Inactive" ]
+          },
+          "UserEmail" : {
+            "type" : "string",
+            "description" : "User's email address"
+          },
+          "DomainRoleDetails" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DomainRoleDetail"
+            }
+          }
+        }
+      },
+      "ApiResources" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "content" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ApiResource"
+              }
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/Pages"
+        } ]
+      },
+      "ApiResource" : {
+        "type" : "object",
+        "properties" : {
+          "ApiResourceId" : {
+            "$ref" : "#/components/schemas/ApiResourceId"
+          },
+          "ApiFamilyType" : {
+            "$ref" : "#/components/schemas/ApiFamilyType"
+          },
+          "ApiVersion" : {
+            "$ref" : "#/components/schemas/ApiVersion"
+          },
+          "ApiDiscoveryEndpoints" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ApiDiscoveryEndpoint"
+            }
+          }
+        }
+      },
+      "ApiVersion" : {
+        "type" : "number",
+        "description" : "The version number of the API"
+      },
+      "ApiFamilyType" : {
+        "maxLength" : 40,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "The type of API this record describes"
+      },
+      "ApiResourceId" : {
+        "maxLength" : 40,
+        "type" : "string",
+        "description" : "The unique ID of an Api version resource"
+      },
+      "ApiDiscoveryEndpoints" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "content" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ApiDiscoveryEndpoint"
+              }
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/Pages"
+        } ]
+      },
+      "ApiDiscoveryEndpoint" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "ApiDiscoveryId" : {
+              "maxLength" : 40,
+              "type" : "string",
+              "description" : "Unique Id of this discovery endpoint record"
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/ApiDiscoveryEndpointRequest"
+        } ]
+      },
+      "ApiDiscoveryEndpointRequest" : {
+        "type" : "object",
+        "properties" : {
+          "ApiEndpoint" : {
+            "maxLength" : 256,
+            "pattern" : "^(http:\\/\\/|https:\\/\\/).*",
+            "type" : "string",
+            "description" : "A compliant URI",
+            "format" : "uri",
+            "x-pattern-message" : "ApiEndpoint must be in a URI format https://... or http://..."
+          }
+        }
+      },
+      "ApiDiscoveryEndpointId" : {
+        "maxLength" : 40,
+        "type" : "string",
+        "description" : "The unique ID of an Api discovery endpoint resource"
+      },
+      "OrgTermsAndConditionsPage" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "content" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/OrgTermsAndConditionsDetail"
+              }
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/Pages"
+        } ]
+      },
+      "UserTermsAndConditionsPage" : {
+        "allOf" : [ {
+          "type" : "object",
+          "properties" : {
+            "content" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/TermsAndConditionsDetail"
+              }
+            }
+          }
+        }, {
+          "$ref" : "#/components/schemas/Pages"
+        } ]
+      },
+      "EssPollResponse" : {
+        "type" : "object",
+        "properties" : {
+          "OrganisationId" : {
+            "$ref" : "#/components/schemas/OrganisationId"
+          },
+          "EssEnvelopeId" : {
+            "$ref" : "#/components/schemas/ExternalSigningServiceEnvelopeId"
+          },
+          "ExternalSigningServiceEnvelopeStatus" : {
+            "$ref" : "#/components/schemas/ExternalSigningServiceEnvelopeStatus"
+          }
+        }
+      },
+      "EssPollResponses" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/EssPollResponse"
+        }
+      },
+      "WebhookStatusResponses" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/WebhookStatusResponse"
+        }
+      },
+      "WebhookStatusResponse" : {
+        "type" : "object",
+        "properties" : {
+          "AuthorisationServerId" : {
+            "$ref" : "#/components/schemas/AuthorisationServerId"
+          },
+          "WebhookStatus" : {
+            "$ref" : "#/components/schemas/NotificationWebhookStatusEnum"
+          }
+        }
+      },
+      "TnCsToBeSigned" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/TermsAndConditionsItem"
+        }
+      },
+      "ExternalSigningServiceEnvelopeId" : {
+        "type" : "string",
+        "description" : "The envelope id of the ess signing request"
+      },
+      "ContactRoleEnum" : {
+        "type" : "string",
+        "description" : "The role of the contact",
+        "enum" : [ "PTC", "STC", "PBC", "SBC", "PSDC", "PDRC", "SSDC", "SDRC" ]
+      },
+      "OrganisationAuthorityClaim_Authorisations" : {
+        "type" : "object",
+        "properties" : {
+          "Status" : {
+            "type" : "string",
+            "description" : "Is this authorsation Active/Inactive",
+            "default" : "Active",
+            "enum" : [ "Active", "Inactive" ]
+          },
+          "MemberState" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Abbreviated states information i.e. GB, IE, NL etc"
+          }
+        }
+      },
+      "OrganisationWithTnc_TncDetails" : {
+        "type" : "object",
+        "properties" : {
+          "TnCSigned" : {
+            "type" : "boolean",
+            "description" : "true - the terms and conditions have been signed. false - the terms and conditions have not been signed"
+          },
+          "TnCUpdated" : {
+            "type" : "boolean",
+            "description" : "true - attached signer template has been updated. false - no tnc present/not updated"
+          },
+          "TnCsToBeSigned" : {
+            "$ref" : "#/components/schemas/TnCsToBeSigned"
+          }
+        }
+      },
+      "Sort_orderBy" : {
+        "type" : "object",
+        "properties" : {
+          "property" : {
+            "type" : "string",
+            "description" : "Name of the property used for sorting",
+            "example" : "createdAt"
+          },
+          "direction" : {
+            "type" : "string",
+            "description" : "Direction of sort, i.e. ascending or descending",
+            "enum" : [ "ASC", "DESC" ]
+          },
+          "ignoreCase" : {
+            "type" : "boolean",
+            "description" : "Was the case ignored"
+          },
+          "ascending" : {
+            "type" : "boolean",
+            "description" : "Whether ascending"
+          }
+        }
+      },
+      "OrganisationSnapshot_SoftwareStatements" : {
+        "type" : "object",
+        "properties" : {
+          "SoftwareDetails" : {
+            "$ref" : "#/components/schemas/SoftwareStatement"
+          },
+          "SoftwareAuthorityClaims" : {
+            "$ref" : "#/components/schemas/SoftwareAuthorityClaims"
+          },
+          "SoftwareCertificates" : {
+            "$ref" : "#/components/schemas/CertificatesOrKeys"
+          }
+        }
+      },
+      "UserDetail_BasicInformation" : {
+        "type" : "object",
+        "properties" : {
+          "UserEmail" : {
+            "type" : "string"
+          },
+          "Status" : {
+            "type" : "string",
+            "enum" : [ "Active", "Inactive" ]
+          }
+        }
+      }
+    },
+    "responses" : {
+      "OrganisationsPage" : {
+        "description" : "All organisations",
+        "headers" : {
+          "x-fapi-interaction-id" : {
+            "description" : "An RFC4122 UID used as a correlation id.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "maxLength" : 100,
+              "minLength" : 1,
+              "pattern" : "^[a-zA-Z0-9][a-zA-Z0-9\\-]{0,99}$",
+              "type" : "string",
+              "example" : "73cac523-d3ae-2289-b106-330a6218710d"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationsPage"
+            }
+          }
+        }
+      },
+      "NoContent" : {
+        "description" : "No Content"
+      },
+      "BadRequest" : {
+        "description" : "Bad Request",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/BadRequest"
+            }
+          }
+        }
+      },
+      "Unauthorized" : {
+        "description" : "Unauthorized"
+      },
+      "Forbidden" : {
+        "description" : "Forbidden"
+      },
+      "NotFound" : {
+        "description" : "Not found"
+      },
+      "NotAcceptable" : {
+        "description" : "Not Acceptable"
+      },
+      "Conflict" : {
+        "description" : "Conflict"
+      },
+      "BadGateway" : {
+        "description" : "Bad Gateway"
+      },
+      "InternalServerError" : {
+        "description" : "Internal Server Error"
+      },
+      "OrganisationAuthorityClaims" : {
+        "description" : "All authority claims for the organisation",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityClaims"
+            }
+          }
+        }
+      },
+      "OrganisationAuthorityClaim" : {
+        "description" : "Authority claim for the given Id",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityClaim"
+            }
+          }
+        }
+      },
+      "OrganisationAuthorityClaimAuthorisations" : {
+        "description" : "Authorisations response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityClaimAuthorisations"
+            }
+          }
+        }
+      },
+      "OrganisationAuthorityClaimAuthorisation" : {
+        "description" : "Authorisations response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityClaimAuthorisation"
+            }
+          }
+        }
+      },
+      "AuthorisationServers" : {
+        "description" : "All authorisation servers for the org",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationServers"
+            }
+          }
+        }
+      },
+      "AuthorisationServer" : {
+        "description" : "Authorisation server response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationServer"
+            }
+          }
+        }
+      },
+      "CertificatesOrKeys" : {
+        "description" : "All certificates for the org",
+        "content" : {
+          "application/jwk-set+json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CertificatesOrKeys"
+            }
+          }
+        }
+      },
+      "CertificatesOrKey" : {
+        "description" : "A certificate object",
+        "content" : {
+          "application/jwk+json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CertificateOrKey"
+            }
+          }
+        }
+      },
+      "Contacts" : {
+        "description" : "All contacts for the org",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Contacts"
+            }
+          }
+        }
+      },
+      "Contact" : {
+        "description" : "A contact object",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Contact"
+            }
+          }
+        }
+      },
+      "OrganisationWithTnc" : {
+        "description" : "Full details of the organisation including TnC information",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationWithTnc"
+            }
+          }
+        }
+      },
+      "Organisations" : {
+        "description" : "List of the organisation\n",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Organisations"
+            }
+          }
+        }
+      },
+      "Organisation" : {
+        "description" : "Full details of the organisation\n",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Organisation"
+            }
+          }
+        }
+      },
+      "OrganisationSnapshot" : {
+        "description" : "Snapshot data of the organisation",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationSnapshot"
+            }
+          }
+        }
+      },
+      "OrganisationsSnapshot" : {
+        "description" : "Snapshot data of all the organisations",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationsSnapshot"
+            }
+          }
+        }
+      },
+      "OrganisationSnapshotPage" : {
+        "description" : "Paged Organisations Snapshot",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationSnapshotPage"
+            }
+          }
+        }
+      },
+      "OrganisationsExportOpenData" : {
+        "description" : "Export the open-data for all the organisations",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationsExportOpenData"
+            }
+          }
+        }
+      },
+      "OrgTermsAndConditionsDetail" : {
+        "description" : "Details of the TnC and external signing service",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrgTermsAndConditionsDetail"
+            }
+          }
+        }
+      },
+      "Authorities" : {
+        "description" : "Reference data table for all authorities with their countries\n",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Authorities"
+            }
+          }
+        }
+      },
+      "Authority" : {
+        "description" : "Get a reference authority by Id\n",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Authority"
+            }
+          }
+        }
+      },
+      "Introspection" : {
+        "description" : "metadata for token\n",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Introspection"
+            }
+          }
+        }
+      },
+      "SoftwareStatements" : {
+        "description" : "All software statements for the org",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SoftwareStatements"
+            }
+          }
+        }
+      },
+      "SoftwareStatement" : {
+        "description" : "Get the software statements with the given id",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SoftwareStatement"
+            }
+          }
+        }
+      },
+      "SoftwareStatementAssertion" : {
+        "description" : "OK",
+        "content" : {
+          "application/jwt" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SoftwareStatementAssertion"
+            }
+          },
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SoftwareStatementAssertion"
+            }
+          }
+        }
+      },
+      "SoftwareAuthorityClaims" : {
+        "description" : "Authority claim for the given Id",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SoftwareAuthorityClaims"
+            }
+          }
+        }
+      },
+      "SoftwareAuthorityClaim" : {
+        "description" : "Authority claim for the given Id",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SoftwareAuthorityClaim"
+            }
+          }
+        }
+      },
+      "ClientCreationResponse" : {
+        "description" : "Creates an OAuth Client in the OpenID Server\n",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ClientCreationResponse"
+            }
+          }
+        }
+      },
+      "SuperUsers" : {
+        "description" : "All Super users",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SuperUsers"
+            }
+          }
+        }
+      },
+      "SuperUser" : {
+        "description" : "Super user data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SuperUser"
+            }
+          }
+        }
+      },
+      "AuthorisationDomainUsers" : {
+        "description" : "All users belonging to an authorisation domain",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationDomainUsers"
+            }
+          }
+        }
+      },
+      "AuthorisationDomainUser" : {
+        "description" : "User data belonging to an authorisation domain",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationDomainUser"
+            }
+          }
+        }
+      },
+      "AuthorisationDomains" : {
+        "description" : "All data of authorisation domains mapped to an authority",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationDomains"
+            }
+          }
+        }
+      },
+      "AuthorisationDomain" : {
+        "description" : "Data of an authorisation domain mapped to an authority",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationDomain"
+            }
+          }
+        }
+      },
+      "AuthorisationDomainRoles" : {
+        "description" : "All roles data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationDomainRoles"
+            }
+          }
+        }
+      },
+      "AuthorisationDomainRole" : {
+        "description" : "Role data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorisationDomainRole"
+            }
+          }
+        }
+      },
+      "AuthorityAuthorisationDomains" : {
+        "description" : "All authority to domain mappings data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorityAuthorisationDomains"
+            }
+          }
+        }
+      },
+      "AuthorityAuthorisationDomain" : {
+        "description" : "Authority to domain mapping data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/AuthorityAuthorisationDomain"
+            }
+          }
+        }
+      },
+      "OrganisationAuthorityDomainClaims" : {
+        "description" : "All authority to domain mappings data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaims"
+            }
+          }
+        }
+      },
+      "OrganisationAuthorityDomainClaim" : {
+        "description" : "All authority to domain mappings data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaim"
+            }
+          }
+        }
+      },
+      "UserDetail" : {
+        "description" : "Details of the user",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UserDetail"
+            }
+          }
+        }
+      },
+      "UserOPInfo" : {
+        "description" : "User information from the OpenId Provider",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UserOPInfo"
+            }
+          }
+        }
+      },
+      "WellKnown" : {
+        "description" : "endpoint discovery for well known endpoint",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/WellKnown"
+            }
+          }
+        }
+      },
+      "TermsAndConditionsPage" : {
+        "description" : "Paged data of TnC items",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/TermsAndConditionsPage"
+            }
+          }
+        }
+      },
+      "TermsAndConditionsItem" : {
+        "description" : "Details of the TnC item",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/TermsAndConditionsItem"
+            }
+          }
+        }
+      },
+      "OrganisationAdminUsers" : {
+        "description" : "All admin users for this org",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAdminUsers"
+            }
+          }
+        }
+      },
+      "OrganisationAdminUser" : {
+        "description" : "Admin user details",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganisationAdminUser"
+            }
+          }
+        }
+      },
+      "ApiResources" : {
+        "description" : "Authorisation server Api Resources response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ApiResources"
+            }
+          }
+        }
+      },
+      "ApiResource" : {
+        "description" : "Authorisation server Api Resource response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ApiResource"
+            }
+          }
+        }
+      },
+      "ApiDiscoveryEndpoints" : {
+        "description" : "Authorisation server response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ApiDiscoveryEndpoints"
+            }
+          }
+        }
+      },
+      "ApiDiscoveryEndpoint" : {
+        "description" : "Authorisation server response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ApiDiscoveryEndpoint"
+            }
+          }
+        }
+      },
+      "UserTermsAndConditionsPage" : {
+        "description" : "User TnCs history",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UserTermsAndConditionsPage"
+            }
+          }
+        }
+      },
+      "OrgTermsAndConditionsPage" : {
+        "description" : "Org TnCs history",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrgTermsAndConditionsPage"
+            }
+          }
+        }
+      },
+      "EssPollResponse" : {
+        "description" : "External Signing Service Poll response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/EssPollResponse"
+            }
+          }
+        }
+      },
+      "EssPollAllResponse" : {
+        "description" : "External Signing Service Poll All response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/EssPollResponses"
+            }
+          }
+        }
+      },
+      "AllWebhooksResponse" : {
+        "description" : "Update all webhooks response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/WebhookStatusResponses"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "AuthorisationServerId" : {
+        "name" : "AuthorisationServerId",
+        "in" : "path",
+        "description" : "The authorisation server Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/AuthorisationServerId"
+        }
+      },
+      "OrganisationAuthorityClaimId" : {
+        "name" : "OrganisationAuthorityClaimId",
+        "in" : "path",
+        "description" : "The Authority claims ID for an organisation",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/OrganisationAuthorityClaimId"
+        }
+      },
+      "OrganisationAuthorisationId" : {
+        "name" : "OrganisationAuthorisationId",
+        "in" : "path",
+        "description" : "The authorisation ID for an organisation's authority claims",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/OrganisationAuthorisationId"
+        }
+      },
+      "CertificateOrKeyId" : {
+        "name" : "CertificateOrKeyId",
+        "in" : "path",
+        "description" : "The certificate or key Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/CertificateOrKeyId"
+        }
+      },
+      "ContactId" : {
+        "name" : "ContactId",
+        "in" : "path",
+        "description" : "The contact id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ContactId"
+        }
+      },
+      "OrganisationCertificateType" : {
+        "name" : "OrganisationCertificateType",
+        "in" : "path",
+        "description" : "The certificate type",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/OrganisationCertificateType"
+        }
+      },
+      "OrganisationId" : {
+        "name" : "OrganisationId",
+        "in" : "path",
+        "description" : "The organisation ID",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/OrganisationId"
+        }
+      },
+      "AuthorityId" : {
+        "name" : "AuthorityId",
+        "in" : "path",
+        "description" : "The reference authority Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/AuthorityId"
+        }
+      },
+      "SoftwareStatementCertificateOrKeyType" : {
+        "name" : "SoftwareStatementCertificateOrKeyType",
+        "in" : "path",
+        "description" : "The certificate or key type that can be associated with a software statement",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/SoftwareStatementCertificateOrKeyType"
+        }
+      },
+      "SoftwareStatementId" : {
+        "name" : "SoftwareStatementId",
+        "in" : "path",
+        "description" : "The software statement ID",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/SoftwareStatementId"
+        }
+      },
+      "SoftwareAuthorityClaimId" : {
+        "name" : "SoftwareAuthorityClaimId",
+        "in" : "path",
+        "description" : "The software statement's authority claim ID",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/SoftwareAuthorityClaimId"
+        }
+      },
+      "UserEmailId" : {
+        "name" : "UserEmailId",
+        "in" : "path",
+        "description" : "Email address of the super user",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/UserEmailId"
+        }
+      },
+      "AuthorisationDomainName" : {
+        "name" : "AuthorisationDomainName",
+        "in" : "path",
+        "description" : "Authorisation Domain Name. Eg:PSD2",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/AuthorisationDomainName"
+        }
+      },
+      "AuthorisationDomainRoleName" : {
+        "name" : "AuthorisationDomainRoleName",
+        "in" : "path",
+        "description" : "Authorisation Domain Role Name. Eg:TPP",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/AuthorisationDomainRoleName"
+        }
+      },
+      "AuthorityAuthorisationDomainId" : {
+        "name" : "AuthorityAuthorisationDomainId",
+        "in" : "path",
+        "description" : "ID of the Authority mapped with Authorisation Domain",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/AuthorityAuthorisationDomainId"
+        }
+      },
+      "OrganisationAuthorityDomainClaimId" : {
+        "name" : "OrganisationAuthorityDomainClaimId",
+        "in" : "path",
+        "description" : "Organisation Authority Domain Claim Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/OrganisationAuthorityDomainClaimId"
+        }
+      },
+      "AuthorisationDomainUserId" : {
+        "name" : "AuthorisationDomainUserId",
+        "in" : "path",
+        "description" : "Unique record Id to identify Domain User",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/AuthorisationDomainUserId"
+        }
+      },
+      "TnCId" : {
+        "name" : "TnCId",
+        "in" : "path",
+        "description" : "Terms and Conditions unique identifier",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/TnCId"
+        }
+      },
+      "ClientId" : {
+        "name" : "ClientId",
+        "in" : "path",
+        "description" : "Oauth clientId",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ClientCreationResponse/properties/client_id"
+        }
+      },
+      "ApiResourceId" : {
+        "name" : "ApiResourceId",
+        "in" : "path",
+        "description" : "The api version Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ApiResourceId"
+        }
+      },
+      "ApiDiscoveryEndpointId" : {
+        "name" : "ApiDiscoveryEndpointId",
+        "in" : "path",
+        "description" : "The api discovery endpoint Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ApiDiscoveryEndpointId"
+        }
+      },
+      "ExternalSigningServiceEnvelopeId" : {
+        "name" : "ExternalSigningServiceEnvelopeId",
+        "in" : "path",
+        "description" : "The envelope id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ExternalSigningServiceEnvelopeId"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "oAuth-sandbox" : {
+        "type" : "oauth2",
+        "description" : "This API uses oAuth 2.0 client credentials grant",
+        "flows" : {
+          "clientCredentials" : {
+            "tokenUrl" : "https:/matls-auth.sandbox.directory.openbankingbrasil.org.br/token",
+            "scopes" : {
+              "directory:software" : "Software statement client operations"
+            }
+          }
+        }
+      },
+      "oAuth-production" : {
+        "type" : "oauth2",
+        "description" : "This API uses oAuth 2.0 client credentials grant",
+        "flows" : {
+          "clientCredentials" : {
+            "tokenUrl" : "https://auth.directory.openbankingbrasil.org.br/token",
+            "scopes" : {
+              "directory:software" : "Software statement client operations"
+            }
+          }
+        }
+      }
+    }
+  }
+}
