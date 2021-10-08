@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "APIs OpenData do Open Banking Brasil.",
-    "description" : "As APIs descritas neste documento são referentes as APIs da fase OpenData do Open Banking Brasil.",
+    "description" : "As APIs descritas neste documento são referentes as APIs da fase OpenData do Open Banking Brasil!!!",
     "contact" : {
       "url" : "https://servicedesk.openbankingbrasil.org.br/Login.jsp?navLanguage=pt-BR"
     },
