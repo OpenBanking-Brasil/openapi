@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .swagger-ui html {
-  box-sizing: border-box
+  box-sizing: border-box 
 }
 
 .swagger-ui *, .swagger-ui :after, .swagger-ui :before {
