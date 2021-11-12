@@ -790,7 +790,7 @@
         }, {
           "name" : "fromBookingDate",
           "in" : "query",
-          "description" : "Data inicial de filtragem.",
+          "description" : "Data inicial de filtragem. [Restrição] Deve obrigatoriamente ser enviado caso o campo fromBookingDate seja informado. Caso não seja informado, deve ser assumido o dia atual.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -803,7 +803,7 @@
         }, {
           "name" : "toBookingDate",
           "in" : "query",
-          "description" : "Data final de filtragem.",
+          "description" : "Data final de filtragem. [Restrição] Deve obrigatoriamente ser enviado caso o campo toBookingDate seja informado. Caso não seja informado, deve ser assumido o dia atual.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -2017,7 +2017,7 @@
       "fromBookingDate" : {
         "name" : "fromBookingDate",
         "in" : "query",
-        "description" : "Data inicial de filtragem.",
+        "description" : "Data inicial de filtragem. [Restrição] Deve obrigatoriamente ser enviado caso o campo fromBookingDate seja informado. Caso não seja informado, deve ser assumido o dia atual.",
         "required" : false,
         "style" : "form",
         "explode" : true,
@@ -2060,7 +2060,7 @@
       "toBookingDate" : {
         "name" : "toBookingDate",
         "in" : "query",
-        "description" : "Data final de filtragem.",
+        "description" : "Data final de filtragem. [Restrição] Deve obrigatoriamente ser enviado caso o campo toBookingDate seja informado. Caso não seja informado, deve ser assumido o dia atual.",
         "required" : false,
         "style" : "form",
         "explode" : true,
