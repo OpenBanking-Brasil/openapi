@@ -31,6 +31,13 @@
   </head>
 
   <body>
+    
+    <div id="draft-warning">
+      <p>
+        Essa é uma versão de rascunho e não deve ser utilizada para outras finalidades, você pode encontrar a documentação oficial e atualizada <a href="#">aqui</a>.
+      </p>
+    </div>
+    
     <div id="swagger-ui"></div>
 
     <script src="./swagger-ui-bundle.js" charset="UTF-8"> </script>
@@ -62,10 +69,17 @@ onComplete: function() {
           logo[0].children[0].alt = "Open Banking Brasil";
           logo[0].children[0].src = "https://openbankingbrasil.org.br/wp-content/themes/openbank//assets/img/logo-white.png";
           logo[0].style.setProperty('display','flex');
+
+          const search = new URLSearchParams(window.location.search);
+          
+          if(search.has('draft')){
+            var draftWarning = document.getElementById('draft-warning');
+            draftWarning.classList.add('show');
+          }
+          
         }
       });
       // End Swagger UI call region
-
       window.ui = ui;
     };
   </script>
