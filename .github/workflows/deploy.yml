@@ -1,10 +1,8 @@
 name: Deploy
 on:
-  workflow_dispatch:
-    inputs:
-      build_id:
-        description: 'ID of build to deploy'     
-        required: true
+  push:
+    branches:
+      - "OPB_Homologacao"
 jobs:
   deploy:
     name: Deploy Github pages
