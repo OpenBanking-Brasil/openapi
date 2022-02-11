@@ -1,6 +1,6 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Payment Initiation - Open Banking Brasil
+  title: API Payment Initiation - Open Banking Brasilll
   description: |
     API de Iniciação de Pagamentos, responsável por viabilizar as operações de iniciação de pagamentos para o Open Banking Brasil.
     Para cada uma das formas de pagamento previstas é necessário obter prévio consentimento do cliente através dos `endpoints` dedicados ao consentimento nesta API.
