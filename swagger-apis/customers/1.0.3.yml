@@ -1210,7 +1210,7 @@ components:
       enum:
         - REPRESENTANTE_LEGAL
         - PROCURADOR
-        - NAO_APLICA
+        - NAO_SE_APLICA
       example: PROCURADOR
       description: |
         Tipo de representante.
@@ -1251,18 +1251,18 @@ components:
       properties:
         latitude:
           description: |
-            Informação da Latitude referente a geolocalização informada. Entre -90 e 90.p.ex. '-23.5475000'. (2 casas antes da vírgula, 11 posições)
+            Informação da Latitude referente a geolocalização informada. Entre -90 e 90.p.ex. '-90.8365180'. (2 casas antes da vírgula, 11 posições) 
           type: string
           pattern: '^-?\d{1,2}\.\d{1,9}$'
           maxLength: 13
-          example: '-23.5475000'
+          example: '-90.8365180'
         longitude:
           description: |
-            Informação da Longitude referente a geolocalização informada. Entre -180 e 180. p.ex '-46.6361100'. (3 casas antes da vírgula, 11 posições)
+            Informação da Longitude referente a geolocalização informada. Entre -180 e 180. p.ex '-180.836519.' (3 casas antes da vírgula, 11 posições) 
           type: string
           pattern: '^-?\d{1,3}\.\d{1,8}$'
           maxLength: 13
-          example: '-46.6361100'
+          example: '-180.836519'
       additionalProperties: false
     Links:
       type: object
@@ -1308,7 +1308,7 @@ components:
       additionalProperties: false
     Meta:
       type: object
-      description: Meta informações referente à API requisitada.
+      description: Meta informações referente a API requisitada.
       required:
         - totalRecords
         - totalPages

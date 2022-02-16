@@ -27,5 +27,3 @@ FUNDO_INDICES";1;1;"";Não permitido;string;ACOES
 /data/loadingRate/prices/customerRate;customerRate;Percentual de clientes.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000
 /data/loadingRate/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.010000
 /data/loadingRate/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.300000
-/data/targetAudience;targetAudience;Público alvo (ou PF ou PJ).;Texto;2;Opcional;;"PF 
-PJ";0;1;"";Não permitido;string;PF

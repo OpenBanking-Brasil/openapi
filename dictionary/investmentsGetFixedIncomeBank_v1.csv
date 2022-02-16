@@ -6,7 +6,7 @@
 /data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/participant/urlComplementaryList;urlComplementaryList;"";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies
 /data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;45086338000178
-/data/investmentType;investmentType;Especificação do ativo em questão.<br><ol><li>CDB</li><li>RDB</li><li>LCI</li><li>LCA</li></ol>;Texto;3;Obrigatório;;"CDB 
+/data/investimentType;investimentType;Especificação do ativo em questão.<br><ol><li>CDB</li><li>RDB</li><li>LCI</li><li>LCA</li></ol>;Texto;3;Obrigatório;;"CDB 
 RDB 
 LCI 
 LCA";1;1;"";Não permitido;string;CDB
@@ -37,12 +37,8 @@ OUTROS";1;1;"";Não permitido;string;CDI
 /data/investmentConditions/minimumAmount;minimumAmount;Valor mínimo de aplicação no ativo.;Texto;19;Obrigatório;^\d{1,16}\.\d{2}$;;1;1;"";Não permitido;string;100.00
 /data/investmentConditions/redemptionTerm;redemptionTerm;Capacidade de conversão do título em dinheiro (resgate ou recompra).<br><br><ol><li>diária</li><li>na data de vencimento</li><li>diária após prazo de carência</li></ol>;Texto;29;Obrigatório;;"DIARIA 
 DATA_VENCIMENTO 
-DIARIA_PRAZO_CARENCIA";1;1;"";Não permitido;string;DIARIA
-/data/investmentConditions/expirationPeriod;expirationPeriod;Faixa de valores para prazos de vencimento e carência.;Texto;8;Obrigatório;;"1_360 
-361_1080 
-1081+";1;1;"";Não permitido;string;1081+
-/data/investmentConditions/gracePeriod;gracePeriod;Faixa de valores para prazos de vencimento e carência.;Texto;8;Obrigatório;;"1_360 
-361_1080 
-1081+";1;1;"";Não permitido;string;1081+
-/data/targetAudience;targetAudience;Público alvo (ou PF ou PJ).;Texto;2;Opcional;;"PF 
-PJ";0;1;"";Não permitido;string;PF
+DIARIA_APOS_PRAZO_CARENCIA";1;1;"";Não permitido;string;DIARIA
+/data/investmentConditions/minimumExpirationTerm;minimumExpirationTerm;Prazo mínimo referente ao vencimento do título;Número;;Obrigatório;;;1;1;"";Não permitido;number;30
+/data/investmentConditions/maximumExpirationTerm;maximumExpirationTerm;Prazo máximo referente ao vencimento do título;Número;;Obrigatório;;;1;1;"";Não permitido;number;720
+/data/investmentConditions/minimumGracePeriod;minimumGracePeriod;Prazo mínimo da carência, ou seja, quando passa a ser possível resgatar o investimento;Número;;Obrigatório;;;1;1;"";Não permitido;number;5
+/data/investmentConditions/maximumGracePeriod;maximumGracePeriod;Prazo máximo da carência, ou seja, quando passa a ser possível resgatar o investimento;Número;;Obrigatório;;;1;1;"";Não permitido;number;180
