@@ -5,7 +5,7 @@ on:
       - "OPB_Homologacao"
   pull_request:
     branches:
-      - "main"
+      - "**"
 jobs:
   deploy:
     env:
