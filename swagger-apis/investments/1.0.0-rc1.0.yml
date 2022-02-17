@@ -160,7 +160,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/OpenDataMeta'
+          $ref: '#/components/schemas/Phase4Meta'
       additionalProperties: false
     OKResponseInvestmentsFixedIncomeBank:
       type: object
@@ -176,7 +176,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/OpenDataMeta'
+          $ref: '#/components/schemas/Phase4Meta'
       additionalProperties: false
     OKResponseInvestmentsFixedIncomeCredit:
       type: object
@@ -192,7 +192,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/OpenDataMeta'
+          $ref: '#/components/schemas/Phase4Meta'
       additionalProperties: false
     OKResponseInvestmentsVariableIncome:
       type: object
@@ -208,7 +208,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/OpenDataMeta'
+          $ref: '#/components/schemas/Phase4Meta'
       additionalProperties: false
     OKResponseInvestmentsTreasure:
       type: object
@@ -224,7 +224,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/OpenDataMeta'
+          $ref: '#/components/schemas/Phase4Meta'
       additionalProperties: false
     NoIdentificationFrequencyDistribution:
       type: object
@@ -289,20 +289,12 @@ components:
           maxLength: 8
           pattern: '^\d{1}\.\d{1,6}$'
       additionalProperties: false
-    EnumDistinctTargetAudience:
-      type: string
-      description: Público alvo (ou PF ou PJ).
-      maxLength: 2
-      enum:
-        - PF
-        - PJ
-      example: PF
     InvestmentsFixedIncomeBank:
       type: object
       required:
         - participant
         - issuerInstitutionCnpjNumber
-        - investmentType
+        - investimentType
         - index
         - investmentConditions
       properties:
@@ -314,14 +306,12 @@ components:
           maxLength: 14
           pattern: '^\d{14}$'
           example: '45086338000178'
-        investmentType:
+        investimentType:
           $ref: '#/components/schemas/EnumInvestmentsFixedIncomeBankProductType'
         index:
           $ref: '#/components/schemas/InvestmentsFixedIncomeBankIndex'
         investmentConditions:
           $ref: '#/components/schemas/InvestmentsFixedIncomeBankInvestmentConditions'
-        targetAudience:
-          $ref: '#/components/schemas/EnumDistinctTargetAudience'
       additionalProperties: false
     InvestmentsFixedIncomeBankIndex:
       type: object
@@ -339,7 +329,7 @@ components:
         issueRemunerationRate:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
       additionalProperties: false
-    InvestmentFundMinimumAmount:
+    InvestimentFundMinimumAmount:
       type: object
       required:
         - value
@@ -363,8 +353,10 @@ components:
       required:
         - minimumAmount
         - redemptionTerm
-        - expirationPeriod
-        - gracePeriod
+        - minimumExpirationTerm
+        - maximumExpirationTerm
+        - minimumGracePeriod
+        - maximumGracePeriod
       properties:
         minimumAmount:
           type: string
@@ -375,10 +367,30 @@ components:
           example: '100.00'
         redemptionTerm:
           $ref: '#/components/schemas/EnumInvestmentsFixedIncomeBankRedemptionTerm'
-        expirationPeriod:
-          $ref: '#/components/schemas/InvestmentsFundEnumExpirationGracePeriod'
-        gracePeriod:
-          $ref: '#/components/schemas/InvestmentsFundEnumExpirationGracePeriod'
+        minimumExpirationTerm:
+          type: number
+          format: int32
+          description: Prazo mínimo referente ao vencimento do título
+          minimum: 1
+          example: 30
+        maximumExpirationTerm:
+          type: number
+          format: int32
+          description: Prazo máximo referente ao vencimento do título
+          minimum: 1
+          example: 720
+        minimumGracePeriod:
+          type: number
+          format: int32
+          description: 'Prazo mínimo da carência, ou seja, quando passa a ser possível resgatar o investimento'
+          minimum: 0
+          example: 5
+        maximumGracePeriod:
+          type: number
+          format: int32
+          description: 'Prazo máximo da carência, ou seja, quando passa a ser possível resgatar o investimento'
+          minimum: 0
+          example: 180
       additionalProperties: false
     InvestmentsFixedIncomeCredit:
       type: object
@@ -395,8 +407,6 @@ components:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
         loadingRate:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
-        targetAudience:
-          $ref: '#/components/schemas/EnumDistinctTargetAudience'
       additionalProperties: false
     InvestmentsFund:
       type: object
@@ -442,16 +452,6 @@ components:
         taxation:
           $ref: '#/components/schemas/EnumInvestmentsFundTaxation'
       additionalProperties: false
-    InvestmentsFundEnumExpirationGracePeriod:
-      type: string
-      maxLength: 8
-      enum:
-        - '1_360'
-        - '361_1080'
-        - 1081+
-      example: 1081+
-      description: |
-        Faixa de valores para prazos de vencimento e carência. 
     InvestmentsFundAdmin:
       type: object
       required:
@@ -557,8 +557,12 @@ components:
           minimum: 0
         paymentTerm:
           $ref: '#/components/schemas/EnumInvestmentsFundGeneralConditionsTermType'
-        gracePeriod:
-          $ref: '#/components/schemas/InvestmentsFundEnumExpirationGracePeriod'
+        graceDays:
+          type: integer
+          format: int32
+          description: 'Estabelece um período em quantidade de dias corridos em que o investidor não pode resgatar os recursos aplicados no fundo. Caso ocorra resgate antes do período, o investidor perderá a rentabilidade do período. Caso não exista, não informe o campo.'
+          minimum: 0
+          example: 60
       additionalProperties: false
     InvestmentsFundGeneralConditionsApplication:
       type: object
@@ -585,7 +589,7 @@ components:
         - fundQuotaType
       properties:
         minimumAmount:
-          $ref: '#/components/schemas/InvestmentFundMinimumAmount'
+          $ref: '#/components/schemas/InvestimentFundMinimumAmount'
         redemption:
           $ref: '#/components/schemas/InvestmentsFundGeneralConditionsRedemption'
         application:
@@ -608,8 +612,6 @@ components:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
         loadingRate:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
-        targetAudience:
-          $ref: '#/components/schemas/EnumDistinctTargetAudience'
       additionalProperties: false
     InvestmentsVariableIncome:
       type: object
@@ -626,8 +628,6 @@ components:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
         loadingRate:
           $ref: '#/components/schemas/NoIdentificationFrequencyDistribution'
-        targetAudience:
-          $ref: '#/components/schemas/EnumDistinctTargetAudience'
       additionalProperties: false
     EnumInvestmentsFixedIncomeBankIndexer:
       type: string
@@ -847,7 +847,7 @@ components:
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
       additionalProperties: false
-    OpenDataMeta:
+    Phase4Meta:
       type: object
       description: Meta informações referente à API requisitada.
       required:
@@ -971,7 +971,30 @@ components:
                       maxLength: 2048
                   additionalProperties: false
               meta:
-                $ref: '#/components/schemas/OpenDataMeta'
+                type: object
+                description: Meta informações referente à API requisitada.
+                required:
+                  - totalRecords
+                  - totalPages
+                  - requestDateTime
+                properties:
+                  totalRecords:
+                    type: integer
+                    format: int32
+                    description: Número total de registros no resultado
+                    example: 1
+                  totalPages:
+                    type: integer
+                    format: int32
+                    description: Número total de páginas no resultado
+                    example: 1
+                  requestDateTime:
+                    description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
+                    type: string
+                    maxLength: 20
+                    format: date-time
+                    example: '2021-05-21T08:30:00Z'
+                additionalProperties: false
             additionalProperties: false
     TooManyRequests:
       description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'

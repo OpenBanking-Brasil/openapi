@@ -1,6 +1,6 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Payment Initiation - Open Banking Brasilll
+  title: API Payment Initiation - Open Banking Brasil
   description: |
     API de Iniciação de Pagamentos, responsável por viabilizar as operações de iniciação de pagamentos para o Open Banking Brasil.
     Para cada uma das formas de pagamento previstas é necessário obter prévio consentimento do cliente através dos `endpoints` dedicados ao consentimento nesta API.
@@ -295,110 +295,10 @@ paths:
             - payments
         - OAuth2ClientCredentials:
             - payments
-  /ted-tef/payments:
-    post:
-      tags:
-        - Pagamentos
-      summary: Criar iniciação de pagamento ted-tef.
-      operationId: paymentsPostTedTefPayments
-      description: Método para criar uma iniciação de pagamento ted-tef.
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-        - $ref: '#/components/parameters/xFapiAuthDate'
-        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
-        - $ref: '#/components/parameters/xFapiInteractionId'
-        - $ref: '#/components/parameters/xCustomerUserAgent'
-        - $ref: '#/components/parameters/XIdempotencyKey'
-      requestBody:
-        content:
-          application/jwt:
-            schema:
-              $ref: '#/components/schemas/CreateTedTefPayment'
-        description: Payload para criação da iniciação do pagamento ted-tef.
-        required: true
-      responses:
-        '201':
-          $ref: '#/components/responses/201PaymentsInitiationTedTefPaymentCreated'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '405':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '406':
-          $ref: '#/components/responses/NotAcceptable'
-        '415':
-          $ref: '#/components/responses/UnsupportedMediaType'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntityTedTefPayments'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        default:
-          description: Erro inesperado.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-      security:
-        - OAuth2AuthorizationCode:
-            - 'consent:consentId'
-            - payments
-  '/ted-tef/payments/{paymentId}':
-    get:
-      tags:
-        - Pagamentos
-      summary: Consultar iniciação de pagamento ted-tef.
-      operationId: paymentsGetTedTefPaymentsPaymentId
-      description: Método para consultar uma iniciação de pagamento ted-tef.
-      parameters:
-        - $ref: '#/components/parameters/paymentId'
-        - $ref: '#/components/parameters/Authorization'
-        - $ref: '#/components/parameters/xFapiAuthDate'
-        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
-        - $ref: '#/components/parameters/xFapiInteractionId'
-        - $ref: '#/components/parameters/xCustomerUserAgent'
-      responses:
-        '200':
-          $ref: '#/components/responses/200PaymentsInitiationTedTefPaymentIdRead'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '405':
-          $ref: '#/components/responses/MethodNotAllowed'
-        '406':
-          $ref: '#/components/responses/NotAcceptable'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        default:
-          description: Erro inesperado.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseError'
-      security:
-        - OAuth2AuthorizationCode:
-            - payments
-        - OAuth2ClientCredentials:
-            - payments
 components:
   schemas:
     422ResponseErrorCreateConsent:
       type: object
-      description: |
-        <b>[Regra negócio] A detentora de conta deve validar se o consentimento para pagamento de TED está dentro de sua grade funcionamento para o arranjo.</b>
       required:
         - errors
       properties:
@@ -421,10 +321,6 @@ components:
                   - DATA_PGTO_INVALIDA
                   - DETALHE_PGTO_INVALIDO
                   - NAO_INFORMADO
-                  - AGENDAMENTO_INVALIDO
-                  - TIPO_CONTA_NAO_SUPORTADO
-                  - JANELA_HORARIO_NAO_PERMITIDA
-                  - VALOR_ACIMA_LIMITE
                 example: FORMA_PGTO_INVALIDA
                 description: |
                   Códigos de erros previstos na criação de consentimento para a iniciação de pagamentos:  
@@ -432,10 +328,6 @@ components:
                   • DATA_PGTO_INVALIDA: Data de pagamento inválida.  
                   • DETALHE_PGTO_INVALIDO: Detalhe do pagamento inválido.  
                   • NAO_INFORMADO: Não informado.   
-                  • AGENDAMENTO_INVALIDO: Agendamento inválido.   
-                  • TIPO_CONTA_NAO_SUPORTADO: Tipo de conta não suportado pelo arranjo alvo.   
-                  • JANELA_HORARIO_NAO_PERMITIDA: Janela de horário do arranjo de pagamento alvo não permitida.   
-                  • VALOR_ACIMA_LIMITE: O valor (ou quantidade de transações) ultrapassa a faixa de limite parametrizada na detentora para permitir a realização de transações pelo cliente.
               title:
                 type: string
                 maxLength: 255
@@ -447,10 +339,6 @@ components:
                   • DATA_PGTO_INVALIDA: Data de pagamento inválida. 
                   • DETALHE_PGTO_INVALIDO: Detalhe do pagamento inválido.
                   • NAO_INFORMADO: Não informado.    
-                  • AGENDAMENTO_INVALIDO: Agendamento inválido.    
-                  • TIPO_CONTA_NAO_SUPORTADO: Tipo de conta não suportado pelo arranjo alvo.    
-                  • JANELA_HORARIO_NAO_PERMITIDA: Janela de horário do arranjo de pagamento alvo não permitida.    
-                  • VALOR_ACIMA_LIMITE: O valor (ou quantidade de transações) ultrapassa a faixa de limite parametrizada na detentora para permitir a realização de transações pelo cliente.
               detail:
                 type: string
                 maxLength: 2048
@@ -462,10 +350,6 @@ components:
                   • DATA_PGTO_INVALIDA – Data de pagamento inválida no contexto, por exemplo, data no passado. Para pagamentos únicos deve ser informada a data atual, do dia corrente.  
                   • DETALHE_PGTO_INVALIDO: O campo [nome_campo] não atende os requisitos de preenchimento.  
                   • NAO_INFORMADO – Não reportado/identificado pela instituição detentora de conta.  
-                  • AGENDAMENTO_INVALIDO – O campo data.payment.schedule.single.date deverá sempre ser no mínimo D+1 corrido, ou seja, a data imediatamente posterior em relação a data do consentimento considerando o fuso horário de Brasília. O campo data.payment.schedule.single.date deverá ser no máximo um ano corrido a partir da data do consentimento considerando o fuso horário de Brasília.    
-                  • TIPO_CONTA_NAO_SUPORTADO: Tipo de conta não suportado pelo arranjo alvo.    
-                  • JANELA_HORARIO_NAO_PERMITIDA: Janela de horário do arranjo de pagamento alvo não permitida.    
-                  • VALOR_ACIMA_LIMITE: O valor (ou quantidade de transações) ultrapassa a faixa de limite parametrizada na detentora para permitir a realização de transações pelo cliente.
             additionalProperties: false
         meta:
           $ref: '#/components/schemas/Meta'
@@ -526,85 +410,6 @@ components:
         meta:
           $ref: '#/components/schemas/Meta'
       additionalProperties: false
-    422ResponseErrorCreateTedTefPayment:
-      type: object
-      required:
-        - errors
-      properties:
-        errors:
-          type: array
-          minItems: 1
-          maxItems: 9
-          items:
-            type: object
-            required:
-              - code
-              - title
-              - detail
-            properties:
-              code:
-                $ref: '#/components/schemas/EnumErrorsCreateTedTefPayment'
-              title:
-                type: string
-                maxLength: 255
-                pattern: \w*\W*
-                example: Acima do limite estabelecido.
-                description: |
-                  Título específico do erro reportado, de acordo com o código enviado:
-                  • VALOR_ACIMA_LIMITE: Acima do limite estabelecido.
-                  • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: Divergência entre pagamento e consentimento.
-                  • CONSENTIMENTO_INVALIDO: Consentimento inválido.
-                  • SALDO_INSUFICIENTE: Saldo insuficiente.
-                  • JANELA_OPER_INVALIDA: Janela de operação inválida.
-                  • LIQUIDACAO_ERRO_INESPERADO: Erro na liquidação do pagamento no arranjo.
-                  • NAO_INFORMADO: Não informado.
-                  • AGENCIA_REQUERIDA: Pagamento inválido.
-                  • FINALIDADE_REQUERIDA: Pagamento inválido.
-              detail:
-                type: string
-                maxLength: 2048
-                pattern: \w*\W*
-                example: A conta selecionada não possui saldo suficiente para realizar o pagamento.
-                description: |
-                  Descrição específica do erro de acordo com o código reportado:
-                  • VALOR_ACIMA_LIMITE: Acima do limite estabelecido.
-                  • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
-                  • CONSENTIMENTO_INVALIDO: Consentimento inválido (status diferente de "AUTHORISED" ou está expirado).
-                  • SALDO_INSUFICIENTE: A conta selecionada não possui saldo suficiente para realizar o pagamento.
-                  • JANELA_OPER_INVALIDA: Requisição está fora da janela de funcionamento.
-                  • LIQUIDACAO_ERRO_INESPERADO: Erro na liquidação do pagamento no arranjo alvo.
-                  • NAO_INFORMADO: Não reportado/identificado pela instituição detentora de conta.
-                  • AGENCIA_REQUERIDA: O tipo de conta alvo requer as informações de agência.
-                  • FINALIDADE_REQUERIDA: Finalidade é requerida para o pagamento no arranjo alvo.
-            additionalProperties: false
-        meta:
-          $ref: '#/components/schemas/Meta'
-      additionalProperties: false
-    EnumErrorsCreateTedTefPayment:
-      type: string
-      maxLength: 25
-      enum:
-        - VALOR_ACIMA_LIMITE
-        - PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO
-        - CONSENTIMENTO_INVALIDO
-        - SALDO_INSUFICIENTE
-        - JANELA_OPER_INVALIDA
-        - LIQUIDACAO_ERRO_INESPERADO
-        - NAO_INFORMADO
-        - AGENCIA_REQUERIDA
-        - FINALIDADE_REQUERIDA
-      example: VALOR_ACIMA_LIMITE
-      description: |
-        Códigos de erros previstos na criação da iniciação de pagamento:
-        • VALOR_ACIMA_LIMITE - Indica que o pagamento foi rejeitado por ter um valor maior ou quantidade pagamentos supere o limite pré-estabelecido pela detentora de conta.
-        • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO - Indica que o pagamento foi rejeitado devido aos incompatibilidade com os dados do consentimento associado.
-        • CONSENTIMENTO_INVALIDO - Indica que o pagamento foi rejeitado devido ao consentimento vinculado não estar em um estado esperado pelo fluxo de pagamento.
-        • SALDO_INSUFICIENTE - Indica que o pagamento foi rejeitado por insuficiência de fundos na conta do pagador.
-        • JANELA_OPER_INVALIDA - Indica que o pagamento foi rejeitado devido ao fato da janela de horário de pagamentos permitida do arranjo enccerrou.
-        • LIQUIDACAO_ERRO_INESPERADO - Indica que ocorreu um problema inesperado na liquidação do pagamento junto ao arranjo alvo.
-        • NAO_INFORMADO - Indica que o pagamento foi rejeitado por uma situação não informada pela detentora.
-        • AGENCIA_REQUERIDA - O tipo de conta alvo requer as informações de agência.
-        • FINALIDADE_REQUERIDA - Finalidade é requerida para o pagamento no arranjo alvo.
     BusinessEntity:
       type: object
       description: 'Usuário (pessoa jurídica) que encontra-se logado na instituição Iniciadora de Pagamento. [Restrição] Preenchimento obrigatório se usuário logado na instituição Iniciadora de Pagamento for um CNPJ (pessoa jurídica).'
@@ -637,246 +442,24 @@ components:
         - data
       properties:
         data:
-          $ref: '#/components/schemas/CreatePaymentConsentData'
-      additionalProperties: false
-    CreatePaymentConsentData:
-      type: object
-      description: Objeto contendo as informações de consentimento para a iniciação de pagamento individual.
-      required:
-        - loggedUser
-        - creditor
-        - payment
-      properties:
-        loggedUser:
-          $ref: '#/components/schemas/LoggedUser'
-        businessEntity:
-          $ref: '#/components/schemas/BusinessEntity'
-        creditor:
-          $ref: '#/components/schemas/Identification'
-        debtorAccount:
-          $ref: '#/components/schemas/DebtorAccount'
-        payment:
-          oneOf:
-            - $ref: '#/components/schemas/PixPaymentConsent'
-            - $ref: '#/components/schemas/TedPaymentConsent'
-            - $ref: '#/components/schemas/TefPaymentConsent'
-          discriminator:
-            propertyName: type
-            mapping:
-              PIX: PixPaymentConsent.yaml
-              TED: TedPaymentConsent.yaml
-              TEF: TefPaymentConsent.yaml
-      additionalProperties: false
-    PaymentConsent:
-      type: object
-      description: Objeto contendo dados de pagamento para consentimento.
-      required:
-        - currency
-        - amount
-        - details
-      properties:
-        date:
-          type: string
-          format: date
-          maxLength: 10
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
-          example: '2021-01-01'
-          description: |
-            Mutuamente exclusivo com o objeto schedule. Este campo é obrigatório no caso de pagamento único. Neste caso, o objeto schedule não deve ser informado.
-        schedule:
-          oneOf:
-            - $ref: '#/components/schemas/Schedule'
-        currency:
-          type: string
-          maxLength: 3
-          pattern: '^([A-Z]{3})$'
-          example: BRL
-          description: |
-            Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.
-            Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
-        amount:
-          type: string
-          minLength: 4
-          maxLength: 19
-          pattern: '^((\d{1,16}\.\d{2}))$'
-          example: '100000.12'
-          description: |
-            Valor da transação com 2 casas decimais.
-      additionalProperties: false
-    PixPaymentConsent:
-      allOf:
-        - $ref: '#/components/schemas/PaymentConsent'
-      type: object
-      description: Objeto contendo dados de pagamento para consentimento.
-      required:
-        - details
-        - type
-      properties:
-        ibgeTownCode:
-          type: string
-          minLength: 7
-          maxLength: 7
-          pattern: '^\d{7}$'
-          example: '5300108'
-          description: |
-            Traz o código da cidade segundo o IBGE (Instituto Brasileiro de Geografia e Estatística).
-            Para o preenchimento deste campo, o Iniciador de Pagamentos deve seguir a orientação do arranjo da forma de pagamento.
-            O preenchimento do campo tanto em pix/payments quanto /consents deve ser igual. Caso haja divergência dos valores, a instituição deve retornar HTTP 422 com o código de erro PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO.
-            Este campo faz referência ao campo CodMun do arranjo Pix.
-        details:
-          $ref: '#/components/schemas/Details'
-        type:
-          $ref: '#/components/schemas/EnumPixPaymentType'
-      additionalProperties: false
-    TedPaymentConsent:
-      allOf:
-        - $ref: '#/components/schemas/PaymentConsent'
-      type: object
-      description: |
-        Objeto contendo dados de pagamento para consentimento.
-
-        [Regra de negócio] O arranjo TED pode apresentar restrições de limites para transferências estipuladas nas detentoras de conta, devendo isso ser considerado ao criar o consentimento.
-
-        [Regra de negócio] A detentora de conta deve validar se o consentimento para pagamento de TED está com o valor dentro dos limites de transferência por ela estabelecidos.
-      required:
-        - creditorAccount
-        - purpose
-        - type
-      properties:
-        creditorAccount:
-          $ref: '#/components/schemas/CreditorAccount'
-        purpose:
-          type: integer
-          maxLength: 5
-          enum:
-            - 1
-            - 10
-            - 100
-            - 101
-            - 103
-            - 104
-            - 107
-            - 108
-            - 109
-            - 11
-            - 110
-            - 111
-            - 112
-            - 113
-            - 114
-            - 117
-            - 12
-            - 121
-            - 123
-            - 124
-            - 13
-            - 131
-            - 132
-            - 136
-            - 139
-            - 14
-            - 149
-            - 15
-            - 150
-            - 157
-            - 175
-            - 18
-            - 19
-            - 2
-            - 200
-            - 201
-            - 202
-            - 203
-            - 204
-            - 205
-            - 206
-            - 207
-            - 208
-            - 209
-            - 23
-            - 27
-            - 28
-            - 29
-            - 3
-            - 30
-            - 300
-            - 301
-            - 302
-            - 303
-            - 31
-            - 33
-            - 34
-            - 35
-            - 36
-            - 37
-            - 38
-            - 39
-            - 4
-            - 40
-            - 41
-            - 42
-            - 43
-            - 44
-            - 45
-            - 47
-            - 5
-            - 50
-            - 500
-            - 501
-            - 502
-            - 504
-            - 505
-            - 507
-            - 508
-            - 509
-            - 510
-            - 511
-            - 512
-            - 513
-            - 514
-            - 515
-            - 516
-            - 517
-            - 518
-            - 519
-            - 520
-            - 6
-            - 7
-            - 8
-            - 9
-            - 97
-            - 99999
-          example: 1
-          description: "Para o caso de TED o campo é obrigatório, para o caso de TEF não. É responsabilidade da iniciadora desenvolver esse condicionante de modo a garantir a usabilidade especificada pelo GT UX.\n\n1 - Pagamento de Impostos, Tributos e Taxas\t</br>\n2 - Pagamento à Concessionárias de Serviço Público\t</br>\n3 - Pagamentos de Dividendos\t</br>\n4 - Pagamento de Salários\t</br>\n5 - Pagamento de Fornecedores\t</br>\n6 - Pagamento de Honorários\t</br>\n7 - Pagamento de Aluguéis e Taxas de Condomínio\t</br>\n8 - Pagamento de Duplicatas e Títulos\t</br>\n9 - Pagamento de Mensalidade Escolar\t</br>\n10 - Crédito em Conta\t</br>\n11 - Pagamento a Corretoras\t</br>\n12 - Pagamento de Boleto Bancário em Cartório\t</br>\n13 - Pagamento de Tarifas pela Prestação de Serviços de Arrecadação de Convênios\t</br>\n14 - Repasse de Valores Referentes a Títulos Liquidados em Cartórios de Protesto\t</br>\n15 - Liquidação Financeira de Operadora de Cartão\t</br>\n18 - Operações Seguro Habitacional - SFH\t</br>\n19 - Operações do FDS - Caixa\t</br>\n23 - Taxa de Administração\t</br>\n27 - Pagamento de Acordo / Execução Judicial\t</br>\n28 - Liquidação de Empréstimos Consignados\t</br>\n29 - Pagamento de bolsa auxílio\t</br>\n30 - Remuneração a cooperado\t</br>\n31 - Pagamento de prebenda (Remuneração a padres e sacerdotes)\t</br>\n33 - Pagamento de juros sobre capital próprio\t</br>\n34 - Pagamento de rendimentos ou amortização s/ cotas e/ou debêntures\t</br>\n35 - Taxa de Serviço\t</br>\n36 - Pagamento de cheque para não correntista\t</br>\n37 - Pagamento de juros e/ou amortização de títulos depositados em garantia nas Câmaras\t</br>\n38 - Estorno ou Restituição - Diversos\t</br>\n39 - Pagamento de Vale Transporte\t</br>\n40 - Simples Nacional\t</br>\n41 - Repasse de valores para o FUNDEB\t</br>\n42 - Repasse de Valores de Convênio Centralizado\t</br>\n43 - Patrocínio com Incentivo Fiscal\t</br>\n44 - Doação com Incentivo Fiscal\t</br>\n45 - Transferência de conta corrente de instituição não bancária para sua Conta de Liquidação\t</br>\n47 - Pagamento de Rescisão de Contrato de Trabalho\t</br>\n50 - Reembolso de despesas com estruturação de operações de renda fixa e variável\t</br>\n97 - Compra de Moeda Estrangeira pelo FSB - Fundo Soberano do Brasil\t</br>\n100 - Depósito Judicial\t</br>\n101 - Pensão Alimentícia\t</br>\n103 - Cessão de créditos - Liquid.principal por aquis.créditos ou direitos creditórios ou fluxo de caixa garant.por créditos, por ordem cliente PJ financ.\t</br>\n104 - Cessão de créditos - Liquidação principal por aquisição de créditos ou direitos creditórios, por ordem de FIDC ou cia securitizadora\t</br>\n107 - Cessão de créditos - Repasse contratual de fluxo de caixa ou de recebíveis pagos, por ordem de cliente PJ financeira\t</br>\n108 - Cessão de créditos - Repasse contratual de fluxo de caixa ou de recebíveis pagos antecipadamente, por ordem de cliente PJ financeira\t</br>\n109 - Cessão de créditos - Ajustes diversos\t</br>\n110 - Transferência entre contas de mesma titularidade\t</br>\n111 - Crédito para investidor em cliente da IF Creditada\t</br>\n112 - Débito de investidor em cliente da IF Debitada\t</br>\n113 - Pagamento de Operações de Crédito por Cliente\t</br>\n114 - Resgate de aplicação financeira de cliente para conta de sua titularidade\t</br>\n117 - Aplicação financeira em nome do cliente remetente\t</br>\n121 - Pagamento da TIR - Pix Saque e/ou Pix Troco\t</br>\n123 - Cessão de créditos - Liquid.princ.por recompra de créditos ou direitos creditórios ou fluxo de caixa garant.por créditos, por ordem cliente PJ financ.\t</br>\n124 - Cessão de créditos - Liquidação principal por recompra de créditos ou direitos creditórios, por ordem de FIDC ou cia securitizadora\t</br>\n131 - FGCoop - Recolhimento Fundo Garantidor do Cooperativismo de Crédito\t</br>\n132 - FGCoop - devolução de recolhimento a maior\t</br>\n136 - FGTS - Saque Emergencial\t</br>\n139 - Crédito ao consumidor decorrente de programa de incentivo fiscal\t</br>\n149 - Auxílio Emergencial Lei 13.982\t</br>\n150 - Benefício Emergencial de Preservação do Emprego e da Renda - BEm\t</br>\n157 - Tributos Municipais ISS - LCP 157\t</br>\n175 - Tributos Municipais ISS TERCEIROS - LCP 157\t</br>\n200 - Transferência Internacional em Reais\t</br>\n201 - Ajuste Posição Mercado Futuro\t</br>\n202 - Repasse de Valores do BNDES\t</br>\n203 - Liquidação de Compromissos Junto ao BNDES\t</br>\n204 - Operações de Compra e Venda de Ações - Bolsas de Valores e Mercado de Balcão\t</br>\n205 - Contratos Referenciados em Ações ou Índices de Ações - Bolsas de Valores, de Mercadorias e de futuros\t</br>\n206 - Operação de Câmbio - Não Interbancária\t</br>\n207 - Operações no Mercado de Renda Fixa e de Renda Variável com Utilização de Intermediário\t</br>\n208 - Operação de Câmbio - Mercado Interbancário - Instituições sem conta Reservas Bancárias\t</br>\n209 - Pagamento de Operações com identificação de destinatário final\t</br>\n300 - Restituição de Imposto de Renda\t</br>\n301 - Ordem Bancária do Tesouro - OBT\t</br>\n302 - Pagamento de multas ao BACEN por atrasos de importação\t</br>\n303 - Restituição de tributos - RFB\t</br>\n500 - Restituição de Prêmios de Seguros\t</br>\n501 - Pagamento de Indenização de Sinistro de Seguro\t</br>\n502 - Pagamento de Prêmio de Co-Seguro\t</br>\n504 - Pagamento de Indenização de Sinistro de Co-Seguro\t</br>\n505 - Pagamento de Prêmio de Resseguro\t</br>\n507 - Pagamento de Indenização de Sinistro de Resseguro\t</br>\n508 - Restituição de Indenização de Sinistro de Resseguro\t</br>\n509 - Pagamento de Despesas com Sinistros\t</br>\n510 - Pagamento de Inspeções/Vistorias Prévias\t</br>\n511 - Pagamento de Resgate de Título da Capitalização\t</br>\n512 - Pagamento de Sorteio de Título de Capitalização\t</br>\n513 - Pagamento de Devolução de Mensalidade de Título de Capitalização\t</br>\n514 - Restituição de Contribuição de Plano Previdenciário\t</br>\n515 - Pagamento de Benefício Previdenciário de Pecúlio\t</br>\n516 - Pagamento de Benefício Previdenciário de Pensão\t</br>\n517 - Pagamento de Benefício Previdenciário de Aposentadoria\t</br>\n518 - Pagamento de Resgate Previdenciário\t</br>\n519 - Pagamento de Comissão de Corretagem\t</br>\n520 - Pagamento de Transferências/Portabilidade de Reserva de Seguro/Previdência\t</br>\n99999 - Outros\t</br>\n"
-        purposeAdditionalInfo:
-          type: string
-          maxLength: 100
-          pattern: \w*\W*
-          example: Informações adicionais
-          description: |
-            Texto livre para complementar informação relativa ao campo purpose.
-            [Restrição] Preencher quando purpose for igual OUTROS.
-        type:
-          $ref: '#/components/schemas/EnumTedPaymentType'
-      additionalProperties: false
-    TefPaymentConsent:
-      allOf:
-        - $ref: '#/components/schemas/PaymentConsent'
-      type: object
-      description: |
-        Objeto contendo dados de pagamento para consentimento.
-
-        [Regra de negócio] O arranjo TEF pode apresentar restrições de limites para transferências estipuladas nas detentoras de conta, devendo isso ser considerado ao criar o consentimento.
-
-        [Regra de negócio] A detentora de conta deve validar se o consentimento para pagamento de TEF está com o valor dentro dos limites de transferência por ela estabelecidos.
-      required:
-        - creditorAccount
-        - type
-      properties:
-        creditorAccount:
-          $ref: '#/components/schemas/CreditorAccount'
-        type:
-          $ref: '#/components/schemas/EnumTefPaymentType'
+          type: object
+          description: Objeto contendo as informações de consentimento para a iniciação de pagamento individual.
+          required:
+            - loggedUser
+            - creditor
+            - payment
+          properties:
+            loggedUser:
+              $ref: '#/components/schemas/LoggedUser'
+            businessEntity:
+              $ref: '#/components/schemas/BusinessEntity'
+            creditor:
+              $ref: '#/components/schemas/Identification'
+            payment:
+              $ref: '#/components/schemas/PaymentConsent'
+            debtorAccount:
+              $ref: '#/components/schemas/DebtorAccount'
+          additionalProperties: false
       additionalProperties: false
     CreatePixPayment:
       type: object
@@ -913,7 +496,7 @@ components:
             - QRES - QR code estático
             - INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.
         payment:
-          $ref: '#/components/schemas/Payment'
+          $ref: '#/components/schemas/PaymentPix'
         creditorAccount:
           $ref: '#/components/schemas/CreditorAccount'
         remittanceInformation:
@@ -990,7 +573,7 @@ components:
     CreditorAccount:
       type: object
       description: |
-        Objeto que contém a identificação da conta de destino do beneficiário/recebedor.
+        Objeto que contém a identificação da conta de destino do beneficiário/recebedor.  
       required:
         - ispb
         - number
@@ -1010,9 +593,9 @@ components:
           pattern: '^\d{4}$'
           example: '1774'
           description: |
-            Código da Agência emissora da conta sem dígito.
-            (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,
-            no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+            Código da Agência emissora da conta sem dígito.  
+            (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
+            no exercício de atividades da instituição, não podendo ser móvel ou transitória).  
             [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
         number:
           type: string
@@ -1021,7 +604,7 @@ components:
           pattern: '^\d{3,20}$'
           example: '1234567890'
           description: |
-            Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),
+            Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
             se houver valor alfanumérico, este deve ser convertido para 0.
         accountType:
           $ref: '#/components/schemas/EnumAccountPaymentsType'
@@ -1137,16 +720,14 @@ components:
         - TRAN
       example: CACC
       description: |
-        Tipos de contas usadas para pagamento via Pix.
-        Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,
-        conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.
-        Segue descrição de cada valor do ENUM para o escopo do Pix.
-        CACC - Current - Conta Corrente.
-        SLRY - Salary - Conta-Salário.
-        SVGS - Savings - Conta de Poupança.
+        Tipos de contas usadas para pagamento via Pix.  
+        Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
+        conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.  
+        Segue descrição de cada valor do ENUM para o escopo do Pix.  
+        CACC - Current - Conta Corrente.  
+        SLRY - Salary - Conta-Salário.  
+        SVGS - Savings - Conta de Poupança.  
         TRAN - TransactingAccount - Conta de Pagamento pré-paga.
-
-        [Restrição] O <b>campo data.payment.creditorAccount.accountType</b> quando o arranjo alvo for TED só suportará os tipos <b>CACC</b> (Conta corrente), <b>SVGS</b> (Poupança) e <b>TRAN</b> (Conta de Pagamento pré-paga).<br/><br/>
     EnumAuthorisationStatusType:
       type: string
       maxLength: 22
@@ -1243,7 +824,7 @@ components:
         - ACSC
         - ACCC
         - RJCT
-      example: RJCT
+      example: PDNG
       description: |
         Estado atual da iniciação de pagamento. O estado evolui na seguinte ordem:  
         1. PDNG (PENDING) - Iniciação de pagamento ou transação de pagamento está pendente. Checagens adicionais em realização.  
@@ -1256,28 +837,12 @@ components:
 
         Em caso insucesso:  
         RJCT (REJECTED) - Instrução de pagamento rejeitada.
-    EnumPixPaymentType:
+    EnumPaymentType:
       type: string
       maxLength: 3
       enum:
         - PIX
       example: PIX
-      description: |
-        Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.
-    EnumTedPaymentType:
-      type: string
-      maxLength: 3
-      enum:
-        - TED
-      example: TED
-      description: |
-        Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.
-    EnumTefPaymentType:
-      type: string
-      maxLength: 3
-      enum:
-        - TEF
-      example: TEF
       description: |
         Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.
     EnumRejectionReasonType:
@@ -1462,6 +1027,58 @@ components:
           format: date-time
           example: '2021-05-21T08:30:00Z'
       additionalProperties: false
+    PaymentConsent:
+      type: object
+      description: Objeto contendo dados de pagamento para consentimento.
+      required:
+        - type
+        - currency
+        - amount
+        - details
+      properties:
+        type:
+          $ref: '#/components/schemas/EnumPaymentType'
+        schedule:
+          oneOf:
+            - $ref: '#/components/schemas/Schedule'
+        date:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2021-01-01'
+          description: |
+            Mutuamente exclusivo com o objeto schedule. Este campo é obrigatório no caso de pagamento único. Neste caso, o objeto schedule não deve ser informado.
+        currency:
+          type: string
+          maxLength: 3
+          pattern: '^([A-Z]{3})$'
+          example: BRL
+          description: |
+            Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.
+            Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
+        amount:
+          type: string
+          minLength: 4
+          maxLength: 19
+          pattern: '^((\d{1,16}\.\d{2}))$'
+          example: '100000.12'
+          description: |
+            Valor da transação com 2 casas decimais.
+        ibgeTownCode:
+          type: string
+          minLength: 7
+          maxLength: 7
+          pattern: '^\d{7}$'
+          example: '5300108'
+          description: |
+            Traz o código da cidade segundo o IBGE (Instituto Brasileiro de Geografia e Estatística).
+            Para o preenchimento deste campo, o Iniciador de Pagamentos deve seguir a orientação do arranjo da forma de pagamento.
+            O preenchimento do campo tanto em pix/payments quanto /consents deve ser igual. Caso haja divergência dos valores, a instituição deve retornar HTTP 422 com o código de erro PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO.
+            Este campo faz referência ao campo CodMun do arranjo Pix.
+        details:
+          $ref: '#/components/schemas/Details'
+      additionalProperties: false
     Schedule:
       type: object
       description: |
@@ -1487,9 +1104,9 @@ components:
           description: |
             Define a data alvo da liquidação do pagamento. O fuso horário de Brasilia deve ser utilizado para criação e racionalização sobre os dados deste campo.  
             OBS:Esse campo deverá sempre ser no mínimo D+1 corrido, ou seja, a data imediatamente posterior em relação a data do consentimento considerando o fuso horário de Brasília e deverá ser no máximo um ano corrido a partir da data do consentimento considerando o fuso horário de Brasília.
-    Payment:
+    PaymentPix:
       type: object
-      description: Objeto contendo dados do pagamento como moeda e valor.
+      description: Objeto contendo dados do pagameto como moeda e valor.
       required:
         - amount
         - currency
@@ -1751,7 +1368,7 @@ components:
           example: '50685362000135'
           description: CNPJ do Iniciador de Pagamento devidamente habilitado para a prestação de Serviço de Iniciação no Pix.
         payment:
-          $ref: '#/components/schemas/Payment'
+          $ref: '#/components/schemas/PaymentPix'
         transactionIdentification:
           type: string
           pattern: '^[a-zA-Z0-9][a-zA-Z0-9]{0,24}$'
@@ -1923,310 +1540,12 @@ components:
         • TEMPO_LIMITE_REVOGACAO_EXCEDIDO: O consentimento só pode ser revogado até o dia anterior, ou seja, a meia noite no fuso horário de Brasília do dia imediatamente anterior a data alvo da liquidação do pagamento.  
         • MOTIVO_REVOGACAO_NAO_PERMITIDO: Os motivos de revogação do consentimento: FRAUD e ACCOUNT_CLOSURE só podem ser usados caso o campo: data.revocation.revokedBy tenha o valor TPP ou ASPSP, ou seja, somente no caso de revogação unilateral pela iniciadora ou detentora.  
         • INFORMACAO_ADICIONAL_REVOGACAO_REQUERIDA: O campo data.revocation.reason.additionalInformation é obrigatório quando a revogação for feita pela iniciadora ou pela detentora unilateralmente, ou seja, o campo revokedBy igual a TPP ou ASPSP e o motivo de revogação for OTHER.
-    CreateTedTefPayment:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          $ref: '#/components/schemas/CreateTedTefPaymentData'
-      additionalProperties: false
-    CreateTedTefPaymentData:
-      type: object
-      description: Objeto contendo dados do pagamento e do recebedor (creditor).
-      required:
-        - payment
-      properties:
-        payment:
-          $ref: '#/components/schemas/Payment'
-        creditorAccount:
-          type: object
-          description: |
-            Objeto que contém a identificação da conta de destino do beneficiário/recebedor.  
-          required:
-            - number
-            - accountType
-          properties:
-            ispb:
-              type: string
-              minLength: 8
-              maxLength: 8
-              pattern: '^[0-9]{8}$'
-              example: '12345678'
-              description: |
-                Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
-            issuer:
-              type: string
-              maxLength: 4
-              pattern: '^\d{4}$'
-              example: '1774'
-              description: |
-                Código da Agência emissora da conta sem dígito.  
-                (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-                no exercício de atividades da instituição, não podendo ser móvel ou transitória).  
-                [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-            number:
-              type: string
-              minLength: 3
-              maxLength: 20
-              pattern: '^\d{3,20}$'
-              example: '1234567890'
-              description: |
-                Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
-                se houver valor alfanumérico, este deve ser convertido para 0.
-            accountType:
-              $ref: '#/components/schemas/EnumAccountPaymentsType'
-          additionalProperties: false
-        purpose:
-          $ref: '#/components/schemas/EnumPurposeTedTef'
-        purposeAdditionalInfo:
-          type: string
-          maxLength: 100
-          pattern: \w*\W*
-          example: Informações adicionais
-          description: |
-            Texto livre para complementar informação relativa ao campo purpose. 
-            [Restrição] Preencher quando purpose for igual OUTROS.
-      additionalProperties: false
-    EnumPurposeTedTef:
-      type: integer
-      maxLength: 5
-      enum:
-        - 1
-        - 10
-        - 100
-        - 101
-        - 103
-        - 104
-        - 107
-        - 108
-        - 109
-        - 11
-        - 110
-        - 111
-        - 112
-        - 113
-        - 114
-        - 117
-        - 12
-        - 121
-        - 123
-        - 124
-        - 13
-        - 131
-        - 132
-        - 136
-        - 139
-        - 14
-        - 149
-        - 15
-        - 150
-        - 157
-        - 175
-        - 18
-        - 19
-        - 2
-        - 200
-        - 201
-        - 202
-        - 203
-        - 204
-        - 205
-        - 206
-        - 207
-        - 208
-        - 209
-        - 23
-        - 27
-        - 28
-        - 29
-        - 3
-        - 30
-        - 300
-        - 301
-        - 302
-        - 303
-        - 31
-        - 33
-        - 34
-        - 35
-        - 36
-        - 37
-        - 38
-        - 39
-        - 4
-        - 40
-        - 41
-        - 42
-        - 43
-        - 44
-        - 45
-        - 47
-        - 5
-        - 50
-        - 500
-        - 501
-        - 502
-        - 504
-        - 505
-        - 507
-        - 508
-        - 509
-        - 510
-        - 511
-        - 512
-        - 513
-        - 514
-        - 515
-        - 516
-        - 517
-        - 518
-        - 519
-        - 520
-        - 6
-        - 7
-        - 8
-        - 9
-        - 97
-        - 99999
-      example: 1
-      description: "Para o caso de TED o campo é obrigatório, para o caso de TEF não. É responsabilidade da iniciadora desenvolver esse condicionante de modo a garantir a usabilidade especificada pelo GT UX.\n\n1 - Pagamento de Impostos, Tributos e Taxas\t</br>\n2 - Pagamento à Concessionárias de Serviço Público\t</br>\n3 - Pagamentos de Dividendos\t</br>\n4 - Pagamento de Salários\t</br>\n5 - Pagamento de Fornecedores\t</br>\n6 - Pagamento de Honorários\t</br>\n7 - Pagamento de Aluguéis e Taxas de Condomínio\t</br>\n8 - Pagamento de Duplicatas e Títulos\t</br>\n9 - Pagamento de Mensalidade Escolar\t</br>\n10 - Crédito em Conta\t</br>\n11 - Pagamento a Corretoras\t</br>\n12 - Pagamento de Boleto Bancário em Cartório\t</br>\n13 - Pagamento de Tarifas pela Prestação de Serviços de Arrecadação de Convênios\t</br>\n14 - Repasse de Valores Referentes a Títulos Liquidados em Cartórios de Protesto\t</br>\n15 - Liquidação Financeira de Operadora de Cartão\t</br>\n18 - Operações Seguro Habitacional - SFH\t</br>\n19 - Operações do FDS - Caixa\t</br>\n23 - Taxa de Administração\t</br>\n27 - Pagamento de Acordo / Execução Judicial\t</br>\n28 - Liquidação de Empréstimos Consignados\t</br>\n29 - Pagamento de bolsa auxílio\t</br>\n30 - Remuneração a cooperado\t</br>\n31 - Pagamento de prebenda (Remuneração a padres e sacerdotes)\t</br>\n33 - Pagamento de juros sobre capital próprio\t</br>\n34 - Pagamento de rendimentos ou amortização s/ cotas e/ou debêntures\t</br>\n35 - Taxa de Serviço\t</br>\n36 - Pagamento de cheque para não correntista\t</br>\n37 - Pagamento de juros e/ou amortização de títulos depositados em garantia nas Câmaras\t</br>\n38 - Estorno ou Restituição - Diversos\t</br>\n39 - Pagamento de Vale Transporte\t</br>\n40 - Simples Nacional\t</br>\n41 - Repasse de valores para o FUNDEB\t</br>\n42 - Repasse de Valores de Convênio Centralizado\t</br>\n43 - Patrocínio com Incentivo Fiscal\t</br>\n44 - Doação com Incentivo Fiscal\t</br>\n45 - Transferência de conta corrente de instituição não bancária para sua Conta de Liquidação\t</br>\n47 - Pagamento de Rescisão de Contrato de Trabalho\t</br>\n50 - Reembolso de despesas com estruturação de operações de renda fixa e variável\t</br>\n97 - Compra de Moeda Estrangeira pelo FSB - Fundo Soberano do Brasil\t</br>\n100 - Depósito Judicial\t</br>\n101 - Pensão Alimentícia\t</br>\n103 - Cessão de créditos - Liquid.principal por aquis.créditos ou direitos creditórios ou fluxo de caixa garant.por créditos, por ordem cliente PJ financ.\t</br>\n104 - Cessão de créditos - Liquidação principal por aquisição de créditos ou direitos creditórios, por ordem de FIDC ou cia securitizadora\t</br>\n107 - Cessão de créditos - Repasse contratual de fluxo de caixa ou de recebíveis pagos, por ordem de cliente PJ financeira\t</br>\n108 - Cessão de créditos - Repasse contratual de fluxo de caixa ou de recebíveis pagos antecipadamente, por ordem de cliente PJ financeira\t</br>\n109 - Cessão de créditos - Ajustes diversos\t</br>\n110 - Transferência entre contas de mesma titularidade\t</br>\n111 - Crédito para investidor em cliente da IF Creditada\t</br>\n112 - Débito de investidor em cliente da IF Debitada\t</br>\n113 - Pagamento de Operações de Crédito por Cliente\t</br>\n114 - Resgate de aplicação financeira de cliente para conta de sua titularidade\t</br>\n117 - Aplicação financeira em nome do cliente remetente\t</br>\n121 - Pagamento da TIR - Pix Saque e/ou Pix Troco\t</br>\n123 - Cessão de créditos - Liquid.princ.por recompra de créditos ou direitos creditórios ou fluxo de caixa garant.por créditos, por ordem cliente PJ financ.\t</br>\n124 - Cessão de créditos - Liquidação principal por recompra de créditos ou direitos creditórios, por ordem de FIDC ou cia securitizadora\t</br>\n131 - FGCoop - Recolhimento Fundo Garantidor do Cooperativismo de Crédito\t</br>\n132 - FGCoop - devolução de recolhimento a maior\t</br>\n136 - FGTS - Saque Emergencial\t</br>\n139 - Crédito ao consumidor decorrente de programa de incentivo fiscal\t</br>\n149 - Auxílio Emergencial Lei 13.982\t</br>\n150 - Benefício Emergencial de Preservação do Emprego e da Renda - BEm\t</br>\n157 - Tributos Municipais ISS - LCP 157\t</br>\n175 - Tributos Municipais ISS TERCEIROS - LCP 157\t</br>\n200 - Transferência Internacional em Reais\t</br>\n201 - Ajuste Posição Mercado Futuro\t</br>\n202 - Repasse de Valores do BNDES\t</br>\n203 - Liquidação de Compromissos Junto ao BNDES\t</br>\n204 - Operações de Compra e Venda de Ações - Bolsas de Valores e Mercado de Balcão\t</br>\n205 - Contratos Referenciados em Ações ou Índices de Ações - Bolsas de Valores, de Mercadorias e de futuros\t</br>\n206 - Operação de Câmbio - Não Interbancária\t</br>\n207 - Operações no Mercado de Renda Fixa e de Renda Variável com Utilização de Intermediário\t</br>\n208 - Operação de Câmbio - Mercado Interbancário - Instituições sem conta Reservas Bancárias\t</br>\n209 - Pagamento de Operações com identificação de destinatário final\t</br>\n300 - Restituição de Imposto de Renda\t</br>\n301 - Ordem Bancária do Tesouro - OBT\t</br>\n302 - Pagamento de multas ao BACEN por atrasos de importação\t</br>\n303 - Restituição de tributos - RFB\t</br>\n500 - Restituição de Prêmios de Seguros\t</br>\n501 - Pagamento de Indenização de Sinistro de Seguro\t</br>\n502 - Pagamento de Prêmio de Co-Seguro\t</br>\n504 - Pagamento de Indenização de Sinistro de Co-Seguro\t</br>\n505 - Pagamento de Prêmio de Resseguro\t</br>\n507 - Pagamento de Indenização de Sinistro de Resseguro\t</br>\n508 - Restituição de Indenização de Sinistro de Resseguro\t</br>\n509 - Pagamento de Despesas com Sinistros\t</br>\n510 - Pagamento de Inspeções/Vistorias Prévias\t</br>\n511 - Pagamento de Resgate de Título da Capitalização\t</br>\n512 - Pagamento de Sorteio de Título de Capitalização\t</br>\n513 - Pagamento de Devolução de Mensalidade de Título de Capitalização\t</br>\n514 - Restituição de Contribuição de Plano Previdenciário\t</br>\n515 - Pagamento de Benefício Previdenciário de Pecúlio\t</br>\n516 - Pagamento de Benefício Previdenciário de Pensão\t</br>\n517 - Pagamento de Benefício Previdenciário de Aposentadoria\t</br>\n518 - Pagamento de Resgate Previdenciário\t</br>\n519 - Pagamento de Comissão de Corretagem\t</br>\n520 - Pagamento de Transferências/Portabilidade de Reserva de Seguro/Previdência\t</br>\n99999 - Outros\t</br>\n"
-    EnumTedTefRejectionReasonType:
-      type: string
-      maxLength: 33
-      enum:
-        - CONSENT_DATA_MISMATCH
-        - CONSENT_REVOKED
-        - CONSENT_STATUS_NOT_ALLOWED
-        - INSUFFICIENT_FUNDS
-        - PAYMENT_LIMIT_EXCEEDED
-        - PAYMENT_OUTSIDE_ALLOWED_TIMETABLE
-        - UNEXPECTED_ERROR
-        - UNEXPECTED_SETTLEMENT_ERROR
-      example: UNEXPECTED_SETTLEMENT_ERROR
-      description: |
-        CONSENT_DATA_MISMATCH - Indica que o pagamento foi rejeitado devido aos incompatibilidade com os dados do consentimento associado.   
-        CONSENT_REVOKED - Indica que o pagamento agendado foi rejeitado devido a revogação do consentimento vinculado.   
-        CONSENT_STATUS_NOT_ALLOWED - Indica que o pagamento foi rejeitado devido ao consentimento vinculado não estar em estado esperado pelo fluxo de pagamento.   
-        INSUFFICIENT_FUNDS - Indica que o pagamento foi rejeitado por insuficiência de fundos na conta do pagador.   
-        PAYMENT_LIMIT_EXCEEDED - Indica que o pagamento foi rejeitado por ter um valor maior ou quantidade pagamentos supere o limite pré-estabelecido pela detentora de conta.   
-        PAYMENT_OUTSIDE_ALLOWED_TIMETABLE - Indica que o pagamento foi rejeitado devido ao fato da janela de horário de pagamentos permitida do arranjo encerrou.   
-        UNEXPECTED_ERROR - Indica que o pagamento foi rejeitado por uma situação não informada pela detentora.
-        UNEXPECTED_SETTLEMENT_ERROR - Indica que ocorreu um problema inesperado na liquidação do pagamento junto ao arranjo alvo.
-    ResponseTedTefPayment:
-      type: object
-      required:
-        - data
-        - links
-        - meta
-      properties:
-        data:
-          $ref: '#/components/schemas/ResponseTedTefPaymentData'
-        links:
-          type: object
-          description: Referências para outros recusos da API requisitada.
-          required:
-            - self
-          properties:
-            self:
-              type: string
-              format: uri
-              maxLength: 2000
-              description: URI completo que gerou a resposta atual.
-              example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-              pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-          additionalProperties: false
-        meta:
-          $ref: '#/components/schemas/Meta'
-      additionalProperties: false
-    ResponseTedTefPaymentData:
-      type: object
-      description: Objeto contendo dados do pagamento e da conta do recebedor (creditor).
-      required:
-        - paymentId
-        - consentId
-        - creationDateTime
-        - statusUpdateDateTime
-        - status
-        - localInstrument
-        - payment
-        - creditorAccount
-      properties:
-        paymentId:
-          type: string
-          minLength: 1
-          maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
-          example: TXpRMU9UQTROMWhZV2xSU1FUazJSMDl
-          description: |
-            Código ou identificador único informado pela instituição detentora da conta para representar a iniciação de pagamento individual.
-            Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.
-        consentId:
-          type: string
-          maxLength: 256
-          pattern: '^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*''%\/?#]+$'
-          example: 'urn:bancoex:C1DD33123'
-          description: |
-            Identificador único do consentimento criado para a iniciação de pagamento solicitada. Deverá ser um URN - Uniform Resource Name.
-            Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource
-            Identifier - URI - que é atribuído sob o URI scheme "urn" e um namespace URN específico, com a intenção de que o URN
-            seja um identificador de recurso persistente e independente da localização.
-            Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
-            - o namespace(urn)
-            - o identificador associado ao namespace da instituição transnmissora (bancoex)
-            - o identificador específico dentro do namespace (C1DD33123).
-            Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
-        creationDateTime:
-          type: string
-          format: date-time
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
-          example: '2020-07-21T08:30:00Z'
-          description: |
-            Data e hora em que o recurso foi criado.
-            Uma string com data e hora conforme especificação RFC-3339,
-            sempre com a utilização de timezone UTC(UTC time format).
-        statusUpdateDateTime:
-          type: string
-          format: date-time
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
-          example: '2020-07-21T08:30:00Z'
-          description: |
-            Data e hora da última atualização da iniciação de pagamento.
-            Uma string com data e hora conforme especificação RFC-3339,
-            sempre com a utilização de timezone UTC(UTC time format).
-        status:
-          $ref: '#/components/schemas/EnumPaymentStatusType'
-        payment:
-          $ref: '#/components/schemas/Payment'
-        creditorAccount:
-          $ref: '#/components/schemas/CreateTedTefPaymentData/properties/creditorAccount'
-        purpose:
-          $ref: '#/components/schemas/EnumPurposeTedTef'
-        purposeAdditionalInfo:
-          type: string
-          maxLength: 100
-          pattern: \w*\W*
-          example: Informações adicionais
-          description: |
-            Texto livre para complementar informação relativa ao campo purpose. 
-            [Restrição] Preencher quando purpose for igual OUTROS.
-        rejectionReason:
-          $ref: '#/components/schemas/EnumTedTefRejectionReasonType'
-      additionalProperties: false
   parameters:
     consentId:
       name: consentId
       in: path
       description: |
-        O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
-        Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource 
-        Identifier - URI - que é atribuído sob o URI scheme "urn" e um namespace URN específico, com a intenção de que o URN 
-        seja um identificador de recurso persistente e independente da localização.  
-        Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
-        - o namespace(urn)
-        - o identificador associado ao namespace da instituição transnmissora (bancoex) 
-        - o identificador específico dentro do namespace (C1DD33123).  
-        Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+        O consentId é o identificador único do consentimento a ser revogado e deverá ser um URN - Uniform Resource Name.
       required: true
       schema:
         type: string
@@ -2460,30 +1779,6 @@ components:
             Um UUID RFC4122 usado como um ID de correlação. O transmissor deve usar o mesmo valor recebido na requisição para o cabeçalho de resposta recebido na requisição, caso não tenha sido fornecido, deve se usar um UUID RFC4122.
           schema:
             $ref: '#/components/schemas/XFapiInteractionId'
-    UnprocessableEntityTedTefPayments:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
-      content:
-        application/jwt:
-          schema:
-            $ref: '#/components/schemas/422ResponseErrorCreateTedTefPayment'
-          examples:
-            Acima do limite estabelecido:
-              summary: Acima do limite estabelecido
-              value:
-                errors:
-                  - code: VALOR_ACIMA_LIMITE
-                    title: Acima do limite estabelecido.
-                    detail: Acima do limite estabelecido.
-                meta:
-                  totalRecords: 1
-                  totalPages: 1
-                  requestDateTime: '2021-05-21T08:30:00Z'
-      headers:
-        x-fapi-interaction-id:
-          description: |
-            Um UUID RFC4122 usado como um ID de correlação. O transmissor deve usar o mesmo valor recebido na requisição para o cabeçalho de resposta recebido na requisição, caso não tenha sido fornecido, deve se usar um UUID RFC4122.
-          schema:
-            $ref: '#/components/schemas/XFapiInteractionId'
     Unauthorized:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
       content:
@@ -2592,27 +1887,3 @@ components:
         application/jwt:
           schema:
             $ref: '#/components/schemas/ResponsePaymentConsent'
-    201PaymentsInitiationTedTefPaymentCreated:
-      description: Iniciação de pagamento ted-tef criada com sucesso.
-      headers:
-        x-fapi-interaction-id:
-          description: |
-            Um UUID RFC4122 usado como um ID de correlação. O transmissor deve usar o mesmo valor recebido na requisição para o cabeçalho de resposta recebido na requisição, caso não tenha sido fornecido, deve se usar um UUID RFC4122.
-          schema:
-            $ref: '#/components/schemas/XFapiInteractionId'
-      content:
-        application/jwt:
-          schema:
-            $ref: '#/components/schemas/ResponseTedTefPayment'
-    200PaymentsInitiationTedTefPaymentIdRead:
-      description: Dados de iniciação de pagamento ted-tef obtidos com sucesso.
-      headers:
-        x-fapi-interaction-id:
-          description: |
-            Um UUID RFC4122 usado como um ID de correlação. O transmissor deve usar o mesmo valor recebido na requisição para o cabeçalho de resposta recebido na requisição, caso não tenha sido fornecido, deve se usar um UUID RFC4122.
-          schema:
-            $ref: '#/components/schemas/XFapiInteractionId'
-      content:
-        application/jwt:
-          schema:
-            $ref: '#/components/schemas/ResponseTedTefPayment'
