@@ -3,13 +3,14 @@ on:
   push:
     branches:
       - "OPB_Homologacao"
+      - "main"
   pull_request:
     branches:
       - "**"
 jobs:
   deploy:
     env:
-      enable-deploy: ${{ github.ref_name == 'OPB_Homologacao' || (github.repository !=  'Sensedia/areadesenvolvedor' && github.ref_name == 'main')}}
+      enable-deploy: ${{ github.ref_name == 'OPB_Homologacao' || (github.repository !=  'Sensedia/openapi' && github.ref_name == 'main')}}
     name: Deploy Github pages
     runs-on: ubuntu-latest
     steps:
