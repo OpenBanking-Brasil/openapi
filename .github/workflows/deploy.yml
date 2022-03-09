@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - "OPB_Homologacao"
-      - "main"
+      - "main" 
   pull_request:
     branches:
       - "**"
