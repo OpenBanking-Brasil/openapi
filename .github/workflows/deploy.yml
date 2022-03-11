@@ -8,7 +8,7 @@ on:
     branches:
       - "**"
 jobs:
-  deploy: 
+  deploy:  
     env:
       enable-deploy: ${{ github.ref_name == 'OPB_Homologacao' || (github.repository !=  'Sensedia/openapi' && github.ref_name == 'main')}}
     name: Deploy Github pages 
