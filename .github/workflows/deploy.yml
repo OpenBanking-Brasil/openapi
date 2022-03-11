@@ -11,7 +11,7 @@ jobs:
   deploy:
     env:
       enable-deploy: ${{ github.ref_name == 'OPB_Homologacao' || (github.repository !=  'Sensedia/openapi' && github.ref_name == 'main')}}
-    name: Deploy Github pages
+    name: Deploy Github pages 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
