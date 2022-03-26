@@ -1153,10 +1153,7 @@ components:
           type: string
           format: uri
           maxLength: 2000
-          description: |
-            O atributo self do objeto link:
-
-            Quando chamado método GET deverá retornar o link para o próprio recurso consultado.
+          description: URI completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         first:
@@ -1190,7 +1187,7 @@ components:
       additionalProperties: false
     Meta:
       type: object
-      description: Meta informações referente à API requisitada.
+      description: Meta informações referente a API requisitada.
       required:
         - totalRecords
         - totalPages
