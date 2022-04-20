@@ -1,4 +1,4 @@
-﻿openapi: 3.0.0
+openapi: 3.0.0
 info:
   title: API Seguros - Open Banking Brasil
   description: |
@@ -229,6 +229,7 @@ components:
     CurrencyCode:
       type: string
       pattern: '^[A-Z]{3}$'
+      maxLength: 3
       description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
       example: BRL
     InsurancePensionMinValue:
@@ -477,75 +478,6 @@ components:
           description: Percentual de faixa de resgate.
           maxLength: 6
           example: '0.5000'
-      additionalProperties: false
-    NoIdentificationFrequencyDistribution:
-      type: object
-      description: Distribuição por frequência.
-      required:
-        - prices
-        - minimum
-        - maximum
-      properties:
-        prices:
-          type: array
-          description: Distribuição dos preços.
-          items:
-            type: object
-            required:
-              - interval
-              - value
-              - customerRate
-            properties:
-              interval:
-                type: string
-                description: Faixas de frequência
-                maxLength: 7
-                enum:
-                  - 1_FAIXA
-                  - 2_FAIXA
-                  - 3_FAIXA
-                  - 4_FAIXA
-                example: 1_FAIXA
-              value:
-                type: string
-                description: Mediana.
-                example: '0.020300'
-                maxLength: 8
-                pattern: '^\d{1}\.\d{1,6}$'
-              customerRate:
-                type: string
-                description: Percentual de clientes.
-                example: '0.500000'
-                maxLength: 8
-                pattern: '^\d{1}\.\d{1,6}$'
-            additionalProperties: false
-          minItems: 4
-          maxItems: 4
-          example:
-            - interval: 1_FAIXA
-              value: '0.020300'
-              customerRate: '0.500000'
-            - interval: 2_FAIXA
-              value: '0.030600'
-              customerRate: '0.100000'
-            - interval: 3_FAIXA
-              value: '0.034300'
-              customerRate: '0.300000'
-            - interval: 4_FAIXA
-              value: '0.246800'
-              customerRate: '0.100000'
-        minimum:
-          type: string
-          description: Valor mínimo.
-          maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-          example: '0.010000'
-        maximum:
-          type: string
-          description: Valor máximo.
-          maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-          example: '0.300000'
       additionalProperties: false
     EnumPersonalIndemnifiablePeriodType:
       type: string

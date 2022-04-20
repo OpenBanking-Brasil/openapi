@@ -1,6 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
 /data;data;Conjunto de informações referentes à identificação da operação de crédito de financiamentos;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;;;1;1;"";Não permitido;string;1324926521496
+/data/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;^\d{1,100}$;;1;1;"";Não permitido;string;1324926521496
 /data/ipocCode;ipocCode;"Número padronizado do contrato - IPOC (Identificação Padronizada da Operação de Crédito). Segundo DOC 3040, composta por:
 - **CNPJ da instituição:** 8 (oito) posições iniciais;
 - **Modalidade da operação:** 4 (quatro) posições;
@@ -9,7 +9,7 @@
   1. Para clientes pessoa física com CPF (tipo de cliente = 1), informar as 11 (onze) posições do CPF;
   2. Para clientes pessoa jurídica com CNPJ (tipo de cliente = 2), informar as 8 (oito) posições iniciais do CNPJ;
   3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
-- **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.";Texto;67;Obrigatório;;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576
+- **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.";Texto;67;Obrigatório;^\d{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576
 /data/productName;productName;Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Crédito Pessoal Consignado
 /data/productType;productType;"Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
 Financiamentos, Financiamentos rurais  e Financiamentos imobiliários";Texto;27;Obrigatório;;"FINANCIAMENTOS 
@@ -26,13 +26,14 @@ COMERCIALIZACAO
 FINANCIAMENTO_HABITACIONAL_SFH 
 FINANCIAMENTO_HABITACIONAL_EXCETO_SFH";1;1;"";Não permitido;string;AQUISICAO_BENS_VEICULOS_AUTOMOTORES
 /data/contractDate;contractDate;Data de contratação da operação de crédito. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05
-/data/disbursementDate;disbursementDate;Data do Desembolso do valor contratado. Especificação RFC-3339;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-01-15
+/data/disbursementDate;disbursementDate;Lista que traz as Datas de Desembolso do valor contratado.;Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;N;"";Não permitido;array;2018-01-15
 /data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Deve aceitar NA caso não seja retornado pela instituição.
 ";Não permitido;string;2018-01-15
-/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Número;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Permitido;number;100000.04
+/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Permitido;string;100000.0400
 /data/currency;currency;"Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
-/data/dueDate;dueDate;Data de vencimento Final da operação. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2028-01-15
+/data/dueDate;dueDate;Data de vencimento Final da operação. Especificação RFC-3339.;Data;10;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
+";Não permitido;string;2028-01-15
 /data/instalmentPeriodicity;instalmentPeriodicity;"Informação relativa à periodicidade regular das parcelas. (Vide Enum)
 sem periodicidade regular, semanal, quinzenal, mensal, bimestral, trimestral, semestral, anual";Texto;25;Obrigatório;;"SEM_PERIODICIDADE_REGULAR 
 SEMANAL 
@@ -45,10 +46,11 @@ ANUAL
 OUTROS";1;1;"";Não permitido;string;SEMANAL
 /data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.;Texto;50;Condicional;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa da periodicidade de pagamento regular, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais sobre periodicidade
-/data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15
+/data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal.;Data;10;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
+";Não permitido;string;2018-02-15
 /data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e   incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
 O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Número;19;Obrigatório;;;1;1;"";Permitido;number;0.29
+(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Permitido;string;0.2900
 /data/amortizationScheduled;amortizationScheduled;"Sistema de amortização (Vide Enum):
 - SAC (Sistema de Amortização Constante) - É aquele em que o valor da amortização permanece igual até o final. Os juros cobrados sobre o parcelamento não entram nesta conta.
 - PRICE (Sistema Francês de Amortização) - As parcelas são fixas do início ao fim do contrato. Ou seja, todas as parcelas terão o mesmo valor, desde a primeira até a última. Nos primeiros pagamentos, a maior parte do valor da prestação corresponde aos juros. Ao longo do tempo, a taxa de juros vai decrescendo. Como o valor da prestação é fixo, com o passar das parcelas, o valor de amortização vai aumentando.
@@ -60,7 +62,9 @@ SEM_SISTEMA_AMORTIZACAO
 OUTROS";1;1;"";Não permitido;string;SAC
 /data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;50;Condicional;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar ""NA"".
 ";Não permitido;string;NA
-/data/interestRates;interestRates;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/interestRates;interestRates;"Caso o contrato não possua taxas de juros, deve ser compartilhado uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.
+
+Receptora deve interpretar a informação conforme orientação acima.";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
 - NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
 - EFETIVA (É a taxa de juros em que a unidade referencial coincide com a unidade de tempo da capitalização. Como as unidades de medida de tempo da taxa de juros e dos períodos de capitalização são iguais, usa-se exemplos simples como 1% ao mês, 60% ao ano)";Texto;7;Obrigatório;;"NOMINAL 
@@ -106,10 +110,10 @@ OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP
 ";Não permitido;string;Informações adicionais
 /data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito.
 p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Número;19;Obrigatório;;;1;1;"";Permitido;number;0.6
+(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Permitido;string;0.6000
 /data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito.
 p.ex. 0.0045 .O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Número;19;Obrigatório;;;1;1;"";Permitido;number;0.55
+(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Permitido;string;0.5500
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas.;Texto;1200;Condicional;[\w\W\s]*;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar ""NA"".
 ";Não permitido;string;Informações adicionais
 /data/contractedFees;contractedFees;"";Lista;;Obrigatório;;;0;N;"";Não permitido;array;
@@ -126,8 +130,8 @@ MAXIMO
 FIXO 
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
 /data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo;Número;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Permitido;number;100000.04
-/data/contractedFees/feeRate;feeRate;É o valor da tarifa em percentual pactuada no contrato.;Número;19;Condicional;;;1;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual. Exemplo: 0.0150 = 1,5%.
-";Permitido;number;0.2
+/data/contractedFees/feeRate;feeRate;É o valor da tarifa em percentual pactuada no contrato.;Texto;6;Condicional;^\d{1}\.\d{4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual. Exemplo: 0.0150 = 1,5%.
+";Permitido;string;0.2000
 /data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contractedFinanceCharges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;31;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
 MULTA_ATRASO_PAGAMENTO 
