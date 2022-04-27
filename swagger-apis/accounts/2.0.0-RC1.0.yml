@@ -91,6 +91,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseAccountList'
       security:
         - OpenId:
             - openid
@@ -132,6 +134,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseAccountIdentification'
       security:
         - OpenId:
             - openid
@@ -173,6 +177,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseAccountBalances'
       security:
         - OpenId:
             - openid
@@ -219,6 +225,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseAccountTransactions'
       security:
         - OpenId:
             - openid
@@ -260,6 +268,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseAccountOverdraftLimits'
       security:
         - OpenId:
             - openid
@@ -902,6 +912,7 @@ components:
         type: integer
         default: 1
         minimum: 1
+        maximum: 2147483647
         format: int32
     pageSize:
       name: page-size

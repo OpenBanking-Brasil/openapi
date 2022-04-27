@@ -1360,6 +1360,7 @@ components:
         type: integer
         default: 1
         minimum: 1
+        maximum: 2147483647
         format: int32
     pageSize:
       name: page-size
