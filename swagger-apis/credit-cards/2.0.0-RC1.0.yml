@@ -762,6 +762,7 @@ components:
         transactionalAdditionalInfo:
           type: string
           maxLength: 140
+          pattern: '^\S[\s\S]*$'
           description: 'Campo livre, de preenchimento obrigatório quando selecionado tipo de transação "OUTROS"'
         paymentType:
           $ref: '#/components/schemas/EnumCreditCardAccountsPaymentType'
@@ -769,6 +770,7 @@ components:
           $ref: '#/components/schemas/EnumCreditCardAccountFee'
         feeTypeAdditionalInfo:
           type: string
+          pattern: '^\S[\s\S]*$'
           maxLength: 140
           description: 'Campo livre, de preenchimento obrigatório quando selecionada tipo de tarifa "OUTRA"'
         otherCreditsType:
@@ -776,6 +778,7 @@ components:
         otherCreditsAdditionalInfo:
           type: string
           maxLength: 50
+          pattern: '^\S[\s\S]*$'
           description: |
             Campo livre, de preenchimento obrigatório quando selecionado tipo de crédito "OUTROS".
 
