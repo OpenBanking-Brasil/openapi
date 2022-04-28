@@ -93,6 +93,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseCreditCardAccountsList'
       security:
         - OpenId:
             - openid
@@ -134,6 +136,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseCreditCardAccountsIdentification'
       security:
         - OpenId:
             - openid
@@ -179,6 +183,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseCreditCardAccountsBills'
       security:
         - OpenId:
             - openid
@@ -227,6 +233,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseCreditCardAccountsTransactions'
       security:
         - OpenId:
             - openid
@@ -268,6 +276,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseCreditCardAccountsLimits'
       security:
         - OpenId:
             - openid
@@ -315,6 +325,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseCreditCardAccountsTransactions'
       security:
         - OpenId:
             - openid
