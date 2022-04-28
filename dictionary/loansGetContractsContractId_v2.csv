@@ -11,8 +11,8 @@
   3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
 - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.";Texto;67;Obrigatório;^\d{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576
 /data/productName;productName;Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Crédito Pessoal Consignado
-/data/productType;productType;Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;11;Obrigatório;;EMPRESTIMOS;1;1;"";Não permitido;string;EMPRESTIMOS
-/data/productSubType;productSubType;Sub tipo da modalidades de crédito Empréstimos contratadas, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;47;Obrigatório;;"HOME_EQUITY 
+/data/productType;productType;Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;;Obrigatório;;EMPRESTIMOS;1;1;"";Não permitido;string;EMPRESTIMOS
+/data/productSubType;productSubType;Sub tipo da modalidades de crédito Empréstimos contratadas, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;;Obrigatório;;"HOME_EQUITY 
 CHEQUE_ESPECIAL 
 CONTA_GARANTIDA 
 CAPITAL_GIRO_TETO_ROTATIVO 
