@@ -88,7 +88,7 @@ NA";1;1;"";Não permitido;string;SP
 MOVEL 
 OUTRO";1;1;"";Não permitido;string;FIXO
 /data/contacts/phones/additionalInfo;additionalInfo;Informação complementar relativa ao tipo de telefone selecionado.;Texto;70;Opcional;[\w\W\s]*;;0;1; De preenchimento obrigatório quando selecionado o tipo 'OUTRO'.;Não permitido;string;Informações adicionais.
-/data/contacts/phones/countryCallingCode;countryCallingCode;Número de DDI (Discagem Direta Internacional) para telefone de acesso ao Cliente - se houver;Texto;4;Obrigatório;^\d{2,4}$|^NA$;;1;1;"";Não permitido;string;55
+/data/contacts/phones/countryCallingCode;countryCallingCode;Número de DDI (Discagem Direta Internacional) para telefone de acesso ao Cliente - se houver;Texto;4;Obrigatório;^\d{2,4}$;;1;1;"";Não permitido;string;55
 /data/contacts/phones/areaCode;areaCode;Número de DDD (Discagem Direta à Distância) do telefone do cliente - se houver;Texto;;Obrigatório;;"11 
 12 
 13 
@@ -157,8 +157,8 @@ OUTRO";1;1;"";Não permitido;string;FIXO
 98 
 99 
 NA";1;1;"";Não permitido;string;19
-/data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})|^NA$;;1;1;"";Não permitido;string;29875132
-/data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Obrigatório;^\d{1,5}$|^NA$;;1;1;"";Não permitido;string;932
+/data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})$;;1;1;"";Não permitido;string;29875132
+/data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Obrigatório;^\d{1,5}$;;1;1;"";Não permitido;string;932
 /data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contacts/emails/isMain;isMain;Indica se o email informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/emails/email;email;Endereço de email;Texto;320;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;karinafernandes-81@br.inter.net
