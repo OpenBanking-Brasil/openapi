@@ -641,7 +641,7 @@ components:
         limitAmountCurrency:
           type: string
           maxLength: 3
-          pattern: '^(\w{3}){1}$|^NA$'
+          pattern: '^(\w{3}){1}$'
           example: BRL
           description: |
             Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
@@ -651,14 +651,12 @@ components:
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: Valor total do limite informado Expresso em valor monetário com 4 casas decimais.
-          maxLength: 20
-          minLength: 0
+          maximum: 2147483647
           example: 100000.0001
-          nullable: true
         usedAmountCurrency:
           type: string
           maxLength: 3
-          pattern: '^(\w{3}){1}$|^NA$'
+          pattern: '^(\w{3}){1}$'
           example: BRL
           description: |
             Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
@@ -668,14 +666,12 @@ components:
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: Valor utilizado do limite informado Expresso em valor monetário com 4 casas decimais.
-          maxLength: 20
-          minLength: 0
+          maximum: 2147483647
           example: 7500.05
-          nullable: true
         availableAmountCurrency:
           type: string
           maxLength: 3
-          pattern: '^(\w{3}){1}$|^NA$'
+          pattern: '^(\w{3}){1}$'
           example: BRL
           description: |
             Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
@@ -685,9 +681,7 @@ components:
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: Valor disponível do limite informado Expresso em valor monetário com 4 casas decimais.
-          maxLength: 20
-          minLength: 0
-          nullable: true
+          maximum: 2147483647
           example: 2499.95
       additionalProperties: false
     CreditCardsAccountPaymentMethod:
