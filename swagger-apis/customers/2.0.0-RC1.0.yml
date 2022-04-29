@@ -490,45 +490,7 @@ components:
           minItems: 1
           description: 'Lista dos demais códigos relativos às demais atividades econômicas da empresa, segundo padrão CNAE (Classificação Nacional de Atividades Econômicas). De preenchimento obrigatório, se houver'
         informedRevenue:
-          type: object
-          required:
-            - frequency
-            - amount
-            - currency
-          properties:
-            frequency:
-              $ref: '#/components/schemas/EnumInformedRevenueFrequency'
-            frequencyAdditionalInfo:
-              type: string
-              maxLength: 100
-              pattern: '[\w\W\s]*'
-              example: Informações adicionais
-              description: |
-                Texto livre para complementar informação relativa ao patrimonio.
-
-                [Restrição] Preencher quando frequency for igual OUTROS.
-            amount:
-              type: string
-              minLength: 4
-              maxLength: 21
-              pattern: '^-?\d{1,15}\.\d{2,4}$'
-              example: '100000.0400'
-              description: |
-                Valor do patrimônio informado. Expresso em valor monetário com 4 casas decimais.
-                Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
-            currency:
-              type: string
-              pattern: '^(\w{3}){1}$|^NA$'
-              maxLength: 3
-              example: BRL
-              description: 'Moeda referente ao valor do patrimônio, segundo modelo ISO-4217.'
-            year:
-              type: number
-              maximum: 9999
-              nullable: true
-              example: 2010
-              description: 'Ano de referência do Patrimônio, conforme especificação RFC-3339.'
-          additionalProperties: false
+          $ref: '#/components/schemas/InformedRevenue'
         informedPatrimony:
           $ref: '#/components/schemas/BusinessInformedPatrimony'
       additionalProperties: false
@@ -621,29 +583,15 @@ components:
       type: object
       required:
         - amount
-        - currency
         - date
       properties:
         amount:
-          type: string
-          minLength: 4
-          maxLength: 21
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          example: '100000.0400'
-          description: |
-            Valor do patrimônio informado. Expresso em valor monetário com 4 casas decimais.
-            Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
-        currency:
-          type: string
-          maxLength: 3
-          pattern: '^(\w{3}){1}$|^NA$'
-          example: BRL
-          description: 'Moeda referente ao valor do patrimônio, segundo modelo ISO-4217.'
+          $ref: '#/components/schemas/InformedPatrimonyAmount'
         date:
           type: string
           format: date
           maxLength: 20
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$'
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2021-05-21'
           description: 'Data de referência do Patrimônio, conforme especificação RFC-3339.'
       additionalProperties: false
@@ -654,24 +602,7 @@ components:
         - year
       properties:
         amount:
-          type: object
-          required:
-            - amount
-            - currency
-          description: Valor do patrimônio informado
-          properties:
-            amount:
-              description: |
-                Valor do patrimônio informado. Expresso em valor monetário com 4 casas decimais.
-                Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
-              type: string
-              pattern: '^-?\d{1,15}\.\d{2,4}$'
-              maxLength: 21
-              minLength: 4
-              example: '100000.0400'
-            currency:
-              $ref: '#/paths/~1personal~1qualifications/get/responses/200/content/application~1json/schema/properties/data/properties/informedIncome/properties/amount/properties/currency'
-          additionalProperties: false
+          $ref: '#/components/schemas/InformedPatrimonyAmount'
         year:
           type: number
           maximum: 9999
@@ -738,6 +669,12 @@ components:
           description: Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado
           example: '932'
       additionalProperties: false
+    CurrencyCode:
+      type: string
+      pattern: '^[A-Z]{3}$'
+      maxLength: 3
+      description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+      example: BRL
     BusinessPostalAddress:
       type: object
       required:
@@ -993,7 +930,7 @@ components:
       properties:
         code:
           type: string
-          pattern: '^\d{7}$|^NA$'
+          pattern: '^\d{7}$'
           maxLength: 7
           minLength: 2
           description: |
@@ -1270,6 +1207,109 @@ components:
           pattern: '^-?\d{1,3}\.\d{1,8}$'
           maxLength: 13
           example: '-46.6361100'
+      additionalProperties: false
+    InformedRevenue:
+      type: object
+      required:
+        - frequency
+        - amount
+      properties:
+        frequency:
+          $ref: '#/components/schemas/EnumInformedRevenueFrequency'
+        frequencyAdditionalInfo:
+          type: string
+          maxLength: 100
+          pattern: '[\w\W\s]*'
+          example: Informações adicionais
+          description: |
+            Texto livre para complementar informação relativa ao patrimonio.
+
+            [Restrição] Preencher quando frequency for igual OUTROS.
+        amount:
+          $ref: '#/components/schemas/InformedRevenueAmount'
+        year:
+          type: number
+          maximum: 9999
+          example: 2010
+          description: 'Ano de referência do Patrimônio, conforme especificação RFC-3339.'
+      additionalProperties: false
+    InformedRevenueAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      description: Valor do patrimônio informado
+      properties:
+        amount:
+          description: |
+            Valor do patrimônio informado. Expresso em valor monetário com 4 casas decimais.
+            Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
+          type: string
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '100000.0400'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      additionalProperties: false
+    InformedIncome:
+      type: object
+      required:
+        - frequency
+        - amount
+        - date
+      properties:
+        frequency:
+          $ref: '#/components/schemas/EnumInformedIncomeFrequency'
+        amount:
+          $ref: '#/components/schemas/InformedIncomeAmount'
+        date:
+          type: string
+          format: date
+          maxLength: 10
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+          example: '2021-05-21'
+          description: 'Data da renda, conforme especificação RFC-3339.'
+      additionalProperties: false
+    InformedIncomeAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      description: Valor total da renda informada
+      properties:
+        amount:
+          description: |
+            Valor total da renda informada. Expresso em valor monetário com 4 casas decimais. 
+            Renda primária indica os montantes a pagar ou a receber em troca do uso temporário de recursos financeiros, trabalho ou ativos não financeiros não produzidos, a saber, remuneração de trabalhadores, renda de investimentos e demais rendas primárias.
+            Fazem parte da primeira a remuneração do trabalho assalariado (salários e ordenados); da segunda, renda de investimento direto, renda de investimento em carteira, renda de outros investimentos e renda de ativos de reserva; e da terceira, tributos sobre a produção e importação, subsídios e aluguéis.
+            Fonte: Banco Central do Brasil – Departamento Econômico
+          type: string
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '100000.0400'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      additionalProperties: false
+    InformedPatrimonyAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      description: Valor do patrimônio informado
+      properties:
+        amount:
+          description: |
+            Valor do patrimônio informado. Expresso em valor monetário com 4 casas decimais.
+            Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
+          type: string
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '100000.0400'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
       additionalProperties: false
     Links:
       type: object
@@ -1849,47 +1889,7 @@ components:
           example: '01'
           description: 'Campo livre, de preenchimento obrigatório. Traz o código da ocupação ou o descritivo da ocupação, se selecionada a opção ''OUTRO'''
         informedIncome:
-          type: object
-          required:
-            - frequency
-            - amount
-            - date
-          properties:
-            frequency:
-              $ref: '#/components/schemas/EnumInformedIncomeFrequency'
-            amount:
-              type: object
-              required:
-                - amount
-                - currency
-              description: Valor total da renda informada
-              properties:
-                amount:
-                  description: |
-                    Valor total da renda informada. Expresso em valor monetário com 4 casas decimais. 
-                    Renda primária indica os montantes a pagar ou a receber em troca do uso temporário de recursos financeiros, trabalho ou ativos não financeiros não produzidos, a saber, remuneração de trabalhadores, renda de investimentos e demais rendas primárias.
-                    Fazem parte da primeira a remuneração do trabalho assalariado (salários e ordenados); da segunda, renda de investimento direto, renda de investimento em carteira, renda de outros investimentos e renda de ativos de reserva; e da terceira, tributos sobre a produção e importação, subsídios e aluguéis.
-                    Fonte: Banco Central do Brasil – Departamento Econômico
-                  type: string
-                  pattern: '^-?\d{1,15}\.\d{2,4}$'
-                  maxLength: 21
-                  minLength: 4
-                  example: '100000.0400'
-                currency:
-                  type: string
-                  pattern: '^[A-Z]{3}$'
-                  maxLength: 3
-                  description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-                  example: BRL
-              additionalProperties: false
-            date:
-              type: string
-              format: date
-              maxLength: 10
-              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
-              example: '2021-05-21'
-              description: 'Data da renda, conforme especificação RFC-3339.'
-          additionalProperties: false
+          $ref: '#/components/schemas/InformedIncome'
         informedPatrimony:
           $ref: '#/components/schemas/PersonalInformedPatrimony'
       additionalProperties: false
