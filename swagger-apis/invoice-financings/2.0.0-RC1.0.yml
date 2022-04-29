@@ -304,19 +304,17 @@ components:
           type: string
           maxLength: 140
           minLength: 2
-          pattern: 'NA|[\w\W\s]+'
+          pattern: '[\w\W\s]+'
           description: |
             Denominação da Tarifa pactuada
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
           example: Excesso em Conta
         feeCode:
           type: string
           maxLength: 140
           minLength: 2
-          pattern: 'NA|[\w\W\s]+'
+          pattern: '[\w\W\s]+'
           description: |
             Sigla identificadora da tarifa pactuada
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
           example: EXCESSO_CONTA
         feeChargeType:
           $ref: '#/components/schemas/EnumContractFeeChargeType'
@@ -569,6 +567,7 @@ components:
         contractNumber:
           type: string
           maxLength: 100
+          pattern: '^\d{1,100}$'
           example: '1324926521496'
           description: Número do contrato dado pela instituição contratante.
         ipocCode:
@@ -635,7 +634,6 @@ components:
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
-          nullable: true
         currency:
           type: string
           maxLength: 3
@@ -823,7 +821,7 @@ components:
           type: number
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          maximum: 100000000000000000000
+          maximum: 2147483647
           example: 0.07
       additionalProperties: false
     InvoiceFinancingsBalloonPayment:

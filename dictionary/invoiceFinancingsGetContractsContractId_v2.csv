@@ -1,6 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
 /data;data;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;;;1;1;"";Não permitido;string;1324926521496
+/data/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;^\d{1,100}$;;1;1;"";Não permitido;string;1324926521496
 /data/ipocCode;ipocCode;"Número padronizado do contrato - IPOC (Identificação Padronizada da Operação de Crédito). Segundo DOC 3040, composta por:
 - **CNPJ da instituição:** 8 (oito) posições iniciais;
 - **Modalidade da operação:** 4 (quatro) posições;
@@ -23,7 +23,7 @@ OUTROS_TITULOS_DESCONTADOS";1;1;"";Não permitido;string;DESCONTO_CHEQUES
 /data/disbursementDates;disbursementDates;Lista que traz as Datas de Desembolso do valor contratado.;Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;N;"";Não permitido;array;2018-01-15
 /data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Deve aceitar NA caso não seja retornado pela instituição.
 ";Não permitido;string;2018-01-15
-/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Permitido;string;100000.0400
+/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/currency;currency;"Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
 /data/dueDate;dueDate;Data de vencimento Final da operação. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;"";Não permitido;string;2028-01-15
@@ -107,10 +107,8 @@ p.ex. 0.0045 .O preenchimento deve respeitar as 4 casas decimais, mesmo que venh
 (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^[0-1]\.\d{4}$;;1;1;"";Não permitido;string;0.5500
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas;Texto;1200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Informações adicionais
 /data/contractedFees;contractedFees;"";Lista;;Obrigatório;;;0;N;"";Não permitido;array;
-/data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;NA|[\w\W\s]+;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;Excesso em Conta
-/data/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;NA|[\w\W\s]+;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;EXCESSO_CONTA
+/data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]+;;1;1;"";Não permitido;string;Excesso em Conta
+/data/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]+;;1;1;"";Não permitido;string;EXCESSO_CONTA
 /data/contractedFees/feeChargeType;feeChargeType;Tipo de cobrança para a tarifa pactuada no contrato.;Texto;;Obrigatório;;"UNICA 
 POR_PARCELA";1;1;"";Não permitido;string;UNICA
 /data/contractedFees/feeCharge;feeCharge;"Forma de cobrança relativa a tarifa pactuada no contrato. (Vide Enum)
