@@ -6,14 +6,14 @@
 /data/companyName;companyName;Razão social da empresa consultada é o termo registrado sob o qual uma pessoa jurídica (PJ) se individualiza e exerce suas atividades. Também pode ser chamada por denominação social ou firma empresarial;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Luiza e Benjamin Assessoria Jurídica Ltda
 /data/tradeName;tradeName;Nome fantasia da pessoa jurídica, se houver. (É o nome popular da empresa, utilizado para divulgação da empresa e melhor fixação com o público). De preenchimento obrigatório se houver;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Mundo da Eletronica
 /data/incorporationDate;incorporationDate;Data de constituição da empresa, conforme especificação RFC-3339.;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
-/data/cnpjNumber;cnpjNumber;Número completo do CNPJ da Empresa consultada  - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara;Texto;14;Obrigatório;\d{14}|^NA$;;1;1;"";Não permitido;string;50685362006773
+/data/cnpjNumber;cnpjNumber;Número completo do CNPJ da Empresa consultada  - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362006773
 /data/companyCnpjNumber;companyCnpjNumber;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
-Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;\d{14}|^NA$;;1;N;"";Não permitido;array;50685362000135
+Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;^\d{14}$;;1;N;"";Não permitido;array;50685362000135
 /data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Opcional;;;1;N;"";Não permitido;array;
 /data/otherDocuments/type;type;Número do Tipo de documento informado. De preenchimento obrigatório, para a Pessoa jurídica com domicílio ou sede no exterior, desobrigada de inscrição no CNPJ;Texto;20;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;EIN
 /data/otherDocuments/number;number;Número do outro documento. De preenchimento obrigatório, para a Pessoa jurídica com domicílio ou sede no exterior, desobrigada de inscrição no CNPJ;Texto;20;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;128328453
-/data/otherDocuments/country;country;Pais de emissão do tipo de documento informado. Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Opcional;^(\w{3}){1}$|^NA$;;0;1;"";Não permitido;string;CAN
-/data/otherDocuments/expirationDate;expirationDate;Data vigência do tipo de  documento informado, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;"";Não permitido;string;2021-05-21
+/data/otherDocuments/country;country;Pais de emissão do tipo de documento informado. Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Opcional;^(\w{3}){1}$;;0;1;"";Não permitido;string;CAN
+/data/otherDocuments/expirationDate;expirationDate;Data vigência do tipo de  documento informado, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
 /data/parties;parties;Lista relativa às informações das partes envolvidas, como: sócio e /ou administrador;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/parties/personType;personType;Indica se a pessoa da parte envolvida é uma pessoa natural ou juridica;Texto;;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA";1;1;"";Não permitido;string;
@@ -27,7 +27,7 @@ ADMINISTRADOR";1;1;"";Não permitido;string;
 /data/parties/companyName;companyName;Razão social da empresa consultada é o termo registrado sob o qual uma pessoa jurídica (PJ) se individualiza e exerce suas atividades. Também pode ser chamada por denominação social ou firma empresarial;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Luiza e Benjamin Assessoria Jurídica Ltda
 /data/parties/tradeName;tradeName;Nome fantasia da pessoa jurídica, se houver. (É o nome popular da empresa, utilizado para divulgação da empresa e melhor fixação com o público). De preenchimento obrigatório se houver;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Mundo da Eletronica
 /data/parties/startDate;startDate;Data de início da participação, conforme especificação RFC-3339.;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
-/data/parties/shareholding;shareholding;Percentual de participação societária (informar com 2 casas decimais). Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.25 (Este valor  representa 25%. O valor '1 'representa 100%);Texto;4;Obrigatório;^((\d{1,9}\.\d{2}){1}|NA)$;;1;1;"";Não permitido;string;0.51
+/data/parties/shareholding;shareholding;Percentual de participação societária (informar com 2 casas decimais). Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.25 (Este valor  representa 25%. O valor '1 'representa 100%);Texto;4;Obrigatório;^((\d{1,9}\.\d{2}){1})$;;1;1;"";Não permitido;string;0.51
 /data/parties/documentType;documentType;Tipo do documento informado.;Texto;;Obrigatório;;"CPF 
 PASSAPORTE 
 OUTRO_DOCUMENTO_VIAGEM 
@@ -35,7 +35,7 @@ CNPJ";1;1;"";Não permitido;string;
 /data/parties/documentNumber;documentNumber;Número do documento informado. Campo Texto Livre para preencher número e dígito do documento se houver;Texto;20;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;73677831148
 /data/parties/documentAdditionalInfo;documentAdditionalInfo;Campo livre, de preenchimento obrigatório quando o documento informado tiver informações complementares relevantes para a sua identificação;Texto;100;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;CNH
 /data/parties/documentCountry;documentCountry;País de emissão do documento. Código do pais de acordo com o código alpha3 do ISO-3166.;Texto;3;Opcional;[\w*\W*];;0;1;"";Não permitido;string;CAN
-/data/parties/documentExpirationDate;documentExpirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])|^NA$;;0;1;"";Não permitido;string;2021-05-21
+/data/parties/documentExpirationDate;documentExpirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/parties/documentIssueDate;documentIssueDate;Data de emissão do documento, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/contacts;contacts;Conjunto de informações referentes às formas para contatar o cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/contacts/postalAddresses;postalAddresses;Lista de endereços da pessoa jurídica;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
@@ -75,10 +75,10 @@ SP
 SE 
 TO 
 NA";1;1;"";Não permitido;string;SP
-/data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000';Texto;8;Obrigatório;\d{8}|^NA$;;1;1;"";Não permitido;string;17500001
+/data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000';Texto;8;Obrigatório;^\d{8}$;;1;1;"";Não permitido;string;17500001
 /data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;\w*\W*;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
 ";Não permitido;string;Brasil
-/data/contacts/postalAddresses/countryCode;countryCode;Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;;;1;1;"";Não permitido;string;BRA
+/data/contacts/postalAddresses/countryCode;countryCode;Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRA
 /data/contacts/postalAddresses/geographicCoordinates;geographicCoordinates;Conjunto de informações, que correspondem aos valores das coordenadas geográficas em graus decimais, no Sistema de referência WGS84;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/contacts/postalAddresses/geographicCoordinates/latitude;latitude;Informação da Latitude referente a geolocalização informada. Entre -90 e 90.p.ex. '-23.5475000'. (2 casas antes da vírgula, 11 posições);Texto;13;Opcional;^-?\d{1,2}\.\d{1,9}$;;0;1;"";Não permitido;string;-23.5475000
 /data/contacts/postalAddresses/geographicCoordinates/longitude;longitude;Informação da Longitude referente a geolocalização informada. Entre -180 e 180. p.ex '-46.6361100'. (3 casas antes da vírgula, 11 posições);Texto;13;Opcional;^-?\d{1,3}\.\d{1,8}$;;0;1;"";Não permitido;string;-46.6361100
