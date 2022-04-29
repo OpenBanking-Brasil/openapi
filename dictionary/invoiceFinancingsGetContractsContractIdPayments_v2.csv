@@ -13,10 +13,8 @@ Todos os valores monetários informados estão representados com a moeda vigente
 Expresso em valor monetário com até 4 casas decimais.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/releases/overParcel;overParcel;Objeto das tarifas e encargos que foram pagos fora da parcela.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/releases/overParcel/fees;fees;Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
-/data/releases/overParcel/fees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;NA|[\w\W\s]+;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;Excesso em Conta
-/data/releases/overParcel/fees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;NA|[\w\W\s]+;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;EXCESSO_CONTA
+/data/releases/overParcel/fees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]+;;1;1;"";Não permitido;string;Excesso em Conta
+/data/releases/overParcel/fees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]+;;1;1;"";Não permitido;string;EXCESSO_CONTA
 /data/releases/overParcel/fees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/releases/overParcel/charges;charges;Lista dos encargos que foram pagos fora da parcela.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/releases/overParcel/charges/chargeType;chargeType;Tipo de encargo pago fora da parcela;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
