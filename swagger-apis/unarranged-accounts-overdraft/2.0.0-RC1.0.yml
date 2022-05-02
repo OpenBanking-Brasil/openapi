@@ -647,10 +647,12 @@ components:
             Campo para informações adicionais.
             [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
         chargeRate:
-          type: number
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          maxLength: 19
           example: 0.07
       additionalProperties: false
     UnarrangedAccountOverdraftInstalmentsData:
@@ -832,13 +834,12 @@ components:
         feeCharge:
           $ref: '#/components/schemas/EnumContractFeeCharge'
         feeAmount:
-          type: number
+          type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 20
           description: |
             Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.
-          nullable: true
           example: 100000.04
         feeRate:
           type: string
