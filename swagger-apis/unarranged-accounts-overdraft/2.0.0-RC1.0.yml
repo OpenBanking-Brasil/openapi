@@ -379,7 +379,7 @@ components:
         companyCnpj:
           type: string
           maxLength: 14
-          pattern: '\d{14}|^NA$'
+          pattern: '^\d{14}$'
           description: 'Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
           example: '60500998000144'
         productType:
@@ -688,7 +688,7 @@ components:
           type: number
           maximum: 999
           description: 'Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
-          example: 14600
+          example: 80
         paidInstalments:
           type: number
           description: 'Quantidade de prestações pagas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero)'
@@ -1191,7 +1191,6 @@ components:
       description: |
         "Tipo da modalidade de crédito contratada, conforme circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
         Adiantamento a depositantes, Direitos creditórios descontados Empréstimos,  Financiamentos, Financiamentos rurais  e Financiamentos imobiliários"
-      maxLength: 27
       enum:
         - ADIANTAMENTO_A_DEPOSITANTES
       example: ADIANTAMENTO_A_DEPOSITANTES

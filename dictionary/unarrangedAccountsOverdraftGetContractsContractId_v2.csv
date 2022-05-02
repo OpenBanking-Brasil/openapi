@@ -12,7 +12,7 @@
 - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.";Texto;67;Obrigatório;^\d{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576
 /data/productName;productName;Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;AD
 /data/productType;productType;"Tipo da modalidade de crédito contratada, conforme circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
-Adiantamento a depositantes, Direitos creditórios descontados Empréstimos,  Financiamentos, Financiamentos rurais  e Financiamentos imobiliários";Texto;27;Obrigatório;;ADIANTAMENTO_A_DEPOSITANTES;1;1;"";Não permitido;string;ADIANTAMENTO_A_DEPOSITANTES
+Adiantamento a depositantes, Direitos creditórios descontados Empréstimos,  Financiamentos, Financiamentos rurais  e Financiamentos imobiliários";Texto;;Obrigatório;;ADIANTAMENTO_A_DEPOSITANTES;1;1;"";Não permitido;string;ADIANTAMENTO_A_DEPOSITANTES
 /data/productSubType;productSubType;"Sub tipo da modalidades de crédito contratadas, conforme  circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
 Adiantamento a depositantes";Texto;;Obrigatório;;ADIANTAMENTO_A_DEPOSITANTES;1;1;"";Não permitido;string;ADIANTAMENTO_A_DEPOSITANTES
 /data/contractDate;contractDate;Data de contratação da operação de crédito. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05

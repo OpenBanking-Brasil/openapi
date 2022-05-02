@@ -11,7 +11,7 @@ SEMANA
 MES 
 ANO 
 SEM_PRAZO_REMANESCENTE";1;1;"";Não permitido;string;
-/data/contractRemainingNumber;contractRemainingNumber;Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Obrigatório;;;1;1;"";Não permitido;number;14600
+/data/contractRemainingNumber;contractRemainingNumber;Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Obrigatório;;;1;1;"";Não permitido;number;80
 /data/paidInstalments;paidInstalments;Quantidade de prestações pagas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;73
 /data/dueInstalments;dueInstalments;Quantidade de prestações a vencer.(No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;57
 /data/pastDueInstalments;pastDueInstalments;Quantidade de prestações vencidas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;73
