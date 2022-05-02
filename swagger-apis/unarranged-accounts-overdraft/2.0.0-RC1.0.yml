@@ -87,6 +87,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftContractList'
       security:
         - OpenId:
             - openid
@@ -128,6 +130,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftContract'
       security:
         - OpenId:
             - openid
@@ -171,6 +175,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftWarranties'
       security:
         - OpenId:
             - openid
@@ -214,6 +220,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftInstalments'
       security:
         - OpenId:
             - openid
@@ -257,6 +265,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftPayments'
       security:
         - OpenId:
             - openid
@@ -659,9 +669,8 @@ components:
           $ref: '#/components/schemas/EnumTypeNumberOfInstalments'
         totalNumberOfInstalments:
           type: number
-          maxLength: 6
+          maximum: 999999
           example: 130632
-          nullable: true
           description: 'Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
         typeContractRemaining:
           type: string
@@ -671,31 +680,26 @@ components:
             - MES
             - ANO
             - SEM_PRAZO_REMANESCENTE
-          maxLength: 22
           description: |
             Tipo de prazo remanescente do contrato referente à modalidade de crédito informada.
         contractRemainingNumber:
           type: number
-          maxLength: 6
+          maximum: 999
           description: 'Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
-          nullable: true
           example: 14600
         paidInstalments:
           type: number
           description: 'Quantidade de prestações pagas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero)'
-          maxLength: 3
-          nullable: true
+          maximum: 999
           example: 73
         dueInstalments:
           type: number
-          maxLength: 3
+          maximum: 999
           description: 'Quantidade de prestações a vencer.(No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero)'
-          nullable: true
           example: 57
         pastDueInstalments:
           type: number
-          maxLength: 3
-          nullable: true
+          maximum: 999
           description: 'Quantidade de prestações vencidas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero)'
           example: 73
         balloonPayments:
@@ -704,7 +708,6 @@ components:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftBalloonPayment'
           minItems: 0
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
-          nullable: true
       additionalProperties: false
     UnarrangedAccountOverdraftPaymentsData:
       type: object
@@ -880,7 +883,6 @@ components:
       description: Lista que traz as datas de vencimento e valor das parcelas não regulares  do contrato da modalidade de crédito consultada.
       required:
         - dueDate
-        - currency
         - amount
       properties:
         dueDate:
@@ -890,21 +892,26 @@ components:
           description: 'Data de vencimento da parcela não regular  a vencer do contrato da modalidade de crédito consultada, conforme especificação RFC-3339. p.ex. 2014-03-19'
           maxLength: 10
           example: '2020-01-10'
-        currency:
-          type: string
-          description: |
-            Moeda referente ao valor monetário informado, segundo modelo ISO-4217. p.ex. 'BRL'
-            Todos os valores monetários informados estão representados com a moeda vigente do Brasil
-          pattern: '^(\w{3}){1}$|^NA$'
-          maxLength: 3
-          example: BRL
         amount:
-          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
-          type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
-          minLength: 4
-          example: '100000.0400'
+          type: object
+          required:
+            - amount
+            - currency
+          description: Valor monetário da parcela não regular a vencer.  Expresso em valor monetário com 4 casas decimais.
+          properties:
+            amount:
+              type: string
+              pattern: '^-?\d{1,15}\.\d{2,4}$'
+              maxLength: 21
+              minLength: 1
+              example: '100000.0400'
+            currency:
+              type: string
+              pattern: '^[A-Z]{3}$'
+              maxLength: 3
+              description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+              example: BRL
+          additionalProperties: false
       additionalProperties: false
     UnarrangedAccountOverdraftChargeOverParcel:
       type: object
