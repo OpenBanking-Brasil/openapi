@@ -998,7 +998,6 @@ components:
         paidInstalments:
           type: number
           maximum: 999
-          nullable: true
           example: 73
           description: Quantidade total de parcelas pagas do contrato referente à Modalidade de Crédito informada.
         contractOutstandingBalance:
