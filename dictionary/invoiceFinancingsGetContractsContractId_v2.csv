@@ -120,7 +120,7 @@ MAXIMO
 FIXO 
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
 /data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.04
-/data/contractedFees/feeRate;feeRate;Percentual que representa o valor da tarifa pactuada para o contrato.;Texto;19;Obrigatório;;;1;1;" Preenchimento obrigatório quando a forma de cobrança por Percentual.
+/data/contractedFees/feeRate;feeRate;Percentual que representa o valor da tarifa pactuada para o contrato.;Texto;19;Obrigatório;^\d{1}\.\d{4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança por Percentual.
 ";Não permitido;string;50.00
 /data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contractedFinanceCharges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
@@ -130,6 +130,6 @@ IOF_CONTRATACAO
 IOF_POR_ATRASO 
 SEM_ENCARGO 
 OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO
-/data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campos para informações adicionais.;Texto;;Obrigatório;[\w\W\s]*;;1;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato. Pode ser retornado NA caso a Instituição não possua essa informação.
+/data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campos para informações adicionais.;Texto;50;Opcional;[\w\W\s]*;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos
 /data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Número;;Opcional;;;0;1;"";Não permitido;number;0.07
