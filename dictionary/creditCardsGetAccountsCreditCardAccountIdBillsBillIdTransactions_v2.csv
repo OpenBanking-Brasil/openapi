@@ -47,8 +47,6 @@ Para recebedora: Ignorar o campo preenchido conforme esse cenário.
 ";Não permitido;string;CREDITO_ROTATIVO
 /data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;"Campo livre, de preenchimento obrigatório quando selecionado tipo de crédito OUTROS.
 
-Para transmissora: Preencher campo com NA quando OtherCreditType não for tipo OUTROS.
-
 Para recebedora: Ignorar o campo preenchido conforme esse cenário.";Texto;50;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;
 /data/chargeIdentificator;chargeIdentificator;Identificador da parcela que está sendo informada. Campo de livre preenchimento;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PARCELA_1
 /data/chargeNumber;chargeNumber;Quantidade de parcelas;Número;;Obrigatório;;;1;1;"";Não permitido;number;3
