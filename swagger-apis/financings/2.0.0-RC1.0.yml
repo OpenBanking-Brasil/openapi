@@ -714,10 +714,10 @@ components:
           type: string
           format: date
           maxLength: 10
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$'
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2018-02-15'
           description: |
-            Data de vencimento primeira parcela do principal. [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
+            Data de vencimento primeira parcela do principal.
         CET:
           type: string
           maxLength: 6
