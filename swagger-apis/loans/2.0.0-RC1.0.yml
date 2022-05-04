@@ -791,13 +791,13 @@ components:
         feeCharge:
           $ref: '#/components/schemas/EnumContractFeeCharge'
         feeAmount:
-          type: number
+          type: string
           format: double
-          maximum: 2147483647
+          maxLength: 20
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: |
             Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.
-          example: 100000.04
+          example: '100000.04'
         feeRate:
           type: string
           pattern: '^\d{1}\.\d{4}$'
@@ -819,7 +819,6 @@ components:
         - referentialRateIndexerType
         - preFixedRate
         - postFixedRate
-        - additionalInfo
       properties:
         taxType:
           $ref: '#/components/schemas/EnumContractTaxType'
@@ -868,7 +867,7 @@ components:
           example: Informações adicionais
           description: |
             Texto com informações adicionais sobre a composição das taxas de juros pactuadas.
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
+            [Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
       additionalProperties: false
     LoansChargeOverParcel:
       type: object
@@ -900,7 +899,6 @@ components:
       description: Conjunto de informações referentes à identificação da operação de crédito
       required:
         - chargeType
-        - chargeAdditionalInfo
       properties:
         chargeType:
           $ref: '#/components/schemas/EnumContractFinanceChargeType'
@@ -909,14 +907,15 @@ components:
           description: |
             Campo de preenchimento obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
             [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
-          pattern: \w*\W*$|^NA$
+          pattern: \w*\W*$
           example: Informações adicionais sobre encargos.
         chargeRate:
-          type: number
+          type: string
+          pattern: '^\d{1,15}\.\d{2,4}$'
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          maximum: 2147483647
-          example: 0.07
+          maxLength: 20
+          example: '0.0700'
       additionalProperties: false
     LoansInstalments:
       type: object
