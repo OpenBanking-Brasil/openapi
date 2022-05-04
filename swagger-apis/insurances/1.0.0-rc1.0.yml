@@ -164,7 +164,11 @@ components:
           pattern: '^\d{1,16}\.\d{2,4}$'
           example: '0.01'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
     CoverageItemAttributesMaxLMI:
       type: object
@@ -179,7 +183,11 @@ components:
           maxLength: 21
           example: '1000000.01'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
     InsuranceMinimumRequirement:
       type: object
@@ -820,7 +828,11 @@ components:
           maxLength: 21
           example: '50.000'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
     EnumCoverageItemDeductibleType:
       type: string
@@ -1187,7 +1199,11 @@ components:
           pattern: '^\d{1,16}\.\d{2,4}$'
           example: '1.1000'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
     EnumHomeCoverageType:
       type: string

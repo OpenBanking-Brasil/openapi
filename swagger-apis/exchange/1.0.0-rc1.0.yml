@@ -242,7 +242,11 @@ components:
         transactionType:
           $ref: '#/components/schemas/EnumExchangeTransactionType'
         foreignCurrency:
-          $ref: '#/components/schemas/OnlineRate/properties/foreignCurrency'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
         deliveryForeignCurrency:
           $ref: '#/components/schemas/EnumExchangeDeliveryForeignCurrency'
         rangeTransactionCategory:

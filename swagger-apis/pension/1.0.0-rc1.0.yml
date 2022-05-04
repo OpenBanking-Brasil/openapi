@@ -462,7 +462,11 @@ components:
           example: '1000.00'
           maxLength: 21
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
     SurvivalPensionMinimumRequirements:
       type: object
@@ -705,7 +709,11 @@ components:
       description: Valor mínimo de prêmio/contribuição
       properties:
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
         periodicity:
           type: string
           maxLength: 10
