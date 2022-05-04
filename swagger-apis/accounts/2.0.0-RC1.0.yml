@@ -654,7 +654,8 @@ components:
     EnumTransactionTypes:
       type: string
       description: |
-        Tipo de Transação
+        O campo deve classificar a transação em um dos tipos descritos. O transmissor deve classificar as transações disponíveis associando-a a um dos itens do Enum listado neste campo. 
+        A opção OUTROS só deve ser utilizada para os casos em que de fato a transação compartilhada não possa ser classificada como um dos itens deste Enum.
       enum:
         - TED
         - DOC
