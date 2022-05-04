@@ -911,10 +911,10 @@ components:
           example: Informações adicionais sobre encargos.
         chargeRate:
           type: string
-          pattern: '^\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1}\.\d{4}$'
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          maxLength: 20
+          maxLength: 5
           example: '0.0700'
       additionalProperties: false
     LoansInstalments:
