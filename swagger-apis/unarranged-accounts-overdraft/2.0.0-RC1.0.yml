@@ -894,25 +894,7 @@ components:
           maxLength: 10
           example: '2020-01-10'
         amount:
-          type: object
-          required:
-            - amount
-            - currency
-          description: Valor monetário da parcela não regular a vencer.  Expresso em valor monetário com 4 casas decimais.
-          properties:
-            amount:
-              type: string
-              pattern: '^-?\d{1,15}\.\d{2,4}$'
-              maxLength: 21
-              minLength: 1
-              example: '100000.0400'
-            currency:
-              type: string
-              pattern: '^[A-Z]{3}$'
-              maxLength: 3
-              description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-              example: BRL
-          additionalProperties: false
+          $ref: '#/components/schemas/UnarrangedAccountOverdraftBalloonPaymentAmount'
       additionalProperties: false
     UnarrangedAccountOverdraftChargeOverParcel:
       type: object
@@ -1185,6 +1167,26 @@ components:
           pattern: '[\w\W\s]*'
           example: Informações adicionais
           description: Texto com informações adicionais sobre a composição das taxas de juros pactuadas
+      additionalProperties: false
+    UnarrangedAccountOverdraftBalloonPaymentAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      description: Valor monetário da parcela não regular a vencer.  Expresso em valor monetário com 4 casas decimais.
+      properties:
+        amount:
+          type: string
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 1
+          example: '100000.0400'
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
     ProductType:
       type: string
