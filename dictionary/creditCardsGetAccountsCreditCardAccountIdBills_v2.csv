@@ -2,9 +2,10 @@
 /data;data;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/billId;billId;Informação que identifica a fatura;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;3459087XXZTR
 /data/dueDate;dueDate;Data de vencimento da Fatura, que aparece para pagamento pelo cliente;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
-/data/billTotalAmount;billTotalAmount;Valor total da fatura;Texto;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/billTotalAmount;billTotalAmount;"Valor total da faturas.
+O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.";Texto;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/billTotalAmountCurrency;billTotalAmountCurrency;Moeda referente ao valor de pagamento total da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
-/data/billMinimumAmount;billMinimumAmount;Valor do pagamento minimo da fatura;Número;19;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;number;1000.04
+/data/billMinimumAmount;billMinimumAmount;Valor do pagamento minimo da fatura;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/billMinimumAmountCurrency;billMinimumAmountCurrency;Moeda referente ao valor de pagamento minimo da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
 /data/isInstalment;isInstalment;Indica se a fatura permite parcelamento (true) ou não (false).;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false
 /data/financeCharges;financeCharges;Lista dos encargos cobrados na fatura;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
@@ -41,5 +42,7 @@ OUTRO_VALOR_PAGO_FATURA";1;1;"";Não permitido;string;
 BOLETO_BANCARIO 
 AVERBACAO_FOLHA 
 PIX";1;1;"";Não permitido;string;
-/data/payments/amount;amount;Valor pagamento segundo o valueType.  Expresso em valor monetário com 4 casas decimais;Número;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;number;100000.04
+/data/payments/amount;amount;"Valor pagamento segundo o valueType.  
+Expresso em valor monetário com 4 casas decimais.
+O campo não pode assumir valor negativo por se tratar de um pagamento.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/payments/currency;currency;Moeda referente ao valor de pagamento da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL

@@ -446,7 +446,9 @@ components:
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 0
-          description: Valor total da fatura
+          description: |
+            Valor total da faturas.
+            O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.
           example: '100000.0400'
         billTotalAmountCurrency:
           type: string
@@ -455,13 +457,13 @@ components:
           description: 'Moeda referente ao valor de pagamento total da fatura, segundo modelo ISO-4217. p.ex. ''BRL'' Todos os valores informados estão representados com a moeda vigente do Brasil'
           example: BRL
         billMinimumAmount:
-          type: number
+          type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 19
+          maxLength: 21
           minLength: 0
           description: Valor do pagamento minimo da fatura
-          example: 1000.04
+          example: '1000.0400'
         billMinimumAmountCurrency:
           type: string
           maxLength: 3
@@ -539,13 +541,16 @@ components:
         paymentMode:
           $ref: '#/components/schemas/EnumCreditCardAccountsPaymentMode'
         amount:
-          type: number
+          type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 20
+          maxLength: 21
           minLength: 0
-          example: 100000.04
-          description: Valor pagamento segundo o valueType.  Expresso em valor monetário com 4 casas decimais
+          example: '100000.0400'
+          description: |
+            Valor pagamento segundo o valueType.  
+            Expresso em valor monetário com 4 casas decimais.
+            O campo não pode assumir valor negativo por se tratar de um pagamento.
         currency:
           type: string
           pattern: '^(\w{3}){1}$'
