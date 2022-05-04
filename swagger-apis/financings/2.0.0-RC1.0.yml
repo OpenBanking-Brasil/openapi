@@ -883,8 +883,8 @@ components:
         chargeRate:
           type: string
           format: double
-          pattern: '^\d{1,15}.\d{4}$'
-          maxLength: 20
+          pattern: '^[0-1]\.\d{4}$'
+          maxLength: 6
           minLength: 6
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
