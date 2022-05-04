@@ -1009,7 +1009,7 @@ components:
           description: 'Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a ''marca'' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes'
         companyCnpj:
           type: string
-          pattern: '\d{14}|^NA$'
+          pattern: '\d{14}$'
           maxLength: 14
           example: '21128159000166'
           description: 'Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
