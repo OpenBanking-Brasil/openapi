@@ -135,4 +135,4 @@ SEM_ENCARGO
 OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO
 /data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campo de preenchimento obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.;Texto;140;Opcional;\w*\W*$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos.
-/data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Texto;6;Opcional;^[0,1].\d{4}$;;0;1;"";Não permitido;string;0.0700
+/data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Texto;6;Opcional;^[0-1]\.\d{4}$;;0;1;"";Não permitido;string;0.0700
