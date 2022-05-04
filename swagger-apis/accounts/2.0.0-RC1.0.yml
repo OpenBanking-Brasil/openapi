@@ -286,9 +286,9 @@ components:
         - currency
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/amount'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/currency'
       additionalProperties: false
     AccountOverdraftLimitsDataOverdraftContractedLimit:
       type: object
@@ -299,9 +299,9 @@ components:
       additionalProperties: false
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/amount'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/currency'
     AccountOverdraftLimitsDataOverdraftUsedLimit:
       type: object
       description: Valor utilizado total do limite do cheque especial e o adiantamento a depositante.
@@ -311,9 +311,9 @@ components:
       additionalProperties: false
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/amount'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/currency'
     AccountOverdraftLimitsDataUnarrangedOverdraftAmount:
       type: object
       description: Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial.
@@ -323,9 +323,9 @@ components:
       additionalProperties: false
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/amount'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/currency'
     AccountBalancesDataBlockedAmount:
       type: object
       description: 'Saldo bloqueado, não disponível para utilização imediata, por motivo de bloqueio apresentado para o cliente nos canais eletrônicos Expresso em valor monetário com 4 casas decimais.'
@@ -335,9 +335,9 @@ components:
       additionalProperties: false
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/amount'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/currency'
     AccountBalancesDataAvailableAmount:
       type: object
       description: 'Saldo disponível para utilização imediata. No caso de conta de depósito a vista, sem considerar cheque especial e investimentos atrelados a conta. Expresso em valor monetário com 4 casas decimais.'
@@ -346,9 +346,9 @@ components:
         - currency
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/amount'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountTransactionsDataAmount/properties/currency'
       additionalProperties: false
     AccountBalancesData:
       type: object
@@ -579,23 +579,19 @@ components:
         - currency
       properties:
         amount:
-          $ref: '#/components/schemas/AmountCurrencyCode'
+          type: string
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          description: Valor relacionado ao objeto.
+          maxLength: 20
+          minLength: 0
+          example: '100000.0400'
         currency:
-          $ref: '#/components/schemas/CurrencyCode'
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
       additionalProperties: false
-    AmountCurrencyCode:
-      type: string
-      pattern: '^\d{1,15}\.\d{2,4}$'
-      description: Valor relacionado ao objeto.
-      maxLength: 20
-      minLength: 0
-      example: '100000.0400'
-    CurrencyCode:
-      type: string
-      pattern: '^[A-Z]{3}$'
-      maxLength: 3
-      description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-      example: BRL
     EnumAccountSubType:
       type: string
       enum:
