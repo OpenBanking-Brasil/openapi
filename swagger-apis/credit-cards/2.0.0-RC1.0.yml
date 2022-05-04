@@ -631,6 +631,7 @@ components:
           example: CREDITO_A_VISTA
         lineNameAdditionalInfo:
           type: string
+          maxLength: 50
           pattern: '[\w\W\s]*'
           example: Informações adicionais e complementares.
           description: Campo de preenchimento obrigatório se selecionada a opção 'OUTRAS' em lineName.
