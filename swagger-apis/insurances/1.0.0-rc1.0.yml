@@ -135,7 +135,7 @@ components:
     CnpjNumber:
       type: string
       description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-      pattern: '\d{14}$'
+      pattern: '^\d{14}$'
       example: '13456789000112'
     AssistanceServicesItem:
       type: object
@@ -164,11 +164,7 @@ components:
           pattern: '^\d{1,16}\.\d{2,4}$'
           example: '0.01'
         currency:
-          type: string
-          pattern: '^[A-Z]{3}$'
-          maxLength: 3
-          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-          example: BRL
+          $ref: '#/components/schemas/CurrencyCode'
       additionalProperties: false
     CoverageItemAttributesMaxLMI:
       type: object
@@ -183,11 +179,7 @@ components:
           maxLength: 21
           example: '1000000.01'
         currency:
-          type: string
-          pattern: '^[A-Z]{3}$'
-          maxLength: 3
-          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-          example: BRL
+          $ref: '#/components/schemas/CurrencyCode'
       additionalProperties: false
     InsuranceMinimumRequirement:
       type: object
@@ -392,7 +384,6 @@ components:
               - INDICE
               - VINCULADO_SALDO_DEVEDOR
               - VARIAVEL_ACORDO_CRITERIO_ESPECIFICO
-            maxLength: 35
         updateIndexes:
           type: array
           items:
@@ -402,7 +393,6 @@ components:
                 1. IPCA (IBGE)
                 2. IGP-M (FGV)
                 3. INPC (IBGE)
-            maxLength: 9
             enum:
               - IPCA
               - IGP_M
@@ -513,7 +503,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/Phase4Meta'
+          $ref: '#/components/schemas/OKResponseHomeInsuranceList/properties/meta'
       additionalProperties: false
     AutomotiveInsuranceData:
       type: object
@@ -828,11 +818,7 @@ components:
           maxLength: 21
           example: '50.000'
         currency:
-          type: string
-          pattern: '^[A-Z]{3}$'
-          maxLength: 3
-          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-          example: BRL
+          $ref: '#/components/schemas/CurrencyCode'
       additionalProperties: false
     EnumCoverageItemDeductibleType:
       type: string
@@ -1074,7 +1060,23 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/Phase4Meta'
+          type: object
+          description: Meta informações referente à API requisitada.
+          required:
+            - totalRecords
+            - totalPages
+          properties:
+            totalRecords:
+              type: integer
+              format: int32
+              description: Número total de registros no resultado
+              example: 1
+            totalPages:
+              type: integer
+              format: int32
+              description: Número total de páginas no resultado
+              example: 1
+          additionalProperties: false
       additionalProperties: false
     HomeInsuranceData:
       type: object
@@ -1169,7 +1171,6 @@ components:
       type: object
       required:
         - type
-        - attributes
       properties:
         type:
           $ref: '#/components/schemas/EnumHomeCoverageType'
@@ -1199,11 +1200,7 @@ components:
           pattern: '^\d{1,16}\.\d{2,4}$'
           example: '1.1000'
         currency:
-          type: string
-          pattern: '^[A-Z]{3}$'
-          maxLength: 3
-          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-          example: BRL
+          $ref: '#/components/schemas/CurrencyCode'
       additionalProperties: false
     EnumHomeCoverageType:
       type: string
@@ -1354,7 +1351,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/Phase4Meta'
+          $ref: '#/components/schemas/OKResponseHomeInsuranceList/properties/meta'
       additionalProperties: false
     PersonalInsuranceData:
       type: object
@@ -1389,7 +1386,13 @@ components:
           maxLength: 80
           example: '0001'
         category:
-          $ref: '#/components/schemas/EnumInsurancePensionCategory'
+          type: string
+          description: Indicar a categoria do Produto&#58;<br><ol><li>Tradicional</li><li>Microsseguro</li></ol>
+          maxLength: 12
+          enum:
+            - TRADICIONAL
+            - MICROSSEGURO
+          example: TRADICIONAL
         modality:
           $ref: '#/components/schemas/EnumProductModality'
         coverages:
@@ -1506,7 +1509,33 @@ components:
         pmbacRemuneration:
           $ref: '#/components/schemas/InsurancePensionEnumPmbacRemuneration'
         benefitRecalculation:
-          $ref: '#/components/schemas/InsurancePensionBenefitRecalculation'
+          type: object
+          required:
+            - criterias
+            - updateIndexes
+          properties:
+            criterias:
+              type: array
+              items:
+                $ref: '#/components/schemas/InsurancePensionBenefitRecalculation/properties/criterias/items'
+            updateIndexes:
+              type: array
+              items:
+                type: string
+                description: |
+                  Índice utilizado na atualização da PMBaC:
+                    1. IPCA (IBGE)
+                    2. IGP-M (FGV)
+                    3. INPC (IBGE)
+                    4. NÃO APLICA
+                maxLength: 10
+                enum:
+                  - IPCA
+                  - IGP_M
+                  - INPC
+                  - NAO_APLICA
+                example: IPCA
+          additionalProperties: false
         ageAdjustment:
           $ref: '#/components/schemas/AgeAdjustment'
         financialRegimes:
@@ -1621,9 +1650,6 @@ components:
         - minValue
         - maxValue
         - gracePeriod
-        - deductibleBRL
-        - differentiatedDeductibleBRL
-        - assistanceTypes
       properties:
         indemnityPaymentMethods:
           description: Listagem da forma de pagamento da indenização para cada combinação de modalidade/cobertura do produto.
@@ -1668,9 +1694,35 @@ components:
           maxLength: 10
           example: 15
         deductible:
-          $ref: '#/components/schemas/InsurancePensionCoverageDeductible'
+          type: object
+          required:
+            - amount
+            - currency
+          description: Listagem de franquia em reais para cada combinação de modalidade/cobertura do produto.
+          properties:
+            amount:
+              type: string
+              maxLength: 21
+              pattern: '^\d{1,16}\.\d{2,4}$'
+              example: '0.01'
+            currency:
+              $ref: '#/components/schemas/CurrencyCode'
+          additionalProperties: false
         differentiatedDeductible:
-          $ref: '#/components/schemas/InsurancePensionCoverageDifferentiatedDeductible'
+          type: object
+          required:
+            - amount
+            - currency
+          description: 'Detalhamento da franquia em reais diferentes para cada cobertura que exista alguma especificidade.<br>Caso a seguradora não tenha essa diferenciação, não retornará nada no campo.'
+          properties:
+            amount:
+              type: string
+              maxLength: 21
+              pattern: '^\d{1,16}\.\d{2,4}$'
+              example: '0.01'
+            currency:
+              $ref: '#/components/schemas/CurrencyCode'
+          additionalProperties: false
         excludedRisks:
           type: array
           items:

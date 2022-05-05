@@ -1,9 +1,9 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
 /data;data;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
-/data/participant;participant;Conjunto de informações relativas ao participante do produto de open banking;Objeto;;Opcional;;;0;1;"";Não permitido;object;
+/data/participant;participant;Conjunto de informações relativas ao participante do produto de open banking;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização
 /data/participant/name;name;Nome do participante do Open Banking.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização A1
-/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/participant/urlComplementaryList;urlComplementaryList;"";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies
 /data/investmentType;investmentType;"Especifica o tipo de ativo negociado&#58;<br><br><ol><li>Debêntures</li><li>CRI</li><li>CRA</li></ol>";Texto;11;Obrigatório;;"DEBENTURES 
 CRI 
@@ -15,7 +15,7 @@ CRA";1;1;"";Não permitido;string;CRI
 3_FAIXA 
 4_FAIXA";1;1;"";Não permitido;string;1_FAIXA
 /data/custodyFee/prices/value;value;Mediana.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.020300
-/data/custodyFee/prices/customerRate;customerRate;Percentual de clientes.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000
+/data/custodyFee/prices/operationRate;operationRate;Percentual de operação.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000
 /data/custodyFee/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.010000
 /data/custodyFee/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.300000
 /data/loadingRate;loadingRate;Distribuição por frequência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
@@ -25,6 +25,8 @@ CRA";1;1;"";Não permitido;string;CRI
 3_FAIXA 
 4_FAIXA";1;1;"";Não permitido;string;1_FAIXA
 /data/loadingRate/prices/value;value;Mediana.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.020300
-/data/loadingRate/prices/customerRate;customerRate;Percentual de clientes.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000
+/data/loadingRate/prices/operationRate;operationRate;Percentual de operação.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000
 /data/loadingRate/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.010000
 /data/loadingRate/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.300000
+/data/targetAudience;targetAudience;Público alvo (PESSOA_NATURAL ou PESSOA_JURIDICA).;Texto;15;Obrigatório;;"PESSOA_NATURAL 
+PESSOA_JURIDICA";1;1;"";Não permitido;string;PESSOA_JURIDICA

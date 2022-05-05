@@ -345,7 +345,7 @@ components:
             Percentual que representa o valor da tarifa pactuada para o contrato. 
             [Restrição] Preenchimento obrigatório quando a forma de cobrança por Percentual.
           maxLength: 19
-          example: '50.00'
+          example: '0.1234'
       additionalProperties: false
     EnumContractFeeCharge:
       type: string

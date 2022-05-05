@@ -3,11 +3,11 @@
 /data/participant;participant;Conjunto de informações relativas ao participante do produto de open banking;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização
 /data/participant/name;name;Nome do participante do Open Banking.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização A1
-/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/participant/urlComplementaryList;urlComplementaryList;"";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies
 /data/society;society;Conjunto de informações relativas à seguradora do produto de open insurance;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Society A1
-/data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/name;name;Nome comercial do produto, pelo qual é identificado nos canais de distribuição e atendimento da sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Produto A
 /data/code;code;Código único a ser definido pela sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;0001
 /data/segment;segment;"Segmento do qual se trata o produto contratado
@@ -93,7 +93,7 @@ OUTROS";1;N;"";Não permitido;array;CARTAO_CREDITO
 /data/defferalPeriod/redemptionPaymentTerm;redemptionPaymentTerm;Prazo em dias para pagamento do resgate;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10
 /data/defferalPeriod/portabilityPaymentTerm;portabilityPaymentTerm;Prazo em dias para pagamento da portabilidade (entre empresas diferentes).;Número;;Opcional;;;0;1;"";Não permitido;number;20
 /data/defferalPeriod/investmentFunds;investmentFunds;"";Lista;;Opcional;;;0;N;"";Não permitido;array;
-/data/defferalPeriod/investmentFunds/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Opcional;\d{14}$;;0;1;"";Não permitido;string;13456789000112
+/data/defferalPeriod/investmentFunds/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Opcional;^\d{14}$;;0;1;"";Não permitido;string;13456789000112
 /data/defferalPeriod/investmentFunds/name;name;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
 - Nome Fantasia";Texto;80;Opcional;;;0;1;"";Não permitido;string;EMPRESAAPREV
 /data/defferalPeriod/investmentFunds/maximumAdministrationFee;maximumAdministrationFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
@@ -123,7 +123,7 @@ RENDA_VITALICIA_REVERSIVEL_BENEFICIARIO_INDICADO
 RENDA_VITALICIA_CONJUGE_CONTINUIDADE_MENORES 
 RENDA_VITALICIA_MINIMO_GARANTIDO 
 RENDA_VITALICIA_PRAZO_MINIMO_GRANTIDO";1;N;"";Não permitido;array;PAGAMENTO_UNICO
-/data/grantPeriodBenefit/biometricTable;biometricTable;"";Lista;32;Obrigatório;;"AT_2000_MALE 
+/data/grantPeriodBenefit/biometricTable;biometricTable;"";Lista;32;Opcional;;"AT_2000_MALE 
 AT_2000_FEMALE 
 AT_2000_MALE_FEMALE 
 AT_2000_MALE_SUAVIZADA_10 
@@ -137,7 +137,7 @@ AT_83_FEMALE
 AT_83_MALE_FEMALE 
 BR_EMSSB_MALE 
 BR_EMSSB_FEMALE 
-BR_EMSSB_MALE_FEMALE";1;N;"";Não permitido;array;AT_2000_MALE
+BR_EMSSB_MALE_FEMALE";0;N;"";Não permitido;array;AT_2000_MALE
 /data/grantPeriodBenefit/interestRate;interestRate;Taxa de juros garantida utilizada para conversão em renda. Em %;Texto;8;Opcional;^[0-1]\.\d{6}$;;0;1;"";Não permitido;string;0.225222
 /data/grantPeriodBenefit/updateIndex;updateIndex;"Índice utilizado na atualização do prêmio e do capital segurado, caso critério de atualização por meio de índice:
 1. IPCA (IBGE);
@@ -147,7 +147,7 @@ IGP_M
 INPC";0;1;"";Não permitido;string;IPCA
 /data/grantPeriodBenefit/reversalFinancialResults;reversalFinancialResults;Percentual de reversão de excedente financeiro na concessão. Em %.;Texto;8;Opcional;^[0-1]\.\d{6}$;;0;1;"";Não permitido;string;1.252111
 /data/grantPeriodBenefit/investmentFunds;investmentFunds;"";Lista;;Opcional;;;0;N;"";Não permitido;array;
-/data/grantPeriodBenefit/investmentFunds/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Opcional;\d{14}$;;0;1;"";Não permitido;string;13456789000112
+/data/grantPeriodBenefit/investmentFunds/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Opcional;^\d{14}$;;0;1;"";Não permitido;string;13456789000112
 /data/grantPeriodBenefit/investmentFunds/name;name;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
 - Nome Fantasia";Texto;80;Opcional;;;0;1;"";Não permitido;string;EMPRESAAPREV
 /data/grantPeriodBenefit/investmentFunds/maximumAdministrationFee;maximumAdministrationFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:

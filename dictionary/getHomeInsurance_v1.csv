@@ -3,11 +3,11 @@
 /data/participant;participant;Conjunto de informações relativas ao participante do produto de open banking;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização
 /data/participant/name;name;Nome do participante do Open Banking.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização A1
-/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/participant/urlComplementaryList;urlComplementaryList;"";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies
 /data/society;society;Conjunto de informações relativas à seguradora do produto de open insurance;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Society A1
-/data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/name;name;Nome comercial do produto, pelo qual é identificado nos canais de distribuição e atendimento da sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Produto A
 /data/code;code;Código único a ser definido pela sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;0001
 /data/coverages;coverages;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
@@ -47,7 +47,7 @@ OUTROS";1;1;"";Não permitido;string;IMOVEL_BASICA
 /data/coverages/permissionSeparateAcquisition;permissionSeparateAcquisition;"Indicação se a cobertura permite contratação separada (por cobertura selecionada) conforme domínios abaixo:
   1. true
   2. false";Booleano;;Opcional;;;0;1;"";Não permitido;boolean;true
-/data/coverages/attributes;attributes;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/coverages/attributes;attributes;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/coverages/attributes/minLMI;minLMI;"No caso de contratação de várias coberturas numa mesma apólice, é comum o contrato estabelecer, para cada uma delas, um distinto limite máximo de responsabilidade por parte da seguradora. Cada um deles é denominado o Limite Máximo de Indenização (ou a Importância Segurada (IS), de cada cobertura contratada. Ressalte-se que estes limites são independentes, não se somando nem se comunicando. (Circular SUSEP 291/05); Lista com valor mínimo de LMI/IS aceito pela sociedade para cada cobertura. Em reais (R$) Importante: Campo de valor financeiro relacionado à cobertura que possui o campo. Quando não houver o campo, enviar o valor zerado.";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/coverages/attributes/minLMI/amount;amount;Valor mínimo de cobertura (Capital Segurado), diária ou parcela aceito pela sociedade para cada combinação de modalidade/cobertura do produto. Conforme moeda.;Texto;;Obrigatório;^\d{1,16}\.\d{2,4}$;;1;1;"";Não permitido;string;0.01
 /data/coverages/attributes/minLMI/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
