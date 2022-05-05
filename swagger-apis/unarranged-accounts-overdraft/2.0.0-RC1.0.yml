@@ -615,11 +615,9 @@ components:
         feeCode:
           type: string
           description: |
-            Sigla identificadora da tarifa avulsa fora da parcela
-
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA
+            Sigla identificadora da tarifa avulsa fora da parcela.
           maxLength: 140
-          pattern: '^\w{2}[\w\W\s]*$'
+          pattern: '[\w\W\s]*'
           example: Saque descoberto
         feeAmount:
           type: string
@@ -635,7 +633,6 @@ components:
       type: object
       required:
         - chargeType
-        - chargeAdditionalInfo
       properties:
         chargeType:
           $ref: '#/components/schemas/ChargeType'
@@ -653,7 +650,7 @@ components:
           maxLength: 20
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          example: 0.07
+          example: '0.0700'
       additionalProperties: false
     UnarrangedAccountOverdraftInstalmentsData:
       type: object
@@ -840,13 +837,12 @@ components:
           maxLength: 20
           description: |
             Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.
-          example: 100000.04
+          example: '100000.04'
         feeRate:
           type: string
           pattern: '^\d{1}\.\d{4}$'
           description: |
-            É o valor da tarifa em percentual pactuada no contrato. Deve-se informar 4 casas decimais, mesmo que preenchidas com zeros. Exemplo: 0.2000
-            [Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual. Exemplo: 0.0150 = 1,5%.
+            É o valor da tarifa em percentual pactuada no contrato. Exemplo: 0.2000.
           maxLength: 6
           minLength: 6
           example: '0.0150'
@@ -872,7 +868,7 @@ components:
           $ref: '#/components/schemas/EnumWarrantySubType'
         warrantyAmount:
           description: |
-            Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
+            Valor contratado da operação.
           type: string
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 21
@@ -938,7 +934,6 @@ components:
         - dueDate
         - instalmentPeriodicity
         - instalmentPeriodicityAdditionalInfo
-        - firstInstalmentDueDate
         - CET
         - amortizationScheduled
         - amortizationScheduledAdditionalInfo
@@ -1023,12 +1018,10 @@ components:
           format: date
           maxLength: 10
           minLength: 2
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$'
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2028-01-15'
           description: |
             Data de vencimento Final da operação. Especificação RFC-3339
-
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA
         instalmentPeriodicity:
           $ref: '#/components/schemas/EnumContractInstalmentPeriodicity'
         instalmentPeriodicityAdditionalInfo:
@@ -1044,12 +1037,10 @@ components:
           format: date
           maxLength: 10
           minLength: 2
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$'
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2018-02-15'
           description: |
             Data de vencimento primeira parcela do principal
-
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA
         CET:
           type: string
           pattern: '^\d{1}\.\d{4}$'
@@ -1173,7 +1164,7 @@ components:
       required:
         - amount
         - currency
-      description: Valor monetário da parcela não regular a vencer.  Expresso em valor monetário com 4 casas decimais.
+      description: Valor monetário da parcela não regular a vencer.
       properties:
         amount:
           type: string
