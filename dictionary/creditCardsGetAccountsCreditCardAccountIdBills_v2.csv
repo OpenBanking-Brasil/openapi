@@ -46,5 +46,5 @@ AVERBACAO_FOLHA
 PIX";1;1;"";Não permitido;string;
 /data/payments/amount;amount;"Valor pagamento segundo o valueType.  
 Expresso em valor monetário com 4 casas decimais.
-O campo não pode assumir valor negativo por se tratar de um pagamento.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+O campo não pode assumir valor negativo por se tratar de um pagamento.";Texto;2;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/payments/currency;currency;Moeda referente ao valor de pagamento da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
