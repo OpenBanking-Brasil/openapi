@@ -634,7 +634,6 @@ components:
         - countryCallingCode
         - areaCode
         - number
-        - phoneExtension
       properties:
         isMain:
           type: boolean
@@ -679,10 +678,7 @@ components:
       type: object
       required:
         - isMain
-        - address
         - townName
-        - countrySubDivision
-        - postCode
         - country
         - countryCode
       properties:
@@ -698,8 +694,6 @@ components:
           example: 'Av Naburo Ykesaki, 1270'
           description: |
             Corresponde ao endereço comercial do cliente.
-
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
         additionalInfo:
           type: string
           maxLength: 30
@@ -721,8 +715,6 @@ components:
           example: Marília
           description: |
             Localidade: O nome da localidade corresponde à designação da cidade ou município no qual o endereço está localizado.  
-
-            [Restrição] Caso a transmissora não possua a informação deverá retornar "NA" neste campo.
         ibgeTownCode:
           type: string
           pattern: '\d{7}$'
@@ -743,9 +735,7 @@ components:
           maxLength: 80
           pattern: \w*\W*
           example: Brasil
-          description: |
-            Nome do país
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
+          description: Nome do país
         countryCode:
           type: string
           maxLength: 3
@@ -1451,11 +1441,11 @@ components:
           example: Brasil
           description: |
             Nome do país.
-        typeAdditionalInfo:
+        additionalInfo:
           type: string
           maxLength: 70
           pattern: '[\w\W\s]*'
-          description: Campo livre de preenchimento obrigatório se selecionada a opção OUTROS tipos de documentos.
+          description: Campo livre de preenchimento quando necessário.
           example: Informações adicionais.
       additionalProperties: false
     PartiesParticipation:
@@ -1467,7 +1457,6 @@ components:
         - personType
         - civilName
         - companyName
-        - startDate
         - shareholding
         - documentType
         - documentNumber
@@ -1500,8 +1489,6 @@ components:
           example: Karina
           description: |
             Nome social da pessoa natural, se houver. (aquele pelo qual travestis e transexuais se reconhecem, bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local).   
-
-            [Restrição] De preenchimento obrigatório, se houver.
         companyName:
           type: string
           maxLength: 70
@@ -1569,7 +1556,6 @@ components:
       description: Objeto agrupador de informações relativas a Documentos da pessoa natural
       required:
         - cpfNumber
-        - passportNumber
         - passportCountry
         - passportExpirationDate
       properties:

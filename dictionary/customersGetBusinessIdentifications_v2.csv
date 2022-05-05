@@ -22,11 +22,10 @@ O administrador é o responsável por desempenhar todas as funções administrat
 Sócio não tem qualquer envolvimento nas atividades administrativas da sociedade.";Texto;;Obrigatório;;"SOCIO 
 ADMINISTRADOR";1;1;"";Não permitido;string;
 /data/parties/civilName;civilName;Nome civil completo da pessoa natural (Direito fundamental da pessoa, o nome civil é aquele atribuído à pessoa natural desde o registro de seu nascimento, com o qual será identificada por toda a sua vida, bem como após a sua morte);Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Juan Kaique Cláudio Fernandes
-/data/parties/socialName;socialName;Nome social da pessoa natural, se houver. (aquele pelo qual travestis e transexuais se reconhecem, bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local).;Texto;70;Opcional;[\w\W\s]*;;0;1;" De preenchimento obrigatório, se houver.
-";Não permitido;string;Karina
+/data/parties/socialName;socialName;Nome social da pessoa natural, se houver. (aquele pelo qual travestis e transexuais se reconhecem, bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local).;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Karina
 /data/parties/companyName;companyName;Razão social da empresa consultada é o termo registrado sob o qual uma pessoa jurídica (PJ) se individualiza e exerce suas atividades. Também pode ser chamada por denominação social ou firma empresarial;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Luiza e Benjamin Assessoria Jurídica Ltda
 /data/parties/tradeName;tradeName;Nome fantasia da pessoa jurídica, se houver. (É o nome popular da empresa, utilizado para divulgação da empresa e melhor fixação com o público). De preenchimento obrigatório se houver;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Mundo da Eletronica
-/data/parties/startDate;startDate;Data de início da participação, conforme especificação RFC-3339.;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
+/data/parties/startDate;startDate;Data de início da participação, conforme especificação RFC-3339.;Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z
 /data/parties/shareholding;shareholding;Percentual de participação societária (informar com 2 casas decimais). Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.25 (Este valor  representa 25%. O valor '1 'representa 100%);Texto;4;Obrigatório;^((\d{1,9}\.\d{2}){1})$;;1;1;"";Não permitido;string;0.51
 /data/parties/documentType;documentType;Tipo do documento informado.;Texto;;Obrigatório;;"CPF 
 PASSAPORTE 
@@ -40,14 +39,12 @@ CNPJ";1;1;"";Não permitido;string;
 /data/contacts;contacts;Conjunto de informações referentes às formas para contatar o cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/contacts/postalAddresses;postalAddresses;Lista de endereços da pessoa jurídica;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contacts/postalAddresses/isMain;isMain;Indica se o endereço informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
-/data/contacts/postalAddresses/address;address;Corresponde ao endereço comercial do cliente.;Texto;150;Obrigatório;^\w{2}[\w\W\s]*$;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;Av Naburo Ykesaki, 1270
+/data/contacts/postalAddresses/address;address;Corresponde ao endereço comercial do cliente.;Texto;150;Opcional;^\w{2}[\w\W\s]*$;;0;1;"";Não permitido;string;Av Naburo Ykesaki, 1270
 /data/contacts/postalAddresses/additionalInfo;additionalInfo;Alguns logradouros ainda necessitam ser especificados por meio de complemento;Texto;30;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Fundos
 /data/contacts/postalAddresses/districtName;districtName;Bairro é uma comunidade ou região localizada em uma cidade ou município de acordo com as suas subdivisões geográficas. Preenchimento obrigatório, se houver.;Texto;50;Opcional;\w*\W*;;0;1;"";Não permitido;string;Centro
-/data/contacts/postalAddresses/townName;townName;Localidade: O nome da localidade corresponde à designação da cidade ou município no qual o endereço está localizado.;Texto;50;Obrigatório;^\w{2}[\w\W\s]*$;;1;1;" Caso a transmissora não possua a informação deverá retornar ""NA"" neste campo.
-";Não permitido;string;Marília
+/data/contacts/postalAddresses/townName;townName;Localidade: O nome da localidade corresponde à designação da cidade ou município no qual o endereço está localizado.;Texto;50;Obrigatório;^\w{2}[\w\W\s]*$;;1;1;"";Não permitido;string;Marília
 /data/contacts/postalAddresses/ibgeTownCode;ibgeTownCode;Código IBGE de Município. A Tabela de Códigos de Municípios do IBGE apresenta a lista dos municípios brasileiros associados a um código composto de 7 dígitos, sendo os dois primeiros referentes ao código da Unidade da Federação.;Texto;7;Opcional;\d{7}$;;0;1;"";Não permitido;string;3550308
-/data/contacts/postalAddresses/countrySubDivision;countrySubDivision;Enumeração referente a cada sigla da unidade da federação que identifica o estado ou o distrito federal, no qual o endereço está localizado. p.ex. 'AC'. São consideradas apenas as siglas para os estados brasileiros;Texto;;Obrigatório;;"AC 
+/data/contacts/postalAddresses/countrySubDivision;countrySubDivision;Enumeração referente a cada sigla da unidade da federação que identifica o estado ou o distrito federal, no qual o endereço está localizado. p.ex. 'AC'. São consideradas apenas as siglas para os estados brasileiros;Texto;;Opcional;;"AC 
 AL 
 AP 
 AM 
@@ -74,10 +71,9 @@ SC
 SP 
 SE 
 TO 
-NA";1;1;"";Não permitido;string;SP
-/data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000';Texto;8;Obrigatório;^\d{8}$;;1;1;"";Não permitido;string;17500001
-/data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;\w*\W*;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;Brasil
+NA";0;1;"";Não permitido;string;SP
+/data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000';Texto;8;Opcional;^\d{8}$;;0;1;"";Não permitido;string;17500001
+/data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;Brasil
 /data/contacts/postalAddresses/countryCode;countryCode;Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRA
 /data/contacts/postalAddresses/geographicCoordinates;geographicCoordinates;Conjunto de informações, que correspondem aos valores das coordenadas geográficas em graus decimais, no Sistema de referência WGS84;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/contacts/postalAddresses/geographicCoordinates/latitude;latitude;Informação da Latitude referente a geolocalização informada. Entre -90 e 90.p.ex. '-23.5475000'. (2 casas antes da vírgula, 11 posições);Texto;13;Opcional;^-?\d{1,2}\.\d{1,9}$;;0;1;"";Não permitido;string;-23.5475000
@@ -158,7 +154,7 @@ OUTRO";1;1;"";Não permitido;string;FIXO
 99 
 NA";1;1;"";Não permitido;string;19
 /data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})$;;1;1;"";Não permitido;string;29875132
-/data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Obrigatório;^\d{1,5}$;;1;1;"";Não permitido;string;932
+/data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Opcional;^\d{1,5}$;;0;1;"";Não permitido;string;932
 /data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contacts/emails/isMain;isMain;Indica se o email informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/emails/email;email;Endereço de email;Texto;320;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;karinafernandes-81@br.inter.net
