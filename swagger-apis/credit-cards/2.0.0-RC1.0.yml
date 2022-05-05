@@ -442,14 +442,7 @@ components:
           pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2021-05-21'
         billTotalAmount:
-          type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 20
-          minLength: 0
-          description: |
-            Valor total da faturas.
-            O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.
-          example: '100000.0400'
+          $ref: '#/components/schemas/CreditCardsBillTotalAmount'
         billTotalAmountCurrency:
           type: string
           maxLength: 3
@@ -722,6 +715,29 @@ components:
             Indica se o Cartão de crédito associado à conta pagamento pós-paga é múltiplo ou não. Cartões denominados múltiplos possuem tanto a função crédito quanto a função débito, devendo o proprietário do cartão, no momento de sua utilização, informar se o pagamento é na função crédito (que leva a um pagamento futuro, por meio de uma fatura do cartão de crédito) ou na função débito.
           example: true
       additionalProperties: false
+    CreditCardsBillTotalAmount:
+      type: object
+      required:
+        - amount
+        - currency
+      description: |
+        Valor total da faturas.
+        O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.
+      properties:
+        amount:
+          description: Valor total da faturas. Expresso em valor monetário com 4 casas decimais.
+          type: string
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '100000.0400'
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
+      additionalProperties: false
     CreditCardAccountsTransaction:
       type: object
       description: Lista que traz os valores relativos aos saldos do Limite de crédito total da conta de pagamento pós-paga
@@ -732,7 +748,7 @@ components:
         - transactionType
         - transactionalAdditionalInfo
         - paymentType
-        - feeTypeAdditionalInfo
+        - feeType
         - otherCreditsType
         - chargeIdentificator
         - chargeNumber
@@ -793,8 +809,6 @@ components:
           pattern: '^\S[\s\S]*$'
           description: |
             Campo livre, de preenchimento obrigatório quando selecionado tipo de crédito "OUTROS".
-
-            Para recebedora: Ignorar o campo preenchido conforme esse cenário.
         chargeIdentificator:
           type: string
           maxLength: 50
