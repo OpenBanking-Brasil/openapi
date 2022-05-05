@@ -588,10 +588,8 @@ components:
         - contractAmount
         - settlementDate
         - currency
-        - dueDate
         - instalmentPeriodicity
         - instalmentPeriodicityAdditionalInfo
-        - firstInstalmentDueDate
         - CET
         - amortizationScheduled
         - amortizationScheduledAdditionalInfo
@@ -660,7 +658,7 @@ components:
           type: string
           maxLength: 21
           minLength: 4
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
         currency:
@@ -680,6 +678,7 @@ components:
           example: '2028-01-15'
           description: |
             Data de vencimento Final da operação. Especificação RFC-3339.
+            Informação deve ser enviada caso ela exista.
         instalmentPeriodicity:
           $ref: '#/components/schemas/EnumContractInstalmentPeriodicity'
         instalmentPeriodicityAdditionalInfo:
@@ -698,6 +697,7 @@ components:
           example: '2018-02-15'
           description: |
             Data de vencimento primeira parcela do principal.
+            Informação deve ser enviada caso ela exista.
         CET:
           type: string
           pattern: '^\d{1}\.\d{4}$'
@@ -823,8 +823,8 @@ components:
           example: Informações adicionais
         preFixedRate:
           type: string
-          pattern: '^\d{1}\.\d{4}$'
-          maxLength: 6
+          pattern: '^\d{1}\.\d{4,6}$'
+          maxLength: 8
           minLength: 6
           example: '0.6000'
           description: |
@@ -833,8 +833,8 @@ components:
             (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
         postFixedRate:
           type: string
-          pattern: '^\d{1}\.\d{4}$'
-          maxLength: 6
+          pattern: '^\d{1}\.\d{4,6}$'
+          maxLength: 8
           minLength: 6
           description: |
             Taxa pós fixada aplicada sob o contrato da modalidade crédito.
@@ -870,8 +870,8 @@ components:
         chargeAmount:
           description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
       additionalProperties: false
@@ -961,7 +961,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoansBalloonPayment'
-          minItems: 0
+          minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     LoansListContract:
@@ -1030,9 +1030,9 @@ components:
           description: Quantidade total de parcelas pagas do contrato referente à Modalidade de Crédito informada.
         contractOutstandingBalance:
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
           minLength: 4
-          maxLength: 21
+          maxLength: 20
           example: '100000.0400'
           description: Valor necessário para o cliente liquidar a dívida.
         releases:
@@ -1050,7 +1050,6 @@ components:
         - paidDate
         - currency
         - paidAmount
-        - overParcel
       properties:
         paymentId:
           type: string
@@ -1087,25 +1086,28 @@ components:
           type: string
           maxLength: 21
           minLength: 4
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
           description: |
             Valor do pagamento referente ao  contrato da modalidade de crédito consultada.
             Expresso em valor monetário com até 4 casas decimais.
         overParcel:
+          description: |
+            [Restrição] Informação deve ser enviada caso ela exista.
           type: object
-          description: Objeto das tarifas e encargos que foram pagos fora da parcela.
           required:
             - fees
             - charges
           properties:
             fees:
               type: array
+              minItems: 0
               items:
                 $ref: '#/components/schemas/LoansFeeOverParcel'
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
             charges:
               type: array
+              minItems: 0
               items:
                 $ref: '#/components/schemas/LoansChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
@@ -1162,9 +1164,9 @@ components:
           $ref: '#/components/schemas/EnumWarrantySubType'
         warrantyAmount:
           type: string
-          maxLength: 21
+          maxLength: 20
           minLength: 4
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
           example: '200.0001'
           description: |
             Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
@@ -1180,8 +1182,8 @@ components:
         amount:
           description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
         currency:
