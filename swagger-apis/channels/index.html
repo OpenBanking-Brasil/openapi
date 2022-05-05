@@ -45,7 +45,13 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        urls: [{"name": "1.0.2", "url": "./1.0.2.yml"}],
+        urls: [{"name": "1.0.0-rc5.1", "url": "./1.0.0-rc5.1.yml"},
+        {"name": "1.0.0-rc5.2", "url": "./1.0.0-rc5.2.yml"},
+        {"name": "1.0.0-rc5", "url": "./1.0.0-rc5.yml"},
+        {"name": "1.0.0", "url": "./1.0.0.yml"},
+        {"name": "1.0.1-rc1.0", "url": "./1.0.1-rc1.0.yml"},
+        {"name": "1.0.1", "url": "./1.0.1.yml"},
+        {"name": "1.0.2", "url": "./1.0.2.yml"}],
         "urls.primaryName": "1.0.2",  // default spec
         dom_id: '#swagger-ui',
         deepLinking: true,
