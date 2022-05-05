@@ -545,8 +545,8 @@ components:
         amount:
           description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
         currency:
@@ -576,8 +576,8 @@ components:
         chargeAmount:
           description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
       additionalProperties: false
@@ -671,8 +671,8 @@ components:
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
           type: string
           minLength: 4
-          maxLength: 21
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          pattern: '^\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
         currency:
           type: string
@@ -860,8 +860,8 @@ components:
             [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
         feeAmount:
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
           description: |
@@ -971,7 +971,7 @@ components:
       properties:
         contractId:
           type: string
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{1,100}$'
           maxLength: 100
           example: '92792126019929279212650822221989319252576'
           description: 'Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.'
@@ -1042,8 +1042,8 @@ components:
         contractOutstandingBalance:
           description: Valor necessario para o cliente liquidar a dívida.
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
         releases:
@@ -1096,8 +1096,8 @@ components:
             Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
         paidAmount:
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
           description: |
@@ -1200,9 +1200,9 @@ components:
           example: NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO
         warrantyAmount:
           type: string
-          maxLength: 21
+          maxLength: 20
           minLength: 4
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
           example: '200.0001'
           description: |
             Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
