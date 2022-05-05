@@ -23,10 +23,10 @@ OUTROS_TITULOS_DESCONTADOS";1;1;"";Não permitido;string;DESCONTO_CHEQUES
 /data/disbursementDates;disbursementDates;Lista que traz as Datas de Desembolso do valor contratado.;Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;N;"";Não permitido;array;2018-01-15
 /data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Deve aceitar NA caso não seja retornado pela instituição.
 ";Não permitido;string;2018-01-15
-/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/currency;currency;"Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
-/data/dueDate;dueDate;Data de vencimento Final da operação. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;"";Não permitido;string;2028-01-15
+/data/dueDate;dueDate;Data de vencimento Final da operação. Especificação RFC-3339;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2028-01-15
 /data/instalmentPeriodicity;instalmentPeriodicity;"Informação relativa à periodicidade regular das parcelas. (Vide Enum)
 sem periodicidade regular, semanal, quinzenal, mensal, bimestral, trimestral, semestral, anual";Texto;;Obrigatório;;"SEM_PERIODICIDADE_REGULAR 
 SEMANAL 
@@ -39,8 +39,7 @@ ANUAL
 OUTROS";1;1;"";Não permitido;string;SEMANAL
 /data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.;Texto;50;Obrigatório;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa da periodicidade de pagamento regular, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais sobre periodicidade
-/data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar NA.
-";Não permitido;string;2018-02-15
+/data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15
 /data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e   incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
 O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
 (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;19;Obrigatório;^[0-1]\.\d{4}$;;1;1;"";Não permitido;string;0.2900
@@ -55,7 +54,7 @@ SEM_SISTEMA_AMORTIZACAO
 OUTROS";1;1;"";Não permitido;string;SAC
 /data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;50;Obrigatório;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar ""NA"".
 ";Não permitido;string;NA
-/data/interestRates;interestRates;Caso o contrato não possua taxas de juros, deve ser compartilhado uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/interestRates;interestRates;Caso o contrato não possua taxas de juros, deve ser compartilhado uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
 - NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
 - EFETIVA (É a taxa de juros em que a unidade referencial coincide com a unidade de tempo da capitalização. Como as unidades de medida de tempo da taxa de juros e dos períodos de capitalização são iguais, usa-se exemplos simples como 1% ao mês, 60% ao ano)";Texto;;Obrigatório;;"NOMINAL 
@@ -101,10 +100,10 @@ OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP
 ";Não permitido;string;Informações adicionais de Indexador ou tipo de taxa referencial
 /data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito.
 p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^[0-1]\.\d{4}$;;1;1;"";Não permitido;string;0.6000
+(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;8;Obrigatório;^[0-1]\.\d{4,6}$;;1;1;"";Não permitido;string;0.600000
 /data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito.
-p.ex. 0.0045 .O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^[0-1]\.\d{4}$;;1;1;"";Não permitido;string;0.5500
+p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
+(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;8;Obrigatório;^[0-1]\.\d{4,6}$;;1;1;"";Não permitido;string;0.550000
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas;Texto;1200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Informações adicionais
 /data/contractedFees;contractedFees;"";Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]+;;1;1;"";Não permitido;string;Excesso em Conta
@@ -119,7 +118,8 @@ POR_PARCELA";1;1;"";Não permitido;string;UNICA
 MAXIMO 
 FIXO 
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
-/data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.04
+/data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
+";Não permitido;string;100000.04
 /data/contractedFees/feeRate;feeRate;Percentual que representa o valor da tarifa pactuada para o contrato.;Texto;19;Obrigatório;^\d{1}\.\d{4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança por Percentual.
 ";Não permitido;string;0.1234
 /data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
@@ -132,4 +132,4 @@ SEM_ENCARGO
 OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO
 /data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campos para informações adicionais.;Texto;50;Opcional;[\w\W\s]*;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos
-/data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Número;;Opcional;;;0;1;"";Não permitido;number;0.07
+/data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Número;;Obrigatório;;;1;1;"";Não permitido;number;0.07
