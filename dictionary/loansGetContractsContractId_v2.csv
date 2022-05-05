@@ -104,10 +104,10 @@ OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP
 /data/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.;Texto;140;Opcional;[\w\W\s]*;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais
 /data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito.
-p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
+p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
 (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;8;Obrigatório;^\d{1}\.\d{4,6}$;;1;1;"";Não permitido;string;0.6000
 /data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito.
-p.ex. 0.0045 .O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
+p.ex. 0.0045 .O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
 (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;8;Obrigatório;^\d{1}\.\d{4,6}$;;1;1;"";Não permitido;string;0.5500
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas.;Texto;1200;Opcional;[\w\W\s]*;;0;1;" Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
 ";Não permitido;string;Informações adicionais

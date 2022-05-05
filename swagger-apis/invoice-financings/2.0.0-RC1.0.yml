@@ -808,7 +808,7 @@ components:
           type: string
           description: |
             Taxa pré fixada aplicada sob o contrato da modalidade crédito.
-            p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
+            p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
             (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
           maxLength: 8
           minLength: 6
@@ -818,7 +818,7 @@ components:
           type: string
           description: |
             Taxa pós fixada aplicada sob o contrato da modalidade crédito.
-            p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
+            p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
             (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
           maxLength: 8
           minLength: 6
