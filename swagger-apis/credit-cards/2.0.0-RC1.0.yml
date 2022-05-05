@@ -808,7 +808,9 @@ components:
           maxLength: 50
           pattern: '^\S[\s\S]*$'
           description: |
-            Campo livre, de preenchimento obrigatório quando selecionado tipo de crédito "OUTROS".
+            Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.
+
+            [Restrição] Preenchimento obrigatório quando selecionado tipo de crédito "OUTROS".
         chargeIdentificator:
           type: string
           maxLength: 50
