@@ -45,7 +45,7 @@ Para transmissora: Quando não for do tipo OPERACOES_CREDITO_CONTRATADAS_CARTAO,
 
 Para recebedora: Ignorar o campo preenchido conforme esse cenário.
 ";Não permitido;string;CREDITO_ROTATIVO
-/data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.;Texto;50;Opcional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado tipo de crédito ""OUTROS"".
+/data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.;Texto;50;Opcional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
 ";Não permitido;string;
 /data/chargeIdentificator;chargeIdentificator;Identificador da parcela que está sendo informada. Campo de livre preenchimento;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PARCELA_1
 /data/chargeNumber;chargeNumber;Quantidade de parcelas;Número;;Obrigatório;;;1;1;"";Não permitido;number;3
