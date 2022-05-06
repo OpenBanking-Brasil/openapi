@@ -24,15 +24,20 @@ NAO_DISPONIVEL";1;1;"";Não permitido;string;FEMININO
 /data/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
 Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;^\d{14}$;;1;N;"";Não permitido;array;
 /data/documents;documents;Objeto agrupador de informações relativas a Documentos da pessoa natural;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/documents/cpfNumber;cpfNumber;Número completo do CPF. Atributo que corresponde às informações mínimas exigidas pela Regulamentação em vigor. O CPF é o Cadastro de Pessoa natural.  Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal;Texto;11;Obrigatório;^\d{11}$;;1;1;"";Não permitido;string;25872252137
-/data/documents/passportNumber;passportNumber;"Número do Passaporte. Documento concedido aos viajantes por uma autoridade
-administrativa nacional a fim de certificar sua identidade perante autoridades
-estrangeiras. De preenchimento obrigatório. Aplicável somente à Pessoa natural
-residente no exterior desobrigada de inscrição no CPF.";Texto;20;Opcional;\w*\W*;;0;1;" Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
-";Não permitido;string;75253468744594820620
-/data/documents/passportCountry;passportCountry;Pais de emissão do passaporte. Código do pais de acordo com o código 'alpha3' do ISO-3166.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;CAN
-/data/documents/passportExpirationDate;passportExpirationDate;Data vigência do Passaporte, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
-/data/documents/passportIssueDate;passportIssueDate;Data de emissão do passaporte, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
+/data/documents/documentType;documentType;Selecionar o tipo de documento que será informado.;Texto;;Obrigatório;;"CPF 
+PASSAPORTE 
+AMBOS";1;1;"";Não permitido;string;AMBOS
+/data/documents/cpfNumber;cpfNumber;"Número completo do CPF. 
+Atributo que corresponde às informações mínimas exigidas pela Regulamentação em vigor. 
+O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal";Texto;11;Opcional;^\d{11}$;;0;1;" Campo de preenchimento obrigatório quando o campo documentType for CPF ou AMBOS.
+";Não permitido;string;25872252137
+/data/documents/passport;passport;Documento concedido aos viajantes por uma autoridade administrativa nacional a fim de certificar sua identidade perante autoridades estrangeiras.;Objeto;;Opcional;;;0;1;" Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
+[Restrição] Campo de preenchimento obrigatório quando o campo documentType for PASSAPORT ou AMBOS. 
+";Não permitido;object;
+/data/documents/passport/number;number;Número do Passaporte.;Texto;20;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;75253468744594820620
+/data/documents/passport/country;country;Pais de emissão do passaporte. Código do pais de acordo com o código 'alpha3' do ISO-3166.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;CAN
+/data/documents/passport/expirationDate;expirationDate;Data vigência do Passaporte, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
+/data/documents/passport/issueDate;issueDate;Data de emissão do passaporte, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
 /data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/otherDocuments/type;type;Relação dos Códigos dos demais documentos pessoa natural.;Texto;;Obrigatório;;"CNH 
 RG 
