@@ -1117,7 +1117,7 @@ components:
         - UNIAO_ESTAVEL
         - OUTRO
         - NAO_DISPONIVEL
-      example: SOLTEIRO
+      example: OUTRO
       description: |
         Estado marital do cliente.
     EnumOccupationMainCodeType:
@@ -1697,7 +1697,7 @@ components:
           type: string
           pattern: '[\w\W\s]*'
           maxLength: 50
-          example: Casado
+          example: Amasiado
           description: |
             Campo livre para complementar a informação relativa ao estado marital.
 

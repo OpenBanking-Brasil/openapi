@@ -13,9 +13,9 @@ SEPARADO_JUDICIALMENTE
 DIVORCIADO 
 UNIAO_ESTAVEL 
 OUTRO 
-NAO_DISPONIVEL";1;1;"";Não permitido;string;SOLTEIRO
+NAO_DISPONIVEL";1;1;"";Não permitido;string;OUTRO
 /data/maritalStatusAdditionalInfo;maritalStatusAdditionalInfo;Campo livre para complementar a informação relativa ao estado marital.;Texto;50;Opcional;[\w\W\s]*;;0;1;" Preenchimento obrigatório quando selecionado o tipo 'OUTRO'.
-";Não permitido;string;Casado
+";Não permitido;string;Amasiado
 /data/sex;sex;"Conjunto de características anatomofisiológicas que distinguem o homem e a mulher: Sexo masculino; sexo feminino. 
 No caso de não ser feminino nem masculino é classificado como 'OUTRO'";Texto;;Obrigatório;;"FEMININO 
 MASCULINO 
