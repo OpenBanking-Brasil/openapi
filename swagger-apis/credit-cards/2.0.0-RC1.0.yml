@@ -611,8 +611,6 @@ components:
         - consolidationType
         - identificationNumber
         - isLimitFlexible
-        - limitAmountCurrency
-        - limitAmount
         - usedAmountCurrency
         - usedAmount
         - availableAmountCurrency
@@ -656,12 +654,15 @@ components:
           example: BRL
           description: |
             Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-            Todos os limite informados estão representados com a moeda vigente do do Brasil.
+            Todos os limite informados estão representados com a moeda vigente do do Brasil.   
+            [Restrição] O campo é opcional caso isLimitFlexible for igual a false.
         limitAmount:
           type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          description: Valor total do limite informado Expresso em valor monetário com 4 casas decimais.
+          description: |
+            Valor total do limite informado Expresso em valor monetário com 4 casas decimais.   
+            [Restrição] O campo é opcional caso isLimitFlexible for igual a false.
           maxLength: 21
           example: '100000.0001'
         usedAmountCurrency:
@@ -751,12 +752,10 @@ components:
         - feeType
         - otherCreditsType
         - chargeIdentificator
-        - chargeNumber
         - brazilianAmount
         - amount
         - transactionDate
         - billPostDate
-        - payeeMCC
       properties:
         transactionId:
           type: string
@@ -820,9 +819,11 @@ components:
         chargeNumber:
           type: number
           format: integer
-          maximum: 2147483647
-          example: 3
-          description: Quantidade de parcelas
+          maximum: 999
+          example: 12
+          description: |
+            Quantidade de parcelas.   
+            [Restrição] O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
         brazilianAmount:
           $ref: '#/components/schemas/CreditCardAccountsTransactionBrazilianAmount'
         amount:
