@@ -331,7 +331,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BusinessProcurator'
-          minItems: 1
+          minItems: 0
           description: Lista dos representantes. De preenchimento obrigatório se houver representante.
         accounts:
           type: array
@@ -433,14 +433,12 @@ components:
         - type
         - cnpjCpfNumber
         - civilName
-        - socialName
       properties:
         type:
           type: string
           enum:
             - REPRESENTANTE_LEGAL
             - PROCURADOR
-            - NAO_POSSUI
           description: |
             Tipo de representante.
             Representante legal - Nome Civil completo da Pessoa Natural que represente uma entidade ou uma empresa e é nomeado em seu ato constitutivo, ou seja, no contrato social ou estatuto social.
@@ -466,7 +464,6 @@ components:
           description: |
             Nome social da pessoa natural, se houver. Aquele pelo qual travestis e transexuais se reconhecem, 
             bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local.
-            [Restrição] Preenchimento obrigatório quando o sócio for uma pessoa natural.
       additionalProperties: false
     BusinessQualificationData:
       type: object
@@ -820,7 +817,6 @@ components:
       type: object
       required:
         - compeCode
-        - branchCode
         - number
         - checkDigit
         - type
@@ -836,7 +832,8 @@ components:
           maxLength: 4
           pattern: '^\d{4}$'
           description: |
-            Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)
+            Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)   
+            [Restrição] Obrigatoriamente deve ser preenchido quando o campo "type" for diferente de conta pré paga.
           example: '6272'
         number:
           type: string
