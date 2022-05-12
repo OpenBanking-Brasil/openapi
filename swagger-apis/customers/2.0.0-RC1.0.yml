@@ -607,7 +607,7 @@ components:
           type: number
           maximum: 9999
           example: 2010
-          description: 'Ano de referência do Patrimônio, conforme especificação RFC-3339.'
+          description: 'Ano de referência da Renda, conforme especificação RFC-3339.'
       additionalProperties: false
     CustomerEmail:
       type: object
@@ -1103,7 +1103,6 @@ components:
         - TRIMESTRAL
         - SEMESTRAL
         - ANUAL
-        - SEM_FREQUENCIA_RENDA_INFORMADA
         - OUTROS
       description: Traz a frequência ou período da renda informada.
     EnumMaritalStatusCode:
@@ -1884,8 +1883,6 @@ components:
       required:
         - updateDateTime
         - companyCnpj
-        - informedIncome
-        - informedPatrimony
         - occupationCode
         - occupationDescription
       properties:

@@ -7,7 +7,7 @@ Deve-se ter apenas os números do CNPJ, sem máscara";Texto;14;Obrigatório;^\d{
 CBO 
 OUTRO";1;1;"";Não permitido;string;RECEITA_FEDERAL
 /data/occupationDescription;occupationDescription;Campo livre, de preenchimento obrigatório. Traz o código da ocupação ou o descritivo da ocupação, se selecionada a opção 'OUTRO';Texto;100;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;01
-/data/informedIncome;informedIncome;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/informedIncome;informedIncome;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/informedIncome/frequency;frequency;Traz a frequência ou período da renda informada.;Texto;;Obrigatório;;"DIARIA 
 SEMANAL 
 QUINZENAL 
@@ -16,7 +16,6 @@ BIMESTRAL
 TRIMESTRAL 
 SEMESTRAL 
 ANUAL 
-SEM_FREQUENCIA_RENDA_INFORMADA 
 OUTROS";1;1;"";Não permitido;string;
 /data/informedIncome/amount;amount;Valor total da renda informada;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/informedIncome/amount/amount;amount;"Valor total da renda informada. Expresso em valor monetário com 4 casas decimais. 
@@ -25,9 +24,9 @@ Fazem parte da primeira a remuneração do trabalho assalariado (salários e ord
 Fonte: Banco Central do Brasil – Departamento Econômico";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/informedIncome/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/informedIncome/date;date;Data da renda, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
-/data/informedPatrimony;informedPatrimony;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/informedPatrimony;informedPatrimony;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/informedPatrimony/amount;amount;Valor do patrimônio informado;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/informedPatrimony/amount/amount;amount;"Valor do patrimônio informado. Expresso em valor monetário com 4 casas decimais.
 Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/informedPatrimony/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
-/data/informedPatrimony/year;year;Ano de referência do Patrimônio, conforme especificação RFC-3339.;Número;;Obrigatório;;;1;1;"";Não permitido;number;2010
+/data/informedPatrimony/year;year;Ano de referência da Renda, conforme especificação RFC-3339.;Número;;Obrigatório;;;1;1;"";Não permitido;number;2010
