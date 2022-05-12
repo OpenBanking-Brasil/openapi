@@ -861,7 +861,6 @@ components:
         Lista de contas depósito à vista, poupança e pagamento pré-pagas mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento
       required:
         - compeCode
-        - branchCode
         - number
         - checkDigit
         - type
@@ -878,7 +877,8 @@ components:
           maxLength: 4
           pattern: '^\d{4}$'
           description: |
-            Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)
+            Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)   
+            [Restrição] Obrigatoriamente deve ser preenchido quando o campo "type" for diferente de conta pré paga.
           example: '6272'
         number:
           type: string
@@ -1154,7 +1154,6 @@ components:
       enum:
         - REPRESENTANTE_LEGAL
         - PROCURADOR
-        - NAO_POSSUI
       example: PROCURADOR
       description: |
         Tipo de representante.
