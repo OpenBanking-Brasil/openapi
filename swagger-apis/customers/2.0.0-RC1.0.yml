@@ -470,9 +470,6 @@ components:
       description: 'Objeto que reúne as informações relativas ao processo de qualificação. Considera-se qualificação as informações que permitam as instituições apreciar, avaliar, caracterizar e classificar o cliente com a finalidade de conhecer o seu perfil de risco e sua capacidade econômico-financeira'
       required:
         - updateDateTime
-        - economicActivities
-        - informedRevenue
-        - informedPatrimony
       properties:
         updateDateTime:
           type: string
@@ -1088,7 +1085,6 @@ components:
         - TRIMESTRAL
         - SEMESTRAL
         - ANUAL
-        - SEM_FREQUENCIA_FATURAMENTO_INFORMADO
         - OUTROS
       example: DIARIA
     EnumInformedIncomeFrequency:
@@ -1207,7 +1203,6 @@ components:
     InformedRevenue:
       type: object
       required:
-        - frequency
         - amount
       properties:
         frequency:
@@ -1227,7 +1222,7 @@ components:
           type: number
           maximum: 9999
           example: 2010
-          description: 'Ano de referência do Patrimônio, conforme especificação RFC-3339.'
+          description: 'Ano de referência da Renda, conforme especificação RFC-3339.'
       additionalProperties: false
     InformedRevenueAmount:
       type: object
