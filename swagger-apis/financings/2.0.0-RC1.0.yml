@@ -756,10 +756,9 @@ components:
             [Restrição] Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar "NA".
         interestRates:
           type: array
+          minItems: 0
           description: |
-            Caso o contrato não possua taxas de juros, deve ser compartilhado uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.
-
-            Receptora deve interpretar a informação conforme orientação acima.
+            Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.
           items:
             $ref: '#/components/schemas/FinancingsContractInterestRate'
         contractedFees:
