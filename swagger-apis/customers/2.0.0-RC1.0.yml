@@ -349,7 +349,7 @@ components:
         - updateDateTime
         - brandName
         - cnpjNumber
-        - companyCnpjNumber
+        - companyCnpjNumbers
         - companyName
         - incorporationDate
         - parties
@@ -399,7 +399,7 @@ components:
           pattern: '^\d{14}$'
           example: '50685362006773'
           description: 'Número completo do CNPJ da Empresa consultada  - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
-        companyCnpjNumber:
+        companyCnpjNumbers:
           type: array
           example:
             - '50685362000135'
@@ -494,7 +494,9 @@ components:
     BusinessOtherDocument:
       type: object
       required:
-        - expirationDate
+        - type
+        - number
+        - country
       properties:
         type:
           type: string
@@ -540,13 +542,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomerPhone'
-          minItems: 1
+          minItems: 0
           description: Lista com telefones de contato da pessoa jurídica
         emails:
           type: array
           items:
             $ref: '#/components/schemas/CustomerEmail'
-          minItems: 1
+          minItems: 0
           description: Lista e-mails de contato
       additionalProperties: false
     PersonalContacts:
@@ -1461,7 +1463,6 @@ components:
         - personType
         - civilName
         - companyName
-        - shareholding
         - documentType
         - documentNumber
       properties:
@@ -1518,7 +1519,9 @@ components:
           pattern: '^((\d{1,9}\.\d{2}){1})$'
           example: '0.51'
           description: |
-            Percentual de participação societária (informar com 2 casas decimais). Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.25 (Este valor  representa 25%. O valor '1 'representa 100%)
+            Percentual de participação societária (informar com 2 casas decimais). Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.25 (Este valor  representa 25%. O valor '1 'representa 100%)   
+
+            [Restrição] Campo obrigatório caso o type for igual a SOCIO e este tiver participação societária maior que 25%.
         documentType:
           $ref: '#/components/schemas/EnumPartiesParticipationDocumentType'
         documentNumber:
