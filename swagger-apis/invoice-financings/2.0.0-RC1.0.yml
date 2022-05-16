@@ -720,7 +720,7 @@ components:
             [Restrição] Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar "NA".
         interestRates:
           type: array
-          minItems: 0
+          minItems: 1
           description: 'Caso o contrato não possua taxas de juros, deve ser compartilhado uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.'
           items:
             $ref: '#/components/schemas/InvoiceFinancingsContractInterestRate'
@@ -728,13 +728,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceFinancingsContractedFee'
-          minItems: 0
+          minItems: 1
         contractedFinanceCharges:
           type: array
           description: Lista que traz os encargos pactuados no contrato
           items:
             $ref: '#/components/schemas/InvoiceFinancingsFinanceCharge'
-          minItems: 0
+          minItems: 1
       additionalProperties: false
     InvoiceFinancingsContractedWarranty:
       type: object
@@ -1010,6 +1010,7 @@ components:
           description: Valor necessario para o cliente liquidar a dívida.
         releases:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/InvoiceFinancingsReleases'
           description: Lista dos pagamentos realizados no período.
@@ -1075,13 +1076,13 @@ components:
           properties:
             fees:
               type: array
-              minItems: 0
+              minItems: 1
               items:
                 $ref: '#/components/schemas/InvoiceFinancingsFeeOverParcel'
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
             charges:
               type: array
-              minItems: 0
+              minItems: 1
               items:
                 $ref: '#/components/schemas/InvoiceFinancingsChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
@@ -1291,6 +1292,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           description: Conjunto de informações  de contratos de direitos creditórios descontados mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento
           items:
             $ref: '#/components/schemas/InvoiceFinancingsContractData'
@@ -1322,6 +1324,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           description: Conjunto de informações referentes às garantias que avalizam a operação de direitos creditórios descontados contratada
           items:
             $ref: '#/components/schemas/InvoiceFinancingsContractedWarranty'
