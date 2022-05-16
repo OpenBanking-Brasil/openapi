@@ -560,19 +560,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PersonalPostalAddress'
-          minItems: 1
+          minItems: 0
           description: Lista de endereços da pessoa natural
         phones:
           type: array
           items:
             $ref: '#/components/schemas/CustomerPhone'
-          minItems: 1
+          minItems: 0
           description: Lista com telefones de contato da pessoa natural
         emails:
           type: array
           items:
             $ref: '#/components/schemas/CustomerEmail'
-          minItems: 1
+          minItems: 0
           description: Lista e-mails de contato
       additionalProperties: false
     BusinessInformedPatrimony:
@@ -1068,7 +1068,6 @@ components:
       enum:
         - MAE
         - PAI
-        - SEM_FILIACAO
       example: PAI
       description: Tipo de filiação.
     EnumInformedRevenueFrequency:
@@ -1406,8 +1405,6 @@ components:
       required:
         - type
         - number
-        - expirationDate
-        - issueDate
       properties:
         type:
           type: string
@@ -1639,12 +1636,11 @@ components:
         - birthDate
         - maritalStatusCode
         - sex
-        - companyCnpj
+        - companiesCnpj
         - documents
         - otherDocuments
         - hasBrazilianNationality
         - nationality
-        - filiation
         - contacts
       properties:
         updateDateTime:
@@ -1697,7 +1693,7 @@ components:
             [Restrição] Preenchimento obrigatório quando selecionado o tipo 'OUTRO'.
         sex:
           $ref: '#/components/schemas/EnumSex'
-        companyCnpj:
+        companiesCnpj:
           type: array
           items:
             type: string
@@ -1722,9 +1718,7 @@ components:
           example: false
           description: Informa se o Cliente tem nacionalidade brasileira.
         nationality:
-          type: array
-          items:
-            $ref: '#/components/schemas/Nationality'
+          $ref: '#/components/schemas/Nationality'
         filiation:
           type: array
           items:
@@ -1763,7 +1757,6 @@ components:
         - typeAdditionalInfo
         - number
         - checkDigit
-        - expirationDate
       properties:
         type:
           $ref: '#/components/schemas/EnumPersonalOtherDocumentType'
@@ -1833,13 +1826,13 @@ components:
       type: object
       description: |
         Documento concedido aos viajantes por uma autoridade administrativa nacional a fim de certificar sua identidade perante autoridades estrangeiras. 
+
         [Restrição] Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
+
         [Restrição] Campo de preenchimento obrigatório quando o campo documentType for PASSAPORT ou AMBOS. 
       required:
         - number
         - country
-        - expirationDate
-        - issueDate
       properties:
         number:
           type: string

@@ -21,7 +21,7 @@ No caso de não ser feminino nem masculino é classificado como 'OUTRO'";Texto;;
 MASCULINO 
 OUTRO 
 NAO_DISPONIVEL";1;1;"";Não permitido;string;FEMININO
-/data/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
+/data/companiesCnpj;companiesCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
 Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;^\d{14}$;;1;N;"";Não permitido;array;
 /data/documents;documents;Objeto agrupador de informações relativas a Documentos da pessoa natural;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/documents/documentType;documentType;Selecionar o tipo de documento que será informado.;Texto;;Obrigatório;;"CPF 
@@ -32,12 +32,13 @@ Atributo que corresponde às informações mínimas exigidas pela Regulamentaç�
 O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal";Texto;11;Opcional;^\d{11}$;;0;1;" Campo de preenchimento obrigatório quando o campo documentType for CPF ou AMBOS.
 ";Não permitido;string;25872252137
 /data/documents/passport;passport;Documento concedido aos viajantes por uma autoridade administrativa nacional a fim de certificar sua identidade perante autoridades estrangeiras.;Objeto;;Opcional;;;0;1;" Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
+
 [Restrição] Campo de preenchimento obrigatório quando o campo documentType for PASSAPORT ou AMBOS. 
 ";Não permitido;object;
 /data/documents/passport/number;number;Número do Passaporte.;Texto;20;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;75253468744594820620
 /data/documents/passport/country;country;Pais de emissão do passaporte. Código do pais de acordo com o código 'alpha3' do ISO-3166.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;CAN
-/data/documents/passport/expirationDate;expirationDate;Data vigência do Passaporte, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
-/data/documents/passport/issueDate;issueDate;Data de emissão do passaporte, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
+/data/documents/passport/expirationDate;expirationDate;Data vigência do Passaporte, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
+/data/documents/passport/issueDate;issueDate;Data de emissão do passaporte, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/otherDocuments/type;type;Relação dos Códigos dos demais documentos pessoa natural.;Texto;;Obrigatório;;"CNH 
 RG 
@@ -50,21 +51,20 @@ SEM_OUTROS_DOCUMENTOS";1;1;"";Não permitido;string;
 /data/otherDocuments/checkDigit;checkDigit;Dígito verificador do documento informado. De preenchimento obrigatório se o documento informado tiver dígito verificador;Texto;2;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;P
 /data/otherDocuments/additionalInfo;additionalInfo;Para documentos em que se aplique o uso do local de emissão o mesmo deve ser enviado mandatoriamente, com a informação de órgão e UF. Exemplo: RG, local de emissão: SSP/RS.;Texto;50;Opcional;[\w\W\s]*;;0;1;" Obrigatório quando o Local de Emissão do Documento for relevante.
 ";Não permitido;string;SSP/SP
-/data/otherDocuments/expirationDate;expirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
+/data/otherDocuments/expirationDate;expirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/hasBrazilianNationality;hasBrazilianNationality;Informa se o Cliente tem nacionalidade brasileira.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false
-/data/nationality;nationality;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/nationality;nationality;Objeto que agrupa informações relativas à nacionalidade da Pessoa Natural;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/nationality/otherNationalitiesInfo;otherNationalitiesInfo;Campo de preenchimento obrigatório caso o cliente não possua nacionalidade brasileira. Preencher indicando todas suas demais nacionalidades utilizando o código de pais de acordo com o código alpha3 do ISO-3166.p.ex.'CAN';Texto;40;Obrigatório;^\S[\s\S]*$;;1;1;"";Não permitido;string;CAN
 /data/nationality/documents;documents;Lista que traz relação de documentos complementares de pessoas com nacionalidade diferente de brasileira;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/nationality/documents/type;type;Tipo de documento. Campo livre, de preenchimento obrigatório quando a nacionalidade for diferente de brasileira. Informar tipo e número do documento, além da, vigência e demais informações complementares para se identificar o documento de pessoa estrangeira;Texto;10;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;SOCIAL SEC
 /data/nationality/documents/number;number;Número de identificação do documento. Campo livre, de preenchimento obrigatório quando a nacionalidade for diferente de brasileira. Informar o número do documento e demais informações complementares para se identificar o documento de pessoa estrangeira;Texto;40;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;423929299
-/data/nationality/documents/expirationDate;expirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
-/data/nationality/documents/issueDate;issueDate;Data de emissão do documento, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
+/data/nationality/documents/expirationDate;expirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
+/data/nationality/documents/issueDate;issueDate;Data de emissão do documento, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/nationality/documents/country;country;Nome do país.;Texto;80;Opcional;\w*\W*;;0;1;"";Não permitido;string;Brasil
 /data/nationality/documents/additionalInfo;additionalInfo;Campo livre de preenchimento quando necessário.;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Informações adicionais.
-/data/filiation;filiation;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/filiation;filiation;"";Lista;;Opcional;;;0;N;"";Não permitido;array;
 /data/filiation/type;type;Tipo de filiação.;Texto;;Obrigatório;;"MAE 
-PAI 
-SEM_FILIACAO";1;1;"";Não permitido;string;PAI
+PAI";1;1;"";Não permitido;string;PAI
 /data/filiation/civilName;civilName;"Nome civil completo da pessoa relativa à filiação.
 (Direito fundamental da pessoa, o nome civil é aquele atribuído à pessoa natural desde o registro de seu nascimento, 
 com o qual será identificada por toda a sua vida, bem como após a sua morte).";Texto;70;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;Marcelo Cláudio Fernandes
@@ -72,7 +72,7 @@ com o qual será identificada por toda a sua vida, bem como após a sua morte)."
 (aquele pelo qual travestis e transexuais se reconhecem, 
 bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local).";Texto;70;Opcional;\w*\W*;;0;1;"";Não permitido;string;
 /data/contacts;contacts;Conjunto de informações referentes às formas para contatar o cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/contacts/postalAddresses;postalAddresses;Lista de endereços da pessoa natural;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/contacts/postalAddresses;postalAddresses;Lista de endereços da pessoa natural;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contacts/postalAddresses/isMain;isMain;Indica se o endereço informado é o principal.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/postalAddresses/address;address;Corresponde ao endereço residencial do cliente.;Texto;150;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Av Naburo Ykesaki, 1270
 /data/contacts/postalAddresses/additionalInfo;additionalInfo;Alguns logradouros ainda necessitam ser especificados por meio de complemento.;Texto;30;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Fundos
@@ -114,7 +114,7 @@ NA";1;1;"";Não permitido;string;SP
 /data/contacts/postalAddresses/geographicCoordinates;geographicCoordinates;Conjunto de informações, que correspondem aos valores das coordenadas geográficas em graus decimais, no Sistema de referência WGS84;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/contacts/postalAddresses/geographicCoordinates/latitude;latitude;Informação da Latitude referente a geolocalização informada. Entre -90 e 90.p.ex. '-23.5475000'. (2 casas antes da vírgula, 11 posições);Texto;13;Opcional;^-?\d{1,2}\.\d{1,9}$;;0;1;"";Não permitido;string;-23.5475000
 /data/contacts/postalAddresses/geographicCoordinates/longitude;longitude;Informação da Longitude referente a geolocalização informada. Entre -180 e 180. p.ex '-46.6361100'. (3 casas antes da vírgula, 11 posições);Texto;13;Opcional;^-?\d{1,3}\.\d{1,8}$;;0;1;"";Não permitido;string;-46.6361100
-/data/contacts/phones;phones;Lista com telefones de contato da pessoa natural;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/contacts/phones;phones;Lista com telefones de contato da pessoa natural;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contacts/phones/isMain;isMain;Indica se o telefone informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/phones/type;type;Identificação do Tipo de telefone do cliente.;Texto;;Obrigatório;;"FIXO 
 MOVEL 
@@ -191,6 +191,6 @@ OUTRO";1;1;"";Não permitido;string;FIXO
 NA";1;1;"";Não permitido;string;19
 /data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})$;;1;1;"";Não permitido;string;29875132
 /data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Opcional;^\d{1,5}$;;0;1;"";Não permitido;string;932
-/data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contacts/emails/isMain;isMain;Indica se o email informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/emails/email;email;Endereço de email;Texto;320;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;karinafernandes-81@br.inter.net
