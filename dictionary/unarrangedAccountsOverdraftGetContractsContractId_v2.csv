@@ -17,7 +17,7 @@ Adiantamento a depositantes, Direitos creditórios descontados Empréstimos,  Fi
 Adiantamento a depositantes";Texto;;Obrigatório;;ADIANTAMENTO_A_DEPOSITANTES;1;1;"";Não permitido;string;ADIANTAMENTO_A_DEPOSITANTES
 /data/contractDate;contractDate;Data de contratação da operação de crédito. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05
 /data/disbursementDate;disbursementDate;Data do Desembolso do valor contratado. Especificação RFC-3339;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-01-15
-/data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Deve aceitar NA caso não seja retornado pela instituição.
+/data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;1;1;" Deve aceitar NA caso não seja retornado pela instituição.
 ";Não permitido;string;2018-01-15
 /data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/currency;currency;"Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
@@ -33,7 +33,7 @@ TRIMESTRAL
 SEMESTRAL 
 ANUAL 
 OUTROS";1;1;"";Não permitido;string;SEMANAL
-/data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.;Texto;50;Obrigatório;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa da periodicidade de pagamento regular, quando selecionada o tipo ou subtipo OUTRO.
+/data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.;Texto;50;Condicional;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa da periodicidade de pagamento regular, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais sobre periodicidade
 /data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15
 /data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e   incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
@@ -48,7 +48,7 @@ PRICE
 SAM 
 SEM_SISTEMA_AMORTIZACAO 
 OUTROS";1;1;"";Não permitido;string;SAC
-/data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;50;Obrigatório;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar ""NA"".
+/data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;50;Condicional;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar ""NA"".
 ";Não permitido;string;NA
 /data/interestRates;interestRates;Caso o contrato não possua taxas de juros, deve ser compartilhardo uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
@@ -92,7 +92,7 @@ TCR_POS
 TRFC_PRE 
 TRFC_POS 
 OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP
-/data/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.;Texto;140;Opcional;[\w\W\s]*;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
+/data/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.;Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais
 /data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito.
 p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
@@ -124,6 +124,6 @@ IOF_CONTRATACAO
 IOF_POR_ATRASO 
 SEM_ENCARGO 
 OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO
-/data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campo para informações adicionais.;Texto;;Opcional;[\w\W\s]*;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+/data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campo para informações adicionais.;Texto;;Condicional;[\w\W\s]*;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos.
 /data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Texto;20;Opcional;^\d{1,15}\.\d{2,4}$;;0;1;"";Não permitido;string;0.0700

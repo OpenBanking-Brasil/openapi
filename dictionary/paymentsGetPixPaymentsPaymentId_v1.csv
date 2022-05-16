@@ -5,7 +5,7 @@ a iniciação de pagamento individual. O `paymentId` deve ser diferente do `endT
 Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl
 /data/endToEndId;endToEndId;"Deve ser preenchido no formato padrão ExxxxxxxxyyyyMMddHHmmkkkkkkkkkkk (32 caracteres; “case sensitive”, isso é, diferencia letras maiúsculas e minúsculas), sendo:
 • “E” – fixo (1 caractere);  
-• xxxxxxxx – identificação do agente que gerou o ´EndToEndId´, podendo ser: o ISPB do participante direto ou o ISPB do participante indireto (8 caracteres numéricos";Texto;32;Opcional;^([E])([0-9]{8})([0-9]{4})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(2[0-3]|[01][0-9])([0-5][0-9])([a-zA-Z0-9]{11})$;;0;1;" O ´EndToEndId´ deve ser informado obrigatoriamente caso o status do pagamento seja ACCEPTED_SETTLEMENT_COMPLETED.
+• xxxxxxxx – identificação do agente que gerou o ´EndToEndId´, podendo ser: o ISPB do participante direto ou o ISPB do participante indireto (8 caracteres numéricos";Texto;32;Condicional;^([E])([0-9]{8})([0-9]{4})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(2[0-3]|[01][0-9])([0-5][0-9])([a-zA-Z0-9]{11})$;;0;1;" O ´EndToEndId´ deve ser informado obrigatoriamente caso o status do pagamento seja ACCEPTED_SETTLEMENT_COMPLETED.
 ";Não permitido;string;E9040088820210128000800123873170
 /data/consentId;consentId;"Identificador único do consentimento criado para a iniciação de pagamento solicitada. Deverá ser um URN - Uniform Resource Name.
 Um URN, conforme definido na";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123
@@ -22,7 +22,7 @@ No caso de CPF deverá ser informado com 11 números, sem pontos ou traços.
 Para o caso de CNPJ deverá ser informado com 14 números, sem pontos ou traços.
 No caso de chave aleatória deve ser informado o UUID gerado pelo DICT, conforme formato especificado na RFC41223.
 Se informado, a detentora da conta deve validar o proxy no DICT quando localInstrument for igual a DICT, QRDN ou QRES e validar o campo creditorAccount.
-Esta validação é opcional caso o localInstrument for igual a INIC.";Texto;77;Opcional;[\w\W\s]*;;0;1;" Se localInstrument for igual a MANU, o campo proxy não deve ser preenchido. Se localInstrument for igual INIC, DICT, QRDN ou QRES, o campo proxy deve ser sempre preenchido com a chave Pix.
+Esta validação é opcional caso o localInstrument for igual a INIC.";Texto;77;Condicional;[\w\W\s]*;;0;1;" Se localInstrument for igual a MANU, o campo proxy não deve ser preenchido. Se localInstrument for igual INIC, DICT, QRDN ou QRES, o campo proxy deve ser sempre preenchido com a chave Pix.
 ";Não permitido;string;12345678901
 /data/ibgeTownCode;ibgeTownCode;"Traz o código da cidade segundo o IBGE (Instituto Brasileiro de Geografia e Estatística).
 Para o preenchimento deste campo, o Iniciador de Pagamentos deve seguir a orientação do arranjo da forma de pagamento.
@@ -91,7 +91,7 @@ INVALID_CONSENT - Consentimento inválido (status não é authorised ou está ex
 DENIED_MULTIPLE_AUTHORISATIONS - Um (ou mais) aprovadores na detentora recusaram a operação.
 EXPIRED_MULTIPLE_AUTHORISATIONS - Um (ou mais) aprovadores na detentora não tomaram ação para aprovar a operação.
 EXPIRED_BILL - O QR Code não é mais válido.
-CONSENT_REVOKED - Pagamento cancelado devido à revogação do consentimento.";Texto;50;Opcional;;"ABORTED_SETTLEMENT_TIMEOUT 
+CONSENT_REVOKED - Pagamento cancelado devido à revogação do consentimento.";Texto;50;Condicional;;"ABORTED_SETTLEMENT_TIMEOUT 
 ERROR_CREDITOR_AGENT 
 TIMEOUT_DEBTOR_AGENT 
 INVALID_CREDITOR_ACCOUNT_NUMBER 
@@ -156,7 +156,7 @@ Todos os valores monetários informados estão representados com a moeda vigente
 Os caracteres permitidos no contexto do Pix para o campo txid (EMV 62-05) são:
 - Letras minúsculas, de ‘a’ a ‘z’
 - Letras maiúsculas, de ‘A’ a ‘z’
-- Dígitos decimais, de ‘0’ a ‘9’";Texto;25;Opcional;^[a-zA-Z0-9][a-zA-Z0-9]{0,24}$;;0;1;" Se localInstrument for igual a INIC, o campo transactionIdentification deve ser preenchido obrigatoriamente.
+- Dígitos decimais, de ‘0’ a ‘9’";Texto;25;Condicional;^[a-zA-Z0-9][a-zA-Z0-9]{0,24}$;;0;1;" Se localInstrument for igual a INIC, o campo transactionIdentification deve ser preenchido obrigatoriamente.
 Se localInstrument for igual a MANU ou DICT, o campo transactionIdentification não deve ser preenchido.
 A detentora de conta deve validar se a condicionalidade do campo foi atendida pela iniciadora de pagamento.
 ";Não permitido;string;E00038166201907261559y6j6
@@ -165,7 +165,7 @@ A detentora de conta deve validar se a condicionalidade do campo foi atendida pe
 /data/creditorAccount/ispb;ispb;Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.;Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678
 /data/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
 (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Opcional;^\d{4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Condicional;^\d{4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
 ";Não permitido;string;1774
 /data/creditorAccount/number;number;"Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^\d{3,20}$;;1;1;"";Não permitido;string;1234567890

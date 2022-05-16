@@ -14,7 +14,7 @@ DIVORCIADO
 UNIAO_ESTAVEL 
 OUTRO 
 NAO_DISPONIVEL";1;1;"";Não permitido;string;OUTRO
-/data/maritalStatusAdditionalInfo;maritalStatusAdditionalInfo;Campo livre para complementar a informação relativa ao estado marital.;Texto;50;Opcional;[\w\W\s]*;;0;1;" Preenchimento obrigatório quando selecionado o tipo 'OUTRO'.
+/data/maritalStatusAdditionalInfo;maritalStatusAdditionalInfo;Campo livre para complementar a informação relativa ao estado marital.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Preenchimento obrigatório quando selecionado o tipo 'OUTRO'.
 ";Não permitido;string;Amasiado
 /data/sex;sex;"Conjunto de características anatomofisiológicas que distinguem o homem e a mulher: Sexo masculino; sexo feminino. 
 No caso de não ser feminino nem masculino é classificado como 'OUTRO'";Texto;;Obrigatório;;"FEMININO 
@@ -29,9 +29,9 @@ PASSAPORTE
 AMBOS";1;1;"";Não permitido;string;AMBOS
 /data/documents/cpfNumber;cpfNumber;"Número completo do CPF. 
 Atributo que corresponde às informações mínimas exigidas pela Regulamentação em vigor. 
-O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal";Texto;11;Opcional;^\d{11}$;;0;1;" Campo de preenchimento obrigatório quando o campo documentType for CPF ou AMBOS.
+O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal";Texto;11;Condicional;^\d{11}$;;0;1;" Campo de preenchimento obrigatório quando o campo documentType for CPF ou AMBOS.
 ";Não permitido;string;25872252137
-/data/documents/passport;passport;Documento concedido aos viajantes por uma autoridade administrativa nacional a fim de certificar sua identidade perante autoridades estrangeiras.;Objeto;;Opcional;;;0;1;" Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
+/data/documents/passport;passport;Documento concedido aos viajantes por uma autoridade administrativa nacional a fim de certificar sua identidade perante autoridades estrangeiras.;Objeto;;Condicional;;;0;1;" Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
 
 [Restrição] Campo de preenchimento obrigatório quando o campo documentType for PASSAPORT ou AMBOS. 
 ";Não permitido;object;
@@ -49,7 +49,7 @@ SEM_OUTROS_DOCUMENTOS";1;1;"";Não permitido;string;
 /data/otherDocuments/typeAdditionalInfo;typeAdditionalInfo;Campo livre de preenchimento obrigatório se selecionada a opção OUTROS tipos de documentos;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;NA
 /data/otherDocuments/number;number;Identificação/Número do documento informado;Texto;11;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;15291908
 /data/otherDocuments/checkDigit;checkDigit;Dígito verificador do documento informado. De preenchimento obrigatório se o documento informado tiver dígito verificador;Texto;2;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;P
-/data/otherDocuments/additionalInfo;additionalInfo;Para documentos em que se aplique o uso do local de emissão o mesmo deve ser enviado mandatoriamente, com a informação de órgão e UF. Exemplo: RG, local de emissão: SSP/RS.;Texto;50;Opcional;[\w\W\s]*;;0;1;" Obrigatório quando o Local de Emissão do Documento for relevante.
+/data/otherDocuments/additionalInfo;additionalInfo;Para documentos em que se aplique o uso do local de emissão o mesmo deve ser enviado mandatoriamente, com a informação de órgão e UF. Exemplo: RG, local de emissão: SSP/RS.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando o Local de Emissão do Documento for relevante.
 ";Não permitido;string;SSP/SP
 /data/otherDocuments/expirationDate;expirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/hasBrazilianNationality;hasBrazilianNationality;Informa se o Cliente tem nacionalidade brasileira.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false
@@ -76,7 +76,7 @@ bem como são identificados por sua comunidade e em seu meio social, conforme De
 /data/contacts/postalAddresses/isMain;isMain;Indica se o endereço informado é o principal.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/postalAddresses/address;address;Corresponde ao endereço residencial do cliente.;Texto;150;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Av Naburo Ykesaki, 1270
 /data/contacts/postalAddresses/additionalInfo;additionalInfo;Alguns logradouros ainda necessitam ser especificados por meio de complemento.;Texto;30;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Fundos
-/data/contacts/postalAddresses/districtName;districtName;Bairro é uma comunidade ou região localizada em uma cidade ou município de acordo com as suas subdivisões geográficas.;Texto;50;Opcional;[\w\W\s]*;;0;1;" De preenchimento obrigatório, se houver.
+/data/contacts/postalAddresses/districtName;districtName;Bairro é uma comunidade ou região localizada em uma cidade ou município de acordo com as suas subdivisões geográficas.;Texto;50;Condicional;[\w\W\s]*;;0;1;" De preenchimento obrigatório, se houver.
 ";Não permitido;string;Centro
 /data/contacts/postalAddresses/townName;townName;Localidade: O nome da localidade corresponde à designação da cidade ou município no qual o endereço está localizado.;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Marília
 /data/contacts/postalAddresses/ibgeTownCode;ibgeTownCode;Código IBGE de Município. A Tabela de Códigos de Municípios do IBGE apresenta a lista dos municípios brasileiros associados a um código composto de 7 dígitos, sendo os dois primeiros referentes ao código da Unidade da Federação.;Texto;7;Opcional;\d{7}$;;0;1;"";Não permitido;string;3550308
@@ -119,7 +119,7 @@ NA";1;1;"";Não permitido;string;SP
 /data/contacts/phones/type;type;Identificação do Tipo de telefone do cliente.;Texto;;Obrigatório;;"FIXO 
 MOVEL 
 OUTRO";1;1;"";Não permitido;string;FIXO
-/data/contacts/phones/additionalInfo;additionalInfo;Informação complementar relativa ao tipo de telefone selecionado.;Texto;70;Opcional;[\w\W\s]*;;0;1; De preenchimento obrigatório quando selecionado o tipo 'OUTRO'.;Não permitido;string;Informações adicionais.
+/data/contacts/phones/additionalInfo;additionalInfo;Informação complementar relativa ao tipo de telefone selecionado.;Texto;70;Condicional;[\w\W\s]*;;0;1; De preenchimento obrigatório quando selecionado o tipo 'OUTRO'.;Não permitido;string;Informações adicionais.
 /data/contacts/phones/countryCallingCode;countryCallingCode;Número de DDI (Discagem Direta Internacional) para telefone de acesso ao Cliente - se houver;Texto;4;Obrigatório;^\d{2,4}$;;1;1;"";Não permitido;string;55
 /data/contacts/phones/areaCode;areaCode;Número de DDD (Discagem Direta à Distância) do telefone do cliente - se houver;Texto;;Obrigatório;;"11 
 12 

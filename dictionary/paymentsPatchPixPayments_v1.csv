@@ -23,9 +23,9 @@ AUTHORISED
 REJECTED 
 CONSUMED 
 REVOKED";1;1;"";Não permitido;string;REVOKED
-/data/revocation;revocation;Objeto que contém as informações das circunstância da revogação.;Objeto;;Opcional;;;0;1;" O campo loggedUser deve ser preenchido quando a revogação for feita pelo usuário final, ou seja, se o campo data.revocation.revokedBy estiver com o valor 'USER'.
+/data/revocation;revocation;Objeto que contém as informações das circunstância da revogação.;Objeto;;Condicional;;;0;1;" O campo loggedUser deve ser preenchido quando a revogação for feita pelo usuário final, ou seja, se o campo data.revocation.revokedBy estiver com o valor 'USER'.
 ";Não permitido;object;
-/data/revocation/loggedUser;loggedUser;Usuário (pessoa natural) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Opcional;;;0;1;" Deve obrigatoriamente ser enviado quando a revogação for feita pelo usuário final, ou seja, se o campo revokedBy estiver com o valor 'USER'.
+/data/revocation/loggedUser;loggedUser;Usuário (pessoa natural) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Condicional;;;0;1;" Deve obrigatoriamente ser enviado quando a revogação for feita pelo usuário final, ou seja, se o campo revokedBy estiver com o valor 'USER'.
 ";Não permitido;object;
 /data/revocation/loggedUser/document;document;Objeto que contém os dados de identificação do usuário.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/revocation/loggedUser/document/identification;identification;Número do documento de identificação oficial do usuário.;Texto;11;Obrigatório;^\d{11}$;;1;1;"";Não permitido;string;11111111111
@@ -44,14 +44,14 @@ ACCOUNT_CLOSURE - Indica que a conta do usuário foi encerrada 
 OTHER - Indica que motivo do cancelamento está fora dos motivos pré-estabelecidos.";Texto;22;Obrigatório;;"FRAUD 
 ACCOUNT_CLOSURE 
 OTHER";1;1;"";Não permitido;string;OTHER
-/data/revocation/reason/additionalInformation;additionalInformation;Contém informações adicionais definidas pelo requisitante da revogação.;Texto;140;Opcional;[\w\W\s]*;;0;1;" Deverá ser obrigatoriamente preenchido quando a revogação for feita pela iniciadora ou pela detentora unilateralmente, ou seja, quando o campo revokedBy for igual a TPP ou ASPSP e o motivo de revogação for OTHER.
+/data/revocation/reason/additionalInformation;additionalInformation;Contém informações adicionais definidas pelo requisitante da revogação.;Texto;140;Condicional;[\w\W\s]*;;0;1;" Deverá ser obrigatoriamente preenchido quando a revogação for feita pela iniciadora ou pela detentora unilateralmente, ou seja, quando o campo revokedBy for igual a TPP ou ASPSP e o motivo de revogação for OTHER.
 ";Não permitido;string;Não quero mais o serviço
-/data/loggedUser;loggedUser;Usuário (pessoa natural) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Obrigatório;;;1;1;" Deve obrigatoriamente ser enviado quando a revogação for feita pelo usuário final, ou seja, se o campo revokedBy estiver com o valor 'USER'.
+/data/loggedUser;loggedUser;Usuário (pessoa natural) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Condicional;;;1;1;" Deve obrigatoriamente ser enviado quando a revogação for feita pelo usuário final, ou seja, se o campo revokedBy estiver com o valor 'USER'.
 ";Não permitido;object;
 /data/loggedUser/document;document;Objeto que contém os dados de identificação do usuário.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/loggedUser/document/identification;identification;Número do documento de identificação oficial do usuário.;Texto;11;Obrigatório;^\d{11}$;;1;1;"";Não permitido;string;11111111111
 /data/loggedUser/document/rel;rel;Tipo do documento de identificação oficial do usuário.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;CPF
-/data/businessEntity;businessEntity;Usuário (pessoa jurídica) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Opcional;;;0;1; Preenchimento obrigatório se usuário logado na instituição Iniciadora de Pagamento for um CNPJ (pessoa jurídica).;Não permitido;object;
+/data/businessEntity;businessEntity;Usuário (pessoa jurídica) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Condicional;;;0;1; Preenchimento obrigatório se usuário logado na instituição Iniciadora de Pagamento for um CNPJ (pessoa jurídica).;Não permitido;object;
 /data/businessEntity/document;document;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/businessEntity/document/identification;identification;Número do documento de identificação oficial do titular pessoa jurídica.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11111111111111
 /data/businessEntity/document/rel;rel;Tipo do documento de identificação oficial do titular pessoa jurídica.;Texto;4;Obrigatório;^[A-Z]{4}$;;1;1;"";Não permitido;string;CNPJ
@@ -90,7 +90,7 @@ INIC";1;1;"";Não permitido;string;DICT
 É a sequência de caracteres que seria lida pelo leitor de QR Code, e deve propiciar o retorno dos dados do pagador após consulta na DICT.
 Essa funcionalidade é possível tanto para QR Code estático quanto para QR Code dinâmico.
 No arranjo do Pix esta é a mesma sequência gerada e/ou lida pela funcionalidade Pix Copia e Cola.
-Este campo deverá ser no formato UTF-8.";Texto;512;Opcional;[\w\W\s]*;;0;1;" Preenchimento obrigatório para pagamentos por QR Code, observado o tamanho máximo de 512 bytes.
+Este campo deverá ser no formato UTF-8.";Texto;512;Condicional;[\w\W\s]*;;0;1;" Preenchimento obrigatório para pagamentos por QR Code, observado o tamanho máximo de 512 bytes.
 ";Não permitido;string;"00020104141234567890123426660014BR.GOV.BCB.PIX014466756C616E6F32303139406578616D706C652E636F6D27300012
 BR.COM.OUTRO011001234567895204000053039865406123.455802BR5915NOMEDORECEBEDOR6008BRASILIA61087007490062
 530515RP12345678-201950300017BR.GOV.BCB.BRCODE01051.0.080450014BR.GOV.BCB.PIX0123PADRAO.URL.PIX/0123AB
@@ -103,7 +103,7 @@ No caso de CPF deverá ser informado com 11 números, sem pontos ou traços.
 Para o caso de CNPJ deverá ser informado com 14 números, sem pontos ou traços.
 No caso de chave aleatória deve ser informado o UUID gerado pelo DICT, conforme formato especificado na RFC41223.
 Se informado, a detentora da conta deve validar o proxy no DICT quando localInstrument for igual a DICT, QRDN ou QRES e validar o campo creditorAccount.
-Esta validação é opcional caso o localInstrument for igual a INIC.";Texto;77;Opcional;[\w\W\s]*;;0;1;"
+Esta validação é opcional caso o localInstrument for igual a INIC.";Texto;77;Condicional;[\w\W\s]*;;0;1;"
 Se localInstrument for igual a MANU, o campo proxy não deve ser preenchido.
 Se localInstrument for igual INIC, DICT, QRDN ou QRES, o campo proxy deve ser sempre preenchido com a chave Pix.
 ";Não permitido;string;12345678901
@@ -111,7 +111,7 @@ Se localInstrument for igual INIC, DICT, QRDN ou QRES, o campo proxy deve ser se
 /data/payment/details/creditorAccount/ispb;ispb;Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.;Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678
 /data/payment/details/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
 (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Opcional;^\d{4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Condicional;^\d{4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
 ";Não permitido;string;1774
 /data/payment/details/creditorAccount/number;number;"Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^\d{3,20}$;;1;1;"";Não permitido;string;1234567890
@@ -131,7 +131,7 @@ As informações quanto à conta de origem do pagador poderão ser trazidas no c
 /data/debtorAccount/ispb;ispb;Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.;Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678
 /data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
 (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Opcional;^\d{4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Condicional;^\d{4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
 ";Não permitido;string;1774
 /data/debtorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^\d{3,20}$;;1;1;"";Não permitido;string;1234567890

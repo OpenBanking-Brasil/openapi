@@ -26,7 +26,7 @@ Anuidade, Saque com cartão no Brasil, Saque com cartão no exterior, Avaliaçã
 
 Para transmissora: quando não for do tipo TARIFA, preenche com OUTRA.
 
-Para recebedora: ignorar o campo preenchido conforme esse cenário.";Texto;;Obrigatório;;"ANUIDADE 
+Para recebedora: ignorar o campo preenchido conforme esse cenário.";Texto;;Condicional;;"ANUIDADE 
 SAQUE_CARTAO_BRASIL 
 SAQUE_CARTAO_EXTERIOR 
 AVALIACAO_EMERGENCIAL_CREDITO 
@@ -36,7 +36,7 @@ SMS
 OUTRA";1;1;" Preenchimento obrigatório se Tipo de Transação selecionada for 'TARIFA'.
 ";Não permitido;string;ANUIDADE
 /data/feeTypeAdditionalInfo;feeTypeAdditionalInfo;Campo livre, de preenchimento obrigatório quando selecionada tipo de tarifa OUTRA;Texto;140;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;
-/data/otherCreditsType;otherCreditsType;Traz outros tipos de crédito contratados no cartão.;Texto;;Obrigatório;;"CREDITO_ROTATIVO 
+/data/otherCreditsType;otherCreditsType;Traz outros tipos de crédito contratados no cartão.;Texto;;Condicional;;"CREDITO_ROTATIVO 
 PARCELAMENTO_FATURA 
 EMPRESTIMO 
 OUTROS";1;1;" Preenchimento obrigatório se o tipo transação selecionado for 'OPERACOES_CREDITO_CONTRATADAS_CARTAO'.
@@ -45,10 +45,10 @@ Para transmissora: Quando não for do tipo OPERACOES_CREDITO_CONTRATADAS_CARTAO,
 
 Para recebedora: Ignorar o campo preenchido conforme esse cenário.
 ";Não permitido;string;CREDITO_ROTATIVO
-/data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.;Texto;50;Opcional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
+/data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.;Texto;50;Condicional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
 ";Não permitido;string;
 /data/chargeIdentificator;chargeIdentificator;Identificador da parcela que está sendo informada. Campo de livre preenchimento;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PARCELA_1
-/data/chargeNumber;chargeNumber;Quantidade de parcelas.;Número;;Opcional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
+/data/chargeNumber;chargeNumber;Quantidade de parcelas.;Número;;Condicional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
 ";Não permitido;number;12
 /data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com 4 casas decimais, em moeda corrente do Brasil;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/brazilianAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
