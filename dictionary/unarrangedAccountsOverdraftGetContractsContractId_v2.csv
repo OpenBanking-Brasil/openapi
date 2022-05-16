@@ -101,7 +101,7 @@ p.ex. 0.0045. O preenchimento deve respeitar as 4 casas decimais, mesmo que venh
 p.ex. 0.0045 .O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
 (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Não permitido;string;0.5500
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas;Texto;1200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Informações adicionais
-/data/contractedFees;contractedFees;Lista que traz a relação de tarifas pactuadas no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
+/data/contractedFees;contractedFees;Lista que traz a relação de tarifas pactuadas no contrato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Excesso em Conta
 /data/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;EXCESSO_CONTA
 /data/contractedFees/feeChargeType;feeChargeType;Tipo de cobrança para a tarifa pactuada no contrato.;Texto;;Obrigatório;;"UNICA 
@@ -116,7 +116,7 @@ FIXO
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
 /data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.;Texto;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.04
 /data/contractedFees/feeRate;feeRate;É o valor da tarifa em percentual pactuada no contrato. Exemplo: 0.2000.;Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Não permitido;string;0.0150
-/data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
+/data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFinanceCharges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
 MULTA_ATRASO_PAGAMENTO 
 JUROS_MORA_ATRASO 

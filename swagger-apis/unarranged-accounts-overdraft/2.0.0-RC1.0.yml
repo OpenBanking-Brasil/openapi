@@ -344,6 +344,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           description: Conjunto de informações referentes às garantias que avalizam a operação de crédito de adiantamento a depositantes
           items:
             $ref: '#/components/schemas/UnarrangedAccountsOverdraftContractedWarranty'
@@ -730,6 +731,7 @@ components:
           description: Valor necessario para o cliente liquidar a dívida.
         releases:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftReleases'
           description: Lista dos pagamentos realizados no período
@@ -794,11 +796,13 @@ components:
           properties:
             fees:
               type: array
+              minItems: 1
               items:
                 $ref: '#/components/schemas/UnarrangedAccountOverdraftFeeOverParcel'
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
             charges:
               type: array
+              minItems: 1
               items:
                 $ref: '#/components/schemas/UnarrangedAccountOverdraftChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
@@ -1076,6 +1080,7 @@ components:
             [Restrição] Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar "NA".
         interestRates:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftContractInterestRate'
           description: |
@@ -1084,14 +1089,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftContractedFee'
-          minItems: 0
+          minItems: 1
           description: Lista que traz a relação de tarifas pactuadas no contrato
         contractedFinanceCharges:
           type: array
           description: Lista que traz os encargos pactuados no contrato
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftFinanceCharge'
-          minItems: 0
+          minItems: 1
       additionalProperties: false
     UnarrangedAccountOverdraftContractInterestRate:
       type: object

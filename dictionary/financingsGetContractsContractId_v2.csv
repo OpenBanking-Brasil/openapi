@@ -59,7 +59,7 @@ SEM_SISTEMA_AMORTIZACAO
 OUTROS";1;1;"";Não permitido;string;SAC
 /data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;50;Condicional;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar ""NA"".
 ";Não permitido;string;NA
-/data/interestRates;interestRates;Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
+/data/interestRates;interestRates;Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
 - NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
 - EFETIVA (É a taxa de juros em que a unidade referencial coincide com a unidade de tempo da capitalização. Como as unidades de medida de tempo da taxa de juros e dos períodos de capitalização são iguais, usa-se exemplos simples como 1% ao mês, 60% ao ano)";Texto;;Obrigatório;;"NOMINAL 
@@ -111,7 +111,7 @@ p.ex. 0.0045 .O preenchimento deve respeitar as 4 casas decimais, mesmo que venh
 (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Não permitido;string;0.5500
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas.;Texto;1200;Condicional;[\w\W\s]*;;1;1;" Caso a instituição não possua a informação para compartilhamento, informar ""NA"".
 ";Não permitido;string;Informações adicionais
-/data/contractedFees;contractedFees;"";Lista;;Obrigatório;;;0;N;"";Não permitido;array;
+/data/contractedFees;contractedFees;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Excesso em Conta
 /data/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;EXCESSO_CONTA
 /data/contractedFees/feeChargeType;feeChargeType;Tipo de cobrança para a tarifa pactuada no contrato.;Texto;;Obrigatório;;"UNICA 
@@ -127,7 +127,7 @@ PERCENTUAL";1;1;"";Não permitido;string;MINIMO
 /data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/contractedFees/feeRate;feeRate;É o valor da tarifa em percentual pactuada no contrato.;Texto;6;Condicional;^\d{1}\.\d{4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual. Exemplo: 0.0150 = 1,5%.
 ";Não permitido;string;0.2000
-/data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
+/data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFinanceCharges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
 MULTA_ATRASO_PAGAMENTO 
 JUROS_MORA_ATRASO 

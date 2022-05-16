@@ -285,6 +285,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/FinancingsListContract'
         links:
@@ -343,6 +344,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/FinancingsWarranties'
         links:
@@ -756,7 +758,7 @@ components:
             [Restrição] Obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS, para os demais casos informar "NA".
         interestRates:
           type: array
-          minItems: 0
+          minItems: 1
           description: |
             Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.
           items:
@@ -765,13 +767,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FinancingsContractFee'
-          minItems: 0
+          minItems: 1
         contractedFinanceCharges:
           type: array
           description: Lista que traz os encargos pactuados no contrato
           items:
             $ref: '#/components/schemas/FinancingsFinanceCharge'
-          minItems: 0
+          minItems: 1
       additionalProperties: false
     FinancingsContractFee:
       type: object
@@ -1016,11 +1018,13 @@ components:
       properties:
         fees:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/FinancingsFeeOverParcel'
           description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
         charges:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/FinancingsChargeOverParcel'
           description: Lista dos encargos que foram pagos fora da parcela.
@@ -1047,6 +1051,7 @@ components:
           example: '100000.0400'
         releases:
           type: array
+          minItems: 1
           description: Lista dos pagamentos realizados no período
           items:
             $ref: '#/components/schemas/FinancingsReleases'
