@@ -400,6 +400,7 @@ components:
           example: '50685362006773'
           description: 'Número completo do CNPJ da Empresa consultada  - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
         companyCnpjNumbers:
+          minItems: 1
           type: array
           example:
             - '50685362000135'
@@ -414,9 +415,9 @@ components:
             example: '50685362000135'
         otherDocuments:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BusinessOtherDocument'
-          minItems: 1
           description: Relação dos demais documentos
         parties:
           type: array
@@ -481,7 +482,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EconomicActivity'
-          minItems: 1
+          minItems: 0
           description: 'Lista dos demais códigos relativos às demais atividades econômicas da empresa, segundo padrão CNAE (Classificação Nacional de Atividades Econômicas). De preenchimento obrigatório, se houver'
         informedRevenue:
           $ref: '#/components/schemas/InformedRevenue'
@@ -1695,6 +1696,7 @@ components:
           $ref: '#/components/schemas/EnumSex'
         companiesCnpj:
           type: array
+          minItems: 1
           items:
             type: string
             pattern: '^\d{14}$'
@@ -1718,9 +1720,13 @@ components:
           example: false
           description: Informa se o Cliente tem nacionalidade brasileira.
         nationality:
-          $ref: '#/components/schemas/Nationality'
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Nationality'
         filiation:
           type: array
+          minItems: 1
           items:
             type: object
             required:
@@ -1925,6 +1931,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/BusinessIdentificationData'
         links:
@@ -2003,6 +2010,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/PersonalIdentificationData'
         links:
