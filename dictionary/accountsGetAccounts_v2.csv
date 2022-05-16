@@ -9,7 +9,8 @@ Conta de pagamento pré-paga: segundo CIRCULAR Nº 3.680, BCB de  2013, é a 'de
 CONTA_POUPANCA 
 CONTA_PAGAMENTO_PRE_PAGA";1;1;"";Não permitido;string;CONTA_DEPOSITO_A_VISTA
 /data/compeCode;compeCode;Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas).O Compe (Sistema de Compensação de Cheques e Outros Papéis) é um sistema que identifica e processa as compensações bancárias. Ele é representado por um código de três dígitos que serve como identificador de bancos, sendo assim, cada instituição bancária possui um número exclusivo;Texto;3;Obrigatório;^\d{3}$;;1;1;"";Não permitido;string;001
-/data/branchCode;branchCode;Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória);Texto;4;Obrigatório;^\d{4}$;;1;1;"";Não permitido;string;6272
+/data/branchCode;branchCode;Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória);Texto;4;Opcional;^\d{4}$;;0;1;" Obrigatóriamente deve ser preenchido quando o campo ""type"" for diferente de conta pré paga.
+";Não permitido;string;6272
 /data/number;number;Número da conta;Texto;20;Obrigatório;^\d{8,20}$;;1;1;"";Não permitido;string;94088392
 /data/checkDigit;checkDigit;Dígito da conta;Texto;1;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;4
 /data/accountId;accountId;Identifica de forma única  a conta do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576
