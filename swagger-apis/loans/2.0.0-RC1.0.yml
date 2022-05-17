@@ -731,18 +731,18 @@ components:
           description: 'Caso o contrato não possua taxas de juros, deve ser compartilhado uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 explícito.'
           items:
             $ref: '#/components/schemas/LoansContractInterestRate'
-          minItems: 0
+          minItems: 1
         contractedFees:
           type: array
           items:
             $ref: '#/components/schemas/LoansContractedFee'
-          minItems: 0
+          minItems: 1
         contractedFinanceCharges:
           type: array
           description: Lista que traz os encargos pactuados no contrato
           items:
             $ref: '#/components/schemas/LoansFinanceCharge'
-          minItems: 0
+          minItems: 1
       additionalProperties: false
     LoansContractedFee:
       type: object
@@ -961,7 +961,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoansBalloonPayment'
-          minItems: 1
+          minItems: 0
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     LoansListContract:
@@ -1037,6 +1037,7 @@ components:
           description: Valor necessário para o cliente liquidar a dívida.
         releases:
           type: array
+          minItems: 1
           items:
             $ref: '#/components/schemas/LoansReleases'
           description: Lista dos pagamentos realizados no período
@@ -1101,13 +1102,13 @@ components:
           properties:
             fees:
               type: array
-              minItems: 0
+              minItems: 1
               items:
                 $ref: '#/components/schemas/LoansFeeOverParcel'
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
             charges:
               type: array
-              minItems: 0
+              minItems: 1
               items:
                 $ref: '#/components/schemas/LoansChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
@@ -1262,6 +1263,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           description: Conjunto de informações de contratos de empréstimo mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento
           items:
             $ref: '#/components/schemas/LoansListContract'
@@ -1321,6 +1323,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 1
           description: Conjunto de informações referentes à identificação da operação de crédito de empréstimo
           items:
             $ref: '#/components/schemas/LoansWarranties'
