@@ -1700,6 +1700,7 @@ components:
           $ref: '#/components/schemas/EnumSex'
         companiesCnpj:
           type: array
+          minItems: 0
           items:
             type: string
             pattern: '^\d{14}$'
