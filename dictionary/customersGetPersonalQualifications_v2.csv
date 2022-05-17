@@ -1,12 +1,13 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
 /data;data;Conjunto de informações relativas ao processo de qualificação. Considera-se qualificação as informações que permitam as instituições apreciar, avaliar, caracterizar e classificar o cliente com a finalidade de conhecer o seu perfil de risco e sua capacidade econômico-financeira;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/updateDateTime;updateDateTime;Data e hora da atualização do bloco, conforme especificação RFC-3339;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
+/data/updateDateTime;updateDateTime;Data e hora da atualização dos campos <_endpoint_>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
 /data/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
 Deve-se ter apenas os números do CNPJ, sem máscara";Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362000135
-/data/occupationCode;occupationCode;Traz a relação dos códigos relativos à ocupação.;Texto;;Obrigatório;;"RECEITA_FEDERAL 
+/data/occupationCode;occupationCode;Traz a relação dos códigos relativos à ocupação.;Texto;;Opcional;;"RECEITA_FEDERAL 
 CBO 
-OUTRO";1;1;"";Não permitido;string;RECEITA_FEDERAL
-/data/occupationDescription;occupationDescription;Campo livre, de preenchimento obrigatório. Traz o código da ocupação ou o descritivo da ocupação, se selecionada a opção 'OUTRO';Texto;100;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;01
+OUTRO";0;1;"";Não permitido;string;RECEITA_FEDERAL
+/data/occupationDescription;occupationDescription;"Campo livre, de preenchimento obrigatório. Se selecionada a opção *occupationCode* RECEITA_FEDERAL ou CBO, informar o código desta lista padronizada.   
+Se selecionada *occupationCode* OUTRO, informar o descritivo da ocupação quando a IF não segue a lista padronizada da Receita Federal e nem da CBO.";Texto;100;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;01
 /data/informedIncome;informedIncome;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/informedIncome/frequency;frequency;Traz a frequência ou período da renda informada.;Texto;;Obrigatório;;"DIARIA 
 SEMANAL 
