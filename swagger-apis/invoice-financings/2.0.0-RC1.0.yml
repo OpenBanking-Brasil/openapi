@@ -341,12 +341,15 @@ components:
           example: '100000.04'
         feeRate:
           type: string
-          pattern: '^\d{1}\.\d{4}$'
+          pattern: '^[01]\.\d{6}$'
+          format: double
+          minLength: 8
+          maxLength: 8
           description: |
-            Percentual que representa o valor da tarifa pactuada para o contrato. 
-            [Restrição] Preenchimento obrigatório quando a forma de cobrança por Percentual.
-          maxLength: 19
-          example: '0.1234'
+            Percentual que representa o valor da tarifa pactuada para o contrato.   
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).   
+            [Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual.
+          example: '0.062000'
       additionalProperties: false
     EnumContractFeeCharge:
       type: string
@@ -701,13 +704,15 @@ components:
             Data de vencimento primeira parcela do principal.
         CET:
           type: string
-          maxLength: 19
-          example: '0.2900'
-          pattern: '^[0-1]\.\d{4}$'
+          format: double
+          maxLength: 8
+          minLength: 8
+          example: '0.290000'
+          pattern: '^[01]\.\d{6}$'
           description: |
-            CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e   incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
-            O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-            (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+            CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros 
+            (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
         amortizationScheduled:
           $ref: '#/components/schemas/EnumContractAmortizationScheduled'
         amortizationScheduledAdditionalInfo:
@@ -806,24 +811,26 @@ components:
           example: Informações adicionais de Indexador ou tipo de taxa referencial
         preFixedRate:
           type: string
+          format: double
           description: |
-            Taxa pré fixada aplicada sob o contrato da modalidade crédito.
-            p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
-            (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+            Taxa pré fixada aplicada sob o contrato da modalidade crédito.   
+            p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
+            Este valor representa 15%. O valor 1 representa 100%).
           maxLength: 8
-          minLength: 6
+          minLength: 8
           example: '0.600000'
-          pattern: '^[0-1]\.\d{4,6}$'
+          pattern: '^[01]\.\d{6}$'
         postFixedRate:
           type: string
+          format: double
           description: |
-            Taxa pós fixada aplicada sob o contrato da modalidade crédito.
-            p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
-            (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+            Taxa pós fixada aplicada sob o contrato da modalidade crédito.   
+            p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. 
+            Este valor representa 15%. O valor 1 representa 100%).
           maxLength: 8
-          minLength: 6
+          minLength: 8
           example: '0.550000'
-          pattern: '^[0-1]\.\d{4,6}$'
+          pattern: '^[01]\.\d{6}$'
         additionalInfo:
           type: string
           maxLength: 1200
@@ -849,11 +856,16 @@ components:
           pattern: '[\w\W\s]*'
           example: Informações adicionais sobre encargos
         chargeRate:
-          type: number
+          type: string
+          format: double
+          pattern: '^[01]\.\d{6}$'
+          maxLength: 8
+          minLength: 8
           description: |
-            Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          maximum: 2147483647
-          example: 0.07
+            Representa o valor do encargo em percentual pactuado no contrato.   
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros 
+            (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
+          example: '0.071200'
       additionalProperties: false
     InvoiceFinancingsBalloonPayment:
       type: object

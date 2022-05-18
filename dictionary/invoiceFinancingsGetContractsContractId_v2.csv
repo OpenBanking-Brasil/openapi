@@ -40,9 +40,9 @@ OUTROS";1;1;"";Não permitido;string;SEMANAL
 /data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.;Texto;50;Condicional;[\w\W\s]*;;1;1;" Obrigatório para complementar a informação relativa da periodicidade de pagamento regular, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais sobre periodicidade
 /data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15
-/data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e   incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
-O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;19;Obrigatório;^[0-1]\.\d{4}$;;1;1;"";Não permitido;string;0.2900
+/data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros 
+(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Obrigatório;^[01]\.\d{6}$;;1;1;"";Não permitido;string;0.290000
 /data/amortizationScheduled;amortizationScheduled;"Sistema de amortização (Vide Enum):
 - SAC (Sistema de Amortização Constante) - É aquele em que o valor da amortização permanece igual até o final. Os juros cobrados sobre o parcelamento não entram nesta conta.
 - PRICE (Sistema Francês de Amortização) - As parcelas são fixas do início ao fim do contrato. Ou seja, todas as parcelas terão o mesmo valor, desde a primeira até a última. Nos primeiros pagamentos, a maior parte do valor da prestação corresponde aos juros. Ao longo do tempo, a taxa de juros vai decrescendo. Como o valor da prestação é fixo, com o passar das parcelas, o valor de amortização vai aumentando.
@@ -98,12 +98,12 @@ TRFC_POS
 OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP
 /data/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.;Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais de Indexador ou tipo de taxa referencial
-/data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito.
-p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;8;Obrigatório;^[0-1]\.\d{4,6}$;;1;1;"";Não permitido;string;0.600000
-/data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito.
-p.ex. 0.0045. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)";Texto;8;Obrigatório;^[0-1]\.\d{4,6}$;;1;1;"";Não permitido;string;0.550000
+/data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito.   
+p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
+Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Obrigatório;^[01]\.\d{6}$;;1;1;"";Não permitido;string;0.600000
+/data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito.   
+p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. 
+Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Obrigatório;^[01]\.\d{6}$;;1;1;"";Não permitido;string;0.550000
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas;Texto;1200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Informações adicionais
 /data/contractedFees;contractedFees;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]+;;1;1;"";Não permitido;string;Excesso em Conta
@@ -120,8 +120,9 @@ FIXO
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
 /data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.;Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
 ";Não permitido;string;100000.04
-/data/contractedFees/feeRate;feeRate;Percentual que representa o valor da tarifa pactuada para o contrato.;Texto;19;Condicional;^\d{1}\.\d{4}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança por Percentual.
-";Não permitido;string;0.1234
+/data/contractedFees/feeRate;feeRate;"Percentual que representa o valor da tarifa pactuada para o contrato.   
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Condicional;^[01]\.\d{6}$;;1;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual.
+";Não permitido;string;0.062000
 /data/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFinanceCharges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
 MULTA_ATRASO_PAGAMENTO 
@@ -132,4 +133,6 @@ SEM_ENCARGO
 OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO
 /data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campos para informações adicionais.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos
-/data/contractedFinanceCharges/chargeRate;chargeRate;Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).;Número;;Obrigatório;;;1;1;"";Não permitido;number;0.07
+/data/contractedFinanceCharges/chargeRate;chargeRate;"Representa o valor do encargo em percentual pactuado no contrato.   
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros 
+(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Obrigatório;^[01]\.\d{6}$;;1;1;"";Não permitido;string;0.071200
