@@ -496,25 +496,23 @@ components:
             [Restrição] Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
         preFixedRate:
           type: string
+          format: double
           maxLength: 8
           minLength: 8
-          format: double
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}$'
           example: '0.600000'
           description: |
-            Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
-
+            Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500.   
             O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
         postFixedRate:
           type: string
+          format: double
           maxLength: 8
           minLength: 8
-          format: double
-          pattern: '^[0,1].\d{6}$'
-          example: '0.5500'
+          pattern: '^[01]\.\d{6}$'
+          example: '0.550000'
           description: |
-            Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
-
+            Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500.   
             O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
         additionalInfo:
           type: string
@@ -732,14 +730,13 @@ components:
             Data de vencimento primeira parcela do principal.
         CET:
           type: string
+          format: double
           maxLength: 8
           minLength: 8
-          format: double
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}$'
           example: '0.290000'
           description: |
-            CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
-
+            CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).   
             O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
         amortizationScheduled:
           type: string
@@ -840,14 +837,12 @@ components:
           format: double
           maxLength: 8
           minLength: 8
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}$'
           description: |
-            Percentual que representa o valor da tarifa pactuada para o contrato.
-
-            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
-
+            Percentual que representa o valor da tarifa pactuada para o contrato.   
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).   
             [Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual.
-          example: '0.2000'
+          example: '0.200000'
       additionalProperties: false
     FinancingsFeeOverParcel:
       type: object
@@ -901,14 +896,14 @@ components:
         chargeRate:
           type: string
           format: double
-          pattern: '^[0-1]\.\d{4}$'
+          pattern: '^[01]\.\d{6}$'
           maxLength: 8
           minLength: 8
           description: |
-            Representa o valor do encargo em percentual pactuado no contrato.
-
-            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
-          example: '0.070000'
+            Representa o valor do encargo em percentual pactuado no contrato.   
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
+            Este valor representa 15%. O valor 1 representa 100%).
+          example: '0.071200'
       additionalProperties: false
     FinancingsInstalments:
       type: object
