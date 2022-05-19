@@ -92,7 +92,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseAccountList'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -135,7 +135,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseAccountIdentification'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -178,7 +178,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseAccountBalances'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -226,7 +226,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseAccountTransactions'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -269,7 +269,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseAccountOverdraftLimits'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -1154,6 +1154,12 @@ components:
             $ref: '#/components/schemas/ResponseError'
     UnprocessableEntity:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    Default:
+      description: Erro inesperado.
       content:
         application/json; charset=utf-8:
           schema:

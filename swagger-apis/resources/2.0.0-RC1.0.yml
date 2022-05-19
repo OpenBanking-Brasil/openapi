@@ -77,7 +77,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseResourceList'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -398,6 +398,12 @@ components:
             $ref: '#/components/schemas/ResponseError'
     Unauthorized:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    Default:
+      description: Erro inesperado.
       content:
         application/json; charset=utf-8:
           schema:
