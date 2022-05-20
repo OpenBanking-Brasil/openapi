@@ -1518,6 +1518,8 @@ components:
           example: '0.510000'
           description: |
             Percentual de participação societária (informar com 6 casas decimais). O Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.250000 (Este valor  representa 25%. O valor '1 'representa 100%).
+
+            [Restrição]: Campo obrigatório caso o type for igual a SOCIO e este tiver participação societária maior que 25%.
         documentType:
           $ref: '#/components/schemas/EnumPartiesParticipationDocumentType'
         documentNumber:

@@ -26,7 +26,8 @@ ADMINISTRADOR";1;1;"";Não permitido;string;
 /data/parties/companyName;companyName;Razão social da empresa consultada é o termo registrado sob o qual uma pessoa jurídica (PJ) se individualiza e exerce suas atividades. Também pode ser chamada por denominação social ou firma empresarial;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Luiza e Benjamin Assessoria Jurídica Ltda
 /data/parties/tradeName;tradeName;Nome fantasia da pessoa jurídica, se houver. (É o nome popular da empresa, utilizado para divulgação da empresa e melhor fixação com o público). De preenchimento obrigatório se houver;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Mundo da Eletronica
 /data/parties/startDate;startDate;Data de início da participação, conforme especificação RFC-3339.;Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z
-/data/parties/shareholding;shareholding;Percentual de participação societária (informar com 6 casas decimais). O Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.250000 (Este valor  representa 25%. O valor '1 'representa 100%).;Texto;8;Opcional;^[01]\.\d{6}$;;0;1;"";Não permitido;string;0.510000
+/data/parties/shareholding;shareholding;Percentual de participação societária (informar com 6 casas decimais). O Sócio só deve ser informado se sua participação societária for igual ou superior a 25%. p.ex: 0.250000 (Este valor  representa 25%. O valor '1 'representa 100%).;Texto;8;Condicional;^[01]\.\d{6}$;;0;1;": Campo obrigatório caso o type for igual a SOCIO e este tiver participação societária maior que 25%.
+";Não permitido;string;0.510000
 /data/parties/documentType;documentType;Tipo do documento informado.;Texto;;Obrigatório;;"CPF 
 PASSAPORTE 
 OUTRO_DOCUMENTO_VIAGEM 
