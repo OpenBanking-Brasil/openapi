@@ -788,8 +788,6 @@ components:
         - feeCode
         - feeChargeType
         - feeCharge
-        - feeAmount
-        - feeRate
       properties:
         feeName:
           type: string
@@ -826,7 +824,8 @@ components:
           example: MINIMO
         feeAmount:
           description: |
-            "Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo"
+            Valor monetário da tarifa pactuada no contrato.   
+            [Restrição] Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo
           type: string
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 21
