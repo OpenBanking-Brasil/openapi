@@ -665,7 +665,6 @@ components:
         - dueInstalments
         - pastDueInstalments
         - typeContractRemaining
-        - contractRemainingNumber
         - typeNumberOfInstalments
         - totalNumberOfInstalments
         - paidInstalments
@@ -690,7 +689,10 @@ components:
         contractRemainingNumber:
           type: number
           maximum: 999
-          description: 'Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
+          description: |
+            Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_REMANESCENTE.
           example: 80
         paidInstalments:
           type: number
@@ -711,7 +713,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftBalloonPayment'
-          minItems: 0
+          minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     UnarrangedAccountOverdraftPaymentsData:
@@ -939,10 +941,7 @@ components:
         - productType
         - productSubType
         - contractDate
-        - contractAmount
-        - settlementDate
         - currency
-        - dueDate
         - instalmentPeriodicity
         - instalmentPeriodicityAdditionalInfo
         - CET
@@ -1004,12 +1003,10 @@ components:
           type: string
           format: date
           maxLength: 10
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$'
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2018-01-15'
           description: |
             Data de liquidação da operação.
-
-            [Restrição] Deve aceitar NA caso não seja retornado pela instituição.
         contractAmount:
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
           type: string

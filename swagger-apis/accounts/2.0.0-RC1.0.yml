@@ -507,7 +507,7 @@ components:
           description: |
             Código da Agência detentora da conta. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória)
 
-            [Restrição] Obrigatóriamente deve ser preenchido quando o campo "type" for diferente de conta pré paga.
+            [Restrição] Obrigatoriamente deve ser preenchido quando o campo "type" for diferente de conta pré paga.
           pattern: '^\d{4}$'
           maxLength: 4
           example: '6272'
