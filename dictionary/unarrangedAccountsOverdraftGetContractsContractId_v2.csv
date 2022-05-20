@@ -99,7 +99,7 @@ OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Obrigatório;^[01]\.\d{6}$;;1;1;"";Não permitido;string;0.600000
 /data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
 
-O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;6;Obrigatório;^\d{1}\.\d{4}$;;1;1;"";Não permitido;string;0.550000
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Obrigatório;^[01]\.\d{6}$;;1;1;"";Não permitido;string;0.550000
 /data/interestRates/additionalInfo;additionalInfo;Texto com informações adicionais sobre a composição das taxas de juros pactuadas;Texto;1200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Informações adicionais
 /data/contractedFees;contractedFees;Lista que traz a relação de tarifas pactuadas no contrato;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
 /data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Excesso em Conta

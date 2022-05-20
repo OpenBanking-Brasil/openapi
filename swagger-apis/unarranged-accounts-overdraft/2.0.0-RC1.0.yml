@@ -644,12 +644,14 @@ components:
           example: Informações adicionais sobre encargos.
           description: |
             Campo para informações adicionais.
+
             [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
         chargeRate:
           type: string
           format: double
           pattern: '^[01]\.\d{6}$'
           maxLength: 8
+          minLength: 8
           description: |
             Representa o valor do encargo em percentual pactuado no contrato.
 
@@ -964,7 +966,7 @@ components:
           pattern: '^\d{22,67}$'
           example: '92792126019929279212650822221989319252576'
           description: |
-            "Número padronizado do contrato - IPOC (Identificação Padronizada da Operação de Crédito). Segundo DOC 3040, composta por:
+            Número padronizado do contrato - IPOC (Identificação Padronizada da Operação de Crédito). Segundo DOC 3040, composta por:
             - **CNPJ da instituição:** 8 (oito) posições iniciais;
             - **Modalidade da operação:** 4 (quatro) posições;
             - **Tipo do cliente:** 1 (uma) posição( 1 = pessoa natural - CPF, 2= pessoa jurídica – CNPJ, 3 = pessoa física no exterior, 4 = pessoa jurídica no exterior, 5 = pessoa natural sem CPF e 6 = pessoa jurídica sem CNPJ);
@@ -972,14 +974,14 @@ components:
               1. Para clientes pessoa física com CPF (tipo de cliente = 1), informar as 11 (onze) posições do CPF;
               2. Para clientes pessoa jurídica com CNPJ (tipo de cliente = 2), informar as 8 (oito) posições iniciais do CNPJ;
               3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
-            - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres."
+            - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.
         productName:
           type: string
           maxLength: 140
           pattern: '[\w\W\s]*'
           example: AD
           description: |
-            "Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente"
+            Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente
         productType:
           $ref: '#/components/schemas/ProductType'
         productSubType:
@@ -1006,6 +1008,7 @@ components:
           example: '2018-01-15'
           description: |
             Data de liquidação da operação.
+
             [Restrição] Deve aceitar NA caso não seja retornado pela instituição.
         contractAmount:
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
@@ -1019,8 +1022,8 @@ components:
           pattern: '^(\w{3}){1}$'
           maxLength: 3
           description: |
-            "Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
-            Todos os valores monetários informados estão representados com a moeda vigente do Brasil"
+            Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
+            Todos os valores monetários informados estão representados com a moeda vigente do Brasil
           example: BRL
         dueDate:
           type: string
@@ -1055,9 +1058,9 @@ components:
           pattern: '^[01]\.\d{6}$'
           format: double
           description: |
-            "CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
+            CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
 
-            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. sEste valor representa 15%. O valor 1 representa 100%)."
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. sEste valor representa 15%. O valor 1 representa 100%).
           maxLength: 8
           minLength: 8
           example: '0.290000'
@@ -1150,20 +1153,20 @@ components:
           maxLength: 8
           minLength: 8
           description: |
-            "Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
+            Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
 
-            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%)."
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
           example: '0.600000'
         postFixedRate:
           type: string
           format: double
-          pattern: '^\d{1}\.\d{4}$'
-          maxLength: 6
-          minLength: 6
+          pattern: '^[01]\.\d{6}$'
+          maxLength: 8
+          minLength: 8
           description: |
-            "Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
+            Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. 
 
-            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%)."
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
           example: '0.550000'
         additionalInfo:
           type: string
