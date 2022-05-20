@@ -34,6 +34,9 @@ info:
     ### `/accounts/{accountId}/transactions`
       - permissions:
         - GET: **ACCOUNTS_TRANSACTIONS_READ**
+    ### `/accounts/{accountId}/transactions-current`
+      - permissions:
+        - GET: **ACCOUNTS_TRANSACTIONS_READ**
     ### `/accounts/{accountId}/overdraft-limits`
       - permissions:
         - GET: **ACCOUNTS_OVERDRAFT_LIMITS_READ**
@@ -227,6 +230,54 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         default:
           $ref: '#/components/responses/Default'
+      security:
+        - OpenId:
+            - openid
+          OAuth2Security:
+            - 'consent:consentId'
+            - accounts
+  '/accounts/{accountId}/transactions-current':
+    get:
+      tags:
+        - Accounts
+      summary: Obtém a lista de transações da conta identificada por accountId.
+      operationId: accountsGetAccountsAccountIdTransactionsCurrent
+      description: 'Método para obter a lista de transações da conta de depósito à vista, poupança ou pagamento pré-paga identificada por accountId mantida pelo cliente na instituição transmissora.'
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/xFapiAuthDate'
+        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
+        - $ref: '#/components/parameters/xFapiInteractionId'
+        - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/accountId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/fromBookingDateMaxLimited'
+        - $ref: '#/components/parameters/toBookingDateMaxLimited'
+        - $ref: '#/components/parameters/creditDebitIndicator'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseAccountTransactions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseAccountTransactions'
       security:
         - OpenId:
             - openid
@@ -965,6 +1016,32 @@ components:
       description: 'Data inicial de filtragem. [Restrição] Deve obrigatoriamente ser enviado caso o campo toBookingDate seja informado. Caso não seja informado, deve ser assumido o dia atual.'
       required: false
       in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
+    fromBookingDateMaxLimited:
+      in: query
+      name: fromBookingDate
+      description: |
+        Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).   
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toBookingDate seja informado. 
+        Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
+    toBookingDateMaxLimited:
+      in: query
+      name: toBookingDate
+      description: |
+        Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).   
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromBookingDate seja informado. 
+        Caso não seja informado, deve ser assumido o dia atual.
+      required: false
       schema:
         type: string
         maxLength: 10
