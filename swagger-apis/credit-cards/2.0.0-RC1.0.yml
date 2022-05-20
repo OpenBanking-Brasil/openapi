@@ -40,6 +40,9 @@ info:
     ### `/accounts/{creditCardAccountId}/transactions`
       - permissions:
         - GET: **CREDIT_CARDS_ACCOUNTS_TRANSACTIONS_READ**
+    ### `/accounts/{creditCardAccountId}/transactions-current`
+      - permissions:
+        - GET: **CREDIT_CARDS_ACCOUNTS_TRANSACTIONS_READ**
   version: 2.0.0-RC1.0
   license:
     name: Apache 2.0
@@ -302,6 +305,55 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/fromTransactionDate'
         - $ref: '#/components/parameters/toTransactionDate'
+        - $ref: '#/components/parameters/creditCardTransactionType'
+        - $ref: '#/components/parameters/creditCardPayeeMCC'
+      responses:
+        '200':
+          $ref: '#/components/responses/OKResponseCreditCardAccountsTransactions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/Default'
+      security:
+        - OpenId:
+            - openid
+          OAuth2Security:
+            - 'consent:consentId'
+            - credit-cards-accounts
+  '/accounts/{creditCardAccountId}/transactions-current':
+    get:
+      tags:
+        - Credit Card
+      summary: Obtém a lista de transações da conta identificada por creditCardAccountId.
+      operationId: creditCardsGetAccountsCreditCardAccountIdTransactionsCurrent
+      description: Método para obter a lista de transações da conta de pagamento pós-paga identificada por creditCardAccountId mantida pelo cliente na instituição transmissora.
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/xFapiAuthDate'
+        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
+        - $ref: '#/components/parameters/xFapiInteractionId'
+        - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/creditCardAccountId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/fromTransactionDateMaxLimited'
+        - $ref: '#/components/parameters/toTransactionDateMaxLimited'
         - $ref: '#/components/parameters/creditCardTransactionType'
         - $ref: '#/components/parameters/creditCardPayeeMCC'
       responses:
@@ -1298,6 +1350,16 @@ components:
         maxLength: 10
         format: date
         example: '2021-05-21'
+    fromTransactionDateMaxLimited:
+      name: fromTransactionDate
+      description: Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
     page:
       name: page
       in: query
@@ -1331,6 +1393,16 @@ components:
     toTransactionDate:
       name: toTransactionDate
       description: Data final de filtragem.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
+    toTransactionDateMaxLimited:
+      name: toTransactionDate
+      description: Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
       required: false
       in: query
       schema:
