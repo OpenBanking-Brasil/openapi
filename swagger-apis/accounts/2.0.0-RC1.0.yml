@@ -1006,7 +1006,7 @@ components:
                 maxLength: 2048
             additionalProperties: false
         meta:
-          $ref: '#/components/schemas/Meta'
+          $ref: '#/components/schemas/MetaOnlyRequestDateTime'
       additionalProperties: false
     XFapiInteractionId:
       type: string
