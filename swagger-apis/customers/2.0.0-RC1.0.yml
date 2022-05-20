@@ -401,7 +401,7 @@ components:
           pattern: '^\d{14}$'
           example: '50685362006773'
           description: 'Número completo do CNPJ da Empresa consultada  - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
-        companyCnpjNumbers:
+        companiesCnpj:
           minItems: 1
           type: array
           example:
