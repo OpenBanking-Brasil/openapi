@@ -975,7 +975,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoansBalloonPayment'
-          minItems: 1
+          minItems: 0
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     LoansListContract:

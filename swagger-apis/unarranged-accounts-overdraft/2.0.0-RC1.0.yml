@@ -665,7 +665,6 @@ components:
         - pastDueInstalments
         - typeContractRemaining
         - typeNumberOfInstalments
-        - totalNumberOfInstalments
         - paidInstalments
       properties:
         typeNumberOfInstalments:
@@ -674,7 +673,10 @@ components:
           type: number
           maximum: 999999
           example: 130632
-          description: 'Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
+          description: |
+            Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
         typeContractRemaining:
           type: string
           enum:
@@ -712,7 +714,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftBalloonPayment'
-          minItems: 1
+          minItems: 0
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     UnarrangedAccountOverdraftPaymentsData:
@@ -894,7 +896,6 @@ components:
       type: object
       description: Lista que traz as datas de vencimento e valor das parcelas não regulares  do contrato da modalidade de crédito consultada.
       required:
-        - dueDate
         - amount
       properties:
         dueDate:
