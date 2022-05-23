@@ -350,7 +350,7 @@ components:
         - updateDateTime
         - brandName
         - cnpjNumber
-        - companyCnpjNumbers
+        - companiesCnpj
         - companyName
         - incorporationDate
         - parties
@@ -1726,10 +1726,7 @@ components:
           example: false
           description: Informa se o Cliente tem nacionalidade brasileira.
         nationality:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Nationality'
+          $ref: '#/components/schemas/Nationality'
         filiation:
           type: array
           minItems: 1
