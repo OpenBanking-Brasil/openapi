@@ -1214,6 +1214,8 @@ components:
           example: '200.0001'
           description: |
             Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
+
+            [Restrição] Preenchimento obrigatório se tipo de garantia selecionada for diferente de 'SEM_TIPO_GARANTIA'
       additionalProperties: false
     Meta:
       type: object
