@@ -405,9 +405,6 @@ components:
         - taxPeriodicity
         - calculation
         - referentialRateIndexerType
-        - preFixedRate
-        - postFixedRate
-        - additionalInfo
       properties:
         taxType:
           type: string
@@ -521,8 +518,6 @@ components:
           example: Informações adicionais
           description: |
             Texto com informações adicionais sobre a composição das taxas de juros pactuadas.
-
-            [Restrição] Caso a instituição não possua a informação para compartilhamento, informar "NA".
       additionalProperties: false
     FinancingsBalloonPayment:
       type: object
@@ -566,7 +561,6 @@ components:
       type: object
       required:
         - chargeType
-        - chargeAdditionalInfo
         - chargeAmount
       properties:
         chargeType:
@@ -598,13 +592,10 @@ components:
         - productSubType
         - contractDate
         - contractAmount
-        - settlementDate
         - currency
         - dueDate
         - instalmentPeriodicity
         - instalmentPeriodicityAdditionalInfo
-        - firstInstalmentDueDate
-        - CET
         - amortizationScheduled
         - amortizationScheduledAdditionalInfo
         - interestRates
@@ -848,7 +839,6 @@ components:
       required:
         - feeName
         - feeCode
-        - feeAmount
       properties:
         feeName:
           type: string
@@ -911,9 +901,7 @@ components:
         - dueInstalments
         - pastDueInstalments
         - typeContractRemaining
-        - contractRemainingNumber
         - typeNumberOfInstalments
-        - totalNumberOfInstalments
         - paidInstalments
       properties:
         typeNumberOfInstalments:
@@ -930,7 +918,10 @@ components:
           type: number
           example: 130632
           maximum: 999999
-          description: 'Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
+          description: |
+            Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Preenchimento obrigatório caso o campo typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
         typeContractRemaining:
           type: string
           enum:
@@ -944,7 +935,10 @@ components:
         contractRemainingNumber:
           type: number
           maximum: 999999
-          description: 'Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
+          description: |
+            Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Preenchimento obrigatório caso o campo typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
           example: 14600
         paidInstalments:
           type: number
@@ -965,7 +959,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FinancingsBalloonPayment'
-          minItems: 0
+          minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     FinancingsListContract:
@@ -1027,13 +1021,13 @@ components:
       properties:
         fees:
           type: array
-          minItems: 1
+          minItems: 0
           items:
             $ref: '#/components/schemas/FinancingsFeeOverParcel'
           description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
         charges:
           type: array
-          minItems: 1
+          minItems: 0
           items:
             $ref: '#/components/schemas/FinancingsChargeOverParcel'
           description: Lista dos encargos que foram pagos fora da parcela.
@@ -1074,7 +1068,6 @@ components:
         - paidDate
         - currency
         - paidAmount
-        - overParcel
       properties:
         paymentId:
           type: string
