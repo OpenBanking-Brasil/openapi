@@ -860,7 +860,6 @@ components:
       type: object
       required:
         - chargeType
-        - chargeAdditionalInfo
         - chargeAmount
       properties:
         chargeType:
@@ -872,6 +871,7 @@ components:
           example: Informações adicionais
           description: |
             Campo livre para preenchimento das informações adicionais referente ao encargo.
+
             [Restrição] Obrigatório quando chargeType for igual 'OUTROS'.
         chargeAmount:
           description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
@@ -1107,9 +1107,11 @@ components:
             Valor do pagamento referente ao  contrato da modalidade de crédito consultada.
             Expresso em valor monetário com até 4 casas decimais.
         overParcel:
-          description: |
-            [Restrição] Informação deve ser enviada caso ela exista.
           type: object
+          description: |
+            Objeto das tarifas e encargos que foram pagos fora da parcela.
+
+            [Restrição] Informação deve ser enviada caso ela exista, torna-se obrigatório caso haja parcelamento.
           required:
             - fees
             - charges
@@ -1122,7 +1124,7 @@ components:
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
             charges:
               type: array
-              minItems: 1
+              minItems: 0
               items:
                 $ref: '#/components/schemas/LoansChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
@@ -1141,14 +1143,14 @@ components:
           pattern: '[\w\W\s]*'
           example: Reavaliação periódica do bem
           description: |
-            Denominação da Tarifa pactuada.  
+            Denominação da Tarifa pactuada.
         feeCode:
           type: string
           maxLength: 140
           pattern: '[\w\W\s]*'
           example: aval_bem
           description: |
-            Sigla identificadora da tarifa pactuadas.
+            Sigla identificadora da tarifa pactuada.
         feeAmount:
           type: string
           pattern: '^-?\d{1,15}\.\d{2,4}$'
@@ -1157,7 +1159,6 @@ components:
           example: '100000.0400'
           description: |
             Valor monetário da tarifa pactuada no contrato.
-            [Restrição] Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo
       additionalProperties: false
     LoansWarranties:
       type: object

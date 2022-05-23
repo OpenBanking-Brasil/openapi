@@ -1078,8 +1078,9 @@ components:
         overParcel:
           type: object
           description: |
-            Objeto das tarifas e encargos que foram pagos fora da parcela.   
-            [Restrição] Informação deve ser enviada caso ela exista.
+            Objeto das tarifas e encargos que foram pagos fora da parcela.
+
+            [Restrição] Informação deve ser enviada caso ela exista, torna-se obrigatório caso haja parcelamento.
           required:
             - fees
             - charges
@@ -1092,7 +1093,7 @@ components:
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
             charges:
               type: array
-              minItems: 1
+              minItems: 0
               items:
                 $ref: '#/components/schemas/InvoiceFinancingsChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
@@ -1111,7 +1112,7 @@ components:
           minLength: 2
           pattern: '[\w\W\s]+'
           description: |
-            Denominação da Tarifa pactuada
+            Denominação da Tarifa pactuada.
           example: Excesso em Conta
         feeCode:
           type: string
@@ -1119,7 +1120,7 @@ components:
           minLength: 2
           pattern: '[\w\W\s]+'
           description: |
-            Sigla identificadora da tarifa pactuada
+            Sigla identificadora da tarifa pactuada.
           example: EXCESSO_CONTA
         feeAmount:
           description: |
@@ -1134,12 +1135,11 @@ components:
       type: object
       required:
         - chargeType
-        - chargeAdditionalInfo
         - chargeAmount
       properties:
         chargeType:
           type: string
-          description: Tipo de encargo pago fora da parcela
+          description: Tipo de encargo pactuado no contrato.
           enum:
             - JUROS_REMUNERATORIOS_POR_ATRASO
             - MULTA_ATRASO_PAGAMENTO
@@ -1151,7 +1151,10 @@ components:
           example: JUROS_REMUNERATORIOS_POR_ATRASO
         chargeAdditionalInfo:
           type: string
-          description: Campo de preenchimento obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pago fora da parcela
+          description: |
+            Campo livre para preenchimento das informações adicionais referente ao encargo.
+
+            [Restrição] Obrigatório quando chargeType for igual 'OUTROS'.
           pattern: '[\w\W\s]*'
           example: Informações adicionais
           maxLength: 140
