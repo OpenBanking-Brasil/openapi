@@ -588,7 +588,6 @@ components:
         - currency
         - instalmentPeriodicity
         - instalmentPeriodicityAdditionalInfo
-        - CET
         - amortizationScheduled
         - amortizationScheduledAdditionalInfo
         - interestRates
@@ -775,9 +774,6 @@ components:
         - taxPeriodicity
         - calculation
         - referentialRateIndexerType
-        - preFixedRate
-        - postFixedRate
-        - additionalInfo
       properties:
         taxType:
           type: string
@@ -890,9 +886,7 @@ components:
         - dueInstalments
         - pastDueInstalments
         - typeContractRemaining
-        - contractRemainingNumber
         - typeNumberOfInstalments
-        - totalNumberOfInstalments
         - paidInstalments
       properties:
         typeNumberOfInstalments:
@@ -909,7 +903,10 @@ components:
           type: number
           maximum: 999999
           example: 130632
-          description: 'Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
+          description: |
+            Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Preenchimento obrigatório caso o campo typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
         typeContractRemaining:
           type: string
           enum:
@@ -923,7 +920,10 @@ components:
         contractRemainingNumber:
           type: number
           maximum: 999999
-          description: 'Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.'
+          description: |
+            Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Preenchimento obrigatório caso o campo typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
           example: 14600
         paidInstalments:
           type: number
@@ -944,7 +944,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InvoiceFinancingsBalloonPayment'
-          minItems: 0
+          minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     InvoiceFinancingsContractData:
