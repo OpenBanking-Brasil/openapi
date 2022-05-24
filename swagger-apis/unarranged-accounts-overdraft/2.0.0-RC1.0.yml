@@ -994,13 +994,19 @@ components:
           maxLength: 10
           pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2018-01-05'
-        disbursementDate:
-          type: string
-          format: date
-          maxLength: 10
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
-          example: '2018-01-15'
-          description: Data do Desembolso do valor contratado. Especificação RFC-3339
+        disbursementDates:
+          type: array
+          description: |
+            Lista que traz as Datas de Desembolso do valor contratado.
+          items:
+            type: string
+            format: date
+            maxLength: 10
+            pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+            example: '2018-01-15'
+            description: |
+              Data do Desembolso do valor contratado. Especificação RFC-3339.
+              No caso de uma liberação de recursos feita em D0 mas com referência retroativa feita em D -1, contabilmente a data correta seria D -1.
         settlementDate:
           type: string
           format: date
