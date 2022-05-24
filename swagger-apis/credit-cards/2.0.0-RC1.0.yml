@@ -548,7 +548,7 @@ components:
           example: Informações Adicionais
           description: 'Campo livre, de preenchimento obrigatório se selecionado tipo de encargo ''OUTROS'''
         amount:
-          type: number
+          type: string
           format: double
           minLength: 0
           maxLength: 20
