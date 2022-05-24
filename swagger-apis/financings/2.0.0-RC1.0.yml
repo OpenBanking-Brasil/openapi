@@ -566,6 +566,13 @@ components:
       properties:
         chargeType:
           $ref: '#/components/schemas/EnumContractFinanceChargeType'
+        chargeAmount:
+          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
+          type: string
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '100000.0400'
         chargeAdditionalInfo:
           type: string
           pattern: '[\w\W\s]*'
@@ -575,13 +582,6 @@ components:
             Campo livre para preenchimento das informações adicionais referente ao encargo.
 
             [Restrição] Obrigatório quando chargeType for igual 'OUTROS'.
-        chargeAmount:
-          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
-          type: string
-          pattern: '^\d{1,15}\.\d{2,4}$'
-          maxLength: 20
-          minLength: 4
-          example: '100000.0400'
       additionalProperties: false
     FinancingsContract:
       type: object
