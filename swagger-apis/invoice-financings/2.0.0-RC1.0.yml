@@ -521,7 +521,6 @@ components:
       type: string
       description: 'Denominação/Identificação do tipo da garantia que avaliza a Modalidade da Operação de Crédito contratada  (Doc 3040, Anexo 12)'
       enum:
-        - SEM_TIPO_GARANTIA
         - CESSAO_DIREITOS_CREDITORIOS
         - CAUCAO
         - PENHOR
@@ -742,6 +741,7 @@ components:
         - currency
         - warrantyType
         - warrantySubType
+        - warrantyAmount
       properties:
         currency:
           type: string
@@ -756,8 +756,6 @@ components:
         warrantyAmount:
           description: |
             Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
-
-            [Restrição] Preenchimento obrigatório se tipo de garantia selecionada for diferente de 'SEM_TIPO_GARANTIA'
           type: string
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
@@ -1338,7 +1336,7 @@ components:
       properties:
         data:
           type: array
-          minItems: 1
+          minItems: 0
           description: Conjunto de informações referentes às garantias que avalizam a operação de direitos creditórios descontados contratada
           items:
             $ref: '#/components/schemas/InvoiceFinancingsContractedWarranty'
