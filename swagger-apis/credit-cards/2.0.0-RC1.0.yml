@@ -52,9 +52,9 @@ info:
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:
-  - url: 'https://api.banco.com.br/open-banking/credit-cards-accounts/v1'
+  - url: 'https://api.banco.com.br/open-banking/credit-cards-accounts/v2'
     description: Servidor de Produção
-  - url: 'https://apih.banco.com.br/open-banking/credit-cards-accounts/v1'
+  - url: 'https://apih.banco.com.br/open-banking/credit-cards-accounts/v2'
     description: Servidor de Homologação
 tags:
   - name: Credit Card
