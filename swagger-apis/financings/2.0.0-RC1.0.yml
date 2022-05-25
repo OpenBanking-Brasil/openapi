@@ -810,7 +810,8 @@ components:
 
             [Restrição] Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
           type: string
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          format: double
           maxLength: 21
           minLength: 4
           example: '100000.0400'
