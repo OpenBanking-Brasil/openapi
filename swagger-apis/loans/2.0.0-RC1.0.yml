@@ -633,6 +633,7 @@ components:
           description: Data de contratação da operação de crédito. Especificação RFC-3339
         disbursementDates:
           type: array
+          minItems: 1
           description: |
             Lista que traz as Datas de Desembolso do valor contratado.
           items:
@@ -711,7 +712,7 @@ components:
         amortizationScheduledAdditionalInfo:
           type: string
           pattern: '[\w\W\s]*'
-          maxLength: 50
+          maxLength: 200
           example: Informações complementares relativa à amortização do tipo 'OUTROS'
           description: |
             Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.
@@ -979,7 +980,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LoansBalloonPayment'
-          minItems: 0
+          minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
       additionalProperties: false
     LoansListContract:
@@ -1055,7 +1056,7 @@ components:
           description: Valor necessário para o cliente liquidar a dívida.
         releases:
           type: array
-          minItems: 1
+          minItems: 0
           items:
             $ref: '#/components/schemas/LoansReleases'
           description: Lista dos pagamentos realizados no período
@@ -1122,7 +1123,7 @@ components:
           properties:
             fees:
               type: array
-              minItems: 1
+              minItems: 0
               items:
                 $ref: '#/components/schemas/LoansFeeOverParcel'
               description: 'Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.'
@@ -1283,7 +1284,7 @@ components:
       properties:
         data:
           type: array
-          minItems: 1
+          minItems: 0
           description: Conjunto de informações de contratos de empréstimo mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento
           items:
             $ref: '#/components/schemas/LoansListContract'
@@ -1343,7 +1344,7 @@ components:
       properties:
         data:
           type: array
-          minItems: 1
+          minItems: 0
           description: Conjunto de informações referentes à identificação da operação de crédito de empréstimo
           items:
             $ref: '#/components/schemas/LoansWarranties'

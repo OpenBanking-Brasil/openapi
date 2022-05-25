@@ -2,7 +2,7 @@
 /data;data;Conjunto de informações referentes aos pagamentos realizados de uma operação de crédito de empréstimos.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/paidInstalments;paidInstalments;Quantidade total de parcelas pagas do contrato referente à Modalidade de Crédito informada.;Número;;Obrigatório;;;1;1;"";Não permitido;number;73
 /data/contractOutstandingBalance;contractOutstandingBalance;Valor necessário para o cliente liquidar a dívida.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
-/data/releases;releases;Lista dos pagamentos realizados no período;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/releases;releases;Lista dos pagamentos realizados no período;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/releases/paymentId;paymentId;Identificador de pagamento de responsabilidade de cada Instituição transmissora.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;0;1;"";Não permitido;string;XlthLXpBLVowLTldW2EtekEtWjAtOVwtXXswLDk5fSQ
 /data/releases/isOverParcelPayment;isOverParcelPayment;Identifica se é um pagamento pactuado (false) ou avulso (true).;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/releases/instalmentId;instalmentId;Identificador de parcela, de responsabilidade de cada Instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;WGx0aExYcEJMVm93TFRsZFcyRXRla0V0V2pBdE9Wd3RYWH
@@ -13,7 +13,7 @@ Todos os valores monetários informados estão representados com a moeda vigente
 Expresso em valor monetário com até 4 casas decimais.";Texto;21;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/releases/overParcel;overParcel;Objeto das tarifas e encargos que foram pagos fora da parcela.;Objeto;;Condicional;;;0;1;" Informação deve ser enviada caso ela exista, torna-se obrigatório caso haja parcelamento.
 ";Não permitido;object;
-/data/releases/overParcel/fees;fees;Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/releases/overParcel/fees;fees;Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/releases/overParcel/fees/feeName;feeName;Denominação da Tarifa pactuada.;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Reavaliação periódica do bem
 /data/releases/overParcel/fees/feeCode;feeCode;Sigla identificadora da tarifa pactuada.;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;aval_bem
 /data/releases/overParcel/fees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400

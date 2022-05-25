@@ -20,7 +20,7 @@ ANTECIPACAO_FATURA_CARTAO_CREDITO
 OUTROS_DIREITOS_CREDITORIOS_DESCONTADOS 
 OUTROS_TITULOS_DESCONTADOS";1;1;"";Não permitido;string;DESCONTO_CHEQUES
 /data/contractDate;contractDate;Data de contratação da operação de crédito. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05
-/data/disbursementDates;disbursementDates;Lista que traz as Datas de Desembolso do valor contratado.;Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;N;"";Não permitido;array;2018-01-15
+/data/disbursementDates;disbursementDates;Lista que traz as Datas de Desembolso do valor contratado.;Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;N;"";Não permitido;array;2018-01-15
 /data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$;;0;1;" Deve aceitar NA caso não seja retornado pela instituição.
 ";Não permitido;string;2018-01-15
 /data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;20;Opcional;^\d{1,15}\.\d{2,4}$;;0;1;"";Não permitido;string;100000.0400
@@ -51,7 +51,7 @@ PRICE
 SAM 
 SEM_SISTEMA_AMORTIZACAO 
 OUTROS";1;1;"";Não permitido;string;SAC
-/data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;NA
+/data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;200;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Informações complementares relativa à amortização do tipo 'OUTROS'
 /data/interestRates;interestRates;Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
 - NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
