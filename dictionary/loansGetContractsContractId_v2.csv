@@ -124,7 +124,7 @@ POR_PARCELA";1;1;"";Não permitido;string;UNICA
 MAXIMO 
 FIXO 
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
-/data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato.;Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
+/data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato.;Texto;21;Condicional;^\d{1,15}\.\d{2,4}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
 ";Não permitido;string;100000.04
 /data/contractedFees/feeRate;feeRate;"Percentual que representa o valor da tarifa pactuada para o contrato.   
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex.: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Condicional;^[01]\.\d{6}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual.
