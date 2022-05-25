@@ -554,7 +554,7 @@ components:
           maxLength: 20
           nullable: true
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          example: 100000.04
+          example: '100000.0400'
           description: Valor cobrado pelo encargo. Expresso em valor monetário com 4 casas decimais
         currency:
           type: string
@@ -902,12 +902,6 @@ components:
           description: |
             O MCC ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades. O MCC é usado para classificar o negócio pelo tipo fornecido de bens ou serviços. Os MCCs são atribuídos por tipo de comerciante (por exemplo, um para hotéis, um para lojas de materiais de escritório, etc.) ou por nome de comerciante (por exemplo, 3000 para a United Airlines).
       additionalProperties: false
-    CurrencyCode:
-      type: string
-      pattern: '^[A-Z]{3}$'
-      maxLength: 3
-      description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-      example: BRL
     EnumCreditCardAccountFee:
       type: string
       description: |
@@ -1356,8 +1350,9 @@ components:
       in: query
       schema:
         type: number
-        maxLength: 4
+        maximum: 9999
         example: 8299
+        format: int32
     creditCardTransactionType:
       name: transactionType
       description: Traz os tipos de Transação

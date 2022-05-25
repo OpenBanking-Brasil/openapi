@@ -668,12 +668,6 @@ components:
           description: Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado
           example: '932'
       additionalProperties: false
-    CurrencyCode:
-      type: string
-      pattern: '^[A-Z]{3}$'
-      maxLength: 3
-      description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-      example: BRL
     BusinessPostalAddress:
       type: object
       required:
