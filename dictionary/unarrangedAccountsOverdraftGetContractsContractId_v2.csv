@@ -112,7 +112,7 @@ POR_PARCELA";1;1;"";Não permitido;string;UNICA
 MAXIMO 
 FIXO 
 PERCENTUAL";1;1;"";Não permitido;string;MINIMO
-/data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato.;Texto;20;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
+/data/contractedFees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato.;Texto;20;Condicional;^\d{1,15}\.\d{2,4}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
 ";Não permitido;string;100000.04
 /data/contractedFees/feeRate;feeRate;Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.;Texto;8;Condicional;^[01]\.\d{6}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual.
 ";Não permitido;string;0.062000
