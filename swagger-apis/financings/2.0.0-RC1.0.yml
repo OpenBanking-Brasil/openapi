@@ -700,7 +700,9 @@ components:
           maxLength: 50
           example: Informações adicionais sobre periodicidade
           description: |
-            Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS. 
+            Campo para complementar a informação relativa à periodicidade de pagamento regular. 
+
+            [Restrição] Obrigatório quando o campo instalmentPeriodicity for igual a OUTROS.
         firstInstalmentDueDate:
           type: string
           format: date

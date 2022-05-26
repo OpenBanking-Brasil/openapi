@@ -42,7 +42,8 @@ TRIMESTRAL
 SEMESTRAL 
 ANUAL 
 OUTROS";1;1;"";Não permitido;string;SEMANAL
-/data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.;Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Informações adicionais sobre periodicidade
+/data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;Campo para complementar a informação relativa à periodicidade de pagamento regular.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando o campo instalmentPeriodicity for igual a OUTROS.
+";Não permitido;string;Informações adicionais sobre periodicidade
 /data/firstInstalmentDueDate;firstInstalmentDueDate;Data de vencimento primeira parcela do principal.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15
 /data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).   
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).";Texto;8;Opcional;^[01]\.\d{6}$;;0;1;"";Não permitido;string;0.290000
