@@ -648,11 +648,10 @@ components:
           type: string
           format: date
           maxLength: 10
-          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$|^NA$'
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2018-01-15'
           description: |
             Data de liquidação da operação.
-            [Restrição] Deve aceitar NA caso não seja retornado pela instituição.
         contractAmount:
           type: string
           minLength: 4
@@ -972,7 +971,7 @@ components:
           example: Organização A
         companyCnpj:
           type: string
-          pattern: '\d{14}|^NA$'
+          pattern: '^\d{14}$'
           description: 'Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
           maxLength: 14
           example: '21128159000166'
