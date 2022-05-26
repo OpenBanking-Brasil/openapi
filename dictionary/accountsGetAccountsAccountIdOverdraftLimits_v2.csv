@@ -1,11 +1,11 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
 /data;data;Conjunto de informações da Conta de: depósito à vista;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/overdraftContractedLimit;overdraftContractedLimit;Valor do limite contratado do cheque especial.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/overdraftContractedLimit/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/overdraftContractedLimit/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/overdraftContractedLimit/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/overdraftUsedLimit;overdraftUsedLimit;Valor utilizado total do limite do cheque especial e o adiantamento a depositante.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/overdraftUsedLimit/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/overdraftUsedLimit/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/overdraftUsedLimit/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/unarrangedOverdraftAmount;unarrangedOverdraftAmount;Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/unarrangedOverdraftAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/unarrangedOverdraftAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/unarrangedOverdraftAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL

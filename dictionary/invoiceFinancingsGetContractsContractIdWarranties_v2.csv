@@ -67,4 +67,4 @@ SEM_SUB_TIPO_GARANTIA
 TRIBUTOS_RECEITAS_ORCAMENTARIAS 
 VEICULOS 
 VEICULOS_AUTOMOTORES";1;1;"";Não permitido;string;NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO
-/data/warrantyAmount;warrantyAmount;Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/warrantyAmount;warrantyAmount;Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400

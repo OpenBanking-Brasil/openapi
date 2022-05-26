@@ -655,10 +655,11 @@ components:
             Data de liquidação da operação.
         contractAmount:
           type: string
-          maxLength: 21
-          minLength: 4
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
-          example: '100000.0400'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
         currency:
           type: string
@@ -775,9 +776,9 @@ components:
         feeAmount:
           type: string
           format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          pattern: '^\d{1,15}\.\d{2,4}$'
           description: |
             Valor monetário da tarifa pactuada no contrato. 
 
@@ -878,12 +879,13 @@ components:
 
             [Restrição] Obrigatório quando chargeType for igual 'OUTROS'.
         chargeAmount:
-          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
+          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
       additionalProperties: false
     LoansFinanceCharge:
       type: object
@@ -1048,10 +1050,11 @@ components:
           description: Quantidade total de parcelas pagas do contrato referente à Modalidade de Crédito informada.
         contractOutstandingBalance:
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
-          minLength: 4
           maxLength: 20
-          example: '100000.0400'
+          minLength: 4
+          example: '1000.0400'
           description: Valor necessário para o cliente liquidar a dívida.
         releases:
           type: array
@@ -1105,10 +1108,11 @@ components:
             Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
         paidAmount:
           type: string
-          maxLength: 21
-          minLength: 4
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
-          example: '100000.0400'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
           description: |
             Valor do pagamento referente ao  contrato da modalidade de crédito consultada.
             Expresso em valor monetário com até 4 casas decimais.
@@ -1187,10 +1191,11 @@ components:
           $ref: '#/components/schemas/EnumWarrantySubType'
         warrantyAmount:
           type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          pattern: '^\d{1,15}\.\d{2,4}$'
-          example: '200.0001'
+          example: '1000.0400'
           description: |
             Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
       additionalProperties: false
@@ -1202,12 +1207,13 @@ components:
       description: Valor monetário da parcela não regular a vencer.
       properties:
         amount:
-          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
+          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'

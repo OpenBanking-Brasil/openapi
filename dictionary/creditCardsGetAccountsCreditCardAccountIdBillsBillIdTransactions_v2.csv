@@ -51,10 +51,10 @@ Para recebedora: Ignorar o campo preenchido conforme esse cenário.
 /data/chargeNumber;chargeNumber;Quantidade de parcelas.;Número;;Condicional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
 ";Não permitido;number;12
 /data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com 4 casas decimais, em moeda corrente do Brasil;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/brazilianAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/brazilianAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/brazilianAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/amount;amount;Valor da transação. Expresso em valor monetário com 4 casas decimais. Se a transação foi realizada em moeda estrangeira, deve ser preenchido com o valor original da transação, sem convertê-lo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/amount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/amount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/transactionDate;transactionDate;Data original da transação;Data;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
 /data/billPostDate;billPostDate;Data em que a transação foi inserida na fatura;Data;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21

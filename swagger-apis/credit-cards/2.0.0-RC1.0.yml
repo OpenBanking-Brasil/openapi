@@ -396,11 +396,12 @@ components:
       properties:
         amount:
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
-          description: Valor relacionado ao objeto.
           maxLength: 20
-          minLength: 0
-          example: '100000.0400'
+          minLength: 4
+          example: '1000.0400'
+          description: Valor relacionado ao objeto.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'
@@ -417,11 +418,12 @@ components:
       properties:
         amount:
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
-          description: Valor relacionado ao objeto.
           maxLength: 20
-          minLength: 0
-          example: '100000.0400'
+          minLength: 4
+          example: '1000.0400'
+          description: Valor relacionado ao objeto.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'
@@ -590,8 +592,8 @@ components:
           format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
-          minLength: 0
-          example: '100000.0400'
+          minLength: 4
+          example: '1000.0400'
           description: |
             Valor pagamento segundo o valueType.  
             Expresso em valor monetário com 4 casas decimais.
@@ -784,12 +786,13 @@ components:
         O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.
       properties:
         amount:
-          description: Valor total da faturas. Expresso em valor monetário com 4 casas decimais.
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
+          description: Valor total da faturas. Expresso em valor monetário com 4 casas decimais.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'

@@ -539,12 +539,13 @@ components:
       description: Valor monetário da parcela não regular a vencer
       properties:
         amount:
-          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
+          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'
@@ -561,12 +562,13 @@ components:
         chargeType:
           $ref: '#/components/schemas/EnumContractFinanceChargeType'
         chargeAmount:
-          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
+          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
         chargeAdditionalInfo:
           type: string
           pattern: '[\w\W\s]*'
@@ -656,12 +658,13 @@ components:
           description: |
             Data de liquidação da operação.
         contractAmount:
-          description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
           type: string
-          minLength: 4
-          maxLength: 20
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
-          example: '100000.0400'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
         currency:
           type: string
           pattern: '^(\w{3}){1}$'
@@ -809,16 +812,16 @@ components:
             - PERCENTUAL
           example: MINIMO
         feeAmount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
           description: |
             Valor monetário da tarifa pactuada no contrato. 
 
             [Restrição] Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
-          type: string
-          pattern: '^\d{1,15}\.\d{2,4}$'
-          format: double
-          maxLength: 21
-          minLength: 4
-          example: '100000.0400'
         feeRate:
           type: string
           format: double
@@ -854,10 +857,11 @@ components:
             Sigla identificadora da tarifa pactuada.  
         feeAmount:
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
           description: |
             Valor monetário da tarifa pactuada no contrato.
       additionalProperties: false
@@ -1045,12 +1049,13 @@ components:
           example: 73
           description: Quantidade total de parcelas pagas do contrato referente à Modalidade de Crédito informada.
         contractOutstandingBalance:
-          description: Valor necessario para o cliente liquidar a dívida.
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
+          description: Valor necessario para o cliente liquidar a dívida.
         releases:
           type: array
           minItems: 0
@@ -1103,10 +1108,11 @@ components:
             Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
         paidAmount:
           type: string
+          format: double
           pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          example: '100000.0400'
+          example: '1000.0400'
           description: |
             Valor do pagamento referente ao  contrato da modalidade de crédito consultada.
             Expresso em valor monetário com até 4 casas decimais.
@@ -1207,10 +1213,11 @@ components:
           example: NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO
         warrantyAmount:
           type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
-          pattern: '^\d{1,15}\.\d{2,4}$'
-          example: '200.0001'
+          example: '1000.0400'
           description: |
             Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
       additionalProperties: false
