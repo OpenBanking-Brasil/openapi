@@ -775,7 +775,7 @@ components:
           type: string
           format: double
           maxLength: 20
-          minLength: 1
+          minLength: 4
           pattern: '^\d{1,15}\.\d{2,4}$'
           description: |
             Valor monetário da tarifa pactuada no contrato. 
