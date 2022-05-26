@@ -56,7 +56,8 @@ SEM_SISTEMA_AMORTIZACAO
 OUTROS";1;1;"";Não permitido;string;SAC
 /data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;200;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Informações complementares relativa à amortização do tipo 'OUTROS'
 /data/cnpjConsignee;cnpjConsignee;"CNPJ do consignante (CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica). 
-Deve-se ter apenas os números do CNPJ, sem máscara.";Texto;14;Condicional;^\d{14}$;;0;1;" Informação adicional específica para Modalidade de Crédito: Empréstimo-Crédito Pessoal Consignado.
+
+Deve-se ter apenas os números do CNPJ, sem máscara.";Texto;14;Condicional;^\d{14}$;;0;1;" Informação adicional específica para quando o productSubType for igual a CREDITO_PESSOAL_COM_CONSIGNACAO
 ";Não permitido;string;60500998000135
 /data/interestRates;interestRates;Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
