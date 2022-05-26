@@ -740,7 +740,9 @@ components:
           maxLength: 200
           example: Informações complementares relativa à amortização do tipo 'OUTROS'
           description: |
-            Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.
+            Campo para complementar a informação relativa à amortização.
+
+            [Restrição] Obrigatório quando o campo amortizationScheduled for igual a OUTROS.
         interestRates:
           type: array
           minItems: 0
