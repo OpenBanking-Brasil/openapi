@@ -629,7 +629,7 @@ components:
         companyCnpj:
           type: string
           description: 'Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
-          pattern: '\d{14}|^NA$'
+          pattern: '^\d{14}$'
           maxLength: 14
           example: '21128159000166'
         name:
