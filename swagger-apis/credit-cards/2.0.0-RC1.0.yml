@@ -484,7 +484,8 @@ components:
           description: Informação que identifica a fatura
           type: string
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: 3459087XXZTR
         dueDate:
           description: 'Data de vencimento da Fatura, que aparece para pagamento pelo cliente'
@@ -506,9 +507,9 @@ components:
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 21
-          minLength: 0
+          minLength: 4
+          example: '100000.0400'
           description: Valor do pagamento minimo da fatura
-          example: '1000.0400'
         billMinimumAmountCurrency:
           type: string
           maxLength: 3
@@ -550,8 +551,8 @@ components:
         amount:
           type: string
           format: double
-          minLength: 0
-          maxLength: 20
+          maxLength: 21
+          minLength: 4
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
           description: Valor cobrado pelo encargo. Expresso em valor monetário com 4 casas decimais
@@ -618,7 +619,8 @@ components:
           type: string
           description: 'Identifica de forma única a conta pagamento pós-paga do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.'
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: XXZTR3459087
         brandName:
           type: string
@@ -676,7 +678,8 @@ components:
           description: |
             Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: '4453'
         lineName:
           type: string
@@ -715,6 +718,7 @@ components:
             Valor total do limite informado Expresso em valor monetário com 4 casas decimais.   
             [Restrição] O campo é opcional caso isLimitFlexible for igual a false.
           maxLength: 21
+          minLength: 4
           example: '100000.0001'
         usedAmountCurrency:
           type: string
@@ -730,7 +734,8 @@ components:
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: Valor utilizado do limite informado Expresso em valor monetário com 4 casas decimais.
           maxLength: 21
-          example: '7500.0500'
+          minLength: 4
+          example: '100000.0001'
         availableAmountCurrency:
           type: string
           maxLength: 3
@@ -745,7 +750,8 @@ components:
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: Valor disponível do limite informado Expresso em valor monetário com 4 casas decimais.
           maxLength: 21
-          example: '2499.9500'
+          minLength: 4
+          example: '100000.0001'
       additionalProperties: false
     CreditCardsAccountPaymentMethod:
       type: object
@@ -759,7 +765,8 @@ components:
           description: |
             Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para pessoa natural, ou então, preencher com um identificador para pessoa jurídica, com as características definidas para os IDs no Open Banking.
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: '4453'
         isMultipleCreditCard:
           type: boolean
@@ -810,13 +817,15 @@ components:
         transactionId:
           type: string
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: TXpRMU9UQTROMWhZV2xSU1FUazJSMDl
           description: Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual.
         identificationNumber:
           type: string
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: '4453'
           description: |
             Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.
@@ -829,7 +838,8 @@ components:
         billId:
           type: string
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM
           description: Informação que identifica a fatura onde consta a transação informada.
         creditDebitType:

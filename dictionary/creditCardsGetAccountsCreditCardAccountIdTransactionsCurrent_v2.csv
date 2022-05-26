@@ -1,9 +1,9 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
 /data;data;"";Lista;;Obrigatório;;;1;N;"";Não permitido;array;
-/data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;0;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl
-/data/identificationNumber;identificationNumber;Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;4453
+/data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;0;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl
+/data/identificationNumber;identificationNumber;Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;1;1;"";Não permitido;string;4453
 /data/transactionName;transactionName;Campo de livre preenchimento. Literal usada na instituição financeira para identificar a transação;Texto;100;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PGTO
-/data/billId;billId;Informação que identifica a fatura onde consta a transação informada.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;0;1;"";Não permitido;string;MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM
+/data/billId;billId;Informação que identifica a fatura onde consta a transação informada.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;0;1;"";Não permitido;string;MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM
 /data/creditDebitType;creditDebitType;"Indicador do tipo de lançamento: 
 Débito (no extrato) Em um extrato bancário, os débitos, marcados com a letra “D” ao lado do valor registrado, informam as saídas de dinheiro na conta-corrente.
 Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.";Texto;;Obrigatório;;"CREDITO 

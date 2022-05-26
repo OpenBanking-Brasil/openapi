@@ -13,4 +13,4 @@ CONTA_PAGAMENTO_PRE_PAGA";1;1;"";Não permitido;string;CONTA_DEPOSITO_A_VISTA
 ";Não permitido;string;6272
 /data/number;number;Número da conta;Texto;20;Obrigatório;^\d{8,20}$;;1;1;"";Não permitido;string;94088392
 /data/checkDigit;checkDigit;Dígito da conta;Texto;1;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;4
-/data/accountId;accountId;Identifica de forma única  a conta do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576
+/data/accountId;accountId;Identifica de forma única  a conta do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576

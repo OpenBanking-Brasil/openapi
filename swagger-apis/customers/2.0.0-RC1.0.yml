@@ -367,7 +367,8 @@ components:
         businessId:
           type: string
           maxLength: 100
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          minLength: 1
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           example: 578-psd-71md6971kjh-2d414
           description: Um identificador único e imutável usado para identificar o recurso cliente pessoa jurídica. Este identificador não tem significado para o cliente que deu o consentimento
         brandName:
@@ -1652,8 +1653,9 @@ components:
             Data e hora da atualização dos campos \<_endpoint_\>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.
         personalId:
           type: string
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
           maxLength: 100
+          minLength: 1
           description: Um identificador único e imutável usado para identificar o recurso cliente pessoa natural. Este identificador não tem significado para o cliente que deu o consentimento
           example: 578-psd-71md6971kjh-2d414
         brandName:
