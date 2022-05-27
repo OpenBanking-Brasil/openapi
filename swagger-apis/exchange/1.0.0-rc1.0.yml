@@ -113,32 +113,7 @@ components:
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
       additionalProperties: false
-    Meta:
-      type: object
-      description: Meta informações referente à API requisitada.
-      required:
-        - totalRecords
-        - totalPages
-        - requestDateTime
-      properties:
-        totalRecords:
-          type: integer
-          format: int32
-          description: Número total de registros no resultado
-          example: 1
-        totalPages:
-          type: integer
-          format: int32
-          description: Número total de páginas no resultado
-          example: 1
-        requestDateTime:
-          description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
-          type: string
-          maxLength: 20
-          format: date-time
-          example: '2021-05-21T08:30:00Z'
-      additionalProperties: false
-    Phase4Meta:
+    OpenDataMeta:
       type: object
       description: Meta informações referente à API requisitada.
       required:
@@ -170,7 +145,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/Phase4Meta'
+          $ref: '#/components/schemas/OpenDataMeta'
       additionalProperties: false
     OKResponseExchangeVetValue:
       type: object
@@ -186,7 +161,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/Phase4Meta'
+          $ref: '#/components/schemas/OpenDataMeta'
       additionalProperties: false
     ExchangeOnlineRate:
       type: object
@@ -208,13 +183,13 @@ components:
               deliveryForeignCurrency: ESPECIE
               transactionType: COMPRA
               transactionCategory: COMERCIO_EXTERIOR
-              targetAudience: PF
+              targetAudience: PESSOA_NATURAL
               value: '5.5023'
             - foreignCurrency: EUR
               deliveryForeignCurrency: CARTAO_PRE_PAGO
               transactionType: VENDA
               transactionCategory: TRANSPORTE
-              targetAudience: PJ
+              targetAudience: PESSOA_JURIDICA
               value: '2.7045'
         timestamp:
           type: string
@@ -236,6 +211,7 @@ components:
         - deliveryForeignCurrency
         - rangeTransactionCategory
         - vetAmount
+        - targetAudience
       properties:
         participant:
           $ref: '#/components/schemas/Participant'
@@ -250,7 +226,66 @@ components:
         targetAudience:
           $ref: '#/components/schemas/EnumTargetAudience'
         vetAmount:
-          $ref: '#/components/schemas/VetValueFrequencyDistribution'
+          type: object
+          description: Distribuição por frequência.
+          required:
+            - prices
+            - minimum
+            - maximum
+          properties:
+            prices:
+              type: array
+              description: Distribuição dos preços.
+              items:
+                type: object
+                required:
+                  - interval
+                  - value
+                  - operationRate
+                properties:
+                  interval:
+                    $ref: '#/components/schemas/VetValueFrequencyDistributionPrice/properties/interval'
+                  value:
+                    type: string
+                    description: Mediana.
+                    example: '0.020300'
+                    maxLength: 8
+                    pattern: '^\d{1}\.\d{1,6}$'
+                  operationRate:
+                    type: string
+                    description: Percentual de operação.
+                    example: '0.500000'
+                    maxLength: 8
+                    pattern: '^\d{1}\.\d{1,6}$'
+                additionalProperties: false
+              minItems: 4
+              maxItems: 4
+              example:
+                - interval: 1_FAIXA
+                  value: '0.020300'
+                  customerRate: '0.500000'
+                - interval: 2_FAIXA
+                  value: '0.030600'
+                  customerRate: '0.100000'
+                - interval: 3_FAIXA
+                  value: '0.034300'
+                  customerRate: '0.300000'
+                - interval: 4_FAIXA
+                  value: '0.246800'
+                  customerRate: '0.100000'
+            minimum:
+              type: string
+              description: Valor mínimo.
+              maxLength: 8
+              pattern: '^\d{1}\.\d{1,6}$'
+              example: '0.010000'
+            maximum:
+              type: string
+              description: Valor máximo.
+              maxLength: 8
+              pattern: '^\d{1}\.\d{1,6}$'
+              example: '0.300000'
+          additionalProperties: false
       additionalProperties: false
     OnlineRate:
       type: object
@@ -261,10 +296,12 @@ components:
         - transactionType
         - transactionCategory
         - value
+        - targetAudience
       properties:
         foreignCurrency:
           type: string
           pattern: '^[A-Z]{3}$'
+          maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
         deliveryForeignCurrency:
@@ -281,65 +318,6 @@ components:
           pattern: '^\d{1}\.\d{1,5}$'
           example: '5.5023'
           description: Valor da operação.
-      additionalProperties: false
-    VetValueFrequencyDistribution:
-      type: object
-      description: Distribuição por frequência.
-      required:
-        - name
-        - code
-        - chargingTriggerInfo
-        - prices
-        - minimum
-        - maximum
-      properties:
-        name:
-          type: string
-          description: Nome do serviço
-          maxLength: 200
-          example: NA
-        code:
-          type: string
-          description: Código de identificação do serviço.
-          maxLength: 200
-          example: NA
-        chargingTriggerInfo:
-          type: string
-          description: Fatos geradores de cobrança.
-          maxLength: 200
-          example: NA
-        prices:
-          type: array
-          description: Distribuição dos preços.
-          items:
-            $ref: '#/components/schemas/VetValueFrequencyDistributionPrice'
-          minItems: 4
-          maxItems: 4
-          example:
-            - interval: 1_FAIXA
-              value: '0.020300'
-              customerRate: '0.500000'
-            - interval: 2_FAIXA
-              value: '0.030600'
-              customerRate: '0.100000'
-            - interval: 3_FAIXA
-              value: '0.034300'
-              customerRate: '0.300000'
-            - interval: 4_FAIXA
-              value: '0.246800'
-              customerRate: '0.100000'
-        minimum:
-          type: string
-          description: Valor mínimo.
-          maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-          example: '0.010000'
-        maximum:
-          type: string
-          description: Valor máximo.
-          maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-          example: '0.300000'
       additionalProperties: false
     VetValueFrequencyDistributionPrice:
       type: object
@@ -442,7 +420,7 @@ components:
         cnpjNumber:
           type: string
           description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-          pattern: '\d{14}$'
+          pattern: '^\d{14}$'
           example: '13456789000112'
         urlComplementaryList:
           type: string
@@ -452,12 +430,12 @@ components:
       additionalProperties: false
     EnumDistinctTargetAudience:
       type: string
-      description: Público alvo (ou PF ou PJ).
-      maxLength: 2
+      description: Público alvo (PESSOA_NATURAL ou PESSOA_JURIDICA).
+      maxLength: 15
       enum:
-        - PF
-        - PJ
-      example: PF
+        - PESSOA_NATURAL
+        - PESSOA_JURIDICA
+      example: PESSOA_JURIDICA
     EnumTargetAudience:
       type: string
       description: |
@@ -481,6 +459,7 @@ components:
         type: integer
         default: 1
         minimum: 1
+        maximum: 2147483647
         format: int32
     pageSize:
       name: page-size
@@ -548,7 +527,7 @@ components:
                       maxLength: 2048
                   additionalProperties: false
               meta:
-                $ref: '#/components/schemas/Meta'
+                $ref: '#/components/schemas/OpenDataMeta'
             additionalProperties: false
     MethodNotAllowed:
       description: O consumidor tentou acessar o recurso com um método não suportado

@@ -3,11 +3,11 @@
 /data/participant;participant;Conjunto de informações relativas ao participante do produto de open banking;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização
 /data/participant/name;name;Nome do participante do Open Banking.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização A1
-/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/participant/urlComplementaryList;urlComplementaryList;"";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies
 /data/society;society;Conjunto de informações relativas à seguradora do produto de open insurance;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Society A1
-/data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;13456789000112
+/data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112
 /data/name;name;Nome comercial do produto, pelo qual é identificado nos canais de distribuição e atendimento da sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Produto A
 /data/code;code;Código único a ser definido pela sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;0001
 /data/category;category;"Indicar a categoria do Produto&#58;<br><ol><li>Tradicional</li><li>Microsseguro</li></ol>";Texto;12;Opcional;;"TRADICIONAL 
@@ -87,10 +87,10 @@ PRESTACAO_SERVICOS";0;N;"";Não permitido;array;
 DIARIA_OU_PARCELA";0;N;"";Não permitido;array;INDENIZACAO_UNICA
 /data/coverages/attributes/minValue;minValue;Listagem do valor mínimo de cobertura (Capital Segurado), diária ou parcela aceito pela sociedade para cada combinação de modalidade/cobertura do produto.<br>Conforme moeda.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/coverages/attributes/minValue/amount;amount;"";Texto;21;Obrigatório;^\d{1,16}\.\d{2,4}$;;1;1;"";Não permitido;string;0.01
-/data/coverages/attributes/minValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
+/data/coverages/attributes/minValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/coverages/attributes/maxValue;maxValue;Listagem do valor máximo de cobertura (Capital Segurado), diária ou parcela aceito pela sociedade para cada combinação de modalidade/cobertura do produto.<br>Conforme moeda.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/coverages/attributes/maxValue/amount;amount;"";Texto;21;Obrigatório;^\d{1,16}\.\d{2,4}$;;1;1;"";Não permitido;string;0.01
-/data/coverages/attributes/maxValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
+/data/coverages/attributes/maxValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/coverages/attributes/indemnifiablePeriods;indemnifiablePeriods;"";Lista;31;Opcional;;"QUANTIDADE_DETERMINADA_PARCELAS 
 FIM_CICLO_DETERMINADO";0;N;"";Não permitido;array;QUANTIDADE_DETERMINADA_PARCELAS
 /data/coverages/attributes/maximumQtyIndemnifiableInstallments;maximumQtyIndemnifiableInstallments;Caso o período indenizável seja relacionado a parcelas, listagem de número máximo de parcelas indenizáveis para cada combinação de modalidade/ cobertura do produto.;Inteiro;10;Opcional;;;0;1;"";Não permitido;integer;10
@@ -108,10 +108,10 @@ NAO_APLICA";1;1;"";Não permitido;string;MESES
 /data/coverages/attributes/differentiatedDeductibleDays;differentiatedDeductibleDays;Detalhamento da franquia em dias diferentes para cada cobertura que exista alguma especificidade. Caso a seguradora não tenha essa diferenciação, não retornará nada no campo.;Inteiro;10;Opcional;;;0;1;"";Não permitido;integer;15
 /data/coverages/attributes/deductible;deductible;Listagem de franquia em reais para cada combinação de modalidade/cobertura do produto.;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/coverages/attributes/deductible/amount;amount;"";Texto;21;Obrigatório;^\d{1,16}\.\d{2,4}$;;1;1;"";Não permitido;string;0.01
-/data/coverages/attributes/deductible/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
+/data/coverages/attributes/deductible/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/coverages/attributes/differentiatedDeductible;differentiatedDeductible;Detalhamento da franquia em reais diferentes para cada cobertura que exista alguma especificidade.<br>Caso a seguradora não tenha essa diferenciação, não retornará nada no campo.;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/coverages/attributes/differentiatedDeductible/amount;amount;"";Texto;21;Obrigatório;^\d{1,16}\.\d{2,4}$;;1;1;"";Não permitido;string;0.01
-/data/coverages/attributes/differentiatedDeductible/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
+/data/coverages/attributes/differentiatedDeductible/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/coverages/attributes/excludedRisks;excludedRisks;"";Lista;40;Opcional;;"ATO_RECONHECIMENTO_PERIGOSO 
 ATO_ILICITO_DOLOSO_PRATICADO_SEGURADO 
 OPERACOES_GUERRA 
@@ -199,16 +199,17 @@ TEMPORARIA_PRAZO_FIXO
 TEMPORARIA_INTERMITENTE";1;N;"";Não permitido;array;VITALICIA
 /data/pmbacRemuneration;pmbacRemuneration;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/pmbacRemuneration/interestRate;interestRate;Taxa de juros para capitalização da PMBaC;Texto;;Opcional;^\d{1,16}\.\d{4}$;;0;1;"";Não permitido;string;14.2521
-/data/pmbacRemuneration/updateIndexes;updateIndexes;"";Lista;9;Opcional;;"IPCA 
+/data/pmbacRemuneration/updateIndexes;updateIndexes;"";Lista;;Opcional;;"IPCA 
 IGP_M 
 INPC";0;N;"";Não permitido;array;IPCA
 /data/benefitRecalculation;benefitRecalculation;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/benefitRecalculation/criterias;criterias;"";Lista;35;Obrigatório;;"INDICE 
+/data/benefitRecalculation/criterias;criterias;"";Lista;;Obrigatório;;"INDICE 
 VINCULADO_SALDO_DEVEDOR 
 VARIAVEL_ACORDO_CRITERIO_ESPECIFICO";1;N;"";Não permitido;array;
-/data/benefitRecalculation/updateIndexes;updateIndexes;"";Lista;9;Obrigatório;;"IPCA 
+/data/benefitRecalculation/updateIndexes;updateIndexes;"";Lista;10;Obrigatório;;"IPCA 
 IGP_M 
-INPC";1;N;"";Não permitido;array;IPCA
+INPC 
+NAO_APLICA";1;N;"";Não permitido;array;IPCA
 /data/ageAdjustment;ageAdjustment;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/ageAdjustment/criterias;criterias;"";Lista;27;Obrigatório;;"APOS_PERIODO_ANOS 
 CADA_PERIODO_ANOS 
