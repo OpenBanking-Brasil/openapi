@@ -288,7 +288,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseUnarrangedAccountOverdraftContractList:
       type: object
       required:
@@ -306,7 +306,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseUnarrangedAccountOverdraftInstalments:
       type: object
       required:
@@ -320,7 +320,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseUnarrangedAccountOverdraftPayments:
       type: object
       required:
@@ -334,7 +334,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseUnarrangedAccountOverdraftWarranties:
       type: object
       required:
@@ -352,7 +352,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftContractListData:
       type: object
       description: Conjunto de informações de contratos de adiantamento a depositantes mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento.
@@ -404,7 +404,7 @@ components:
               3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
             - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres."
           example: '92792126019929279212650822221989319252576'
-      additionalProperties: false
+      additionalProperties: true
     EnumContractFeeCharge:
       type: string
       description: |
@@ -628,7 +628,7 @@ components:
           example: '100000.0400'
           description: |
             Valor monetário da tarifa pactuada no contrato.
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftFinanceCharge:
       type: object
       required:
@@ -655,7 +655,7 @@ components:
 
             O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
           example: '0.071200'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftInstalmentsData:
       type: object
       description: Conjunto de informações referentes ao prazo remanescente e às parcelas de uma operação de crédito de adiantamento a depositante
@@ -715,7 +715,7 @@ components:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftBalloonPayment'
           minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftPaymentsData:
       type: object
       description: Conjunto de informações referentes aos pagamentos realizados de uma operação de crédito de adiantamento a depositantes
@@ -742,7 +742,7 @@ components:
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftReleases'
           description: Lista dos pagamentos realizados no período
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftReleases:
       type: object
       description: Lista dos pagamentos realizados no período
@@ -817,8 +817,8 @@ components:
               items:
                 $ref: '#/components/schemas/UnarrangedAccountOverdraftChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
-          additionalProperties: false
-      additionalProperties: false
+          additionalProperties: true
+      additionalProperties: true
     UnarrangedAccountOverdraftContractedFee:
       type: object
       required:
@@ -865,7 +865,7 @@ components:
 
             [Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual.
           example: '0.062000'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountsOverdraftContractedWarranty:
       type: object
       description: Conjunto de informações referentes às garantias que avalizam a operação de crédito contratada
@@ -893,7 +893,7 @@ components:
           maxLength: 21
           minLength: 4
           example: '100000.0400'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftBalloonPayment:
       type: object
       description: Lista que traz as datas de vencimento e valor das parcelas não regulares  do contrato da modalidade de crédito consultada.
@@ -909,7 +909,7 @@ components:
           example: '2020-01-10'
         amount:
           $ref: '#/components/schemas/UnarrangedAccountOverdraftBalloonPaymentAmount'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftChargeOverParcel:
       type: object
       description: Lista dos encargos que foram pagos fora da parcela.
@@ -934,7 +934,7 @@ components:
           maxLength: 21
           minLength: 4
           example: '100000.0400'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftContractData:
       type: object
       description: Conjunto de informações referentes à identificação da operação de crédito de adiantamento a depositantes
@@ -1111,7 +1111,7 @@ components:
           description: Lista que traz os encargos pactuados no contrato
           items:
             $ref: '#/components/schemas/UnarrangedAccountOverdraftFinanceCharge'
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftContractInterestRate:
       type: object
       description: Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito
@@ -1181,7 +1181,7 @@ components:
             Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
 
             [Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
-      additionalProperties: false
+      additionalProperties: true
     UnarrangedAccountOverdraftBalloonPaymentAmount:
       type: object
       required:
@@ -1201,7 +1201,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     ProductType:
       type: string
       description: |
