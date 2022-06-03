@@ -408,7 +408,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsTransactionBrazilianAmount:
       type: object
       description: 'Valor da transação expresso em valor monetário com 4 casas decimais, em moeda corrente do Brasil'
@@ -430,7 +430,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     CreditCardsAccountsIdentificationData:
       type: object
       description: Conjunto de informações referentes à identificação da conta de pagamento pós-paga.
@@ -468,7 +468,7 @@ components:
           items:
             $ref: '#/components/schemas/CreditCardsAccountPaymentMethod'
           minItems: 1
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsBillsData:
       type: object
       description: Conjunto das informações referentes a lista de faturas associadas à conta de pagamento pós-paga
@@ -534,7 +534,7 @@ components:
             $ref: '#/components/schemas/CreditCardAccountsBillsPayment'
           minItems: 0
           description: Lista que traz os valores relativos aos pagamentos da Fatura da conta de pagamento pós-paga
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsBillsFinanceCharge:
       type: object
       required:
@@ -566,7 +566,7 @@ components:
           description: |
             Moeda referente ao valor cobrado pelo encargo, segundo modelo ISO-4217. p.ex. 'BRL' 
             Todos os saldos informados estão representados com a moeda vigente do Brasil.
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsBillsPayment:
       type: object
       required:
@@ -605,7 +605,7 @@ components:
           description: |
             Moeda referente ao valor de pagamento da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsData:
       type: object
       description: Conjunto de informações das Contas de pagamento pós paga
@@ -657,7 +657,7 @@ components:
           pattern: '[\w\W\s]*'
           maxLength: 50
           example: NA
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsLimitsData:
       type: object
       description: Conjunto de informações referentes aos limites da conta de pagamento pós-paga.
@@ -754,7 +754,7 @@ components:
           maxLength: 21
           minLength: 4
           example: '100000.0001'
-      additionalProperties: false
+      additionalProperties: true
     CreditCardsAccountPaymentMethod:
       type: object
       description: Conjunto de informações relativas aos Meios de Pagamento da Conta de pagamento pós-paga
@@ -775,7 +775,7 @@ components:
           description: |
             Indica se o Cartão de crédito associado à conta pagamento pós-paga é múltiplo ou não. Cartões denominados múltiplos possuem tanto a função crédito quanto a função débito, devendo o proprietário do cartão, no momento de sua utilização, informar se o pagamento é na função crédito (que leva a um pagamento futuro, por meio de uma fatura do cartão de crédito) ou na função débito.
           example: true
-      additionalProperties: false
+      additionalProperties: true
     CreditCardsBillTotalAmount:
       type: object
       required:
@@ -799,7 +799,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     CreditCardAccountsTransaction:
       type: object
       description: Lista que traz os valores relativos aos saldos do Limite de crédito total da conta de pagamento pós-paga
@@ -912,7 +912,7 @@ components:
           example: 5137
           description: |
             O MCC ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades. O MCC é usado para classificar o negócio pelo tipo fornecido de bens ou serviços. Os MCCs são atribuídos por tipo de comerciante (por exemplo, um para hotéis, um para lojas de materiais de escritório, etc.) ou por nome de comerciante (por exemplo, 3000 para a United Airlines).
-      additionalProperties: false
+      additionalProperties: true
     EnumCreditCardAccountFee:
       type: string
       description: |
@@ -1182,7 +1182,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseCreditCardAccountsBills:
       type: object
       required:
@@ -1198,7 +1198,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseCreditCardAccountsIdentification:
       type: object
       required:
@@ -1212,7 +1212,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseCreditCardAccountsLimits:
       type: object
       required:
@@ -1234,7 +1234,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseCreditCardAccountsTransactions:
       type: object
       required:
@@ -1250,7 +1250,7 @@ components:
           $ref: '#/components/schemas/TransactionsLinks'
         meta:
           $ref: '#/components/schemas/MetaOnlyRequestDateTime'
-      additionalProperties: false
+      additionalProperties: true
     ResponseErrorMetaSingle:
       type: object
       required:
