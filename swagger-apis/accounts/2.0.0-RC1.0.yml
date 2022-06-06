@@ -350,14 +350,13 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     AccountOverdraftLimitsDataOverdraftContractedLimit:
       type: object
       description: Valor do limite contratado do cheque especial.
       required:
         - amount
         - currency
-      additionalProperties: false
       properties:
         amount:
           type: string
@@ -373,13 +372,13 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
+      additionalProperties: true
     AccountOverdraftLimitsDataOverdraftUsedLimit:
       type: object
       description: Valor utilizado total do limite do cheque especial e o adiantamento a depositante.
       required:
         - amount
         - currency
-      additionalProperties: false
       properties:
         amount:
           type: string
@@ -395,13 +394,13 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
+      additionalProperties: true
     AccountOverdraftLimitsDataUnarrangedOverdraftAmount:
       type: object
       description: Valor de operação contratada em caráter emergencial para cobertura de saldo devedor em conta de depósitos à vista e de excesso sobre o limite pactuado de cheque especial.
       required:
         - amount
         - currency
-      additionalProperties: false
       properties:
         amount:
           type: string
@@ -417,13 +416,13 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
+      additionalProperties: true
     AccountBalancesDataBlockedAmount:
       type: object
       description: 'Saldo bloqueado, não disponível para utilização imediata, por motivo de bloqueio apresentado para o cliente nos canais eletrônicos Expresso em valor monetário com 4 casas decimais.'
       required:
         - amount
         - currency
-      additionalProperties: false
       properties:
         amount:
           type: string
@@ -439,6 +438,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
+      additionalProperties: true
     AccountBalancesDataAvailableAmount:
       type: object
       description: 'Saldo disponível para utilização imediata. No caso de conta de depósito a vista, sem considerar cheque especial e investimentos atrelados a conta. Expresso em valor monetário com 4 casas decimais.'
@@ -460,7 +460,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     AccountBalancesData:
       type: object
       description: |
@@ -476,7 +476,7 @@ components:
           $ref: '#/components/schemas/AccountBalancesDataBlockedAmount'
         automaticallyInvestedAmount:
           $ref: '#/components/schemas/AccountBalancesDataAutomaticallyInvestedAmount'
-      additionalProperties: false
+      additionalProperties: true
     AccountData:
       type: object
       required:
@@ -536,7 +536,7 @@ components:
           maxLength: 100
           minLength: 1
           example: '92792126019929279212650822221989319252576'
-      additionalProperties: false
+      additionalProperties: true
     AccountIdentificationData:
       type: object
       description: |
@@ -589,7 +589,7 @@ components:
             Moeda referente ao valor da transação, segundo modelo ISO-4217. p.ex. 'BRL' 
             Todos os saldos informados estão representados com a moeda vigente do Brasil
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     AccountOverdraftLimitsData:
       type: object
       description: |
@@ -605,7 +605,7 @@ components:
           $ref: '#/components/schemas/AccountOverdraftLimitsDataOverdraftUsedLimit'
         unarrangedOverdraftAmount:
           $ref: '#/components/schemas/AccountOverdraftLimitsDataUnarrangedOverdraftAmount'
-      additionalProperties: false
+      additionalProperties: true
     AccountTransactionsData:
       type: object
       required:
@@ -685,7 +685,7 @@ components:
           pattern: '[\w\W\s]*'
           description: Dígito da conta da pessoa envolvida na transação
           example: '4'
-      additionalProperties: false
+      additionalProperties: true
     AccountTransactionsDataAmount:
       type: object
       description: Valor da transação. Expressa em valor monetário com 4 casas decimais.
@@ -707,7 +707,7 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
+      additionalProperties: true
     EnumAccountSubType:
       type: string
       enum:
@@ -919,7 +919,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseAccountBalances:
       type: object
       required:
@@ -933,7 +933,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseAccountIdentification:
       type: object
       required:
@@ -947,7 +947,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseAccountOverdraftLimits:
       type: object
       required:
@@ -961,7 +961,7 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
+      additionalProperties: true
     ResponseAccountTransactions:
       type: object
       required:
@@ -980,7 +980,7 @@ components:
           $ref: '#/components/schemas/TransactionsLinks'
         meta:
           $ref: '#/components/schemas/MetaOnlyRequestDateTime'
-      additionalProperties: false
+      additionalProperties: true
     ResponseError:
       type: object
       required:
