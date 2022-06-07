@@ -75,6 +75,7 @@ paths:
         - $ref: '#/components/parameters/xCustomerUserAgent'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseCreditCardAccountsList'
@@ -167,6 +168,7 @@ paths:
         - $ref: '#/components/parameters/creditCardAccountId'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
         - $ref: '#/components/parameters/fromDueDate'
         - $ref: '#/components/parameters/toDueDate'
       responses:
@@ -217,6 +219,7 @@ paths:
         - $ref: '#/components/parameters/billId'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
         - $ref: '#/components/parameters/fromTransactionDate'
         - $ref: '#/components/parameters/toTransactionDate'
         - $ref: '#/components/parameters/creditCardTransactionType'
@@ -313,6 +316,7 @@ paths:
         - $ref: '#/components/parameters/creditCardAccountId'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
         - $ref: '#/components/parameters/fromTransactionDate'
         - $ref: '#/components/parameters/toTransactionDate'
         - $ref: '#/components/parameters/creditCardTransactionType'
@@ -364,6 +368,7 @@ paths:
         - $ref: '#/components/parameters/creditCardAccountId'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
         - $ref: '#/components/parameters/fromTransactionDateMaxLimited'
         - $ref: '#/components/parameters/toTransactionDateMaxLimited'
         - $ref: '#/components/parameters/creditCardTransactionType'
@@ -1435,6 +1440,14 @@ components:
         minimum: 1
         format: int32
         maximum: 1000
+    pagination-key:
+      name: pagination-key
+      in: query
+      description: 'Identificador de rechamada, utilizado para evitar a contagem de chamadas ao endpoint durante a paginação.'
+      schema:
+        type: string
+        maxLength: 2048
+        pattern: '[\w\W\s]*'
     toDueDate:
       name: toDueDate
       description: Data final de filtragem.
