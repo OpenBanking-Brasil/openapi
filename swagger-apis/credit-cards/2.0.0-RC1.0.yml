@@ -484,6 +484,8 @@ components:
           example: AURA CARD
         paymentMethod:
           type: array
+          description: |
+            Listagem dos cartões (ex.: virtual/adicional/titular) associados a conta cartão consentida, conforme disponíveis ao usuário nos canais proprietários.
           items:
             $ref: '#/components/schemas/CreditCardsAccountPaymentMethod'
           minItems: 1
