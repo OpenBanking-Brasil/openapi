@@ -6,7 +6,6 @@
 O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/billTotalAmount/amount;amount;Valor total da faturas. Expresso em valor monetário com 4 casas decimais.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/billTotalAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
-/data/billTotalAmountCurrency;billTotalAmountCurrency;Moeda referente ao valor de pagamento total da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
 /data/billMinimumAmount;billMinimumAmount;Valor do pagamento minimo da fatura;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/billMinimumAmountCurrency;billMinimumAmountCurrency;Moeda referente ao valor de pagamento minimo da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
 /data/isInstalment;isInstalment;Indica se a fatura permite parcelamento (true) ou não (false).;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false

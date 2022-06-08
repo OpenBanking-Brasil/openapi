@@ -495,7 +495,6 @@ components:
         - billId
         - dueDate
         - billTotalAmount
-        - billTotalAmountCurrency
         - billMinimumAmount
         - billMinimumAmountCurrency
         - isInstalment
@@ -517,12 +516,6 @@ components:
           example: '2021-05-21'
         billTotalAmount:
           $ref: '#/components/schemas/CreditCardsBillTotalAmount'
-        billTotalAmountCurrency:
-          type: string
-          maxLength: 3
-          pattern: '^(\w{3}){1}$'
-          description: 'Moeda referente ao valor de pagamento total da fatura, segundo modelo ISO-4217. p.ex. ''BRL'' Todos os valores informados estão representados com a moeda vigente do Brasil'
-          example: BRL
         billMinimumAmount:
           type: string
           format: double
