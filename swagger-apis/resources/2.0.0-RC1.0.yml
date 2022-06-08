@@ -98,6 +98,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             type: object
             required:
@@ -149,7 +150,6 @@ components:
                   Pending Authorisation - Pendente de Autorização
                 example: AVAILABLE
             additionalProperties: false
-          minItems: 1
           description: Lista de recursos e seus respectivos status.
         links:
           $ref: '#/components/schemas/Links'
