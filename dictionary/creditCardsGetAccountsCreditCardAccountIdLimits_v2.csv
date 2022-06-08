@@ -7,7 +7,11 @@ Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é 
 ";Não permitido;array;
 /data/creditLineLimitType;creditLineLimitType;Indicador do tipo de limite;Texto;;Obrigatório;;"LIMITE_CREDITO_TOTAL 
 LIMITE_CREDITO_MODALIDADE_OPERACAO";1;1;"";Não permitido;string;LIMITE_CREDITO_TOTAL
-/data/consolidationType;consolidationType;Indicador que permite informar se o valor do limite é consolidado ou individual.;Texto;;Obrigatório;;"CONSOLIDADO 
+/data/consolidationType;consolidationType;"Indicador que permite informar se o valor do limite é consolidado ou individual.
+
+CONSOLIDADO: utilizado quando o limite da conta cartão é compartilhado entre todos os métodos de pagamento (paymentMethod) atrelados a conta.
+
+INDIVIDUAL: Utilizado quando cada método de pagamento (paymentMethod) possui seu limite segregado.";Texto;;Obrigatório;;"CONSOLIDADO 
 INDIVIDUAL";1;1;"";Não permitido;string;CONSOLIDADO
 /data/identificationNumber;identificationNumber;Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;1;1;"";Não permitido;string;4453
 /data/lineName;lineName;"";Texto;;Opcional;;"CREDITO_A_VISTA 
