@@ -73,6 +73,7 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/accountType'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseAccountList'
@@ -213,6 +214,7 @@ paths:
         - $ref: '#/components/parameters/fromBookingDate'
         - $ref: '#/components/parameters/toBookingDate'
         - $ref: '#/components/parameters/creditDebitIndicator'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseAccountTransactions'
@@ -263,6 +265,7 @@ paths:
         - $ref: '#/components/parameters/fromBookingDateMaxLimited'
         - $ref: '#/components/parameters/toBookingDateMaxLimited'
         - $ref: '#/components/parameters/creditDebitIndicator'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseAccountTransactions'
@@ -1102,6 +1105,14 @@ components:
         maxLength: 10
         format: date
         example: '2021-05-21'
+    pagination-key:
+      name: pagination-key
+      in: query
+      description: 'Identificador de rechamada, utilizado para evitar a contagem de chamadas ao endpoint durante a paginação.'
+      schema:
+        type: string
+        maxLength: 2048
+        pattern: '[\w\W\s]*'
     page:
       name: page
       in: query
