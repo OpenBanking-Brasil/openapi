@@ -32,7 +32,13 @@ Todos os saldos informados estão representados com a moeda vigente do Brasil.";
 /data/payments/valueType;valueType;"Traz os tipos dos valores relativos aos pagamentos da fatura da conta de pagamento pós-paga: (Vide Enum)
  - Valor de pagamento da fatura com parcelamento
  - Valor pagamento da fatura realizado
- - Outro Valor pago na fatura";Texto;;Obrigatório;;"VALOR_PAGAMENTO_FATURA_PARCELADO 
+ - Outro Valor pago na fatura
+
+ VALOR_PAGAMENTO_FATURA_PARCELADO: Quando o pagamento corresponde ao fato gerador para abertura do plano de parcelamento da fatura
+
+ VALOR_PAGAMENTO_FATURA_REALIZADO: Quando o pagamento corresponde ao valor total da fatura
+
+ OUTRO_VALOR_PAGO_FATURA: Demais casos";Texto;;Obrigatório;;"VALOR_PAGAMENTO_FATURA_PARCELADO 
 VALOR_PAGAMENTO_FATURA_REALIZADO 
 OUTRO_VALOR_PAGO_FATURA";1;1;"";Não permitido;string;
 /data/payments/paymentDate;paymentDate;Data efetiva de quando o Pagamento da fatura foi realizado;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
