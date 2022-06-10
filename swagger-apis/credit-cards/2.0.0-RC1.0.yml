@@ -21,6 +21,10 @@ info:
       - description:
         - Só deve ser informada uma fatura já fechada.
         - Qualquer pagamento deve ser contado para a última fatura fechada.
+    ### `/accounts/{creditCardAccountId}/transactions`
+      - description:
+        - A lista a retornar se refere a transações após base 2/clearing/conciliado
+
     ## Permissions necessárias para a API Credit-cards-accounts
 
     Para cada um dos paths desta API, além dos escopos (`scopes`) indicados existem `permissions` que deverão ser observadas:
@@ -312,7 +316,9 @@ paths:
         - Credit Card
       summary: Obtém a lista de transações da conta identificada por creditCardAccountId.
       operationId: creditCardsGetAccountsCreditCardAccountIdTransactions
-      description: Método para obter a lista de transações da conta de pagamento pós-paga identificada por creditCardAccountId mantida pelo cliente na instituição transmissora.
+      description: |-
+        Método para obter a lista de transações da conta de pagamento pós-paga identificada por creditCardAccountId mantida pelo cliente na instituição transmissora.
+        A lista a retornar se refere a transações após base 2/clearing/conciliado
       parameters:
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/xFapiAuthDate'
