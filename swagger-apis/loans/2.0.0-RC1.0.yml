@@ -1239,20 +1239,8 @@ components:
       type: object
       description: Meta informações referente à API requisitada.
       required:
-        - totalRecords
-        - totalPages
         - requestDateTime
       properties:
-        totalRecords:
-          type: integer
-          format: int32
-          description: Número total de registros no resultado
-          example: 1
-        totalPages:
-          type: integer
-          format: int32
-          description: Número total de páginas no resultado
-          example: 1
         requestDateTime:
           description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
           type: string
@@ -1295,41 +1283,6 @@ components:
         meta:
           $ref: '#/components/schemas/Meta'
       additionalProperties: false
-    ResponseErrorMetaSingle:
-      type: object
-      required:
-        - errors
-      properties:
-        errors:
-          type: array
-          minItems: 1
-          maxItems: 13
-          items:
-            type: object
-            required:
-              - code
-              - title
-              - detail
-            properties:
-              code:
-                description: Código de erro específico do endpoint
-                type: string
-                pattern: '[\w\W\s]*'
-                maxLength: 255
-              title:
-                description: Título legível por humanos deste erro específico
-                type: string
-                pattern: '[\w\W\s]*'
-                maxLength: 255
-              detail:
-                description: Descrição legível por humanos deste erro específico
-                type: string
-                pattern: '[\w\W\s]*'
-                maxLength: 2048
-            additionalProperties: false
-        meta:
-          $ref: '#/components/schemas/ResponseLoansContract/properties/meta'
-      additionalProperties: false
     ResponseLoansContractList:
       type: object
       required:
@@ -1346,7 +1299,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/ResponseLoansContract/properties/meta'
+          $ref: '#/components/schemas/Meta'
       additionalProperties: true
     ResponseLoansContract:
       type: object
@@ -1360,18 +1313,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          type: object
-          description: Meta informações referente à API requisitada.
-          required:
-            - requestDateTime
-          properties:
-            requestDateTime:
-              description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
-              type: string
-              maxLength: 20
-              format: date-time
-              example: '2021-05-21T08:30:00Z'
-          additionalProperties: false
+          $ref: '#/components/schemas/Meta'
       additionalProperties: true
     ResponseLoansInstalments:
       type: object
@@ -1385,7 +1327,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/ResponseLoansContract/properties/meta'
+          $ref: '#/components/schemas/Meta'
       additionalProperties: true
     ResponseLoansPayments:
       type: object
@@ -1399,7 +1341,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/ResponseLoansContract/properties/meta'
+          $ref: '#/components/schemas/Meta'
       additionalProperties: true
     ResponseLoansWarranties:
       type: object
@@ -1417,7 +1359,7 @@ components:
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/ResponseLoansContract/properties/meta'
+          $ref: '#/components/schemas/Meta'
       additionalProperties: true
     XFapiInteractionId:
       type: string
@@ -1598,7 +1540,7 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+            $ref: '#/components/schemas/ResponseError'
     MethodNotAllowed:
       description: O consumidor tentou acessar o recurso com um método não suportado
       content:
