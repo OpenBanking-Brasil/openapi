@@ -68,6 +68,7 @@ paths:
         - $ref: '#/components/parameters/xFapiCustomerIpAddress'
         - $ref: '#/components/parameters/xFapiInteractionId'
         - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponsePersonalCustomersIdentification'
@@ -194,6 +195,7 @@ paths:
         - $ref: '#/components/parameters/xFapiCustomerIpAddress'
         - $ref: '#/components/parameters/xFapiInteractionId'
         - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseBusinessCustomersIdentification'
@@ -2100,6 +2102,14 @@ components:
         pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
         minLength: 1
         maxLength: 100
+    pagination-key:
+      name: pagination-key
+      in: query
+      description: 'Identificador de rechamada, utilizado para evitar a contagem de chamadas ao endpoint durante a paginação.'
+      schema:
+        type: string
+        maxLength: 2048
+        pattern: '[\w\W\s]*'
   securitySchemes:
     OpenId:
       type: openIdConnect
