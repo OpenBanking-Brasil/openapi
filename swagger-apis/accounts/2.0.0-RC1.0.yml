@@ -558,7 +558,6 @@ components:
         Conjunto dos atributos que caracterizam as Contas de: depósito à vista, poupança e de pagamento pré-paga
       required:
         - compeCode
-        - branchCode
         - number
         - checkDigit
         - type
@@ -630,12 +629,6 @@ components:
         - type
         - transactionAmount
         - transactionDate
-        - partieCnpjCpf
-        - partiePersonType
-        - partieCompeCode
-        - partieBranchCode
-        - partieNumber
-        - partieCheckDigit
       properties:
         transactionId:
           type: string
@@ -926,10 +919,10 @@ components:
       properties:
         data:
           type: array
+          description: 'Lista de contas depósito à vista, poupança e pagamento pré-pagas mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento'
           items:
             $ref: '#/components/schemas/AccountData'
           minItems: 0
-          description: 'Lista de contas depósito à vista, poupança e pagamento pré-pagas mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento'
         links:
           $ref: '#/components/schemas/Links'
         meta:
@@ -986,11 +979,11 @@ components:
       properties:
         data:
           type: array
-          items:
-            $ref: '#/components/schemas/AccountTransactionsData'
-          minItems: 0
           description: |
             Lista dos lançamentos referentes às transações realizadas e de lançamentos futuros para as contas de: depósito à vista, poupança e de pagamento pré-paga
+          minItems: 0
+          items:
+            $ref: '#/components/schemas/AccountTransactionsData'
         links:
           $ref: '#/components/schemas/TransactionsLinks'
         meta:
