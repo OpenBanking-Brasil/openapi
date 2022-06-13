@@ -5,7 +5,11 @@ Cenário de limite com valor zerado, deve ter um registro explícito informando 
 
 Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
 ";Não permitido;array;
-/data/creditLineLimitType;creditLineLimitType;Indicador do tipo de limite;Texto;;Obrigatório;;"LIMITE_CREDITO_TOTAL 
+/data/creditLineLimitType;creditLineLimitType;"Indicador do tipo de limite
+
+LIMITE_CREDITO_TOTAL: Limite de crédito total aplicado a conta cartão.
+
+LIMITE_CREDITO_MODALIDADE_OPERACAO: Limite de crédito por modalidade desse conta cartão (observar lineName e listar os aplicáveis da instituição).";Texto;;Obrigatório;;"LIMITE_CREDITO_TOTAL 
 LIMITE_CREDITO_MODALIDADE_OPERACAO";1;1;"";Não permitido;string;LIMITE_CREDITO_TOTAL
 /data/consolidationType;consolidationType;"Indicador que permite informar se o valor do limite é consolidado ou individual.
 

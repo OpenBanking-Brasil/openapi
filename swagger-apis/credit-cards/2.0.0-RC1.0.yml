@@ -1025,7 +1025,12 @@ components:
         - OUTROS
     EnumCreditCardAccountsLineLimitType:
       type: string
-      description: Indicador do tipo de limite
+      description: |
+        Indicador do tipo de limite
+
+        LIMITE_CREDITO_TOTAL: Limite de crédito total aplicado a conta cartão.
+
+        LIMITE_CREDITO_MODALIDADE_OPERACAO: Limite de crédito por modalidade desse conta cartão (observar lineName e listar os aplicáveis da instituição).
       enum:
         - LIMITE_CREDITO_TOTAL
         - LIMITE_CREDITO_MODALIDADE_OPERACAO
