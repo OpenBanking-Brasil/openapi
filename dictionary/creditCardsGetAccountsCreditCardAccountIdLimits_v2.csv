@@ -1,5 +1,5 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
-/data;data;"";Lista;;Condicional;;;1;N;" A lista vazia deve ser interpretada como a ausência da informação.
+/data;data;"";Lista;;Condicional;;;0;N;" A lista vazia deve ser interpretada como a ausência da informação.
 
 Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
 

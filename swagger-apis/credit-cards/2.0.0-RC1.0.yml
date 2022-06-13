@@ -1245,6 +1245,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/CreditCardAccountsBillsData'
         links:
@@ -1281,6 +1282,7 @@ components:
             Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
 
             Cenário de "cartão sem limite", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
+          minItems: 0
           items:
             $ref: '#/components/schemas/CreditCardAccountsLimitsData'
         links:
@@ -1297,6 +1299,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/CreditCardAccountsTransaction'
         links:
