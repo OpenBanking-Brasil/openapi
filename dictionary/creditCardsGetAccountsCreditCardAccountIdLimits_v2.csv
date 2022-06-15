@@ -29,11 +29,14 @@ OUTROS";0;1;"";Não permitido;string;CREDITO_A_VISTA
 /data/limitAmountCurrency;limitAmountCurrency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
 Todos os limite informados estão representados com a moeda vigente do do Brasil.";Texto;3;Condicional;^(\w{3}){1}$;;0;1;" O campo é opcional caso isLimitFlexible for igual a false.
 ";Não permitido;string;BRL
-/data/limitAmount;limitAmount;Valor total do limite informado Expresso em valor monetário com 4 casas decimais.;Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" O campo é opcional caso isLimitFlexible for igual a false.
+/data/limitAmount;limitAmount;Valor total do limite informado Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" O campo é opcional caso isLimitFlexible for igual a false.
 ";Não permitido;string;100000.0001
 /data/usedAmountCurrency;usedAmountCurrency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
 Todos os saldos informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
-/data/usedAmount;usedAmount;Valor utilizado do limite informado Expresso em valor monetário com 4 casas decimais.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0001
+/data/usedAmount;usedAmount;Valor utilizado do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0001
 /data/availableAmountCurrency;availableAmountCurrency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-Todos os saldos informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
-/data/availableAmount;availableAmount;Valor disponível do limite informado Expresso em valor monetário com 4 casas decimais.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0001
+
+Todos os saldos informados estão representados com a moeda vigente do Brasil.";Texto;3;Condicional;^(\w{3}){1}$;;1;1;" O campo é opcional caso isLimitFlexible for igual a false (availableAmount e availableAmountCurrency)
+";Não permitido;string;BRL
+/data/availableAmount;availableAmount;Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" O campo é opcional caso isLimitFlexible for igual a false (availableAmount e availableAmountCurrency)
+";Não permitido;string;100000.0001

@@ -4,23 +4,21 @@
 /data/personalId;personalId;Um identificador único e imutável usado para identificar o recurso cliente pessoa natural. Este identificador não tem significado para o cliente que deu o consentimento;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;1;1;"";Não permitido;string;578-psd-71md6971kjh-2d414
 /data/brandName;brandName;Nome da Marca reportada pelo participante no Open Finance. Recomenda-se utilizar, sempre que possível, o mesmo nome de marca atribuído no campo do diretório Customer Friendly Server Name (Authorisation Server).;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A
 /data/civilName;civilName;Nome civil completo da pessoa natural (Direito fundamental da pessoa, o nome civil é aquele atribuído à pessoa natural desde o registro de seu nascimento, com o qual será identificada por toda a sua vida, bem como após a sua morte);Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Juan Kaique Cláudio Fernandes
-/data/socialName;socialName;Nome social da pessoa natural, se houver. (aquele pelo qual travestis e transexuais se reconhecem, bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local);Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Jaqueline de Freitas
+/data/socialName;socialName;Nome social da pessoa natural, se houver. (aquele pelo qual travestis e transexuais se reconhecem, bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local);Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Jaqueline de Freitas
 /data/birthDate;birthDate;Data de nascimento, conforme especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;1989-03-23
-/data/maritalStatusCode;maritalStatusCode;Estado marital do cliente.;Texto;;Obrigatório;;"SOLTEIRO 
+/data/maritalStatusCode;maritalStatusCode;Estado marital do cliente.;Texto;;Opcional;;"SOLTEIRO 
 CASADO 
 VIUVO 
 SEPARADO_JUDICIALMENTE 
 DIVORCIADO 
 UNIAO_ESTAVEL 
-OUTRO 
-NAO_DISPONIVEL";1;1;"";Não permitido;string;OUTRO
+OUTRO";0;1;"";Não permitido;string;OUTRO
 /data/maritalStatusAdditionalInfo;maritalStatusAdditionalInfo;Campo livre para complementar a informação relativa ao estado marital.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Preenchimento obrigatório quando selecionado o tipo 'OUTRO'.
 ";Não permitido;string;Amasiado
 /data/sex;sex;"Conjunto de características anatomofisiológicas que distinguem o homem e a mulher: Sexo masculino; sexo feminino. 
-No caso de não ser feminino nem masculino é classificado como 'OUTRO'";Texto;;Obrigatório;;"FEMININO 
+No caso de não ser feminino nem masculino é classificado como 'OUTRO'";Texto;;Opcional;;"FEMININO 
 MASCULINO 
-OUTRO 
-NAO_DISPONIVEL";1;1;"";Não permitido;string;FEMININO
+OUTRO";0;1;"";Não permitido;string;FEMININO
 /data/companiesCnpj;companiesCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
 Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Opcional;^\d{14}$;;0;N;"";Não permitido;array;
 /data/documents;documents;Objeto agrupador de informações relativas a Documentos da pessoa natural;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
@@ -35,11 +33,11 @@ O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Fe
 
 [Restrição] Campo de preenchimento obrigatório quando o campo documentType for PASSAPORT ou AMBOS. 
 ";Não permitido;object;
-/data/documents/passport/number;number;Número do Passaporte.;Texto;20;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;75253468744594820620
+/data/documents/passport/number;number;Número do Passaporte.;Texto;20;Obrigatório;^[\w\W]*$;;1;1;"";Não permitido;string;75253468744594820620
 /data/documents/passport/country;country;Pais de emissão do passaporte. Código do pais de acordo com o código 'alpha3' do ISO-3166.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;CAN
 /data/documents/passport/expirationDate;expirationDate;Data vigência do Passaporte, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/documents/passport/issueDate;issueDate;Data de emissão do passaporte, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
-/data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Obrigatório;;;1;N;"";Não permitido;array;
+/data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Opcional;;;1;N;"";Não permitido;array;
 /data/otherDocuments/type;type;Relação dos Códigos dos demais documentos pessoa natural.;Texto;;Obrigatório;;"CNH 
 RG 
 NIF 
@@ -47,7 +45,7 @@ RNE
 OUTROS 
 SEM_OUTROS_DOCUMENTOS";1;1;"";Não permitido;string;
 /data/otherDocuments/typeAdditionalInfo;typeAdditionalInfo;Campo livre de preenchimento obrigatório se selecionada a opção OUTROS tipos de documentos;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;NA
-/data/otherDocuments/number;number;Identificação/Número do documento informado;Texto;11;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;15291908
+/data/otherDocuments/number;number;Identificação/Número do documento informado;Texto;40;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;15291908
 /data/otherDocuments/checkDigit;checkDigit;Dígito verificador do documento informado. De preenchimento obrigatório se o documento informado tiver dígito verificador;Texto;2;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;P
 /data/otherDocuments/additionalInfo;additionalInfo;Para documentos em que se aplique o uso do local de emissão o mesmo deve ser enviado mandatoriamente, com a informação de órgão e UF. Exemplo: RG, local de emissão: SSP/RS.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando o Local de Emissão do Documento for relevante.
 ";Não permitido;string;SSP/SP
@@ -67,10 +65,10 @@ SEM_OUTROS_DOCUMENTOS";1;1;"";Não permitido;string;
 PAI";1;1;"";Não permitido;string;PAI
 /data/filiation/civilName;civilName;"Nome civil completo da pessoa relativa à filiação.
 (Direito fundamental da pessoa, o nome civil é aquele atribuído à pessoa natural desde o registro de seu nascimento, 
-com o qual será identificada por toda a sua vida, bem como após a sua morte).";Texto;70;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;Marcelo Cláudio Fernandes
+com o qual será identificada por toda a sua vida, bem como após a sua morte).";Texto;70;Obrigatório;^[\w\W]*$;;1;1;"";Não permitido;string;Marcelo Cláudio Fernandes
 /data/filiation/socialName;socialName;"Nome social da pessoa natural, se houver. 
 (aquele pelo qual travestis e transexuais se reconhecem, 
-bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local).";Texto;70;Opcional;\w*\W*;;0;1;"";Não permitido;string;
+bem como são identificados por sua comunidade e em seu meio social, conforme Decreto Local).";Texto;70;Opcional;^[\w\W]*$;;0;1;"";Não permitido;string;
 /data/contacts;contacts;Conjunto de informações referentes às formas para contatar o cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/contacts/postalAddresses;postalAddresses;Lista de endereços da pessoa natural;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/contacts/postalAddresses/isMain;isMain;Indica se o endereço informado é o principal.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
@@ -120,7 +118,8 @@ NA";1;1;"";Não permitido;string;SP
 MOVEL 
 OUTRO";1;1;"";Não permitido;string;FIXO
 /data/contacts/phones/additionalInfo;additionalInfo;Informação complementar relativa ao tipo de telefone selecionado.;Texto;70;Condicional;[\w\W\s]*;;0;1; De preenchimento obrigatório quando selecionado o tipo 'OUTRO'.;Não permitido;string;Informações adicionais.
-/data/contacts/phones/countryCallingCode;countryCallingCode;Número de DDI (Discagem Direta Internacional) para telefone de acesso ao Cliente - se houver;Texto;4;Obrigatório;^\d{2,4}$;;1;1;"";Não permitido;string;55
+/data/contacts/phones/countryCallingCode;countryCallingCode;Número de DDI (Discagem Direta Internacional) para telefone de acesso ao Cliente - se houver;Texto;4;Condicional;^\d{1,4}$;;0;1;" O preenchimento é obrigatório quando for diferente de 55. 
+";Não permitido;string;55
 /data/contacts/phones/areaCode;areaCode;Número de DDD (Discagem Direta à Distância) do telefone do cliente - se houver;Texto;;Obrigatório;;"11 
 12 
 13 

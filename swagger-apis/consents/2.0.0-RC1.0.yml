@@ -141,6 +141,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           description: Erro inesperado.
           content:
@@ -185,6 +187,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           description: Erro inesperado.
           content:
@@ -228,6 +232,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           description: Erro inesperado.
           content:
@@ -280,7 +286,6 @@ components:
           description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-      additionalProperties: false
     Meta:
       type: object
       description: Meta informações referente à API requisitada.
@@ -305,7 +310,6 @@ components:
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
-      additionalProperties: false
     CreateConsent:
       type: object
       required:
@@ -370,8 +374,6 @@ components:
               maxLength: 20
               format: date-time
               example: '2021-05-21T08:30:00Z'
-          additionalProperties: false
-      additionalProperties: false
     EnumRejectedBy:
       type: string
       description: |
@@ -415,7 +417,6 @@ components:
           maxLength: 140
           pattern: '[\w\W\s]*'
           example: Tempo de confirmação da múltipla alçada excedido.
-      additionalProperties: true
     ResponseConsent:
       type: object
       required:
@@ -514,12 +515,10 @@ components:
               format: date-time
               example: '2021-05-21T08:30:00Z'
               maxLength: 20
-          additionalProperties: false
         links:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseConsentRead:
       type: object
       required:
@@ -626,13 +625,10 @@ components:
                   $ref: '#/components/schemas/EnumRejectedBy'
                 reason:
                   $ref: '#/components/schemas/RejectedReason'
-              additionalProperties: true
-          additionalProperties: true
         links:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: true
     ResponseError:
       type: object
       required:
@@ -664,10 +660,8 @@ components:
                 type: string
                 pattern: '[\w\W\s]*'
                 maxLength: 2048
-            additionalProperties: false
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseErrorMetaSingle:
       type: object
       required:
@@ -699,7 +693,6 @@ components:
                 type: string
                 pattern: '[\w\W\s]*'
                 maxLength: 2048
-            additionalProperties: false
         meta:
           type: object
           description: Meta informações referente à API requisitada.
@@ -712,18 +705,14 @@ components:
               maxLength: 20
               format: date-time
               example: '2021-05-21T08:30:00Z'
-          additionalProperties: false
-      additionalProperties: false
     LoggedUser:
       type: object
       description: Usuário (pessoa natural) que encontra-se logado na instituição receptora e que iniciará o processo de consentimento para compartilhamento de dados.
-      additionalProperties: false
       required:
         - document
       properties:
         document:
           type: object
-          additionalProperties: false
           required:
             - identification
             - rel
@@ -743,13 +732,11 @@ components:
     BusinessEntity:
       type: object
       description: 'Titular, pessoa jurídica a quem se referem os dados que são objeto de compartilhamento.'
-      additionalProperties: false
       required:
         - document
       properties:
         document:
           type: object
-          additionalProperties: false
           required:
             - identification
             - rel
@@ -909,6 +896,12 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/ResponseError'
+    SiteIsOverloaded:
+      description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     201ConsentsCreated:
       description: Consentimento criado com sucesso.
       headers:

@@ -18,7 +18,7 @@ Adiantamento a depositantes";Texto;;Obrigatório;;ADIANTAMENTO_A_DEPOSITANTES;1;
 /data/contractDate;contractDate;Data de contratação da operação de crédito. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05
 /data/disbursementDates;disbursementDates;Lista que traz as Datas de Desembolso do valor contratado.;Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;N;"";Não permitido;array;2018-01-15
 /data/settlementDate;settlementDate;Data de liquidação da operação.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-01-15
-/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais;Texto;21;Opcional;^-?\d{1,15}\.\d{2,4}$;;0;1;"";Não permitido;string;100000.0400
+/data/contractAmount;contractAmount;Valor contratado da operação. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Opcional;^-?\d{1,15}\.\d{2,4}$;;0;1;"";Não permitido;string;100000.0400
 /data/currency;currency;"Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil";Texto;3;Opcional;^(\w{3}){1}$;;0;1;"";Não permitido;string;BRL
 /data/dueDate;dueDate;Data de vencimento Final da operação. Especificação RFC-3339;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2028-01-15

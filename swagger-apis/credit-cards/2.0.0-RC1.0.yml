@@ -109,6 +109,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -154,6 +156,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -207,6 +211,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -262,6 +268,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -307,6 +315,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -361,6 +371,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -413,6 +425,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -425,7 +439,7 @@ components:
   schemas:
     CreditCardAccountsTransactionAmount:
       type: object
-      description: 'Valor da transação. Expresso em valor monetário com 4 casas decimais. Se a transação foi realizada em moeda estrangeira, deve ser preenchido com o valor original da transação, sem convertê-lo.'
+      description: 'Valor da transação. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais. Se a transação foi realizada em moeda estrangeira, deve ser preenchido com o valor original da transação, sem convertê-lo.'
       required:
         - amount
         - currency
@@ -444,10 +458,9 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: true
     CreditCardAccountsTransactionBrazilianAmount:
       type: object
-      description: 'Valor da transação expresso em valor monetário com 4 casas decimais, em moeda corrente do Brasil'
+      description: 'Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil'
       required:
         - amount
         - currency
@@ -466,7 +479,6 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: true
     CreditCardsAccountsIdentificationData:
       type: object
       description: Conjunto de informações referentes à identificação da conta de pagamento pós-paga.
@@ -506,7 +518,6 @@ components:
           items:
             $ref: '#/components/schemas/CreditCardsAccountPaymentMethod'
           minItems: 1
-      additionalProperties: true
     CreditCardAccountsBillsData:
       type: object
       description: Conjunto das informações referentes a lista de faturas associadas à conta de pagamento pós-paga
@@ -516,7 +527,6 @@ components:
         - billTotalAmount
         - billMinimumAmount
         - isInstalment
-        - financeCharges
         - payments
       properties:
         billId:
@@ -553,7 +563,6 @@ components:
             $ref: '#/components/schemas/CreditCardAccountsBillsPayment'
           minItems: 0
           description: Lista que traz os valores relativos aos pagamentos da Fatura da conta de pagamento pós-paga
-      additionalProperties: true
     CreditCardAccountsBillsFinanceCharge:
       type: object
       required:
@@ -576,7 +585,7 @@ components:
           minLength: 4
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
-          description: Valor cobrado pelo encargo. Expresso em valor monetário com 4 casas decimais
+          description: Valor cobrado pelo encargo. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
         currency:
           type: string
           maxLength: 3
@@ -585,7 +594,6 @@ components:
           description: |
             Moeda referente ao valor cobrado pelo encargo, segundo modelo ISO-4217. p.ex. 'BRL' 
             Todos os saldos informados estão representados com a moeda vigente do Brasil.
-      additionalProperties: true
     CreditCardAccountsBillsPayment:
       type: object
       required:
@@ -615,7 +623,7 @@ components:
           example: '1000.0400'
           description: |
             Valor pagamento segundo o valueType.  
-            Expresso em valor monetário com 4 casas decimais.
+            Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.   
             O campo não pode assumir valor negativo por se tratar de um pagamento.
         currency:
           type: string
@@ -624,7 +632,6 @@ components:
           description: |
             Moeda referente ao valor de pagamento da fatura, segundo modelo ISO-4217. p.ex. 'BRL' Todos os valores informados estão representados com a moeda vigente do Brasil
           example: BRL
-      additionalProperties: true
     CreditCardAccountsData:
       type: object
       description: Conjunto de informações das Contas de pagamento pós paga
@@ -676,7 +683,6 @@ components:
           pattern: '[\w\W\s]*'
           maxLength: 50
           example: NA
-      additionalProperties: true
     CreditCardAccountsLimitsData:
       type: object
       description: Conjunto de informações referentes aos limites da conta de pagamento pós-paga.
@@ -688,7 +694,6 @@ components:
         - usedAmountCurrency
         - usedAmount
         - availableAmountCurrency
-        - availableAmount
       properties:
         creditLineLimitType:
           $ref: '#/components/schemas/EnumCreditCardAccountsLineLimitType'
@@ -736,7 +741,7 @@ components:
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           description: |
-            Valor total do limite informado Expresso em valor monetário com 4 casas decimais.   
+            Valor total do limite informado Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.   
             [Restrição] O campo é opcional caso isLimitFlexible for igual a false.
           maxLength: 21
           minLength: 4
@@ -753,7 +758,7 @@ components:
           type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          description: Valor utilizado do limite informado Expresso em valor monetário com 4 casas decimais.
+          description: Valor utilizado do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
           maxLength: 21
           minLength: 4
           example: '100000.0001'
@@ -764,16 +769,21 @@ components:
           example: BRL
           description: |
             Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
+
             Todos os saldos informados estão representados com a moeda vigente do Brasil.
+
+            [Restrição] O campo é opcional caso isLimitFlexible for igual a false (availableAmount e availableAmountCurrency)
         availableAmount:
           type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          description: Valor disponível do limite informado Expresso em valor monetário com 4 casas decimais.
+          description: |
+            Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+
+            [Restrição] O campo é opcional caso isLimitFlexible for igual a false (availableAmount e availableAmountCurrency)
           maxLength: 21
           minLength: 4
           example: '100000.0001'
-      additionalProperties: true
     CreditCardsAccountPaymentMethod:
       type: object
       description: Conjunto de informações relativas aos Meios de Pagamento da Conta de pagamento pós-paga
@@ -794,7 +804,6 @@ components:
           description: |
             Indica se o Cartão de crédito associado à conta pagamento pós-paga é múltiplo ou não. Cartões denominados múltiplos possuem tanto a função crédito quanto a função débito, devendo o proprietário do cartão, no momento de sua utilização, informar se o pagamento é na função crédito (que leva a um pagamento futuro, por meio de uma fatura do cartão de crédito) ou na função débito.
           example: true
-      additionalProperties: true
     CreditCardsBillTotalAmount:
       type: object
       required:
@@ -811,14 +820,13 @@ components:
           maxLength: 20
           minLength: 4
           example: '1000.0400'
-          description: Valor total da faturas. Expresso em valor monetário com 4 casas decimais.
+          description: Valor total da faturas. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: true
     CreditCardAccountsBillMinimumAmount:
       type: object
       required:
@@ -841,7 +849,6 @@ components:
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: true
     CreditCardAccountsTransaction:
       type: object
       description: Lista que traz os valores relativos aos saldos do Limite de crédito total da conta de pagamento pós-paga
@@ -851,8 +858,6 @@ components:
         - creditDebitType
         - transactionType
         - paymentType
-        - feeType
-        - otherCreditsType
         - chargeIdentificator
         - brazilianAmount
         - amount
@@ -954,7 +959,6 @@ components:
           example: 5137
           description: |
             O MCC ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades. O MCC é usado para classificar o negócio pelo tipo fornecido de bens ou serviços. Os MCCs são atribuídos por tipo de comerciante (por exemplo, um para hotéis, um para lojas de materiais de escritório, etc.) ou por nome de comerciante (por exemplo, 3000 para a United Airlines).
-      additionalProperties: true
     EnumCreditCardAccountFee:
       type: string
       description: |
@@ -1184,7 +1188,6 @@ components:
           description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-      additionalProperties: false
     Meta:
       type: object
       description: Meta informações referente à API requisitada.
@@ -1209,7 +1212,6 @@ components:
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
-      additionalProperties: false
     MetaOnlyRequestDateTime:
       type: object
       description: Meta informações referente à API requisitada.
@@ -1222,7 +1224,6 @@ components:
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
-      additionalProperties: false
     ResponseCreditCardAccountsList:
       type: object
       required:
@@ -1240,7 +1241,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: true
     ResponseCreditCardAccountsBills:
       type: object
       required:
@@ -1257,7 +1257,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: true
     ResponseCreditCardAccountsIdentification:
       type: object
       required:
@@ -1271,7 +1270,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: true
     ResponseCreditCardAccountsLimits:
       type: object
       required:
@@ -1294,7 +1292,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: true
     ResponseCreditCardAccountsTransactions:
       type: object
       required:
@@ -1311,7 +1308,6 @@ components:
           $ref: '#/components/schemas/TransactionsLinks'
         meta:
           $ref: '#/components/schemas/MetaOnlyRequestDateTime'
-      additionalProperties: true
     ResponseErrorMetaSingle:
       type: object
       required:
@@ -1343,10 +1339,8 @@ components:
                 type: string
                 pattern: '[\w\W\s]*'
                 maxLength: 2048
-            additionalProperties: false
         meta:
           $ref: '#/components/schemas/MetaOnlyRequestDateTime'
-      additionalProperties: false
     TransactionsLinks:
       type: object
       description: Referências para outros recusos da API requisitada.
@@ -1381,7 +1375,6 @@ components:
           description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-      additionalProperties: false
     XFapiInteractionId:
       type: string
       pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
@@ -1444,7 +1437,10 @@ components:
         example: '2021-05-21'
     fromTransactionDate:
       name: fromTransactionDate
-      description: Data inicial de filtragem.
+      description: |
+        Data inicial de filtragem.
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
       required: false
       in: query
       schema:
@@ -1454,7 +1450,10 @@ components:
         example: '2021-05-21'
     fromTransactionDateMaxLimited:
       name: fromTransactionDate
-      description: Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+      description: |
+        Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
       required: false
       in: query
       schema:
@@ -1502,7 +1501,10 @@ components:
         example: '2021-05-21'
     toTransactionDate:
       name: toTransactionDate
-      description: Data final de filtragem.
+      description: |
+        Data final de filtragem.
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
       required: false
       in: query
       schema:
@@ -1512,7 +1514,10 @@ components:
         example: '2021-05-21'
     toTransactionDateMaxLimited:
       name: toTransactionDate
-      description: Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+      description: |
+        Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
       required: false
       in: query
       schema:
@@ -1680,6 +1685,12 @@ components:
             $ref: '#/components/schemas/ResponseErrorMetaSingle'
     Unauthorized:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    SiteIsOverloaded:
+      description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
       content:
         application/json; charset=utf-8:
           schema:
