@@ -402,6 +402,8 @@ components:
     RejectedReason:
       type: object
       description: Define a razão pela qual o consentimento foi rejeitado.
+      required:
+        - code
       properties:
         code:
           $ref: '#/components/schemas/EnumReasonCode'
@@ -614,6 +616,9 @@ components:
             rejection:
               type: object
               description: Objeto a ser retornado caso o consentimento seja rejeitado.
+              required:
+                - rejectedBy
+                - reason
               properties:
                 rejectedBy:
                   $ref: '#/components/schemas/EnumRejectedBy'
