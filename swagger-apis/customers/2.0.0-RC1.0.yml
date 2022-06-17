@@ -1582,6 +1582,7 @@ components:
         - updateDateTime
         - startDate
         - productsServicesType
+        - accounts
       properties:
         updateDateTime:
           type: string
@@ -1624,7 +1625,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PersonalAccount'
-          minItems: 1
+          minItems: 0
           description: |
             Lista de contas depósito à vista, poupança e pagamento pré-pagas mantidas pelo cliente na instituição transmissora.
     PersonalIdentificationData:
