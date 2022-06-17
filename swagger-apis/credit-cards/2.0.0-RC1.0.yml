@@ -693,7 +693,6 @@ components:
         - isLimitFlexible
         - usedAmountCurrency
         - usedAmount
-        - availableAmountCurrency
       properties:
         creditLineLimitType:
           $ref: '#/components/schemas/EnumCreditCardAccountsLineLimitType'
@@ -772,7 +771,7 @@ components:
 
             Todos os saldos informados estão representados com a moeda vigente do Brasil.
 
-            [Restrição] O campo é opcional caso isLimitFlexible for igual a false (availableAmount e availableAmountCurrency)
+            [Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
         availableAmount:
           type: string
           format: double
@@ -780,7 +779,7 @@ components:
           description: |
             Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
 
-            [Restrição] O campo é opcional caso isLimitFlexible for igual a false (availableAmount e availableAmountCurrency)
+            [Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
           maxLength: 21
           minLength: 4
           example: '100000.0001'
