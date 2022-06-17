@@ -18,7 +18,7 @@ info:
     Relacionamos a seguir as `permissions` necessárias para a consulta de dados em cada `endpoint` da presente API.
 
     ### Observação
-      - No endpoint `/contracts/{contratId}/payments` a paginação correrá sob os dados contidos no campo `releases` do tipo lista.
+      - No endpoint `/contracts/{contratId}/payments` a paginação ocorrerá sob os dados contidos no campo `releases` do tipo lista.
 
     ## Permissions necessárias para a API Financings
 
