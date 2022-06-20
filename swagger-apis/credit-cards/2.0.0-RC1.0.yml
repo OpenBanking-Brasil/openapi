@@ -583,7 +583,7 @@ components:
           format: double
           maxLength: 21
           minLength: 4
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          pattern: '^\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
           description: Valor cobrado pelo encargo. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
         currency:
@@ -682,7 +682,7 @@ components:
           description: Texto livre para especificar categoria de bandeira marcada como 'OUTRAS'
           pattern: '[\w\W\s]*'
           maxLength: 50
-          example: NA
+          example: AURA CARD
     CreditCardAccountsLimitsData:
       type: object
       description: Conjunto de informações referentes aos limites da conta de pagamento pós-paga.
@@ -726,63 +726,12 @@ components:
           type: boolean
           description: 'Indica se a operação de crédito é: com limite flexível (true) ou com limite (false).'
           example: true
-        limitAmountCurrency:
-          type: string
-          maxLength: 3
-          pattern: '^(\w{3}){1}$'
-          example: BRL
-          description: |
-            Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-            Todos os limite informados estão representados com a moeda vigente do do Brasil.   
-            [Restrição] O campo é opcional caso isLimitFlexible for igual a false.
         limitAmount:
-          type: string
-          format: double
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          description: |
-            Valor total do limite informado Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.   
-            [Restrição] O campo é opcional caso isLimitFlexible for igual a false.
-          maxLength: 21
-          minLength: 4
-          example: '100000.0001'
-        usedAmountCurrency:
-          type: string
-          maxLength: 3
-          pattern: '^(\w{3}){1}$'
-          example: BRL
-          description: |
-            Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-            Todos os saldos informados estão representados com a moeda vigente do Brasil.
+          $ref: '#/components/schemas/CreditCardsLimitAmount'
         usedAmount:
-          type: string
-          format: double
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          description: Valor utilizado do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
-          maxLength: 21
-          minLength: 4
-          example: '100000.0001'
-        availableAmountCurrency:
-          type: string
-          maxLength: 3
-          pattern: '^(\w{3}){1}$'
-          example: BRL
-          description: |
-            Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-
-            Todos os saldos informados estão representados com a moeda vigente do Brasil.
-
-            [Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
+          $ref: '#/components/schemas/CreditCardsUsedAmount'
         availableAmount:
-          type: string
-          format: double
-          pattern: '^-?\d{1,15}\.\d{2,4}$'
-          description: |
-            Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
-
-            [Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
-          maxLength: 21
-          minLength: 4
-          example: '100000.0001'
+          $ref: '#/components/schemas/CreditCardsAvailableAmount'
     CreditCardsAccountPaymentMethod:
       type: object
       description: Conjunto de informações relativas aos Meios de Pagamento da Conta de pagamento pós-paga
@@ -803,6 +752,77 @@ components:
           description: |
             Indica se o Cartão de crédito associado à conta pagamento pós-paga é múltiplo ou não. Cartões denominados múltiplos possuem tanto a função crédito quanto a função débito, devendo o proprietário do cartão, no momento de sua utilização, informar se o pagamento é na função crédito (que leva a um pagamento futuro, por meio de uma fatura do cartão de crédito) ou na função débito.
           example: true
+    CreditCardsLimitAmount:
+      type: object
+      description: |
+        Valor total do limite informado.   
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Valor total do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: |
+            Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
+            Todos os limite informados estão representados com a moeda vigente do Brasil.  
+          example: BRL
+    CreditCardsUsedAmount:
+      type: object
+      description: Valor utilizado do limite informado
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: string
+          format: double
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '1000.0400'
+          description: Valor utilizado do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: |
+            Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
+            Todos os saldos informados estão representados com a moeda vigente do Brasil. 
+          example: BRL
+    CreditCardsAvailableAmount:
+      type: object
+      description: |
+        Valor disponível do limite informado   
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: string
+          format: double
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
+          maxLength: 21
+          minLength: 4
+          example: '1000.0400'
+          description: Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: |
+            Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
+            Todos os saldos informados estão representados com a moeda vigente do Brasil. 
+          example: BRL
     CreditCardsBillTotalAmount:
       type: object
       required:
@@ -815,7 +835,7 @@ components:
         amount:
           type: string
           format: double
-          pattern: '^\d{1,15}\.\d{2,4}$'
+          pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 20
           minLength: 4
           example: '1000.0400'
@@ -1024,7 +1044,6 @@ components:
         - MULTA_ATRASO_PAGAMENTO_FATURA
         - JUROS_MORA_ATRASO_PAGAMENTO_FATURA
         - IOF
-        - SEM_ENCARGO
         - OUTROS
     EnumCreditCardAccountsLineLimitType:
       type: string

@@ -41,4 +41,4 @@ BANDEIRA_PROPRIA
 CHEQUE_ELETRONICO 
 ELO 
 OUTRAS";1;1;"";Não permitido;string;VISA
-/data/networkAdditionalInfo;networkAdditionalInfo;Texto livre para especificar categoria de bandeira marcada como 'OUTRAS';Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;NA
+/data/networkAdditionalInfo;networkAdditionalInfo;Texto livre para especificar categoria de bandeira marcada como 'OUTRAS';Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;AURA CARD
