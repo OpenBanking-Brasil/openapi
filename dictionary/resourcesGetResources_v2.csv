@@ -3,7 +3,7 @@
 /data/resourceId;resourceId;"Identifica o recurso reportado pelo participante do Open Banking, no caso de:
 Contas de depósito à vista, de poupança ou de pagamento pré-paga : corresponde ao accountId;
 Conta de pagamento pós-paga: corresponde ao creditCardAccountId;
-Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$;;1;1;"";Não permitido;string;25cac914-d8ae-6789-b215-650a6215820d
+Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;25cac914-d8ae-6789-b215-650a6215820d
 /data/type;type;"Tipo de recurso (vide Enum):
 Account - Conta de depósito à vista, poupança ou pagamento pré-paga
 Credit Card Account - Conta de pagamento pós-paga (Cartão de Crédito)

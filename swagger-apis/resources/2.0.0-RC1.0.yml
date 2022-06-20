@@ -115,7 +115,7 @@ components:
                   Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.
                 minLength: 1
                 maxLength: 100
-                pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+                pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
                 example: 25cac914-d8ae-6789-b215-650a6215820d
               type:
                 type: string
