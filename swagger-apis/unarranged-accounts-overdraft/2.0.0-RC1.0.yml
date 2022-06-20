@@ -649,6 +649,8 @@ components:
           example: '100000.0400'
           description: |
             Valor monetário da tarifa pactuada no contrato.
+
+            Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
     UnarrangedAccountOverdraftFinanceCharge:
       type: object
       required:
