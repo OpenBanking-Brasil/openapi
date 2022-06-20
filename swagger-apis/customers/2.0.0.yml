@@ -38,7 +38,7 @@ info:
     ### `/business/financial-relations`
       - permissions:
         - GET: **CUSTOMERS_BUSINESS_ADITTIONALINFO_READ**
-  version: 2.0.0-RC1.0
+  version: 2.0.0
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -1389,14 +1389,12 @@ components:
         - documents
       properties:
         otherNationalitiesInfo:
-          type: array
-          items:
-            type: string
-            pattern: '^\S[\s\S]*$'
-            maxLength: 40
-            example: CAN
-            description: |
-              Campo de preenchimento obrigatório caso o cliente não possua nacionalidade brasileira. Preencher indicando todas suas demais nacionalidades utilizando o código de pais de acordo com o código alpha3 do ISO-3166.p.ex.'CAN'
+          type: string
+          pattern: '^\S[\s\S]*$'
+          maxLength: 40
+          example: CAN
+          description: |
+            Campo de preenchimento obrigatório caso o cliente não possua nacionalidade brasileira. Preencher indicando todas suas demais nacionalidades utilizando o código de pais de acordo com o código alpha3 do ISO-3166.p.ex.'CAN'
         documents:
           type: array
           items:
@@ -1720,7 +1718,10 @@ components:
           example: false
           description: Informa se o Cliente tem nacionalidade brasileira.
         nationality:
-          $ref: '#/components/schemas/Nationality'
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Nationality'
         filiation:
           type: array
           minItems: 1
