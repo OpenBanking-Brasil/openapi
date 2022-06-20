@@ -75,7 +75,7 @@ bem como são identificados por sua comunidade e em seu meio social, conforme De
 ";Não permitido;string;Centro
 /data/contacts/postalAddresses/townName;townName;Localidade: O nome da localidade corresponde à designação da cidade ou município no qual o endereço está localizado.;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Marília
 /data/contacts/postalAddresses/ibgeTownCode;ibgeTownCode;Código IBGE de Município. A Tabela de Códigos de Municípios do IBGE apresenta a lista dos municípios brasileiros associados a um código composto de 7 dígitos, sendo os dois primeiros referentes ao código da Unidade da Federação.;Texto;7;Opcional;\d{7}$;;0;1;"";Não permitido;string;3550308
-/data/contacts/postalAddresses/countrySubDivision;countrySubDivision;Enumeração referente a cada sigla da unidade da federação que identifica o estado ou o distrito federal, no qual o endereço está localizado. p.ex. 'AC'. São consideradas apenas as siglas para os estados brasileiros;Texto;;Obrigatório;;"AC 
+/data/contacts/postalAddresses/countrySubDivision;countrySubDivision;Enumeração referente a cada sigla da unidade da federação que identifica o estado ou o distrito federal, no qual o endereço está localizado. p.ex. 'AC'. São consideradas apenas as siglas para os estados brasileiros;Texto;;Opcional;;"AC 
 AL 
 AP 
 AM 
@@ -101,8 +101,7 @@ RR
 SC 
 SP 
 SE 
-TO 
-NA";1;1;"";Não permitido;string;SP
+TO";0;1;"";Não permitido;string;SP
 /data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000'.;Texto;8;Obrigatório;^\d{8}$;;1;1;"";Não permitido;string;17500001
 /data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Brasil
 /data/contacts/postalAddresses/countryCode;countryCode;Código do país de acordo com o código alpha3 do ISO-3166.;Texto;3;Opcional;^([A-Z]{3})$;;0;1;"";Não permitido;string;BRA

@@ -762,7 +762,6 @@ components:
         - isMain
         - address
         - townName
-        - countrySubDivision
         - postCode
         - country
       properties:
@@ -1054,7 +1053,6 @@ components:
         - SP
         - SE
         - TO
-        - NA
       example: SP
     EnumCustomerPhoneType:
       type: string

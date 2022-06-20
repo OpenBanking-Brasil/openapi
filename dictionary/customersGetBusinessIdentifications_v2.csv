@@ -73,8 +73,7 @@ RR
 SC 
 SP 
 SE 
-TO 
-NA";0;1;"";Não permitido;string;SP
+TO";0;1;"";Não permitido;string;SP
 /data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000';Texto;8;Opcional;^\d{8}$;;0;1;"";Não permitido;string;17500001
 /data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;Brasil
 /data/contacts/postalAddresses/countryCode;countryCode;Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRA
