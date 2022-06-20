@@ -17,7 +17,9 @@ Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimai
 /data/releases/overParcel/fees;fees;Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/releases/overParcel/fees/feeName;feeName;Denominação da Tarifa pactuada.;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Reavaliação periódica do bem
 /data/releases/overParcel/fees/feeCode;feeCode;Sigla identificadora da tarifa pactuada.;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;aval_bem
-/data/releases/overParcel/fees/feeAmount;feeAmount;Valor monetário da tarifa pactuada no contrato.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
+/data/releases/overParcel/fees/feeAmount;feeAmount;"Valor monetário da tarifa pactuada no contrato.
+
+Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/releases/overParcel/charges;charges;Lista dos encargos que foram pagos fora da parcela.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/releases/overParcel/charges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
 MULTA_ATRASO_PAGAMENTO 
