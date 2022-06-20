@@ -392,7 +392,7 @@ components:
           type: string
           maxLength: 100
           minLength: 1
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           example: 578-psd-71md6971kjh-2d414
           description: Um identificador único e imutável usado para identificar o recurso cliente pessoa jurídica. Este identificador não tem significado para o cliente que deu o consentimento
         brandName:
@@ -1191,6 +1191,9 @@ components:
     GeographicCoordinates:
       type: object
       description: 'Conjunto de informações, que correspondem aos valores das coordenadas geográficas em graus decimais, no Sistema de referência WGS84'
+      required:
+        - latitude
+        - longitude
       properties:
         latitude:
           description: |

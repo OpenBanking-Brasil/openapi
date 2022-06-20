@@ -390,7 +390,7 @@ components:
           type: string
           maxLength: 100
           minLength: 1
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           description: Um identificador único e imutável usado para identificar o contrato de uma operação de crédito. Este identificador não tem significado para o tomador do crédito
           example: xcjklompowsa279212650822221989319aadrtjk
         brandName:
@@ -775,7 +775,7 @@ components:
           maxLength: 100
           minLength: 1
           example: XlthLXpBLVowLTldW2EtekEtWjAtOVwtXXswLDk5fSQ
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           description: Identificador de pagamento de responsabilidade de cada Instituição transmissora.
         isOverParcelPayment:
           type: boolean
@@ -785,7 +785,7 @@ components:
           type: string
           maxLength: 100
           minLength: 1
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           example: WGx0aExYcEJMVm93TFRsZFcyRXRla0V0V2pBdE9Wd3RYWH
           description: 'Identificador de parcela, de responsabilidade de cada Instituição transmissora.'
         paidDate:
