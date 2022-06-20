@@ -1561,11 +1561,7 @@ components:
     PersonalDocument:
       type: object
       description: Objeto agrupador de informações relativas a Documentos da pessoa natural
-      required:
-        - documentType
       properties:
-        documentType:
-          $ref: '#/components/schemas/EnumPersonalDocumentType'
         cpfNumber:
           type: string
           maxLength: 11
@@ -1574,8 +1570,9 @@ components:
           description: |
             Número completo do CPF. 
             Atributo que corresponde às informações mínimas exigidas pela Regulamentação em vigor. 
-            O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal
-            [Restrição] Campo de preenchimento obrigatório quando o campo documentType for CPF ou AMBOS.
+            O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal.
+
+            [Restrição] Preenchimento obrigatório quando não for informado o passport.
         passport:
           $ref: '#/components/schemas/PersonalPassport'
     PersonalFinancialRelationData:
@@ -1832,7 +1829,7 @@ components:
 
         [Restrição] Aplicável somente à Pessoa natural residente no exterior desobrigada de inscrição no CPF.
 
-        [Restrição] Campo de preenchimento obrigatório quando o campo documentType for PASSAPORT ou AMBOS. 
+        [Restrição] Preenchimento obrigatório quando não for informado o cpfNumber.
       required:
         - number
         - country
