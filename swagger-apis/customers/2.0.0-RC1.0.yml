@@ -1756,7 +1756,6 @@ components:
       required:
         - type
         - number
-        - checkDigit
       properties:
         type:
           $ref: '#/components/schemas/EnumPersonalOtherDocumentType'
