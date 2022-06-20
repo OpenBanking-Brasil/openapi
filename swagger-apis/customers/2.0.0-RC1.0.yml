@@ -1641,6 +1641,7 @@ components:
         - documents
         - hasBrazilianNationality
         - contacts
+        - companiesCnpj
       properties:
         updateDateTime:
           type: string
@@ -1697,7 +1698,7 @@ components:
           $ref: '#/components/schemas/EnumSex'
         companiesCnpj:
           type: array
-          minItems: 0
+          minItems: 1
           items:
             type: string
             pattern: '^\d{14}$'

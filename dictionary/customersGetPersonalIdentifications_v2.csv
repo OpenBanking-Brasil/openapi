@@ -20,7 +20,7 @@ No caso de não ser feminino nem masculino é classificado como 'OUTRO'";Texto;;
 MASCULINO 
 OUTRO";0;1;"";Não permitido;string;FEMININO
 /data/companiesCnpj;companiesCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
-Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Opcional;^\d{14}$;;0;N;"";Não permitido;array;
+Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;^\d{14}$;;1;N;"";Não permitido;array;
 /data/documents;documents;Objeto agrupador de informações relativas a Documentos da pessoa natural;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/documents/documentType;documentType;Selecionar o tipo de documento que será informado.;Texto;;Obrigatório;;"CPF 
 PASSAPORTE 
