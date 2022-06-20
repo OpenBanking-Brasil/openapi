@@ -15,8 +15,11 @@ info:
     Os dados serão devolvidos na consulta desde que o `consentId` relacionado corresponda a um consentimento válido e com o status `AUTHORISED`.\
     É também necessário que o recurso em questão (conta, contrato, etc) esteja disponível na instituição transmissora (ou seja, sem boqueios de qualquer natureza e com todas as autorizações/consentimentos já autorizados).\
     Além disso as `permissions` necessárias deverão ter sido solicitadas quando da criação do consentimento relacionado (`consentId`).\
-    Relacionamos a seguir as `permissions` necessárias para a consulta de dados em cada `endpoint` da presente API.
-
+    Relacionamos a seguir as `permissions` necessárias para a consulta de dados em cada `endpoint` da presente API.   
+    <br>
+    ### Observação:
+      - No endpoint `/contracts/{contratId}/payments` a paginação ocorrerá sob os dados contidos no campo `releases` do tipo lista.   
+    <br>
     ## Permissions necessárias para a API Loans
 
     Para cada um dos paths desta API, além dos escopos (`scopes`) indicados existem `permissions` que deverão ser observadas:
@@ -67,6 +70,7 @@ paths:
         - $ref: '#/components/parameters/xCustomerUserAgent'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseLoansContractList'
@@ -84,10 +88,14 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -127,10 +135,14 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -155,6 +167,7 @@ paths:
         - $ref: '#/components/parameters/xFapiCustomerIpAddress'
         - $ref: '#/components/parameters/xFapiInteractionId'
         - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseLoansWarranties'
@@ -172,10 +185,14 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -200,6 +217,7 @@ paths:
         - $ref: '#/components/parameters/xFapiCustomerIpAddress'
         - $ref: '#/components/parameters/xFapiInteractionId'
         - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseLoansInstalments'
@@ -217,10 +235,14 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -245,6 +267,7 @@ paths:
         - $ref: '#/components/parameters/xFapiCustomerIpAddress'
         - $ref: '#/components/parameters/xFapiInteractionId'
         - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseLoansPayments'
@@ -262,10 +285,14 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
           $ref: '#/components/responses/Default'
       security:
@@ -554,7 +581,6 @@ components:
           description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-      additionalProperties: false
     LoansBalloonPayment:
       type: object
       description: Lista que traz as datas de vencimento e valor das parcelas não regulares  do contrato da modalidade de crédito consultada.
@@ -572,7 +598,6 @@ components:
             'Data de vencimento da parcela não regular  a vencer do contrato da modalidade de crédito consultada, conforme especificação RFC-3339. p.ex. 2014-03-19'
         amount:
           $ref: '#/components/schemas/LoansBalloonPaymentAmount'
-      additionalProperties: false
     LoansContract:
       type: object
       description: Conjunto de informações referentes à identificação da operação de crédito de empréstimo
@@ -660,7 +685,7 @@ components:
           maxLength: 20
           minLength: 4
           example: '1000.0400'
-          description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
+          description: Valor contratado da operação.  Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
         currency:
           type: string
           maxLength: 3
@@ -747,7 +772,6 @@ components:
           items:
             $ref: '#/components/schemas/LoansFinanceCharge'
           minItems: 0
-      additionalProperties: false
     LoansContractedFee:
       type: object
       description: Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito
@@ -795,7 +819,6 @@ components:
 
             [Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual.
           example: '0.062000'
-      additionalProperties: false
     LoansContractInterestRate:
       type: object
       description: Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito
@@ -860,7 +883,6 @@ components:
             Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
 
             [Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
-      additionalProperties: false
     LoansChargeOverParcel:
       type: object
       required:
@@ -885,8 +907,7 @@ components:
           maxLength: 20
           minLength: 4
           example: '1000.0400'
-          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
-      additionalProperties: false
+          description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
     LoansFinanceCharge:
       type: object
       description: Conjunto de informações referentes à identificação da operação de crédito
@@ -915,7 +936,6 @@ components:
 
             O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
           example: '0.070000'
-      additionalProperties: false
     LoansInstalments:
       type: object
       description: Conjunto de informações referentes ao prazo remanescente e às parcelas de uma operação de crédito de empréstimos
@@ -983,7 +1003,6 @@ components:
             $ref: '#/components/schemas/LoansBalloonPayment'
           minItems: 1
           description: Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada
-      additionalProperties: false
     LoansListContract:
       type: object
       description: Conjunto de informações de contratos de empréstimo mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento
@@ -997,7 +1016,7 @@ components:
       properties:
         contractId:
           type: string
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           maxLength: 100
           minLength: 1
           example: '92792126019929279212650822221989319252576'
@@ -1034,7 +1053,6 @@ components:
               2. Para clientes pessoa jurídica com CNPJ (tipo de cliente = 2), informar as 8 (oito) posições iniciais do CNPJ;
               3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
             - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.
-      additionalProperties: false
     LoansPayments:
       type: object
       description: Conjunto de informações referentes aos pagamentos realizados de uma operação de crédito de empréstimos.
@@ -1062,7 +1080,6 @@ components:
           items:
             $ref: '#/components/schemas/LoansReleases'
           description: Lista dos pagamentos realizados no período
-      additionalProperties: false
     LoansReleases:
       type: object
       description: Lista dos pagamentos realizados no período
@@ -1078,7 +1095,7 @@ components:
           maxLength: 100
           minLength: 1
           example: XlthLXpBLVowLTldW2EtekEtWjAtOVwtXXswLDk5fSQ
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           description: Identificador de pagamento de responsabilidade de cada Instituição transmissora.
         isOverParcelPayment:
           type: boolean
@@ -1088,7 +1105,7 @@ components:
           type: string
           maxLength: 100
           minLength: 1
-          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,100}$'
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           example: WGx0aExYcEJMVm93TFRsZFcyRXRla0V0V2pBdE9Wd3RYWH
           description: 'Identificador de parcela, de responsabilidade de cada Instituição transmissora.'
         paidDate:
@@ -1115,7 +1132,7 @@ components:
           example: '1000.0400'
           description: |
             Valor do pagamento referente ao  contrato da modalidade de crédito consultada.
-            Expresso em valor monetário com até 4 casas decimais.
+            Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
         overParcel:
           type: object
           description: |
@@ -1138,8 +1155,6 @@ components:
               items:
                 $ref: '#/components/schemas/LoansChargeOverParcel'
               description: Lista dos encargos que foram pagos fora da parcela.
-          additionalProperties: false
-      additionalProperties: false
     LoansFeeOverParcel:
       type: object
       required:
@@ -1169,7 +1184,8 @@ components:
           example: '100000.0400'
           description: |
             Valor monetário da tarifa pactuada no contrato.
-      additionalProperties: false
+
+            Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
     LoansWarranties:
       type: object
       description: Conjunto de informações referentes à identificação da operação de crédito de empréstimo
@@ -1197,8 +1213,7 @@ components:
           minLength: 4
           example: '1000.0400'
           description: |
-            Valor original da garantia. Valor monetário, expresso com até 4 casas decimais.
-      additionalProperties: false
+            Valor original da garantia. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
     LoansBalloonPaymentAmount:
       type: object
       required:
@@ -1213,39 +1228,25 @@ components:
           maxLength: 20
           minLength: 4
           example: '1000.0400'
-          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
+          description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
         currency:
           type: string
           pattern: '^[A-Z]{3}$'
           maxLength: 3
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
-      additionalProperties: false
     Meta:
       type: object
       description: Meta informações referente à API requisitada.
       required:
-        - totalRecords
-        - totalPages
         - requestDateTime
       properties:
-        totalRecords:
-          type: integer
-          format: int32
-          description: Número total de registros no resultado
-          example: 1
-        totalPages:
-          type: integer
-          format: int32
-          description: Número total de páginas no resultado
-          example: 1
         requestDateTime:
           description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
           type: string
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
-      additionalProperties: false
     ResponseError:
       type: object
       required:
@@ -1277,10 +1278,8 @@ components:
                 type: string
                 pattern: '[\w\W\s]*'
                 maxLength: 2048
-            additionalProperties: false
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseLoansContractList:
       type: object
       required:
@@ -1298,7 +1297,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseLoansContract:
       type: object
       required:
@@ -1312,7 +1310,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseLoansInstalments:
       type: object
       required:
@@ -1326,7 +1323,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseLoansPayments:
       type: object
       required:
@@ -1340,7 +1336,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     ResponseLoansWarranties:
       type: object
       required:
@@ -1358,7 +1353,6 @@ components:
           $ref: '#/components/schemas/Links'
         meta:
           $ref: '#/components/schemas/Meta'
-      additionalProperties: false
     XFapiInteractionId:
       type: string
       pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
@@ -1403,6 +1397,14 @@ components:
         minimum: 1
         format: int32
         maximum: 1000
+    pagination-key:
+      name: pagination-key
+      in: query
+      description: 'Identificador de rechamada, utilizado para evitar a contagem de chamadas ao endpoint durante a paginação.'
+      schema:
+        type: string
+        maxLength: 2048
+        pattern: '[\w\W\s]*'
     xCustomerUserAgent:
       name: x-customer-user-agent
       in: header
@@ -1525,6 +1527,12 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/ResponseError'
+    Locked:
+      description: Locked
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
     MethodNotAllowed:
       description: O consumidor tentou acessar o recurso com um método não suportado
       content:
@@ -1557,6 +1565,12 @@ components:
             $ref: '#/components/schemas/ResponseError'
     UnprocessableEntity:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    SiteIsOverloaded:
+      description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
       content:
         application/json; charset=utf-8:
           schema:

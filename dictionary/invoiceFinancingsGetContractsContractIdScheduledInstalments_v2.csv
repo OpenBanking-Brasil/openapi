@@ -19,6 +19,6 @@ SEM_PRAZO_REMANESCENTE";1;1;"";Não permitido;string;
 /data/pastDueInstalments;pastDueInstalments;Quantidade de prestações vencidas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;73
 /data/balloonPayments;balloonPayments;Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada;Lista;;Opcional;;;1;N;"";Não permitido;array;
 /data/balloonPayments/dueDate;dueDate;Data de vencimento da parcela não regular  a vencer do contrato da modalidade de crédito consultada, conforme especificação RFC-3339. p.ex. 2014-03-19;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
-/data/balloonPayments/amount;amount;Valor monetário da parcela não regular a vencer.  Expresso em valor monetário com 4 casas decimais.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/balloonPayments/amount;amount;Valor monetário da parcela não regular a vencer. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/balloonPayments/amount/amount;amount;"";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/balloonPayments/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
