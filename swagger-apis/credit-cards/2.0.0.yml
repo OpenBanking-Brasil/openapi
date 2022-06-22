@@ -387,7 +387,7 @@ paths:
         - Credit Card
       summary: Obtém a lista de transações recentes (últimos 7 dias) da conta identificada por creditCardAccountId.
       operationId: creditCardsGetAccountsCreditCardAccountIdTransactionsCurrent
-      description: Método para obter a lista de transações da conta de pagamento pós-paga identificada por creditCardAccountId mantida pelo cliente na instituição transmissora.
+      description: Método para obter a lista de transações recentes (últimos 7 dias) da conta de pagamento pós-paga identificada por creditCardAccountId mantida pelo cliente na instituição transmissora.
       parameters:
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/xFapiAuthDate'
