@@ -258,7 +258,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Obtém a lista de transações da conta identificada por accountId.
+      summary: Obtém a lista de transações recentes (últimos 7 dias) da conta identificada por accountId.
       operationId: accountsGetAccountsAccountIdTransactionsCurrent
       description: 'Método para obter a lista de transações da conta de depósito à vista, poupança ou pagamento pré-paga identificada por accountId mantida pelo cliente na instituição transmissora.'
       parameters:
