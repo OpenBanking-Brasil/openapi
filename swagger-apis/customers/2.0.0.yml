@@ -1478,7 +1478,7 @@ components:
           description: |
             Nome civil completo da pessoa natural (Direito fundamental da pessoa, o nome civil é aquele atribuído à pessoa natural desde o registro de seu nascimento, com o qual será identificada por toda a sua vida, bem como após a sua morte)
 
-            [Restrição] O campo civilName deve ser obrigatoriamente preenchido quando personType for PESSOA_NATURAL.
+            [Restrição] O campo civilName deve ser obrigatoriamente preenchido quando personType for PESSOA_JURIDICA.
         socialName:
           type: string
           maxLength: 70
