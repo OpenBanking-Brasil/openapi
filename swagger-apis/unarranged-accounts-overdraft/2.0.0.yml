@@ -960,7 +960,6 @@ components:
         - contractDate
         - instalmentPeriodicity
         - instalmentPeriodicityAdditionalInfo
-        - CET
         - amortizationScheduled
         - amortizationScheduledAdditionalInfo
         - interestRates
