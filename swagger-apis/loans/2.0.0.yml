@@ -1056,7 +1056,6 @@ components:
       type: object
       description: Conjunto de informações referentes aos pagamentos realizados de uma operação de crédito de empréstimos.
       required:
-        - paidInstalments
         - contractOutstandingBalance
         - releases
       properties:
@@ -1189,10 +1188,8 @@ components:
       type: object
       description: Conjunto de informações referentes à identificação da operação de crédito de empréstimo
       required:
-        - currency
         - warrantyType
         - warrantySubType
-        - warrantyAmount
       properties:
         currency:
           type: string
