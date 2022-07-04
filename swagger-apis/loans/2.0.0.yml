@@ -303,6 +303,39 @@ paths:
             - loans
 components:
   schemas:
+    ResponseErrorWithAbleAdditionalProperties:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          maxItems: 13
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                description: Código de erro específico do endpoint
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 255
+              title:
+                description: Título legível por humanos deste erro específico
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 255
+              detail:
+                description: Descrição legível por humanos deste erro específico
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 2048
+        meta:
+          $ref: '#/components/schemas/Meta'
     EnumContractAmortizationScheduled:
       type: string
       description: |
@@ -1532,19 +1565,19 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     Forbidden:
       description: O token tem escopo incorreto ou uma política de segurança foi violada
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     InternalServerError:
       description: Ocorreu um erro no gateway da API ou no microsserviço
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     Locked:
       description: Locked
       content:
@@ -1556,37 +1589,37 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     NotAcceptable:
       description: A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     NotFound:
       description: O recurso solicitado não existe ou não foi implementado
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     TooManyRequests:
       description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     Unauthorized:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     UnprocessableEntity:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/Default/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     SiteIsOverloaded:
       description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
       content:
@@ -1598,35 +1631,4 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            type: object
-            required:
-              - errors
-            properties:
-              errors:
-                type: array
-                minItems: 1
-                maxItems: 13
-                items:
-                  type: object
-                  required:
-                    - code
-                    - title
-                    - detail
-                  properties:
-                    code:
-                      description: Código de erro específico do endpoint
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 255
-                    title:
-                      description: Título legível por humanos deste erro específico
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 255
-                    detail:
-                      description: Descrição legível por humanos deste erro específico
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 2048
-              meta:
-                $ref: '#/components/schemas/Meta'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'

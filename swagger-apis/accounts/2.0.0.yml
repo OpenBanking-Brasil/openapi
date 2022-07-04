@@ -78,29 +78,29 @@ paths:
         '200':
           $ref: '#/components/responses/OKResponseAccountList'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: '#/components/responses/BadRequestWithAdditionalProperties'
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          $ref: '#/components/responses/UnauthorizedWithAdditionalProperties'
         '403':
-          $ref: '#/components/responses/Forbidden'
+          $ref: '#/components/responses/ForbiddenWithAdditionalProperties'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/NotFoundWithAdditionalProperties'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedWithAdditionalProperties'
         '406':
-          $ref: '#/components/responses/NotAcceptable'
+          $ref: '#/components/responses/NotAcceptableWithAdditionalProperties'
         '422':
-          $ref: '#/components/responses/UnprocessableEntity'
+          $ref: '#/components/responses/UnprocessableEntityWithAdditionalProperties'
         '423':
-          $ref: '#/components/responses/Locked'
+          $ref: '#/components/responses/LockedWithAdditionalProperties'
         '429':
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
-          $ref: '#/components/responses/InternalServerError'
+          $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
         '529':
-          $ref: '#/components/responses/SiteIsOverloaded'
+          $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
-          $ref: '#/components/responses/Default'
+          $ref: '#/components/responses/DefaultWithAdditionalProperties'
       security:
         - OpenId:
             - openid
@@ -125,29 +125,29 @@ paths:
         '200':
           $ref: '#/components/responses/OKResponseAccountIdentification'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: '#/components/responses/BadRequestWithAdditionalProperties'
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          $ref: '#/components/responses/UnauthorizedWithAdditionalProperties'
         '403':
-          $ref: '#/components/responses/Forbidden'
+          $ref: '#/components/responses/ForbiddenWithAdditionalProperties'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/NotFoundWithAdditionalProperties'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedWithAdditionalProperties'
         '406':
-          $ref: '#/components/responses/NotAcceptable'
+          $ref: '#/components/responses/NotAcceptableWithAdditionalProperties'
         '422':
-          $ref: '#/components/responses/UnprocessableEntity'
+          $ref: '#/components/responses/UnprocessableEntityWithAdditionalProperties'
         '423':
-          $ref: '#/components/responses/Locked'
+          $ref: '#/components/responses/LockedWithAdditionalProperties'
         '429':
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
-          $ref: '#/components/responses/InternalServerError'
+          $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
         '529':
-          $ref: '#/components/responses/SiteIsOverloaded'
+          $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
-          $ref: '#/components/responses/Default'
+          $ref: '#/components/responses/DefaultWithAdditionalProperties'
       security:
         - OpenId:
             - openid
@@ -172,29 +172,29 @@ paths:
         '200':
           $ref: '#/components/responses/OKResponseAccountBalances'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: '#/components/responses/BadRequestWithAdditionalProperties'
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          $ref: '#/components/responses/UnauthorizedWithAdditionalProperties'
         '403':
-          $ref: '#/components/responses/Forbidden'
+          $ref: '#/components/responses/ForbiddenWithAdditionalProperties'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/NotFoundWithAdditionalProperties'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedWithAdditionalProperties'
         '406':
-          $ref: '#/components/responses/NotAcceptable'
+          $ref: '#/components/responses/NotAcceptableWithAdditionalProperties'
         '422':
-          $ref: '#/components/responses/UnprocessableEntity'
+          $ref: '#/components/responses/UnprocessableEntityWithAdditionalProperties'
         '423':
-          $ref: '#/components/responses/Locked'
+          $ref: '#/components/responses/LockedWithAdditionalProperties'
         '429':
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
-          $ref: '#/components/responses/InternalServerError'
+          $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
         '529':
-          $ref: '#/components/responses/SiteIsOverloaded'
+          $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
-          $ref: '#/components/responses/Default'
+          $ref: '#/components/responses/DefaultWithAdditionalProperties'
       security:
         - OpenId:
             - openid
@@ -325,29 +325,29 @@ paths:
         '200':
           $ref: '#/components/responses/OKResponseAccountOverdraftLimits'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: '#/components/responses/BadRequestWithAdditionalProperties'
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          $ref: '#/components/responses/UnauthorizedWithAdditionalProperties'
         '403':
-          $ref: '#/components/responses/Forbidden'
+          $ref: '#/components/responses/ForbiddenWithAdditionalProperties'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/NotFoundWithAdditionalProperties'
         '405':
-          $ref: '#/components/responses/MethodNotAllowed'
+          $ref: '#/components/responses/MethodNotAllowedWithAdditionalProperties'
         '406':
-          $ref: '#/components/responses/NotAcceptable'
+          $ref: '#/components/responses/NotAcceptableWithAdditionalProperties'
         '422':
-          $ref: '#/components/responses/UnprocessableEntity'
+          $ref: '#/components/responses/UnprocessableEntityWithAdditionalProperties'
         '423':
-          $ref: '#/components/responses/Locked'
+          $ref: '#/components/responses/LockedWithAdditionalProperties'
         '429':
-          $ref: '#/components/responses/TooManyRequests'
+          $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
-          $ref: '#/components/responses/InternalServerError'
+          $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
         '529':
-          $ref: '#/components/responses/SiteIsOverloaded'
+          $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
-          $ref: '#/components/responses/Default'
+          $ref: '#/components/responses/DefaultWithAdditionalProperties'
       security:
         - OpenId:
             - openid
@@ -1295,6 +1295,109 @@ components:
             $ref: '#/components/schemas/ResponseError'
     Default:
       description: Erro inesperado.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    BadRequestWithAdditionalProperties:
+      description: 'A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    ForbiddenWithAdditionalProperties:
+      description: O token tem escopo incorreto ou uma política de segurança foi violada
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    InternalServerErrorWithAdditionalProperties:
+      description: Ocorreu um erro no gateway da API ou no microsserviço
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    LockedWithAdditionalProperties:
+      description: Locked
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    MethodNotAllowedWithAdditionalProperties:
+      description: O consumidor tentou acessar o recurso com um método não suportado
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    NotAcceptableWithAdditionalProperties:
+      description: A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    NotFoundWithAdditionalProperties:
+      description: O recurso solicitado não existe ou não foi implementado
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    TooManyRequestsWithAdditionalProperties:
+      description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    UnauthorizedWithAdditionalProperties:
+      description: Cabeçalho de autenticação ausente/inválido ou token inválido
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    UnprocessableEntityWithAdditionalProperties:
+      description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/DefaultWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    DefaultWithAdditionalProperties:
+      description: Erro inesperado.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            type: object
+            required:
+              - errors
+            properties:
+              errors:
+                type: array
+                minItems: 1
+                maxItems: 13
+                items:
+                  type: object
+                  required:
+                    - code
+                    - title
+                    - detail
+                  properties:
+                    code:
+                      description: Código de erro específico do endpoint
+                      type: string
+                      pattern: '[\w\W\s]*'
+                      maxLength: 255
+                    title:
+                      description: Título legível por humanos deste erro específico
+                      type: string
+                      pattern: '[\w\W\s]*'
+                      maxLength: 255
+                    detail:
+                      description: Descrição legível por humanos deste erro específico
+                      type: string
+                      pattern: '[\w\W\s]*'
+                      maxLength: 2048
+              meta:
+                $ref: '#/components/schemas/Meta'
+    SiteIsOverloadedWithAdditionalProperties:
+      description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
       content:
         application/json; charset=utf-8:
           schema:
