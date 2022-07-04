@@ -1625,7 +1625,7 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     Default:
       description: Erro inesperado.
       content:
