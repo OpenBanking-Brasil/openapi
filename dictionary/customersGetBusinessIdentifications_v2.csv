@@ -154,8 +154,7 @@ OUTRO";1;1;"";Não permitido;string;FIXO
 96 
 97 
 98 
-99 
-NA";1;1;"";Não permitido;string;19
+99";1;1;"";Não permitido;string;19
 /data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})$;;1;1;"";Não permitido;string;29875132
 /data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Opcional;^\d{1,5}$;;0;1;"";Não permitido;string;932
 /data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;

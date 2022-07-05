@@ -41,7 +41,7 @@ NIF
 RNE 
 OUTROS 
 SEM_OUTROS_DOCUMENTOS";1;1;"";Não permitido;string;
-/data/otherDocuments/typeAdditionalInfo;typeAdditionalInfo;Campo livre de preenchimento obrigatório se selecionada a opção OUTROS tipos de documentos;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;NA
+/data/otherDocuments/typeAdditionalInfo;typeAdditionalInfo;Campo livre de preenchimento obrigatório se selecionada a opção OUTROS tipos de documentos;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;CREA-RJ
 /data/otherDocuments/number;number;Identificação/Número do documento informado;Texto;40;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;15291908
 /data/otherDocuments/checkDigit;checkDigit;Dígito verificador do documento informado. De preenchimento obrigatório se o documento informado tiver dígito verificador;Texto;2;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;P
 /data/otherDocuments/additionalInfo;additionalInfo;Para documentos em que se aplique o uso do local de emissão o mesmo deve ser enviado mandatoriamente, com a informação de órgão e UF. Exemplo: RG, local de emissão: SSP/RS.;Texto;50;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando o Local de Emissão do Documento for relevante.
@@ -182,8 +182,7 @@ OUTRO";1;1;"";Não permitido;string;FIXO
 96 
 97 
 98 
-99 
-NA";1;1;"";Não permitido;string;19
+99";1;1;"";Não permitido;string;19
 /data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})$;;1;1;"";Não permitido;string;29875132
 /data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Opcional;^\d{1,5}$;;0;1;"";Não permitido;string;932
 /data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
