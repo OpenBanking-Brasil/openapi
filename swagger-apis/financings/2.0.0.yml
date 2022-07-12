@@ -573,6 +573,7 @@ components:
       type: object
       description: Lista que traz as datas de vencimento e valor das parcelas não regulares  do contrato da modalidade de crédito consultada.
       required:
+        - dueDate
         - amount
       properties:
         dueDate:
@@ -879,7 +880,7 @@ components:
           minLength: 8
           pattern: '^[01]\.\d{6}$'
           description: |
-            Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.
+            É o valor da tarifa em percentual pactuada no contrato.
 
             [Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual.
           example: '0.200000'
@@ -985,7 +986,7 @@ components:
           description: |
             Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
 
-            [Restrição] Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_REMANESCENTE.
+            [Restrição] Obrigatoriamente deve ser preenchido caso o typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
           example: 14600
         paidInstalments:
           type: number
@@ -1068,7 +1069,7 @@ components:
       description: |
         Objeto das tarifas e encargos que foram pagos fora da parcela.
 
-        [Restrição] Informação deve ser enviada caso ela exista, torna-se obrigatório caso haja parcelamento.
+        [Restrição] Informação deve ser enviada caso ela exista.
       required:
         - fees
         - charges
