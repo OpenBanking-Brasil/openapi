@@ -755,7 +755,9 @@ components:
     CreditCardsLimitAmount:
       type: object
       description: |
-        Valor total do limite informado.   
+        Valor total do limite informado.
+
+        [Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
       required:
         - amount
         - currency
