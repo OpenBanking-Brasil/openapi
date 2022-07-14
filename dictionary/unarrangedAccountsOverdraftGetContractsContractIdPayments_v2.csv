@@ -11,7 +11,7 @@
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
 /data/releases/paidAmount;paidAmount;"Valor do pagamento referente ao  contrato da modalidade de crédito consultada.
 Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
-/data/releases/overParcel;overParcel;Objeto das tarifas e encargos que foram pagos fora da parcela.;Objeto;;Condicional;;;0;1;" Informação deve ser enviada caso ela exista, torna-se obrigatório caso haja parcelamento.
+/data/releases/overParcel;overParcel;Objeto das tarifas e encargos que foram pagos fora da parcela.;Objeto;;Condicional;;;0;1;" Informação deve ser enviada caso ela exista.
 ";Não permitido;object;
 /data/releases/overParcel/fees;fees;Lista das tarifas que foram pagas fora da parcela, só para pagamento avulso.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/releases/overParcel/fees/feeName;feeName;Denominação da Tarifa pactuada.;Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Saque a descoberto

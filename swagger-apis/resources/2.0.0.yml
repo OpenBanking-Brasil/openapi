@@ -55,7 +55,6 @@ paths:
         - $ref: '#/components/parameters/xCustomerUserAgent'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
-        - $ref: '#/components/parameters/pagination-key'
       responses:
         '200':
           $ref: '#/components/responses/OKResponseResourceList'
@@ -330,14 +329,6 @@ components:
         minimum: 1
         format: int32
         maximum: 1000
-    pagination-key:
-      name: pagination-key
-      in: query
-      description: 'Identificador de rechamada, utilizado para evitar a contagem de chamadas ao endpoint durante a paginação.'
-      schema:
-        type: string
-        maxLength: 2048
-        pattern: '[\w\W\s]*'
     xCustomerUserAgent:
       name: x-customer-user-agent
       in: header
