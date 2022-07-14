@@ -50,7 +50,7 @@ Para recebedora: Ignorar o campo preenchido conforme esse cenário.
 /data/chargeIdentificator;chargeIdentificator;Identificador da parcela que está sendo informada. Campo de livre preenchimento;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PARCELA_1
 /data/chargeNumber;chargeNumber;Quantidade de parcelas.;Número;;Condicional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
 ";Não permitido;number;12
-/data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil. Deve ser o valor de amount convertido para BRL (em caso de compra internacional) ou o mesmo valor de amount (em caso de compra nacional).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/brazilianAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/brazilianAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/amount;amount;Valor da transação. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais. Se a transação foi realizada em moeda estrangeira, deve ser preenchido com o valor original da transação, sem convertê-lo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;

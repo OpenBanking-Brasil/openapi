@@ -460,7 +460,8 @@ components:
           example: BRL
     CreditCardAccountsTransactionBrazilianAmount:
       type: object
-      description: 'Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil'
+      description: |
+        Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil. Deve ser o valor de amount convertido para BRL (em caso de compra internacional) ou o mesmo valor de amount (em caso de compra nacional).
       required:
         - amount
         - currency
