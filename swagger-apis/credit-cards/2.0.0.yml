@@ -439,7 +439,8 @@ components:
   schemas:
     CreditCardAccountsTransactionAmount:
       type: object
-      description: 'Valor da transação. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais. Se a transação foi realizada em moeda estrangeira, deve ser preenchido com o valor original da transação, sem convertê-lo.'
+      description: |
+        Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo.
       required:
         - amount
         - currency
