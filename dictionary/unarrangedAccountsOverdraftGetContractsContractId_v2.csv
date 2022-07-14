@@ -47,7 +47,8 @@ SAM
 SEM_SISTEMA_AMORTIZACAO 
 OUTROS";1;1;"";Não permitido;string;SAC
 /data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.;Texto;200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Informações complementares relativa à amortização do tipo 'OUTROS'
-/data/interestRates;interestRates;Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
+/data/interestRates;interestRates;"Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.  
+Caso o contrato não possua taxas de juros, deve ser compartilhada uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 de forma explícita.";Lista;;Obrigatório;;;0;N;"";Não permitido;array;
 /data/interestRates/taxType;taxType;"Tipo de Taxa (vide  Enum)
 - NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
 - EFETIVA (É a taxa de juros em que a unidade referencial coincide com a unidade de tempo da capitalização. Como as unidades de medida de tempo da taxa de juros e dos períodos de capitalização são iguais, usa-se exemplos simples como 1% ao mês, 60% ao ano)";Texto;;Obrigatório;;"NOMINAL 
