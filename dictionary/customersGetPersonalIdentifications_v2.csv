@@ -39,8 +39,7 @@ O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Fe
 RG 
 NIF 
 RNE 
-OUTROS 
-SEM_OUTROS_DOCUMENTOS";1;1;"";Não permitido;string;
+OUTROS";1;1;"";Não permitido;string;
 /data/otherDocuments/typeAdditionalInfo;typeAdditionalInfo;Campo livre de preenchimento obrigatório se selecionada a opção OUTROS tipos de documentos;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;CREA-RJ
 /data/otherDocuments/number;number;Identificação/Número do documento informado;Texto;40;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;15291908
 /data/otherDocuments/checkDigit;checkDigit;Dígito verificador do documento informado. De preenchimento obrigatório se o documento informado tiver dígito verificador;Texto;2;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;P

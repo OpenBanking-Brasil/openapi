@@ -9,7 +9,7 @@
 /data/cnpjNumber;cnpjNumber;Número completo do CNPJ da Empresa consultada  - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362006773
 /data/companiesCnpj;companiesCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
 Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;^\d{14}$;;1;N;"";Não permitido;array;50685362000135
-/data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Opcional;;;0;N;"";Não permitido;array;
+/data/otherDocuments;otherDocuments;Relação dos demais documentos;Lista;;Opcional;;;1;N;"";Não permitido;array;
 /data/otherDocuments/type;type;Número do Tipo de documento informado. De preenchimento obrigatório, para a Pessoa jurídica com domicílio ou sede no exterior, desobrigada de inscrição no CNPJ;Texto;20;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;EIN
 /data/otherDocuments/number;number;Número do outro documento. De preenchimento obrigatório, para a Pessoa jurídica com domicílio ou sede no exterior, desobrigada de inscrição no CNPJ;Texto;20;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;128328453
 /data/otherDocuments/country;country;Pais de emissão do tipo de documento informado. Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;CAN

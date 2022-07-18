@@ -450,7 +450,7 @@ components:
             example: '50685362000135'
         otherDocuments:
           type: array
-          minItems: 0
+          minItems: 1
           items:
             $ref: '#/components/schemas/BusinessOtherDocument'
           description: Relação dos demais documentos
@@ -1153,7 +1153,6 @@ components:
         - NIF
         - RNE
         - OUTROS
-        - SEM_OUTROS_DOCUMENTOS
       description: |
         Relação dos Códigos dos demais documentos pessoa natural.
     EnumProcuratorsTypePersonal:
