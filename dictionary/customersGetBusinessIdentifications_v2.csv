@@ -36,7 +36,7 @@ OUTRO_DOCUMENTO_VIAGEM
 CNPJ";1;1;"";Não permitido;string;
 /data/parties/documentNumber;documentNumber;Número do documento informado. Campo Texto Livre para preencher número e dígito do documento se houver;Texto;20;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;73677831148
 /data/parties/documentAdditionalInfo;documentAdditionalInfo;Campo livre, de preenchimento obrigatório quando o documento informado tiver informações complementares relevantes para a sua identificação;Texto;100;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;CNH
-/data/parties/documentCountry;documentCountry;País de emissão do documento. Código do pais de acordo com o código alpha3 do ISO-3166.;Texto;3;Opcional;[\w*\W*];;0;1;"";Não permitido;string;CAN
+/data/parties/documentCountry;documentCountry;País de emissão do documento. Código do pais de acordo com o código alpha3 do ISO-3166.;Texto;3;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;CAN
 /data/parties/documentExpirationDate;documentExpirationDate;Data de validade do documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/parties/documentIssueDate;documentIssueDate;Data de emissão do documento, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21
 /data/contacts;contacts;Conjunto de informações referentes às formas para contatar o cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
@@ -44,7 +44,7 @@ CNPJ";1;1;"";Não permitido;string;
 /data/contacts/postalAddresses/isMain;isMain;Indica se o endereço informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true
 /data/contacts/postalAddresses/address;address;Corresponde ao endereço comercial do cliente.;Texto;150;Opcional;^\w{2}[\w\W\s]*$;;0;1;"";Não permitido;string;Av Naburo Ykesaki, 1270
 /data/contacts/postalAddresses/additionalInfo;additionalInfo;Alguns logradouros ainda necessitam ser especificados por meio de complemento;Texto;30;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Fundos
-/data/contacts/postalAddresses/districtName;districtName;Bairro é uma comunidade ou região localizada em uma cidade ou município de acordo com as suas subdivisões geográficas. Preenchimento obrigatório, se houver.;Texto;50;Opcional;\w*\W*;;0;1;"";Não permitido;string;Centro
+/data/contacts/postalAddresses/districtName;districtName;Bairro é uma comunidade ou região localizada em uma cidade ou município de acordo com as suas subdivisões geográficas. Preenchimento obrigatório, se houver.;Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Centro
 /data/contacts/postalAddresses/townName;townName;Localidade: O nome da localidade corresponde à designação da cidade ou município no qual o endereço está localizado.;Texto;50;Obrigatório;^\w{2}[\w\W\s]*$;;1;1;"";Não permitido;string;Marília
 /data/contacts/postalAddresses/ibgeTownCode;ibgeTownCode;Código IBGE de Município. A Tabela de Códigos de Municípios do IBGE apresenta a lista dos municípios brasileiros associados a um código composto de 7 dígitos, sendo os dois primeiros referentes ao código da Unidade da Federação.;Texto;7;Opcional;\d{7}$;;0;1;"";Não permitido;string;3550308
 /data/contacts/postalAddresses/countrySubDivision;countrySubDivision;Enumeração referente a cada sigla da unidade da federação que identifica o estado ou o distrito federal, no qual o endereço está localizado. p.ex. 'AC'. São consideradas apenas as siglas para os estados brasileiros;Texto;;Opcional;;"AC 
@@ -75,7 +75,7 @@ SP
 SE 
 TO";0;1;"";Não permitido;string;SP
 /data/contacts/postalAddresses/postCode;postCode;Código de Endereçamento Postal: Composto por um conjunto numérico de oito dígitos, o objetivo principal do CEP é orientar e acelerar o encaminhamento, o tratamento e a entrega de objetos postados nos Correios, por meio da sua atribuição a localidades, logradouros, unidades dos Correios, serviços, órgãos públicos, empresas e edifícios. p.ex. '01311000';Texto;8;Opcional;^\d{8}$;;0;1;"";Não permitido;string;17500001
-/data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;\w*\W*;;1;1;"";Não permitido;string;Brasil
+/data/contacts/postalAddresses/country;country;Nome do país;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Brasil
 /data/contacts/postalAddresses/countryCode;countryCode;Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRA
 /data/contacts/postalAddresses/geographicCoordinates;geographicCoordinates;Conjunto de informações, que correspondem aos valores das coordenadas geográficas em graus decimais, no Sistema de referência WGS84;Objeto;;Opcional;;;0;1;"";Não permitido;object;
 /data/contacts/postalAddresses/geographicCoordinates/latitude;latitude;Informação da Latitude referente a geolocalização informada. Entre -90 e 90.p.ex. '-23.5475000'. (2 casas antes da vírgula, 11 posições);Texto;13;Obrigatório;^-?\d{1,2}\.\d{1,9}$;;1;1;"";Não permitido;string;-23.5475000

@@ -723,7 +723,7 @@ components:
         districtName:
           type: string
           maxLength: 50
-          pattern: \w*\W*
+          pattern: '[\w\W\s]*'
           example: Centro
           description: |
             Bairro é uma comunidade ou região localizada em uma cidade ou município de acordo com as suas subdivisões geográficas. Preenchimento obrigatório, se houver.
@@ -753,7 +753,7 @@ components:
         country:
           type: string
           maxLength: 80
-          pattern: \w*\W*
+          pattern: '[\w\W\s]*'
           example: Brasil
           description: Nome do país
         countryCode:
@@ -1441,7 +1441,7 @@ components:
         country:
           type: string
           maxLength: 80
-          pattern: \w*\W*
+          pattern: '[\w\W\s]*'
           example: Brasil
           description: |
             Nome do país.
@@ -1542,7 +1542,7 @@ components:
         documentCountry:
           type: string
           maxLength: 3
-          pattern: '[\w*\W*]'
+          pattern: '[\w\W\s]*'
           example: CAN
           description: |
             País de emissão do documento. Código do pais de acordo com o código alpha3 do ISO-3166.
