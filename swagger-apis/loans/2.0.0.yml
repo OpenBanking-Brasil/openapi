@@ -757,9 +757,9 @@ components:
             Informação deve ser enviada caso ela exista.
         CET:
           type: string
-          pattern: '^[01]\.\d{6}$'
+          pattern: '^\d{1,2}\.\d{6}$'
           format: double
-          maxLength: 8
+          maxLength: 9
           minLength: 8
           example: '0.290000'
           description: |
@@ -796,7 +796,7 @@ components:
           minItems: 0
         contractedFees:
           type: array
-          description: Lista que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito
+          description: Lista que traz as informações das tarifas pactuadas no contrato.
           items:
             $ref: '#/components/schemas/LoansContractedFee'
           minItems: 0
@@ -887,9 +887,9 @@ components:
           example: Informações adicionais
         preFixedRate:
           type: string
-          pattern: '^[01]\.\d{6}$'
+          pattern: '^\d{1,2}\.\d{6}$'
           format: double
-          maxLength: 8
+          maxLength: 9
           minLength: 8
           example: '0.600000'
           description: |
@@ -898,9 +898,9 @@ components:
             O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
         postFixedRate:
           type: string
-          pattern: '^[01]\.\d{6}$'
+          pattern: '^\d{1,2}\.\d{6}$'
           format: double
-          maxLength: 8
+          maxLength: 9
           minLength: 8
           description: |
             Taxa pós fixada aplicada sob o contrato da modalidade crédito.
@@ -1118,7 +1118,6 @@ components:
       description: Lista dos pagamentos realizados no período
       required:
         - isOverParcelPayment
-        - instalmentId
         - paidDate
         - currency
         - paidAmount
@@ -1140,7 +1139,9 @@ components:
           minLength: 1
           pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           example: WGx0aExYcEJMVm93TFRsZFcyRXRla0V0V2pBdE9Wd3RYWH
-          description: 'Identificador de parcela, de responsabilidade de cada Instituição transmissora.'
+          description: |
+            Identificador de parcela, de responsabilidade de cada Instituição transmissora.  
+            [Restrição] Informação de envio obrigatório quando isOverParcelPayment tiver o valor FALSE.
         paidDate:
           type: string
           format: date
