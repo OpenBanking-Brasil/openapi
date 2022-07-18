@@ -583,7 +583,7 @@ components:
         amount:
           type: string
           format: double
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           pattern: '^\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
@@ -842,7 +842,7 @@ components:
           type: string
           format: double
           pattern: '^-?\d{1,15}\.\d{2,4}$'
-          maxLength: 20
+          maxLength: 21
           minLength: 4
           example: '1000.0400'
           description: Valor total da faturas. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
