@@ -138,7 +138,7 @@ IOF_CONTRATACAO
 IOF_POR_ATRASO 
 SEM_ENCARGO 
 OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO
-/data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campo para informações adicionais.;Texto;140;Condicional;\w*\W*$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+/data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;Campo para informações adicionais.;Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos.
 /data/contractedFinanceCharges/chargeRate;chargeRate;"Representa o valor do encargo em percentual pactuado no contrato.
 
