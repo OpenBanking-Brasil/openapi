@@ -109,6 +109,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
           $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+        '504':
+          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
         '529':
           $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
@@ -156,6 +158,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
           $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+        '504':
+          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
         '529':
           $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
@@ -211,6 +215,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
           $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+        '504':
+          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
         '529':
           $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
@@ -268,6 +274,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
           $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+        '504':
+          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
         '529':
           $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
@@ -315,6 +323,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
         '500':
           $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+        '504':
+          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
         '529':
           $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
         default:
@@ -371,6 +381,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
         '529':
           $ref: '#/components/responses/SiteIsOverloaded'
         default:
@@ -425,6 +437,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
         '529':
           $ref: '#/components/responses/SiteIsOverloaded'
         default:
@@ -1695,6 +1709,12 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    GatewayTimeout:
+      description: GATEWAY TIMEOUT - A requisição não foi atendida dentro do tempo limite estabelecido
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     Locked:
       description: Locked
       content:
@@ -1757,6 +1777,12 @@ components:
             $ref: '#/components/responses/LockedWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
     ForbiddenWithAdditionalProperties:
       description: O token tem escopo incorreto ou uma política de segurança foi violada
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/responses/LockedWithAdditionalProperties/content/application~1json%3B%20charset%3Dutf-8/schema'
+    GatewayTimeoutWithAdditionalProperties:
+      description: GATEWAY TIMEOUT - A requisição não foi atendida dentro do tempo limite estabelecido
       content:
         application/json; charset=utf-8:
           schema:
