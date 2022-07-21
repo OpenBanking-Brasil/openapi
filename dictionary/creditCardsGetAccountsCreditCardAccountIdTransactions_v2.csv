@@ -15,18 +15,10 @@ ESTORNO
 CASHBACK 
 OUTROS";1;1;"";Não permitido;string;CASHBACK
 /data/transactionalAdditionalInfo;transactionalAdditionalInfo;Campo livre, de preenchimento obrigatório quando selecionado tipo de transação OUTROS;Texto;140;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;
-/data/paymentType;paymentType;"Traz os tipos de pagamento. Preenchimento obrigatório se selecionado tipo de transação PAGAMENTO.
-
-Para transmissora: preencher com qualquer opção.
-
-Para recebedora: ignorar o campo preenchido quando não for uma transação do tipo pagamento.";Texto;;Obrigatório;;"A_VISTA 
-A_PRAZO";1;1;"";Não permitido;string;A_VISTA
-/data/feeType;feeType;"Traz os tipos de Tarifas: (Vide Enum)
-Anuidade, Saque com cartão no Brasil, Saque com cartão no exterior, Avaliação emergencial de crédito, Emissão segunda via, Tarifa pagamento de contas, SMS, OUTRA.   
-
-Para transmissora: quando não for do tipo TARIFA, preenche com OUTRA.
-
-Para recebedora: ignorar o campo preenchido conforme esse cenário.";Texto;;Condicional;;"ANUIDADE 
+/data/paymentType;paymentType;Traz os tipos de pagamento.;Texto;;Condicional;;"A_VISTA 
+A_PRAZO";0;1;" Preenchimento obrigatório se Tipo de Transação selecionada for 'PAGAMENTO'.
+";Não permitido;string;A_VISTA
+/data/feeType;feeType;Traz os tipos de Tarifas: (Vide Enum) Anuidade, Saque com cartão no Brasil, Saque com cartão no exterior, Avaliação emergencial de crédito, Emissão segunda via, Tarifa pagamento de contas, SMS, OUTRA.;Texto;;Condicional;;"ANUIDADE 
 SAQUE_CARTAO_BRASIL 
 SAQUE_CARTAO_EXTERIOR 
 AVALIACAO_EMERGENCIAL_CREDITO 
@@ -40,20 +32,16 @@ OUTRA";0;1;" Preenchimento obrigatório se Tipo de Transação selecionada for '
 PARCELAMENTO_FATURA 
 EMPRESTIMO 
 OUTROS";0;1;" Preenchimento obrigatório se o tipo transação selecionado for 'OPERACOES_CREDITO_CONTRATADAS_CARTAO'.
-
-Para transmissora: Quando não for do tipo OPERACOES_CREDITO_CONTRATADAS_CARTAO, preencher com OUTROS.
-
-Para recebedora: Ignorar o campo preenchido conforme esse cenário.
 ";Não permitido;string;CREDITO_ROTATIVO
 /data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.;Texto;50;Condicional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
 ";Não permitido;string;
 /data/chargeIdentificator;chargeIdentificator;Identificador da parcela que está sendo informada. Campo de livre preenchimento;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PARCELA_1
 /data/chargeNumber;chargeNumber;Quantidade de parcelas.;Número;;Condicional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
 ";Não permitido;number;12
-/data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil. Deve ser o valor de amount convertido para BRL (em caso de compra internacional) ou o mesmo valor de amount (em caso de compra nacional).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/brazilianAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/brazilianAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
-/data/amount;amount;Valor da transação. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais. Se a transação foi realizada em moeda estrangeira, deve ser preenchido com o valor original da transação, sem convertê-lo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+/data/amount;amount;Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/amount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/transactionDate;transactionDate;Data original da transação;Data;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
