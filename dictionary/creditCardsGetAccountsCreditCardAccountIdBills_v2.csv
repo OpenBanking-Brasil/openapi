@@ -4,7 +4,7 @@
 /data/dueDate;dueDate;Data de vencimento da Fatura, que aparece para pagamento pelo cliente;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21
 /data/billTotalAmount;billTotalAmount;"Valor total da faturas.
 O campo deve assumir valor positivo para saldo devedor e negativo para saldo credor.";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/billTotalAmount/amount;amount;Valor total da faturas. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;20;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
+/data/billTotalAmount/amount;amount;Valor total da faturas. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
 /data/billTotalAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL
 /data/billMinimumAmount;billMinimumAmount;Valor do pagamento minimo da fatura;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
 /data/billMinimumAmount/amount;amount;Valor do pagamento minimo da fatura;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400
@@ -24,7 +24,7 @@ JUROS_MORA_ATRASO_PAGAMENTO_FATURA
 IOF 
 OUTROS";1;1;"";Não permitido;string;
 /data/financeCharges/additionalInfo;additionalInfo;Campo livre, de preenchimento obrigatório se selecionado tipo de encargo 'OUTROS';Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Informações Adicionais
-/data/financeCharges/amount;amount;Valor cobrado pelo encargo. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
+/data/financeCharges/amount;amount;Valor cobrado pelo encargo. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400
 /data/financeCharges/currency;currency;"Moeda referente ao valor cobrado pelo encargo, segundo modelo ISO-4217. p.ex. 'BRL' 
 Todos os saldos informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL
 /data/payments;payments;Lista que traz os valores relativos aos pagamentos da Fatura da conta de pagamento pós-paga;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
