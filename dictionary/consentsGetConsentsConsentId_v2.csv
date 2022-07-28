@@ -1,12 +1,12 @@
-﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
-/data;data;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/consentId;consentId;"O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
-Um URN, conforme definido na";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123
-/data/creationDateTime;creationDateTime;Data e hora em que o recurso foi criado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
+Um URN, conforme definido na";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
+/data/creationDateTime;creationDateTime;Data e hora em que o recurso foi criado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/status;status;Estado atual do consentimento cadastrado.;Texto;;Obrigatório;;"AUTHORISED 
 AWAITING_AUTHORISATION 
-REJECTED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION
-/data/statusUpdateDateTime;statusUpdateDateTime;Data e hora em que o recurso foi atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
+REJECTED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
+/data/statusUpdateDateTime;statusUpdateDateTime;Data e hora em que o recurso foi atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/permissions;permissions;Especifica os tipos de permissões de acesso às APIs no escopo do Open Banking Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.;Lista;;Obrigatório;;"ACCOUNTS_READ 
 ACCOUNTS_BALANCES_READ 
 ACCOUNTS_TRANSACTIONS_READ 
@@ -36,16 +36,16 @@ UNARRANGED_ACCOUNTS_OVERDRAFT_READ
 UNARRANGED_ACCOUNTS_OVERDRAFT_SCHEDULED_INSTALMENTS_READ 
 UNARRANGED_ACCOUNTS_OVERDRAFT_PAYMENTS_READ 
 UNARRANGED_ACCOUNTS_OVERDRAFT_WARRANTIES_READ 
-RESOURCES_READ";1;30;"";Não permitido;array;
-/data/expirationDateTime;expirationDateTime;Data e hora de expiração da permissão. De preenchimento obrigatório, reflete a data limite de validade do consentimento. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z
-/data/rejection;rejection;Objeto a ser retornado caso o consentimento seja rejeitado.;Objeto;;Opcional;;;0;1;"";Não permitido;object;
+RESOURCES_READ";1;30;"";Não permitido;array;;
+/data/expirationDateTime;expirationDateTime;Data e hora de expiração da permissão. De preenchimento obrigatório, reflete a data limite de validade do consentimento. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/rejection;rejection;Objeto a ser retornado caso o consentimento seja rejeitado.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/rejection/rejectedBy;rejectedBy;"Informar usuário responsável pela rejeição.   
 1. USER usuário   
 2. ASPSP instituição transmissora   
 3. TPP instituição receptora";Texto;;Obrigatório;;"USER 
 ASPSP 
-TPP";1;1;"";Não permitido;string;USER
-/data/rejection/reason;reason;Define a razão pela qual o consentimento foi rejeitado.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
+TPP";1;1;"";Não permitido;string;USER;
+/data/rejection/reason;reason;Define a razão pela qual o consentimento foi rejeitado.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/rejection/reason/code;code;"Define o código da razão pela qual o consentimento foi rejeitado.
 
 - CONSENT_EXPIRED – consentimento que ultrapassou o tempo limite para autorização.   
@@ -58,5 +58,5 @@ CUSTOMER_MANUALLY_REJECTED
 CUSTOMER_MANUALLY_REVOKED 
 CONSENT_MAX_DATE_REACHED 
 CONSENT_TECHNICAL_ISSUE 
-INTERNAL_SECURITY_REASON";1;1;"";Não permitido;string;CONSENT_EXPIRED
-/data/rejection/reason/additionalInformation;additionalInformation;Contém informações adicionais a critério da transmissora.;Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Tempo de confirmação da múltipla alçada excedido.
+INTERNAL_SECURITY_REASON";1;1;"";Não permitido;string;CONSENT_EXPIRED;
+/data/rejection/reason/additionalInformation;additionalInformation;Contém informações adicionais a critério da transmissora.;Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Tempo de confirmação da múltipla alçada excedido.;

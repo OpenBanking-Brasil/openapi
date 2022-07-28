@@ -1,6 +1,6 @@
-﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo
-/data;data;Conjunto de informações referentes à identificação da operação de crédito de empréstimo;Lista;;Obrigatório;;;0;N;"";Não permitido;array;
-/data/currency;currency;Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'. Todos os valores monetários informados estão representados com a moeda vigente do Brasil;Texto;3;Opcional;^(\w{3}){1}$;;0;1;"";Não permitido;string;BRL
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Conjunto de informações referentes à identificação da operação de crédito de empréstimo;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/currency;currency;Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'. Todos os valores monetários informados estão representados com a moeda vigente do Brasil;Texto;3;Opcional;^(\w{3}){1}$;;0;1;"";Não permitido;string;BRL;
 /data/warrantyType;warrantyType;Denominação/Identificação do tipo da garantia que avaliza a Modalidade da Operação de Crédito contratada  (Doc 3040, Anexo 12);Texto;;Obrigatório;;"CESSAO_DIREITOS_CREDITORIOS 
 CAUCAO 
 PENHOR 
@@ -13,7 +13,7 @@ GARANTIA_FIDEJUSSORIA
 BENS_ARRENDADOS 
 GARANTIAS_INTERNACIONAIS 
 OPERACOES_GARANTIDAS_OUTRAS_ENTIDADES 
-ACORDOS_COMPENSACAO";1;1;"";Não permitido;string;CESSAO_DIREITOS_CREDITORIOS
+ACORDOS_COMPENSACAO";1;1;"";Não permitido;string;CESSAO_DIREITOS_CREDITORIOS;
 /data/warrantySubType;warrantySubType;Denominação/Identificação do sub tipo da garantia que avaliza a Modalidade da Operação de Crédito contratada (Doc 3040, Anexo 12).;Texto;;Obrigatório;;"ACOES_DEBENTURES 
 ACORDOS_COMPENSACAO_LIQUIDACAO_OBRIGACOES 
 APLICACOES_FINANCEIRAS_RENDA_FIXA 
@@ -66,5 +66,5 @@ SEGURO_RURAL
 SEM_SUB_TIPO_GARANTIA 
 TRIBUTOS_RECEITAS_ORCAMENTARIAS 
 VEICULOS 
-VEICULOS_AUTOMOTORES";1;1;"";Não permitido;string;NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO
-/data/warrantyAmount;warrantyAmount;Valor original da garantia. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;20;Opcional;^\d{1,15}\.\d{2,4}$;;0;1;"";Não permitido;string;1000.0400
+VEICULOS_AUTOMOTORES";1;1;"";Não permitido;string;NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO;
+/data/warrantyAmount;warrantyAmount;Valor original da garantia. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;20;Opcional;^\d{1,15}\.\d{2,4}$;;0;1;"";Não permitido;string;1000.0400;4
