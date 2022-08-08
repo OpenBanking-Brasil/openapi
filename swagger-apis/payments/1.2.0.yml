@@ -331,6 +331,8 @@ components:
                   • COBRANCA_INVALIDA: Cobrança inválida.
                   • CONSENTIMENTO_INVALIDO: Consentimento inválido.
                   • JANELA_OPER_INVALIDA: Janela de operação inválida.
+                  • PARAMETRO_NAO_INFORMADO: Parâmetro obrigatório não informado
+                  • PARAMETRO_INVALIDO: Parâmetro com valor inválido
                   • NAO_INFORMADO: Não informado.
                   • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: divergência entre pagamento e consentimento.
               detail:
