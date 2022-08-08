@@ -348,6 +348,8 @@ components:
                   • COBRANCA_INVALIDA: Validação de expiração, validação de vencimento ou Status Válido.
                   • CONSENTIMENTO_INVALIDO: Consentimento inválido (status diferente de "AUTHORISED" ou está expirado).
                   • JANELA_OPER_INVALIDA: Requisição está fora da janela de funcionamento.
+                  • PARAMETRO_NAO_INFORMADO: endToEndId
+                  • PARAMETRO_INVALIDO: endToEndId
                   • NAO_INFORMADO: Não reportado/identificado pela instituição detentora de conta.
                   • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
             additionalProperties: false
