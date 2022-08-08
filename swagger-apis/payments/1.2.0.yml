@@ -706,6 +706,8 @@ components:
         - COBRANCA_INVALIDA
         - CONSENTIMENTO_INVALIDO
         - JANELA_OPER_INVALIDA
+        - PARAMETRO_NAO_INFORMADO
+        - PARAMETRO_INVALIDO
         - NAO_INFORMADO
         - PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO
       example: SALDO_INSUFICIENTE
@@ -719,6 +721,8 @@ components:
         • COBRANCA_INVALIDA – Validação de expiração, validação de vencimento, Status Válido.
         • CONSENTIMENTO_INVALIDO – Consentimento inválido (status não é "authorised" ou está expirado).
         • JANELA_OPER_INVALIDA – Requisição está fora da janela de funcionamento.
+        • PARAMETRO_NAO_INFORMADO: Parâmetro não informado.  
+        • PARAMETRO_INVALIDO: Parâmetro inválido.  
         • NAO_INFORMADO – Não informada pela detentora de conta.
         • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
     EnumLocalInstrument:
