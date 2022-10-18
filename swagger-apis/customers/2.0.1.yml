@@ -1,8 +1,8 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Customers - Open Banking Brasil
+  title: API Customers - Open Finance Brasil
   description: |
-    API de dados cadastrais de clientes do Open Banking Brasil – Fase 2.
+    API de dados cadastrais de clientes do Open Finance Brasil – Fase 2.
     API que retorna os dados cadastrais de clientes e de seus representantes, incluindo dados de identificação, de qualificação financeira, informações sobre representantes cadastrados e sobre o relacionamento financeiro do cliente com a instituição transmissora dos dados.\
     Possui segregação entre pessoa natural e pessoa jurídica.\
     Requer consentimento do cliente para todos os `endpoints`.
@@ -43,7 +43,7 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
   contact:
-    name: Governança do Open Banking Brasil – Especificações
+    name: Governança do Open Finance Brasil – Especificações
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:
