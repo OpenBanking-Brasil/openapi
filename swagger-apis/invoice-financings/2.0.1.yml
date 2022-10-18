@@ -1,8 +1,8 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Invoice-financings - Open Banking Brasil
+  title: API Invoice-financings - Open Finance Brasil
   description: |
-    API de informações de operações de antecipação de recebíveis do Open Banking Brasil – Fase 2.
+    API de informações de operações de antecipação de recebíveis do Open Finance Brasil – Fase 2.
     API que retorna informações de operações de crédito do tipo antecipação de recebíveis – direitos creditórios descontados - mantidas nas instituições transmissoras por seus clientes, incluindo dados como denominação, modalidade, número do contrato, tarifas, prazo, prestações, pagamentos, amortizações, garantias, encargos e taxas de juros remuneratórios.\
     Não possui segregação entre pessoa natural e pessoa jurídica.\
     Requer consentimento do cliente para todos os `endpoints`.
@@ -44,7 +44,7 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
   contact:
-    name: Governança do Open Banking Brasil – Especificações
+    name: Governança do Open Finance Brasil – Especificações
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:

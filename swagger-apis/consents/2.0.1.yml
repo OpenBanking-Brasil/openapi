@@ -1,12 +1,12 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Consents - Open Banking Brasil
+  title: API Consents - Open Finance Brasil
   description: |
-    API que trata da criação, consulta e revogação de consentimentos para o Open Banking Brasil Fase 2 - customer-data.  
+    API que trata da criação, consulta e revogação de consentimentos para o Open Finance Brasil Fase 2 - customer-data.  
     Não possui segregação entre pessoa natural e pessoa jurídica.    
 
     # Orientações importantes
-    A API Consents trata dos consentimentos exclusivamente para a fase 2 do Open Banking Brasil.
+    A API Consents trata dos consentimentos exclusivamente para a fase 2 do Open Finance Brasil.
     - As informações da instituição receptora não trafegam na API Consents – a autenticação da receptora se dá através do [DCR](https://openbanking-brasil.github.io/specs-seguranca/open-banking-brasil-dynamic-client-registration-1_ID1.html).   
     - Na chamada para a criação do consentimento deve-se utilizar um token gerado via `client_credentials`.
     - Após o `POST` de criação do consentimento, o `STATUS` devolvido na resposta deverá ser `AWAITING_AUTHORISATION`.
@@ -85,7 +85,7 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0'
   contact:
-    name: Governança do Open Banking Brasil - Especificações
+    name: Governança do Open Finance Brasil - Especificações
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:
@@ -330,7 +330,7 @@ components:
             permissions:
               type: array
               items:
-                description: 'Especifica os tipos de permissões de acesso às APIs no escopo do Open Banking Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.'
+                description: 'Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.'
                 type: string
                 enum:
                   - ACCOUNTS_READ
@@ -474,7 +474,7 @@ components:
               type: array
               maxItems: 30
               minItems: 1
-              description: 'Especifica os tipos de permissões de acesso às APIs no escopo do Open Banking Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.'
+              description: 'Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.'
               items:
                 type: string
                 enum:
@@ -576,7 +576,7 @@ components:
               type: array
               maxItems: 30
               minItems: 1
-              description: 'Especifica os tipos de permissões de acesso às APIs no escopo do Open Banking Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.'
+              description: 'Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.'
               items:
                 type: string
                 enum:
