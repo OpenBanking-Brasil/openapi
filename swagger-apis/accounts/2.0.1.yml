@@ -1,8 +1,8 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Accounts - Open Banking Brasil
+  title: API Accounts - Open Finance Brasil
   description: |
-    API de contas de depósito à vista, contas de poupança e contas pré-pagas do Open Banking Brasil – Fase 2.
+    API de contas de depósito à vista, contas de poupança e contas pré-pagas do Open Finance Brasil – Fase 2.
     API que retorna informações de contas de depósito à vista, contas de poupança e contas de pagamento pré-pagas mantidas nas instituições transmissoras por seus clientes,
     incluindo dados de identificação da conta, saldos, limites e transações.\
     Não possui segregação entre pessoa natural e pessoa jurídica.\
@@ -45,7 +45,7 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
   contact:
-    name: Governança do Open Banking Brasil – Especificações
+    name: Governança do Open Finance Brasil – Especificações
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:

@@ -1,13 +1,13 @@
 ﻿openapi: 3.0.0
 info:
-  title: "Participantes Open Banking Brasil"
+  title: "Participantes Open Finance Brasil"
   version: 1.0.0
-  description: Informações sobre os participantes do Open Banking Brasil que estão registrados no Diretório.
+  description: Informações sobre os participantes do Open Finance Brasil que estão registrados no Diretório.
   license:
     name: MIT
 servers:
   - url: https://data.directory.openbankingbrasil.org.br
-    description: Open Banking Brasil
+    description: Open Finance Brasil
 paths:
   '/participants':
     get:
