@@ -1,14 +1,14 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Payment Initiation - Open Banking Brasil
+  title: API Payment Initiation - Open Finance Brasil
   description: |
-    API de Iniciação de Pagamentos, responsável por viabilizar as operações de iniciação de pagamentos para o Open Banking Brasil.
+    API de Iniciação de Pagamentos, responsável por viabilizar as operações de iniciação de pagamentos para o Open Finance Brasil.
     Para cada uma das formas de pagamento previstas é necessário obter prévio consentimento do cliente através dos `endpoints` dedicados ao consentimento nesta API.
 
     # Orientações
     No diretório de participantes duas `Roles` estão relacionadas à presente API:
-    - `CONTA`, referente às instituições detentoras de conta participantes do Open Banking Brasil;
-    - `PAGTO`, referente às instituições iniciadoras de transação de pagamento de conta participantes do Open Banking Brasil.
+    - `CONTA`, referente às instituições detentoras de conta participantes do Open Finance Brasil;
+    - `PAGTO`, referente às instituições iniciadoras de transação de pagamento de conta participantes do Open Finance Brasil.
     Os tokens utilizados para consumo dos `endpoints` desta API devem possuir os `scopes` `openid` e `payments`.
     Esta API não requer a implementação de `permissions` para sua utilização.
     Todas as requisições e respostas devem ser assinadas seguindo o protocolo estabelecido na sessão <a href="https://openbanking-brasil.github.io/areadesenvolvedor/#assinaturas" target="_blank">Assinaturas</a> do guia de segurança.
@@ -19,7 +19,7 @@ info:
     de conta devem estar assinados. Para o processo de assinatura destes `payloads` as instituições devem seguir as especificações de segurança publicadas no Portal do desenvolvedor:
 
     - Certificados exigidos para assinatura de mensagens:
-    [Padrões de certificados digitais Open Banking Brasil](https://github.com/OpenBanking-Brasil/specs-seguranca/blob/main/open-banking-brasil-certificate-standards-1_ID1.md#certificado-de-assinatura-certificadoassinatura)
+    [Padrões de certificados digitais Open Finance Brasil](https://github.com/OpenBanking-Brasil/specs-seguranca/blob/main/open-banking-brasil-certificate-standards-1_ID1.md#certificado-de-assinatura-certificadoassinatura)
 
     - Como assinar o payload JWS: [https://openbanking-brasil.github.io/areadesenvolvedor/#como-assinar-o-payload](https://openbanking-brasil.github.io/areadesenvolvedor/#como-assinar-o-payload)
 
@@ -33,7 +33,7 @@ info:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
   contact:
-    name: Governança do Open Banking Brasil – Especificações
+    name: Governança do Open Finance Brasil – Especificações
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:
