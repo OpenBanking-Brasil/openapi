@@ -941,7 +941,7 @@ components:
             O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou traços.
         name:
           type: string
-          maxLength: 140
+          maxLength: 120
           pattern: '[\w\W\s]*'
           example: Marco Antonio de Brito
           description: |

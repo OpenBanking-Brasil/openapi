@@ -36,7 +36,7 @@ Preencher com o CPF ou CNPJ, de acordo com o valor escolhido no campo type.
 O CPF será utilizado com 11 números e deverá ser informado sem pontos ou traços.  
 O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou traços.";Texto;14;Obrigatório;^\d{11}$|^\d{14}$;;1;1;"";Não permitido;string;58764789000137;11
 /data/creditor/name;name;"Em caso de pessoa natural deve ser informado o nome completo do titular da conta do recebedor.  
-Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.";Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Marco Antonio de Brito;
+Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.";Texto;120;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Marco Antonio de Brito;
 /data/payment;payment;Objeto contendo dados de pagamento para consentimento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/payment/type;type;Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.;Texto;3;Obrigatório;;PIX;1;1;"";Não permitido;string;PIX;
 /data/payment/schedule;schedule;Mutuamente exclusivo com o campo date. Este campo é obrigatório no caso de agendamento. Neste caso, o campo date não deve ser informado.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
