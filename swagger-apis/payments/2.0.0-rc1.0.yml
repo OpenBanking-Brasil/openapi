@@ -621,7 +621,7 @@ components:
         issuer:
           type: string
           maxLength: 4
-          pattern: '^\d{4}$'
+          pattern: '^[0-9]{1,4}$'
           example: '1774'
           description: |
             Código da Agência emissora da conta sem dígito.  
@@ -632,7 +632,7 @@ components:
           type: string
           minLength: 3
           maxLength: 20
-          pattern: '^\d{3,20}$'
+          pattern: '^[0-9]{1,20}$'
           example: '1234567890'
           description: |
             Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir),  
@@ -941,8 +941,8 @@ components:
             O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou traços.
         name:
           type: string
+          pattern: '^([A-Za-zÀ-ÖØ-öø-ÿ'' -]+)$'
           maxLength: 120
-          pattern: '[\w\W\s]*'
           example: Marco Antonio de Brito
           description: |
             Em caso de pessoa natural deve ser informado o nome completo do titular da conta do recebedor.  
