@@ -39,14 +39,7 @@ O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou tra
 Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.";Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ' -]+)$;;1;1;"";Não permitido;string;Marco Antonio de Brito;
 /data/payment;payment;Objeto contendo dados de pagamento para consentimento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/payment/type;type;Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.;Texto;3;Obrigatório;;PIX;1;1;"";Não permitido;string;PIX;
-/data/payment/schedule;schedule;Mutuamente exclusivo com o campo date. Este campo é obrigatório no caso de agendamento. Neste caso, o campo date não deve ser informado.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/payment/schedule/single;single;Define a política de agendamento único.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/payment/schedule/single/date;date;"Define a data alvo da liquidação do pagamento. 
-
-O fuso horário de Brasília deve ser utilizado para criação e racionalização sobre os dados deste campo.
-
-Observação: Esse campo deverá sempre ser no mínimo D+1 corrido, ou seja, a data imediatamente posterior em relação a data do consentimento considerando o fuso horário de Brasília e deverá ser no máximo um ano corrido D+365 corridos a partir da data do consentimento considerando o fuso horário de Brasília";Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-01-01;
-/data/payment/date;date;Mutuamente exclusivo com o objeto schedule. Este campo é obrigatório no caso de pagamento único. Neste caso, o objeto schedule não deve ser informado.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-01-01;
+/data/payment/date;date;Data do pagamento observando o horário de Brasília e horário de verão quando houver.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-01-01;
 /data/payment/currency;currency;"Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRL;
 /data/payment/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Obrigatório;^((\d{1,16}\.\d{2}))$;;1;1;"";Não permitido;string;100000.12;4
