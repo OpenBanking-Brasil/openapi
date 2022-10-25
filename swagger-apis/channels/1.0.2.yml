@@ -1,7 +1,7 @@
 ﻿openapi: 3.0.0
 info:
-  title: APIs OpenData do Open Banking Brasil
-  description: As APIs descritas neste documento são referentes as APIs da fase OpenData do Open Banking Brasil.
+  title: APIs OpenData do Open Finance Brasil
+  description: As APIs descritas neste documento são referentes as APIs da fase OpenData do Open Finance Brasil.
   version: 1.0.2
   contact:
     url: 'https://servicedesk.openbankingbrasil.org.br/Login.jsp?navLanguage=pt-BR'
@@ -416,7 +416,7 @@ components:
       properties:
         name:
           type: string
-          description: Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.
+          description: Nome da Marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.
           maxLength: 80
           pattern: \w*\W*
         companies:
@@ -1366,7 +1366,7 @@ components:
           type: string
           pattern: '\w*\W*'
           maxLength: 80
-          description: "Nome da Marca reportada pelo participante do Open Banking. O conceito a que se refere a 'marca' utilizada está em definição pelos participantes."
+          description: "Nome da Marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' utilizada está em definição pelos participantes."
           example: "Marca A"
         companies:
           type: array
