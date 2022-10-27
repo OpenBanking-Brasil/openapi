@@ -362,7 +362,6 @@ components:
             properties:
               code:
                 type: string
-                maxLength: 21
                 enum:
                   - FORMA_PAGAMENTO_INVALIDA
                   - DATA_PAGAMENTO_INVALIDA
@@ -623,22 +622,7 @@ components:
         endToEndId:
           $ref: '#/components/schemas/EndToEndIdWithoutRestriction'
         localInstrument:
-          type: string
-          maxLength: 4
-          enum:
-            - MANU
-            - DICT
-            - QRDN
-            - QRES
-            - INIC
-          example: DICT
-          description: |
-            Especifica a forma de iniciação do pagamento:
-            - MANU - Inserção manual de dados da conta transacional
-            - DICT - Inserção manual de chave Pix
-            - QRDN - QR code dinâmico
-            - QRES - QR code estático
-            - INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.
+          $ref: '#/components/schemas/EnumLocalInstrument'
         payment:
           $ref: '#/components/schemas/PaymentPix'
         creditorAccount:
@@ -874,7 +858,6 @@ components:
         No caso de Pix agendamento, a iniciadora deverá, no que tange a composição do endToEndId, utilizar a data para a qual o Pix está sendo agendado e horário fixo 15:00 UTC, que dará para a detentora a janela de efetivação de 00:00 e 23:59 do horário de Brasília.  
     EnumAccountPaymentsType:
       type: string
-      maxLength: 4
       enum:
         - CACC
         - SLRY
@@ -892,7 +875,6 @@ components:
         TRAN - TransactingAccount - Conta de Pagamento pré-paga.
     EnumAuthorisationStatusType:
       type: string
-      maxLength: 22
       enum:
         - AWAITING_AUTHORISATION
         - AUTHORISED
@@ -911,7 +893,6 @@ components:
         CONSUMED - Consumido 
     EnumErrorsCreatePayment:
       type: string
-      maxLength: 25
       enum:
         - SALDO_INSUFICIENTE
         - BENEFICIARIO_INCOMPATIVEL
@@ -966,7 +947,6 @@ components:
         • ERRO_IDEMPOTENCIA: Erro idempotência.
     EnumLocalInstrument:
       type: string
-      maxLength: 4
       enum:
         - MANU
         - DICT
@@ -983,7 +963,6 @@ components:
         - INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.
     EnumPaymentPersonType:
       type: string
-      maxLength: 15
       enum:
         - PESSOA_NATURAL
         - PESSOA_JURIDICA
@@ -1028,7 +1007,6 @@ components:
         RJCT (REJECTED) - Instrução de pagamento rejeitada.
     EnumPaymentType:
       type: string
-      maxLength: 3
       enum:
         - PIX
       example: PIX
@@ -1151,25 +1129,45 @@ components:
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
+    LinkSingle:
+      type: object
+      description: Referências para outros recusos da API requisitada.
+      required:
+        - self
+      properties:
+        self:
+          type: string
+          format: uri
+          maxLength: 2000
+          description: URI completo que gerou a resposta atual.
+          example: 'https://api.banco.com.br/open-banking/api/v1/resource'
+          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
     PaymentConsent:
       type: object
       description: Objeto contendo dados de pagamento para consentimento.
       required:
         - type
-        - date
         - currency
         - amount
         - details
       properties:
         type:
           $ref: '#/components/schemas/EnumPaymentType'
+        schedule:
+          oneOf:
+            - $ref: '#/components/schemas/Schedule'
         date:
           type: string
           format: date
           maxLength: 10
           pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           example: '2021-01-01'
-          description: Data do pagamento observando o horário de Brasília e horário de verão quando houver.
+          description: |
+            [Restrição] Mutuamente excludente com o objeto schedule. 
+
+            Este campo é obrigatório no caso de pagamento único. 
+
+            Neste caso, o objeto schedule não deve ser informado.
         currency:
           type: string
           maxLength: 3
@@ -1339,7 +1337,7 @@ components:
             debtorAccount:
               $ref: '#/components/schemas/DebtorAccount'
         links:
-          $ref: '#/components/schemas/ResponsePixPayment/properties/links'
+          $ref: '#/components/schemas/LinkSingle'
         meta:
           $ref: '#/components/schemas/Meta'
     ResponseCreatePaymentConsent:
@@ -1466,7 +1464,7 @@ components:
             debtorAccount:
               $ref: '#/components/schemas/DebtorAccount'
         links:
-          $ref: '#/components/schemas/ResponsePixPayment/properties/links'
+          $ref: '#/components/schemas/LinkSingle'
         meta:
           $ref: '#/components/schemas/Meta'
     ResponsePixPayment:
@@ -1479,18 +1477,7 @@ components:
         data:
           $ref: '#/components/schemas/ResponsePixPaymentData'
         links:
-          type: object
-          description: Referências para outros recusos da API requisitada.
-          required:
-            - self
-          properties:
-            self:
-              type: string
-              format: uri
-              maxLength: 2000
-              description: URI completo que gerou a resposta atual.
-              example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-              pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
+          $ref: '#/components/schemas/LinkSingle'
         meta:
           $ref: '#/components/schemas/Meta'
     ResponseCreatePixPayment:
@@ -1591,7 +1578,7 @@ components:
             rejectionReason:
               $ref: '#/components/schemas/RejectionReason'
             localInstrument:
-              $ref: '#/components/schemas/CreatePixPaymentData/properties/localInstrument'
+              $ref: '#/components/schemas/EnumLocalInstrument'
             cnpjInitiator:
               type: string
               pattern: '^\d{14}$'
@@ -1646,7 +1633,7 @@ components:
             debtorAccount:
               $ref: '#/components/schemas/DebtorAccount'
         links:
-          $ref: '#/components/schemas/ResponsePixPayment/properties/links'
+          $ref: '#/components/schemas/LinkSingle'
         meta:
           $ref: '#/components/schemas/Meta'
     ResponsePixPaymentData:
@@ -1740,7 +1727,7 @@ components:
         rejectionReason:
           $ref: '#/components/schemas/RejectionReason'
         localInstrument:
-          $ref: '#/components/schemas/CreatePixPaymentData/properties/localInstrument'
+          $ref: '#/components/schemas/EnumLocalInstrument'
         cnpjInitiator:
           type: string
           pattern: '^\d{14}$'
@@ -1772,7 +1759,7 @@ components:
     Schedule:
       type: object
       description: |
-        Mutuamente exclusivo com o campo date. Este campo é obrigatório no caso de agendamento. Neste caso, o campo date não deve ser informado.
+        Mutuamente excludente com o campo date. Este campo é obrigatório no caso de agendamento. Neste caso, o campo date não deve ser informado.
       required:
         - single
       properties:

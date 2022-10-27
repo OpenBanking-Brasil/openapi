@@ -16,7 +16,7 @@ Estados possíveis:
 AWAITING_AUTHORISATION - Aguardando autorização  
 AUTHORISED - Autorizado   
 REJECTED - Rejeitado  
-CONSUMED - Consumido";Texto;22;Obrigatório;;"AWAITING_AUTHORISATION 
+CONSUMED - Consumido";Texto;;Obrigatório;;"AWAITING_AUTHORISATION 
 AUTHORISED 
 REJECTED 
 CONSUMED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
@@ -29,7 +29,7 @@ CONSUMED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
 /data/businessEntity/document/identification;identification;Número do documento de identificação oficial do titular pessoa jurídica.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11111111111111;
 /data/businessEntity/document/rel;rel;Tipo do documento de identificação oficial do titular pessoa jurídica.;Texto;4;Obrigatório;^[A-Z]{4}$;;1;1;"";Não permitido;string;CNPJ;
 /data/creditor;creditor;Objeto contendo os dados do recebedor (creditor).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/creditor/personType;personType;Titular, pessoa natural ou juridica a quem se referem os dados de recebedor (creditor).;Texto;15;Obrigatório;;"PESSOA_NATURAL 
+/data/creditor/personType;personType;Titular, pessoa natural ou juridica a quem se referem os dados de recebedor (creditor).;Texto;;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA";1;1;"";Não permitido;string;;
 /data/creditor/cpfCnpj;cpfCnpj;"Identificação da pessoa envolvida na transação.  
 Preencher com o CPF ou CNPJ, de acordo com o valor escolhido no campo type.  
@@ -38,8 +38,14 @@ O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou tra
 /data/creditor/name;name;"Em caso de pessoa natural deve ser informado o nome completo do titular da conta do recebedor.  
 Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.";Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ' -]+)$;;1;1;"";Não permitido;string;Marco Antonio de Brito;
 /data/payment;payment;Objeto contendo dados de pagamento para consentimento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/payment/type;type;Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.;Texto;3;Obrigatório;;PIX;1;1;"";Não permitido;string;PIX;
-/data/payment/date;date;Data do pagamento observando o horário de Brasília e horário de verão quando houver.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-01-01;
+/data/payment/type;type;Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.;Texto;;Obrigatório;;PIX;1;1;"";Não permitido;string;PIX;
+/data/payment/schedule;schedule;"";"";;Opcional;;;0;1;"";Não permitido;;;
+/data/payment/date;date;"";Data;10;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;" Mutuamente excludente com o objeto schedule. 
+
+Este campo é obrigatório no caso de pagamento único. 
+
+Neste caso, o objeto schedule não deve ser informado.
+";Não permitido;string;2021-01-01;
 /data/payment/currency;currency;"Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRL;
 /data/payment/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Obrigatório;^((\d{1,16}\.\d{2}))$;;1;1;"";Não permitido;string;100000.12;4
@@ -52,7 +58,7 @@ Todos os valores monetários informados estão representados com a moeda vigente
 - DICT - Inserção manual de chave Pix
 - QRDN - QR code dinâmico
 - QRES - QR code estático
-- INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.";Texto;4;Obrigatório;;"MANU 
+- INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.";Texto;;Obrigatório;;"MANU 
 DICT 
 QRDN 
 QRES 
@@ -93,7 +99,7 @@ Segue descrição de cada valor do ENUM para o escopo do Pix.
 CACC - Current - Conta Corrente.  
 SLRY - Salary - Conta-Salário.  
 SVGS - Savings - Conta de Poupança.  
-TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;4;Obrigatório;;"CACC 
+TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;;Obrigatório;;"CACC 
 SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
@@ -113,7 +119,7 @@ Segue descrição de cada valor do ENUM para o escopo do Pix.
 CACC - Current - Conta Corrente.  
 SLRY - Salary - Conta-Salário.  
 SVGS - Savings - Conta de Poupança.  
-TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;4;Obrigatório;;"CACC 
+TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;;Obrigatório;;"CACC 
 SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;

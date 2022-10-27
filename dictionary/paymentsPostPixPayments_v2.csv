@@ -93,7 +93,7 @@ FALHA_INFRAESTRUTURA";1;1;"";Não permitido;string;SALDO_INSUFICIENTE;
 - DICT - Inserção manual de chave Pix
 - QRDN - QR code dinâmico
 - QRES - QR code estático
-- INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.";Texto;4;Obrigatório;;"MANU 
+- INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.";Texto;;Obrigatório;;"MANU 
 DICT 
 QRDN 
 QRES 
@@ -125,7 +125,7 @@ Segue descrição de cada valor do ENUM para o escopo do Pix.
 CACC - Current - Conta Corrente.  
 SLRY - Salary - Conta-Salário.  
 SVGS - Savings - Conta de Poupança.  
-TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;4;Obrigatório;;"CACC 
+TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;;Obrigatório;;"CACC 
 SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
@@ -145,7 +145,7 @@ Segue descrição de cada valor do ENUM para o escopo do Pix.
 CACC - Current - Conta Corrente.  
 SLRY - Salary - Conta-Salário.  
 SVGS - Savings - Conta de Poupança.  
-TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;4;Obrigatório;;"CACC 
+TRAN - TransactingAccount - Conta de Pagamento pré-paga.";Texto;;Obrigatório;;"CACC 
 SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
