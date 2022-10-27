@@ -38,6 +38,91 @@ info:
 
     Para o caso de Pix imediato, todas as aprovações necessárias devem ser realizadas nos canais da detentora até às 23:59 (horário de Brasília) da data de solicitação do pagamento.
     Já para o caso de Pix agendado, todas as aprovações devem ser realizadas até a data/hora limite suportada pela detentora.
+
+    ## Validações
+    **Validações** (*após o processo de DCR e obtenção de token client credential*– não escopo dessa documentação)  
+    Durante a jornada de iniciação de pagamento, diferentes validações são necessárias pela instituição detentora 
+    de conta e devem ocorrer conforme a seguir: 
+
+    1. Na criação do consentimento (*POST /consents*); 
+    2. Na criação do pagamento - Síncrono (*POST /payments*); 
+    3. Validações na consulta do pagamento (*GET /pix/payments/{paymentId}*);
+    4. Demais validações executadas durante o processamento assíncrono pela detentora (consultadas pela iniciadora através do endpoint *GET  /pix/payments/{paymentId}*).
+
+    **Os tipos de validações dispostas abaixo não determinam a ordem em que as instituições devem implementá-las**
+
+    1. **Validações na criação do consentimento (_POST /consents_)**  
+      1.1 **Orientações Iniciais**  
+        &ensp;1.1.1 Não devem ser retornadas informações associadas ao usuário/cliente (ex. insuficiência de saldo, conta inexistente/bloqueada), uma vez que o cliente ainda não autorizou o consentimento / consumo de seus dados para o pagamento.  
+        &ensp;1.1.2 Não devem ser executadas validações no DICT (Diretório de Identificadores de Contas Transacionais do Pix), à partir dos dados compartilhados nesse *endpoint*. Tais  validações podem ocorrer somente na criação do pagamento;  
+      1.2 **Casos de erro relacionados às permissões de segurança para acesso à API (ex. certificado, access_token, jwt, assinatura)**  
+        &ensp;1.2.1 Validação de Certificado: Valida utilização de certificado correto durante processo de DCR - HTTP Code 401 (INVALID_CLIENT);  
+        &ensp;1.2.2 Validação de Access_Token: Verifica se Access_Token utilizado está correto - HTTP Code 401 (UNAUTHORIZED);  
+        &ensp;1.2.3 Validação de assinatura da mensagem: Valida se assinatura das mensagens enviadas está correta – HTTP Code 400 (BAD_SIGNATURE);  
+        &ensp;1.2.4 Validação de Claims (exceto data);  
+          &emsp;1.2.4.1 Valida se dados (aud, iss, iat e jti) são válidos - HTTP Code 401 (INVALID_CLIENT);  
+          &emsp;1.2.4.2 Valida reuso de jti - HTTP Code 403 (INVALID_CLIENT).  
+      1.3 **Casos de erros sintáticos e semânticos, previstos com retorno HTTP Code 422 - Unprocessable Entity (detalhamento adicional na documentação técnica da API):**   
+        &ensp;1.3.1 **Sintáticas**  
+          &emsp;1.3.1.1 Envio de campos obrigatórios: Valida se todos os campos obrigatórios são informados (PARAMETRO_NAO_INFORMADO);  
+          &emsp;1.3.1.2 Formatação de parâmetros: Valida se parâmetros informados obedecem a formatação especificada (PARAMETRO_INVALIDO).  
+        &ensp;1.3.2 **Semânticas**  
+          &emsp;1.3.2.1 Forma de pagamento: Valida se a forma de pagamento é suportada pela detentora (FORMA_PAGAMENTO_INVALIDA) **Obs. No detalhe do erro, a variável “modalidade” deve ser comunicada pela detentora da forma mais clara possível - ex. modalidade de pagamento não suportada (_localInstrument_ - QRES) ou tipo de arranjo pagamento não suportado (_type_ – ex. Pix / TED – previsto para inclusão futura);**  
+          &emsp;1.3.2.2 Data de pagamento: Valida se a data de pagamento enviada é válida para a forma de pagamento selecionada (DATA_PAGAMENTO_INVALIDA);  
+          &emsp;1.3.2.3 Detalhes do pagamento: Valida se determinado parâmetro informado obedece às regras de negócio (DETALHE_PAGAMENTO_INVALIDO);  
+          &emsp;1.3.2.4 Demais validações não explicitamente informadas (ex. suspeita de fraude): (NAO_INFORMADO);  
+          &emsp;1.3.2.5 Idempotência: Valida se há divergência entre chave de idempotência e informações enviadas (ERRO_IDEMPOTENCIA).  
+
+    2. **Validações na criação do pagamento - Síncrono (_POST /payments_)**  
+      2.1 **Casos de erro relacionados às permissões de segurança para acesso à API (ex. certificado, access_token, jwt, assinatura)**  
+        &ensp;2.1.1 Validação de Certificado: Valida utilização de certificado correto durante processo de DCR - HTTP Code 401 (INVALID_CLIENT);  
+        &ensp;2.1.2 Validação de Access_Token: Verifica se Access_Token utilizado está correto - HTTP Code 401 (UNAUTHORIZED);  
+        &ensp;2.1.3 Validação de assinatura da mensagem: Valida se assinatura das mensagens enviadas está correta – HTTP Code 400 (BAD_SIGNATURE);  
+        &ensp;2.1.4 Validação de Claims (exceto data);  
+          &emsp;2.1.4.1 Valida se dados (aud, iss, iat e jti) são válidos - HTTP Code 401 (INVALID_CLIENT);  
+          &emsp;2.1.4.2 Valida reuso de jti - HTTP Code 403 (INVALID_CLIENT).  
+      2.2 **Casos de erro sintáticos e semânticos, previstos com retorno HTTP Code 422 - Unprocessable Entity (detalhamento adicional na documentação técnica da API):**  
+        &ensp;2.2.1 **Sintáticas**  
+          &emsp;2.3.1.1 Envio de campos obrigatórios: Valida se todos os campos obrigatórios são informados (PARAMETRO_NAO_INFORMADO);  
+          &emsp;2.3.1.2 Formatação de parâmetros: Valida se parâmetros informados obedecem a formatação especificada (PARAMETRO_INVALIDO).  
+        &ensp;2.2.2 **Semânticas**  
+          &emsp;2.2.2.1 Saldo do usuário: Valida se a conta selecionada possui saldo suficiente para realizar o pagamento (SALDO_INSUFICIENTE);  
+          &emsp;2.2.2.2 Limites da transação: Valida se valor (ou quantidade de transações) ultrapassa faixa de limite parametrizada na detentora (VALOR_ACIMA_LIMITE);  
+          &emsp;2.2.2.3 Valor informado (QR Code): Valida se valor enviado é válido para o QR Code informado (VALOR_INVALIDO);  
+          &emsp;2.2.2.4 Cobrança inválida: Valida expiração, vencimento e status (COBRANCA_INVALIDA);  
+          &emsp;2.2.2.5 Status Consentimento: Valida se status de consentimento é diferente de “AUTHORISED” (CONSENTIMENTO_INVALIDO);  
+          &emsp;2.2.2.6 Divergência entre pagamento e consentimento: Valida se dados do pagamento são diferentes dos dados do consentimento (PAGAMENTO_DIVERGENTE_CONSENTIMENTO)  
+          &emsp;2.2.2.7 Recusado pela detentora: Valida se pagamento foi recusado pela detentora (PAGAMENTO_RECUSADO_DETENTORA), com a descrição do motivo de recusa (ex. chave Pix inválida, QRCode inválido, conta bloqueada);  
+          &emsp;2.2.2.8 Detalhes do pagamento: Valida se determinado parâmetro informado obedece às regras de negócio (DETALHE_PAGAMENTO_INVALIDO);  
+          &emsp;2.2.2.9 Demais validações não explicitamente informadas (ex. suspeita de fraude): (NAO_INFORMADO);  
+          &emsp;2.2.2.10 Idempotência: Valida se há divergência entre chave de idempotência e informações enviadas (ERRO_IDEMPOTENCIA).  
+      2.3 **Casos de erro para validações síncronas no DICT**  
+        &ensp;Nesse cenário, o pagamento não é criado, porém o consentimento deve ser alterado para o status CONSUMED Retorno esperado do endpoint POST/Payments: HTTP Code 422 - Unprocessable Entity:  
+        &ensp;• Erro por dados inválidos: Conforme item **2.2.2.8**  
+        &ensp;• Erro por suspeita de fraude: Conforme item **2.2.2.9**  
+
+    3. **Validações na consulta do pagamento (_GET /pix/payments/{paymentId}_)**  
+      3.1 **Casos de erro relacionados às permissões de segurança para acesso à API (ex. certificado, access_token)**  
+        &ensp;3.1.1 Validação de Certificado: Valida utilização de certificado correto durante processo de DCR - HTTP Code 401 (INVALID_CLIENT);  
+        &ensp;3.1.2 Validação de Access_Token: Verifica se Access_Token utilizado está correto - HTTP Code 401 (UNAUTHORIZED).  
+
+    4. **Demais validações executadas durante o processamento assíncrono pela detentora, poderão ser consultados pela iniciadora através do endpoint _GET /pix/payments/{paymentId}_ previstos com retorno HTTP Code 200 – OK com status RJCT (Rejected) e rejectionReason conforme abaixo (detalhamento adicional na documentação técnica da API):**  
+      4.1 **Demais validações durante processamento assíncrono**  
+        &ensp;4.1.1 Saldo do usuário: Valida se a conta selecionada possui saldo suficiente para realizar o pagamento (SALDO_INSUFICIENTE);  
+        &ensp;4.1.2 Limites da transação: Valida se valor (ou quantidade de transações) ultrapassa faixa de limite parametrizada na detentora (VALOR_ACIMA_LIMITE);  
+        &ensp;4.1.3 Valor informado (QR Code): Valida se valor enviado é válido para o QR Code informado (VALOR_INVALIDO);  
+        &ensp;4.1.4 Cobrança inválida: Valida expiração, vencimento e status (COBRANCA_INVALIDA);  
+        &ensp;4.1.5 Divergência entre pagamento e consentimento: Valida se dados do pagamento são diferentes dos dados do consentimento (PAGAMENTO_DIVERGENTE_CONSENTIMENTO);  
+        &ensp;4.1.6 Recusado pela detentora: Valida se pagamento foi recusado pela detentora (PAGAMENTO_RECUSADO_DETENTORA), com a descrição do motivo de recusa (ex. chave Pix inválida, QRCode inválido, conta bloqueada);  
+        &ensp;4.1.7 Detalhes do pagamento: Valida se determinado parâmetro informado obedece às regras de negócio (DETALHE_PAGAMENTO_INVALIDO);  
+        &ensp;4.1.8 Demais validações não explicitamente informadas (ex. suspeita de fraude): (NAO_INFORMADO);  
+        &ensp;4.1.9 Validação SPI: Externaliza validações no SPI (PAGAMENTO_RECUSADO_SPI);  
+      4.2 **Casos de erro para validações assíncronas no DICT**  
+        &ensp;Neste cenário o pagamento é criado com sucesso (status RCVD) e o consentimento é consumido (status CONSUMED), porém, as validações contra o DICT só ocorrerão de forma assíncrona e em caso de negativa será percebido pela iniciadora na consulta do pagamento (GET /Payments).  
+        &ensp;Retorno esperado do endpoint GET /Payments: HTTP Code 200 - OK.  
+        &ensp;Status do Pagamento: RJCT (Rejected), com as seguintes opções rejectionReason:  
+        &ensp;• Erro por dados inválidos: Conforme item **4.1.7**;  
+        &ensp;• Erro por suspeita de fraude: Conforme item **4.1.8**.
   version: 2.0.0-rc1.0
   license:
     name: Apache 2.0
@@ -279,16 +364,22 @@ components:
                 type: string
                 maxLength: 21
                 enum:
-                  - FORMA_PGTO_INVALIDA
-                  - DATA_PGTO_INVALIDA
+                  - FORMA_PAGAMENTO_INVALIDA
+                  - DATA_PAGAMENTO_INVALIDA
                   - DETALHE_PGTO_INVALIDO
+                  - PARAMETRO_NAO_INFORMADO
+                  - PARAMETRO_INVALIDO
+                  - ERRO_IDEMPOTENCIA
                   - NAO_INFORMADO
-                example: FORMA_PGTO_INVALIDA
+                example: FORMA_PAGAMENTO_INVALIDA
                 description: |
                   Códigos de erros previstos na criação de consentimento para a iniciação de pagamentos:  
-                  • FORMA_PGTO_INVALIDA: Forma de pagamento inválida.  
-                  • DATA_PGTO_INVALIDA: Data de pagamento inválida.  
-                  • DETALHE_PGTO_INVALIDO: Detalhe do pagamento inválido.  
+                  • FORMA_PAGAMENTO_INVALIDA: Forma de pagamento inválida.  
+                  • DATA_PAGAMENTO_INVALIDA: Data de pagamento inválida.  
+                  • DETALHE_PAGAMENTO_INVALIDO: Detalhe do pagamento inválido.  
+                  • PARAMETRO_NAO_INFORMADO: Parâmetro não informado.  
+                  • PARAMETRO_INVALIDO: Parâmetro inválido.  
+                  • ERRO_IDEMPOTENCIA: Erro idempotência.  
                   • NAO_INFORMADO: Não informado.   
               title:
                 type: string
@@ -297,21 +388,27 @@ components:
                 example: Forma de pagamento inválida.
                 description: |
                   Título específico do erro reportado, de acordo com o código enviado:  
-                  • FORMA_PGTO_INVALIDA: Forma de pagamento inválida.  
-                  • DATA_PGTO_INVALIDA: Data de pagamento inválida. 
-                  • DETALHE_PGTO_INVALIDO: Detalhe do pagamento inválido.
+                  • FORMA_PAGAMENTO_INVALIDA: Forma de pagamento inválida.  
+                  • DATA_PAGAMENTO_INVALIDA: Data de pagamento inválida.  
+                  • DETALHE_PAGAMENTO_INVALIDO: Detalhe do pagamento inválido.  
+                  • PARAMETRO_NAO_INFORMADO: Parâmetro não informado.  
+                  • PARAMETRO_INVALIDO: Parâmetro inválido.  
+                  • ERRO_IDEMPOTENCIA: Erro idempotência.  
                   • NAO_INFORMADO: Não informado.    
               detail:
                 type: string
                 maxLength: 2048
                 pattern: '[\w\W\s]*'
-                example: Meio de pagamento inválido.
+                example: 'Forma de pagamento [Modalidade] não suportada.'
                 description: |
                   Descrição específica do erro de acordo com o código reportado:  
-                  • FORMA_PGTO_INVALIDA – Meio de pagamento inválido.  
-                  • DATA_PGTO_INVALIDA – Data de pagamento inválida no contexto, por exemplo, data no passado. Para pagamentos únicos deve ser informada a data atual, do dia corrente.  
-                  • DETALHE_PGTO_INVALIDO: O campo [nome_campo] não atende os requisitos de preenchimento.  
-                  • NAO_INFORMADO – Não reportado/identificado pela instituição detentora de conta.  
+                  • FORMA_PAGAMENTO_INVALIDA: Forma de pagamento [Modalidade] não suportada.  
+                  • DATA_PAGAMENTO_INVALIDA: Data de pagamento inválida para a forma de pagamento selecionada.  
+                  • DETALHE_PAGAMENTO_INVALIDO: Parâmetro [nome_campo] não obedece às regras de negócio.  
+                  • PARAMETRO_NAO_INFORMADO: Parâmetro [nome_campo] obrigatório não informado.  
+                  • PARAMETRO_INVALIDO: Parâmetro [nome_campo] não obedece as regras de formatação esperadas.  
+                  • ERRO_IDEMPOTENCIA: Conteúdo da mensagem (claim data) diverge do conteúdo associado a esta chave de idempotência (x-idempotency-key).  
+                  • NAO_INFORMADO: Não reportado/identificado pela instituição detentora de conta.  
         meta:
           $ref: '#/components/schemas/Meta'
     422ResponseErrorCreatePixPayment:
@@ -356,15 +453,21 @@ components:
 
                   • JANELA_OPER_INVALIDA: Janela de operação inválida.
 
-                  • PARAMETRO_NAO_INFORMADO: Parâmetro obrigatório não informado
+                  • PARAMETRO_NAO_INFORMADO: Parâmetro obrigatório não informado.
 
-                  • PARAMETRO_INVALIDO: Parâmetro com valor inválido
+                  • PARAMETRO_INVALIDO: Parâmetro com valor inválido.
 
                   • NAO_INFORMADO: Não informado.
 
-                  • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: divergência entre pagamento e consentimento.
+                  • PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Divergência entre pagamento e consentimento.
 
-                  • DETALHE_PGTO_INVALIDO: Detalhe do pagamento inválido.
+                  • DETALHE_PAGAMENTO_INVALIDO: Detalhe do pagamento inválido.
+
+                  • PAGAMENTO_RECUSADO_DETENTORA: Pagamento recusado pela detentora de conta.
+
+                  • PAGAMENTO_RECUSADO_SPI: Pagamento recusado no Sistema de Pagamentos Instantâneos (SPI).
+
+                  • ERRO_IDEMPOTENCIA: Erro idempotência.
               detail:
                 type: string
                 maxLength: 2048
@@ -395,9 +498,15 @@ components:
 
                   • NAO_INFORMADO: Não reportado/identificado pela instituição detentora de conta.
 
-                  • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
+                  • PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
 
-                  • DETALHE_PGTO_INVALIDO: Parâmetro [nome_campo] diverge do cadastrado no DICT.
+                  • DETALHE_PAGAMENTO_INVALIDO: Parâmetro [nome_campo] não obedece às regras de negócio.
+
+                  • PAGAMENTO_RECUSADO_DETENTORA: [descrição do motivo de recusa].
+
+                  • PAGAMENTO_RECUSADO_SPI: [código de erro conforme tabela de domínios reason PACS.002].
+
+                  • ERRO_IDEMPOTENCIA: Conteúdo da mensagem (claim data) diverge do conteúdo associado a esta chave de idempotência (x-idempotency-key).
         meta:
           $ref: '#/components/schemas/Meta'
     BusinessEntity:
@@ -760,7 +869,9 @@ components:
 
         Admite-se que o ´EndToEndId´ seja gerado pelo participante direto, pelo participante indireto ou pelo iniciador de pagamento.
           
-        Ele deve ser único, não podendo ser repetido em qualquer outra operação enviada ao SPI.  
+        Ele deve ser único, não podendo ser repetido em qualquer outra operação enviada ao SPI.
+
+        No caso de Pix agendamento, a iniciadora deverá, no que tange a composição do endToEndId, utilizar a data para a qual o Pix está sendo agendado e horário fixo 15:00 UTC, que dará para a detentora a janela de efetivação de 00:00 e 23:59 do horário de Brasília.  
     EnumAccountPaymentsType:
       type: string
       maxLength: 4
@@ -813,37 +924,46 @@ components:
         - PARAMETRO_NAO_INFORMADO
         - PARAMETRO_INVALIDO
         - NAO_INFORMADO
-        - PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO
-        - DETALHE_PGTO_INVALIDO
+        - PAGAMENTO_DIVERGENTE_CONSENTIMENTO
+        - DETALHE_PAGAMENTO_INVALIDO
+        - PAGAMENTO_RECUSADO_DETENTORA
+        - PAGAMENTO_RECUSADO_SPI
+        - ERRO_IDEMPOTENCIA
       example: SALDO_INSUFICIENTE
       description: |
         Códigos de erros previstos na criação da iniciação de pagamento:
 
-        • SALDO_INSUFICIENTE – Esta conta não possui saldo suficiente para realizar o pagamento.
+        • SALDO_INSUFICIENTE: Esta conta não possui saldo suficiente para realizar o pagamento.
 
-        • BENEFICIARIO_INCOMPATIVEL – O beneficiário informado no consentimento não é o mesmo do esperado pelo DICT.
+        • BENEFICIARIO_INCOMPATIVEL: O beneficiário informado no consentimento não é o mesmo do esperado pelo DICT.
 
-        • VALOR_INCOMPATIVEL – O valor informado no consentimento não é o mesmo valor do informado no payload de pagamento.
+        • VALOR_INCOMPATIVEL: O valor informado no consentimento não é o mesmo valor do informado no payload de pagamento.
 
-        • VALOR_ACIMA_LIMITE – O valor (ou quantidade de transações) ultrapassa a faixa de limite parametrizada na detentora para permitir a realização de transações pelo cliente.
+        • VALOR_ACIMA_LIMITE: O valor (ou quantidade de transações) ultrapassa a faixa de limite parametrizada na detentora para permitir a realização de transações pelo cliente.
 
-        • VALOR_INVALIDO – O valor enviado não é válido para o QR Code informado.
+        • VALOR_INVALIDO: O valor enviado não é válido para o QR Code informado.
 
-        • COBRANCA_INVALIDA – Validação de expiração, validação de vencimento, Status Válido.
+        • COBRANCA_INVALIDA: Validação de expiração, validação de vencimento, Status Válido.
 
-        • CONSENTIMENTO_INVALIDO – Consentimento inválido (status não é "authorised" ou está expirado).
+        • CONSENTIMENTO_INVALIDO: Consentimento inválido (status não é "authorised" ou está expirado).
 
-        • JANELA_OPER_INVALIDA – Requisição está fora da janela de funcionamento.
+        • JANELA_OPER_INVALIDA: Requisição está fora da janela de funcionamento.
 
         • PARAMETRO_NAO_INFORMADO: Parâmetro não informado.  
 
         • PARAMETRO_INVALIDO: Parâmetro inválido.
 
-        • NAO_INFORMADO – Não informada pela detentora de conta.
+        • NAO_INFORMADO: Não informada pela detentora de conta.
 
-        • PAGAMENTO_DIVERGENTE_DO_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
+        • PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento.
 
-        • DETALHE_PGTO_INVALIDO: Parâmetro [nome_campo] diverge do cadastrado no DICT.
+        • DETALHE_PAGAMENTO_INVALIDO: Detalhe do pagamento inválido.
+
+        • PAGAMENTO_RECUSADO_DETENTORA: Pagamento recusado pela detentora de conta.
+
+        • PAGAMENTO_RECUSADO_SPI: Pagamento recusado no Sistema de Pagamentos Instantâneos (SPI).
+
+        • ERRO_IDEMPOTENCIA: Erro idempotência.
     EnumLocalInstrument:
       type: string
       maxLength: 4
@@ -956,7 +1076,8 @@ components:
         Motivo da rejeição do pagamento. Informações complementares sobre o motivo do status
         [Restrição] Esse motivo deverá ser enviado quando o campo /data/status for igual a RJCT (REJECTED).
       required:
-        - status
+        - code
+        - detail
       properties:
         code:
           $ref: '#/components/schemas/EnumRejectionReasonType'
@@ -1672,7 +1793,7 @@ components:
 
                 O fuso horário de Brasília deve ser utilizado para criação e racionalização sobre os dados deste campo.
 
-                Observação: Esse campo deverá sempre ser no mínimo D+1 corrido, ou seja, a data imediatamente posterior em relação a data do consentimento considerando o fuso horário de Brasília e deverá ser no máximo um ano corrido D+365 corridos a partir da data do consentimento considerando o fuso horário de Brasília
+                Observação: Esse campo deverá sempre ser no mínimo D+1 corrido, ou seja, a data imediatamente posterior em relação a data do consentimento considerando o fuso horário de Brasília e deverá ser no máximo D+365 corridos a partir da data do consentimento considerando o fuso horário de Brasília
     XFapiInteractionId:
       type: string
       pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
@@ -1894,9 +2015,9 @@ components:
               summary: Forma de pagamento inválida
               value:
                 errors:
-                  - code: FORMA_PGTO_INVALIDA
+                  - code: FORMA_PAGAMENTO_INVALIDA
                     title: Forma de pagamento inválida.
-                    detail: Meio de pagamento inválido.
+                    detail: 'Forma de pagamento [Modalidade] não suportada.'
                 meta:
                   requestDateTime: '2021-05-21T08:30:00Z'
       headers:

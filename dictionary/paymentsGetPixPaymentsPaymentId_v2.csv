@@ -77,7 +77,7 @@ PAGAMENTO_RECUSADO_DETENTORA
 
 PAGAMENTO_RECUSADO_SPI
 
-FALHA_INFRAESTRUTURA";Texto;;Opcional;;"SALDO_INSUFICIENTE 
+FALHA_INFRAESTRUTURA";Texto;;Obrigatório;;"SALDO_INSUFICIENTE 
 VALOR_ACIMA_LIMITE 
 VALOR_INVALIDO 
 COBRANCA_INVALIDA 
@@ -86,8 +86,8 @@ PAGAMENTO_DIVERGENTE_CONSENTIMENTO
 DETALHE_PAGAMENTO_INVALIDO 
 PAGAMENTO_RECUSADO_DETENTORA 
 PAGAMENTO_RECUSADO_SPI 
-FALHA_INFRAESTRUTURA";0;1;"";Não permitido;string;SALDO_INSUFICIENTE;
-/data/rejectionReason/detail;detail;Contém informações adicionais ao pagamento rejeitado;Texto;2048;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;;
+FALHA_INFRAESTRUTURA";1;1;"";Não permitido;string;SALDO_INSUFICIENTE;
+/data/rejectionReason/detail;detail;Contém informações adicionais ao pagamento rejeitado;Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;;
 /data/localInstrument;localInstrument;"Especifica a forma de iniciação do pagamento:
 - MANU - Inserção manual de dados da conta transacional
 - DICT - Inserção manual de chave Pix
