@@ -556,7 +556,6 @@ components:
               description: Objeto contendo dados de pagamento para consentimento.
               required:
                 - type
-                - date
                 - currency
                 - amount
                 - details
@@ -564,14 +563,20 @@ components:
                 type:
                   $ref: '#/components/schemas/EnumPaymentType'
                 schedule:
-                  $ref: '#/components/schemas/Schedule'
+                  oneOf:
+                    - $ref: '#/components/schemas/Schedule'
                 date:
                   type: string
                   format: date
                   maxLength: 10
                   pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
                   example: '2021-01-01'
-                  description: 'Mutuamente exclusivo com o objeto schedule. Este campo é obrigatório no caso de pagamento único. Neste caso, o objeto schedule não deve ser informado.'
+                  description: |
+                    [Restrição] Mutuamente excludente com o objeto schedule. 
+
+                    Este campo é obrigatório no caso de pagamento único. 
+
+                    Neste caso, o objeto schedule não deve ser informado.
                 currency:
                   type: string
                   maxLength: 3
@@ -1414,7 +1419,6 @@ components:
               description: Objeto contendo dados de pagamento para consentimento.
               required:
                 - type
-                - date
                 - currency
                 - amount
                 - details
@@ -1422,14 +1426,20 @@ components:
                 type:
                   $ref: '#/components/schemas/EnumPaymentType'
                 schedule:
-                  $ref: '#/components/schemas/Schedule'
+                  oneOf:
+                    - $ref: '#/components/schemas/Schedule'
                 date:
                   type: string
                   format: date
                   maxLength: 10
                   pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
                   example: '2021-01-01'
-                  description: 'Mutuamente exclusivo com o objeto schedule. Este campo é obrigatório no caso de pagamento único. Neste caso, o objeto schedule não deve ser informado.'
+                  description: |
+                    [Restrição] Mutuamente excludente com o objeto schedule. 
+
+                    Este campo é obrigatório no caso de pagamento único. 
+
+                    Neste caso, o objeto schedule não deve ser informado.
                 currency:
                   type: string
                   maxLength: 3
@@ -1759,7 +1769,11 @@ components:
     Schedule:
       type: object
       description: |
-        Mutuamente excludente com o campo date. Este campo é obrigatório no caso de agendamento. Neste caso, o campo date não deve ser informado.
+        [Restrição] Mutuamente excludente com o campo date. 
+
+        Este campo é obrigatório no caso de agendamento. 
+
+        Neste caso, o campo date não deve ser informado.
       required:
         - single
       properties:
