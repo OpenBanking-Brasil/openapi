@@ -1382,6 +1382,94 @@ components:
                       description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
                       example: CPF
                       pattern: '^[A-Z]{3}$'
+    PatchPixPaymentCancellation:
+      type: object
+      description: |
+        Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.
+      required:
+        - cancelledAt
+        - cancelledBy
+      properties:
+        cancelledAt:
+          type: string
+          description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
+          format: date-time
+          maxLength: 20
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+          example: '2021-05-21T08:30:00Z'
+        cancelledBy:
+          type: object
+          description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
+          required:
+            - document
+          properties:
+            document:
+              type: object
+              description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+              required:
+                - identification
+                - rel
+              properties:
+                identification:
+                  type: string
+                  maxLength: 11
+                  description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                  example: '11111111111'
+                  pattern: '^\d{11}$'
+                rel:
+                  type: string
+                  maxLength: 3
+                  description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                  example: CPF
+                  pattern: '^[A-Z]{3}$'
+    PixPaymentCancellation:
+      type: object
+      description: |
+        Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.  
+
+        [Restrição] O objeto cancellation será obrigatório apenas quando o valor do campo status for igual a CANC. 
+      required:
+        - cancelledAt
+        - cancelledBy
+        - reason
+        - cancelledFrom
+      properties:
+        reason:
+          $ref: '#/components/schemas/EnumPaymentCancellationReasonType'
+        cancelledFrom:
+          $ref: '#/components/schemas/EnumPaymentCancellationFromType'
+        cancelledAt:
+          type: string
+          description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
+          format: date-time
+          maxLength: 20
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+          example: '2021-05-21T08:30:00Z'
+        cancelledBy:
+          type: object
+          description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
+          required:
+            - document
+          properties:
+            document:
+              type: object
+              description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+              required:
+                - identification
+                - rel
+              properties:
+                identification:
+                  type: string
+                  maxLength: 11
+                  description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                  example: '11111111111'
+                  pattern: '^\d{11}$'
+                rel:
+                  type: string
+                  maxLength: 3
+                  description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                  example: CPF
+                  pattern: '^[A-Z]{3}$'
     ResponseError:
       type: object
       required:
@@ -1780,45 +1868,7 @@ components:
         creditorAccount:
           $ref: '#/components/schemas/CreditorAccount'
         cancellation:
-          type: object
-          description: |
-            Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.
-          required:
-            - cancelledAt
-            - cancelledBy
-          properties:
-            cancelledAt:
-              type: string
-              description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
-              format: date-time
-              maxLength: 20
-              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
-              example: '2021-05-21T08:30:00Z'
-            cancelledBy:
-              type: object
-              description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
-              required:
-                - document
-              properties:
-                document:
-                  type: object
-                  description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
-                  required:
-                    - identification
-                    - rel
-                  properties:
-                    identification:
-                      type: string
-                      maxLength: 11
-                      description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
-                      example: '11111111111'
-                      pattern: '^\d{11}$'
-                    rel:
-                      type: string
-                      maxLength: 3
-                      description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
-                      example: CPF
-                      pattern: '^[A-Z]{3}$'
+          $ref: '#/components/schemas/PatchPixPaymentCancellation'
         debtorAccount:
           $ref: '#/components/schemas/DebtorAccount'
     ResponseCreatePixPayment:
@@ -2096,53 +2146,7 @@ components:
         creditorAccount:
           $ref: '#/components/schemas/CreditorAccount'
         cancellation:
-          type: object
-          description: |
-            Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.  
-
-            [Restrição] O objeto cancellation será obrigatório apenas quando o valor do campo status for igual a CANC. 
-          required:
-            - cancelledAt
-            - cancelledBy
-            - reason
-            - cancelledFrom
-          properties:
-            reason:
-              $ref: '#/components/schemas/EnumPaymentCancellationReasonType'
-            cancelledFrom:
-              $ref: '#/components/schemas/EnumPaymentCancellationFromType'
-            cancelledAt:
-              type: string
-              description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
-              format: date-time
-              maxLength: 20
-              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
-              example: '2021-05-21T08:30:00Z'
-            cancelledBy:
-              type: object
-              description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
-              required:
-                - document
-              properties:
-                document:
-                  type: object
-                  description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
-                  required:
-                    - identification
-                    - rel
-                  properties:
-                    identification:
-                      type: string
-                      maxLength: 11
-                      description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
-                      example: '11111111111'
-                      pattern: '^\d{11}$'
-                    rel:
-                      type: string
-                      maxLength: 3
-                      description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
-                      example: CPF
-                      pattern: '^[A-Z]{3}$'
+          $ref: '#/components/schemas/PixPaymentCancellation'
         debtorAccount:
           $ref: '#/components/schemas/DebtorAccount'
     Schedule:
