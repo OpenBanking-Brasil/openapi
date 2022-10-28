@@ -108,7 +108,7 @@ components:
               resourceId:
                 type: string
                 description: |
-                  Identifica o recurso reportado pelo participante do Open Banking, no caso de:
+                  Identifica o recurso reportado pelo participante do Open Finance, no caso de:
                   Contas de depósito à vista, de poupança ou de pagamento pré-paga : corresponde ao accountId;
                   Conta de pagamento pós-paga: corresponde ao creditCardAccountId;
                   Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.
