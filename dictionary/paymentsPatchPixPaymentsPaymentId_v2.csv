@@ -127,6 +127,25 @@ SLRY
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
 /data/cancellation;cancellation;Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/cancellation/reason;reason;"O preenchimento desse campo para retorno, deve ocorrer pela detentora de contas a partir do status em que o pagamento estiver no momento da solicitação do cancelamento (ex. Status de pagamento = PDNG, campo deve ser preenchido com enum CANCELADO_PENDENCIA)
+
+Valores possíveis:
+
+CANCELADO_PENDENCIA - Pagamento cancelado enquanto estava na situação PDNG
+
+CANCELADO_AGENDAMENTO - Pagamento cancelado enquanto estava na situação SCHD
+
+CANCELADO_MULTIPLAS_ALCADAS - Pagamento cancelado enquanto estava na situação PATC";Texto;;Obrigatório;;"CANCELADO_PENDENCIA 
+CANCELADO_AGENDAMENTO 
+CANCELADO_MULTIPLAS_ALCADAS";1;1;"";Não permitido;string;CANCELADO_PENDENCIA;
+/data/cancellation/cancelledFrom;cancelledFrom;"Campo utilizado para informar o meio pelo qual foi realizado o cancelamento.
+
+Valores possíveis:
+
+INICIADORA - Pagamento cancelado pelo usuário pagador nos canais da iniciadora
+
+DETENTORA - Pagamento cancelado pelo usuário pagador nos canais da detentora";Texto;;Obrigatório;;"INICIADORA 
+DETENTORA";1;1;"";Não permitido;string;INICIADORA;
 /data/cancellation/cancelledAt;cancelledAt;Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/cancellation/cancelledBy;cancelledBy;Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/cancellation/cancelledBy/document;document;Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;

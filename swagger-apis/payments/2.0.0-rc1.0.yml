@@ -1350,13 +1350,7 @@ components:
             Observação: este campo é necessário porque, em casos de múltiplas alçadas de autorização, é possível que o pagamento seja solicitado por um usuário pagador e cancelado por outro.
           required:
             - cancelledBy
-            - reason
-            - cancelledFrom
           properties:
-            reason:
-              $ref: '#/components/schemas/EnumPaymentCancellationReasonType'
-            cancelledFrom:
-              $ref: '#/components/schemas/EnumPaymentCancellationFromType'
             cancelledBy:
               type: object
               description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
@@ -1389,7 +1383,13 @@ components:
       required:
         - cancelledAt
         - cancelledBy
+        - reason
+        - cancelledFrom
       properties:
+        reason:
+          $ref: '#/components/schemas/EnumPaymentCancellationReasonType'
+        cancelledFrom:
+          $ref: '#/components/schemas/EnumPaymentCancellationFromType'
         cancelledAt:
           type: string
           description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
