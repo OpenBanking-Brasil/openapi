@@ -115,9 +115,9 @@ Todos os valores monetários informados estão representados com a moeda vigente
 /data/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
 (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
 no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-";Não permitido;string;1774;
+";Não permitido;string;1774;1
 /data/creditorAccount/number;number;"Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
-se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;3
+se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
 /data/creditorAccount/accountType;accountType;"Tipos de contas usadas para pagamento via Pix.  
 Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.  
@@ -135,9 +135,9 @@ As informações quanto à conta de origem do pagador poderão ser trazidas no c
 /data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
 (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
 no exercício de atividades da instituição, não podendo ser móvel ou transitória).";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-";Não permitido;string;1774;
+";Não permitido;string;1774;1
 /data/debtorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir),  
-se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;3
+se houver valor alfanumérico, este deve ser convertido para 0.";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
 /data/debtorAccount/accountType;accountType;"Tipos de contas usadas para pagamento via Pix.  
 Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.  

@@ -342,6 +342,68 @@ paths:
             - payments
         - OAuth2ClientCredentials:
             - payments
+    patch:
+      tags:
+        - Pagamentos
+      summary: Cancelar iniciação de pagamento.
+      operationId: paymentsPatchPixPaymentsPaymentId
+      description: |
+
+        Esse endpoint deve ser usado para cancelar, a pedido do cliente pagador, as transações que estejam em uma das seguintes situações: Agendada com sucesso (SCHD), retida para análise (PDNG) ou aguardando autorização de múltiplas alçadas (PATC).  
+
+        - Caso a requisição seja bem sucedida, a transação vai para a situação CANC.
+
+        - Caso o status do pagamento seja diferente de SCHD/PDNG/PATC ou alguma outra regra de negócio impeça o cancelamento, a requisição PATCH retorna HTTP Status 422 com o code PAGAMENTO_NAO_PERMITE_CANCELAMENTO.
+
+        - Caso receba um 422, a iniciadora deve fazer uma requisição GET no pagamento para verificar a situação atual dele, bem como detalhes associados.  
+
+        O cancelamento de pagamento deve ser enviado até 23:59 (Horário de Brasília) do dia anterior à data de efetivação do pagamento.  
+      parameters:
+        - $ref: '#/components/parameters/paymentId'
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/xFapiAuthDate'
+        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
+        - $ref: '#/components/parameters/xFapiInteractionId'
+        - $ref: '#/components/parameters/xCustomerUserAgent'
+      requestBody:
+        content:
+          application/jwt:
+            schema:
+              $ref: '#/components/schemas/PatchPixPayment'
+        description: Payload para cancelamento do pagamento.
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/200PatchPixPayments'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntityPixPayments'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          description: Erro inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+      security:
+        - OAuth2ClientCredentials:
+            - payments
 components:
   schemas:
     422ResponseErrorCreateConsent:
@@ -726,6 +788,7 @@ components:
             Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
         issuer:
           type: string
+          minLength: 1
           maxLength: 4
           pattern: '^[0-9]{1,4}$'
           example: '1774'
@@ -736,7 +799,7 @@ components:
             [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
         number:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 20
           pattern: '^[0-9]{1,20}$'
           example: '1234567890'
@@ -765,6 +828,7 @@ components:
             Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
         issuer:
           type: string
+          minLength: 1
           maxLength: 4
           pattern: '^[0-9]{1,4}$'
           example: '1774'
@@ -775,7 +839,7 @@ components:
             [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
         number:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 20
           pattern: '^[0-9]{1,20}$'
           example: '1234567890'
@@ -966,6 +1030,14 @@ components:
         - QRDN - QR code dinâmico
         - QRES - QR code estático
         - INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.
+    EnumPaymentCancellationStatusType:
+      type: string
+      enum:
+        - CANC
+      example: CANC
+      description: |
+        Utilizado para informar para qual estado deve ir o pagamento.  
+        Atualmente o único valor possível é CANC.
     EnumPaymentPersonType:
       type: string
       enum:
@@ -1053,6 +1125,37 @@ components:
         PAGAMENTO_RECUSADO_SPI
 
         FALHA_INFRAESTRUTURA
+    EnumPaymentCancellationReasonType:
+      type: string
+      enum:
+        - CANCELADO_PENDENCIA
+        - CANCELADO_AGENDAMENTO
+        - CANCELADO_MULTIPLAS_ALCADAS
+      example: CANCELADO_PENDENCIA
+      description: |
+        O preenchimento desse campo para retorno, deve ocorrer pela detentora de contas a partir do status em que o pagamento estiver no momento da solicitação do cancelamento (ex. Status de pagamento = PDNG, campo deve ser preenchido com enum CANCELADO_PENDENCIA)
+
+        Valores possíveis:
+
+        CANCELADO_PENDENCIA - Pagamento cancelado enquanto estava na situação PDNG
+
+        CANCELADO_AGENDAMENTO - Pagamento cancelado enquanto estava na situação SCHD
+
+        CANCELADO_MULTIPLAS_ALCADAS - Pagamento cancelado enquanto estava na situação PATC
+    EnumPaymentCancellationFromType:
+      type: string
+      enum:
+        - INICIADORA
+        - DETENTORA
+      example: INICIADORA
+      description: |
+        Campo utilizado para informar o meio pelo qual foi realizado o cancelamento.
+
+        Valores possíveis:
+
+        INICIADORA - Pagamento cancelado pelo usuário pagador nos canais da iniciadora
+
+        DETENTORA - Pagamento cancelado pelo usuário pagador nos canais da detentora
     RejectionReason:
       type: object
       description: |-
@@ -1225,6 +1328,60 @@ components:
           description: |
             Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.  
             Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
+    PatchPixPayment:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PatchPixPaymentData'
+    PatchPixPaymentData:
+      type: object
+      required:
+        - status
+        - cancellation
+      properties:
+        status:
+          $ref: '#/components/schemas/EnumPaymentCancellationStatusType'
+        cancellation:
+          type: object
+          description: |
+            Objeto que agrupa as informações de qual foi o usuário pagador que solicitou o cancelamento da transação.  
+            Observação: este campo é necessário porque, em casos de múltiplas alçadas de autorização, é possível que o pagamento seja solicitado por um usuário pagador e cancelado por outro.
+          required:
+            - cancelledBy
+            - reason
+            - cancelledFrom
+          properties:
+            reason:
+              $ref: '#/components/schemas/EnumPaymentCancellationReasonType'
+            cancelledFrom:
+              $ref: '#/components/schemas/EnumPaymentCancellationFromType'
+            cancelledBy:
+              type: object
+              description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
+              required:
+                - document
+              properties:
+                document:
+                  type: object
+                  description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+                  required:
+                    - identification
+                    - rel
+                  properties:
+                    identification:
+                      type: string
+                      maxLength: 11
+                      description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                      example: '11111111111'
+                      pattern: '^\d{11}$'
+                    rel:
+                      type: string
+                      maxLength: 3
+                      description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                      example: CPF
+                      pattern: '^[A-Z]{3}$'
     ResponseError:
       type: object
       required:
@@ -1490,6 +1647,180 @@ components:
           $ref: '#/components/schemas/LinkSingle'
         meta:
           $ref: '#/components/schemas/Meta'
+    ResponsePatchPixPayment:
+      type: object
+      required:
+        - data
+        - links
+        - meta
+      properties:
+        data:
+          $ref: '#/components/schemas/ResponsePatchPixPaymentData'
+        links:
+          $ref: '#/components/schemas/LinkSingle'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ResponsePatchPixPaymentData:
+      type: object
+      description: Objeto contendo dados do pagamento e da conta do recebedor (creditor).
+      required:
+        - paymentId
+        - endToEndId
+        - consentId
+        - creationDateTime
+        - statusUpdateDateTime
+        - status
+        - localInstrument
+        - payment
+        - creditorAccount
+        - cnpjInitiator
+        - debtorAccount
+        - cancellation
+      properties:
+        paymentId:
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+          example: TXpRMU9UQTROMWhZV2xSU1FUazJSMDl
+          description: |
+            Código ou identificador único informado pela instituição detentora da conta para representar
+            a iniciação de pagamento individual. O `paymentId` deve ser diferente do `endToEndId`.
+            Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.
+        endToEndId:
+          $ref: '#/components/schemas/EndToEndId'
+        consentId:
+          type: string
+          maxLength: 256
+          pattern: '^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*''%\/?#]+$'
+          example: 'urn:bancoex:C1DD33123'
+          description: |
+            Identificador único do consentimento criado para a iniciação de pagamento solicitada. Deverá ser um URN - Uniform Resource Name.
+            Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource
+            Identifier - URI - que é atribuído sob o URI scheme "urn" e um namespace URN específico, com a intenção de que o URN
+            seja um identificador de recurso persistente e independente da localização.
+            Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+            - o namespace(urn)
+            - o identificador associado ao namespace da instituição transnmissora (bancoex)
+            - o identificador específico dentro do namespace (C1DD33123).
+            Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+        creationDateTime:
+          type: string
+          format: date-time
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+          example: '2020-07-21T08:30:00Z'
+          description: |
+            Data e hora em que o recurso foi criado.
+            Uma string com data e hora conforme especificação RFC-3339,
+            sempre com a utilização de timezone UTC(UTC time format).
+        statusUpdateDateTime:
+          type: string
+          format: date-time
+          pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+          example: '2020-07-21T08:30:00Z'
+          description: |
+            Data e hora da última atualização da iniciação de pagamento.
+            Uma string com data e hora conforme especificação RFC-3339,
+            sempre com a utilização de timezone UTC(UTC time format).
+        proxy:
+          type: string
+          maxLength: 77
+          pattern: '[\w\W\s]*'
+          example: '12345678901'
+          description: |
+            Chave cadastrada no DICT pertencente ao recebedor. Os tipos de chaves podem ser: telefone, e-mail, cpf/cnpj ou chave aleatória.
+            No caso de telefone celular deve ser informado no padrão E.1641.
+            Para e-mail deve ter o formato xxxxxxxx@xxxxxxx.xxx(.xx) e no máximo 77 caracteres.
+            No caso de CPF deverá ser informado com 11 números, sem pontos ou traços.
+            Para o caso de CNPJ deverá ser informado com 14 números, sem pontos ou traços.
+            No caso de chave aleatória deve ser informado o UUID gerado pelo DICT, conforme formato especificado na RFC41223.
+            Se informado, a detentora da conta deve validar o proxy no DICT quando localInstrument for igual a DICT, QRDN ou QRES e validar o campo creditorAccount.
+            Esta validação é opcional caso o localInstrument for igual a INIC.
+            [Restrição] Se localInstrument for igual a MANU, o campo proxy não deve ser preenchido. Se localInstrument for igual INIC, DICT, QRDN ou QRES, o campo proxy deve ser sempre preenchido com a chave Pix.
+        ibgeTownCode:
+          type: string
+          minLength: 7
+          maxLength: 7
+          pattern: '^\d{7}$'
+          example: '5300108'
+          description: |
+            O campo ibgetowncode no arranjo PIX, tem o mesmo comportamento que o campo codMun descrito no item 1.6.6 do manual do PIX, conforme segue:
+
+            1. Caso a informação referente ao município não seja enviada; o PSP do recebedor assumirá que não existem feriados estaduais e municipais no período em questão;
+        status:
+          $ref: '#/components/schemas/EnumPaymentStatusType'
+        rejectionReason:
+          $ref: '#/components/schemas/RejectionReason'
+        localInstrument:
+          $ref: '#/components/schemas/EnumLocalInstrument'
+        cnpjInitiator:
+          type: string
+          pattern: '^\d{14}$'
+          maxLength: 14
+          example: '50685362000135'
+          description: CNPJ do Iniciador de Pagamento devidamente habilitado para a prestação de Serviço de Iniciação no Pix.
+        payment:
+          $ref: '#/components/schemas/PaymentPix'
+        transactionIdentification:
+          type: string
+          pattern: '^[a-zA-Z0-9]{1,35}$'
+          maxLength: 35
+          example: E00038166201907261559y6j6
+          description: |
+            Trata-se de um identificador de transação que deve ser retransmitido intacto pelo PSP do pagador ao gerar a ordem de pagamento.
+
+            [Restrição] A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora, caso ele tenha sido enviado na requisição da iniciação do pagamento.
+        remittanceInformation:
+          type: string
+          maxLength: 140
+          pattern: '[\w\W\s]*'
+          example: Pagamento da nota RSTO035-002.
+          description: |
+            Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional em um pagamento, a ser enviada ao recebedor.
+        creditorAccount:
+          $ref: '#/components/schemas/CreditorAccount'
+        cancellation:
+          type: object
+          description: |
+            Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.
+          required:
+            - cancelledAt
+            - cancelledBy
+          properties:
+            cancelledAt:
+              type: string
+              description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
+              format: date-time
+              maxLength: 20
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+              example: '2021-05-21T08:30:00Z'
+            cancelledBy:
+              type: object
+              description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
+              required:
+                - document
+              properties:
+                document:
+                  type: object
+                  description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+                  required:
+                    - identification
+                    - rel
+                  properties:
+                    identification:
+                      type: string
+                      maxLength: 11
+                      description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                      example: '11111111111'
+                      pattern: '^\d{11}$'
+                    rel:
+                      type: string
+                      maxLength: 3
+                      description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                      example: CPF
+                      pattern: '^[A-Z]{3}$'
+        debtorAccount:
+          $ref: '#/components/schemas/DebtorAccount'
     ResponseCreatePixPayment:
       type: object
       required:
@@ -1764,6 +2095,54 @@ components:
             Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional em um pagamento, a ser enviada ao recebedor.
         creditorAccount:
           $ref: '#/components/schemas/CreditorAccount'
+        cancellation:
+          type: object
+          description: |
+            Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.  
+
+            [Restrição] O objeto cancellation será obrigatório apenas quando o valor do campo status for igual a CANC. 
+          required:
+            - cancelledAt
+            - cancelledBy
+            - reason
+            - cancelledFrom
+          properties:
+            reason:
+              $ref: '#/components/schemas/EnumPaymentCancellationReasonType'
+            cancelledFrom:
+              $ref: '#/components/schemas/EnumPaymentCancellationFromType'
+            cancelledAt:
+              type: string
+              description: 'Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.'
+              format: date-time
+              maxLength: 20
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+              example: '2021-05-21T08:30:00Z'
+            cancelledBy:
+              type: object
+              description: Informação relacionada ao usuário pagador que solicitou o cancelamento do pagamento.
+              required:
+                - document
+              properties:
+                document:
+                  type: object
+                  description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+                  required:
+                    - identification
+                    - rel
+                  properties:
+                    identification:
+                      type: string
+                      maxLength: 11
+                      description: Número do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                      example: '11111111111'
+                      pattern: '^\d{11}$'
+                    rel:
+                      type: string
+                      maxLength: 3
+                      description: Tipo do documento do usuário pagador responsável pelo cancelamento do pagamento.
+                      example: CPF
+                      pattern: '^[A-Z]{3}$'
         debtorAccount:
           $ref: '#/components/schemas/DebtorAccount'
     Schedule:
@@ -1892,7 +2271,9 @@ components:
       openIdConnectUrl: 'https://auth.mockbank.poc.raidiam.io/.well-known/openid-configuration'
     OAuth2ClientCredentials:
       type: oauth2
-      description: Fluxo OAuth necessário para que a iniciadora possa iniciar pagamentos. Requer o processo de redirecionamento e autenticação do usuário.
+      description: |
+        Fluxo OAuth necessário para que a iniciadora possa iniciar pagamentos. Requer o processo de redirecionamento e autenticação do usuário.  
+        Apenas pagamentos iniciados pela mesma iniciadora de pagamentos podem ser consultados ou cancelados através de modelo client credentials.
       flows:
         clientCredentials:
           tokenUrl: 'https://authserver.example/token'
@@ -2121,3 +2502,15 @@ components:
         application/jwt:
           schema:
             $ref: '#/components/schemas/ResponsePixPayment'
+    200PatchPixPayments:
+      description: Iniciação de pagamento Pix cancelada com sucesso.
+      headers:
+        x-fapi-interaction-id:
+          description: |
+            Um UUID RFC4122 usado como um ID de correlação. O transmissor deve usar o mesmo valor recebido na requisição para o cabeçalho de resposta recebido na requisição, caso não tenha sido fornecido, deve se usar um UUID RFC4122.
+          schema:
+            $ref: '#/components/schemas/XFapiInteractionId'
+      content:
+        application/jwt:
+          schema:
+            $ref: '#/components/schemas/ResponsePatchPixPayment'
