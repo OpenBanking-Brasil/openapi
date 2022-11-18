@@ -123,7 +123,7 @@ info:
         &ensp;Status do Pagamento: RJCT (Rejected), com as seguintes opções rejectionReason:  
         &ensp;• Erro por dados inválidos: Conforme item **4.1.7**;  
         &ensp;• Erro por suspeita de fraude: Conforme item **4.1.8**.
-  version: 2.0.0-rc1.0
+  version: 2.0.0
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
