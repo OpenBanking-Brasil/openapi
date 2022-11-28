@@ -1,15 +1,15 @@
 ﻿openapi: 3.0.0
 info:
-  title: API Investments - Open Banking Brasil
+  title: API Investments - Open Finance Brasil
   description: |
     Estas APIs visam o compartilhamento de dados sobre Investimentos e suas
-    características entre as Instituições Financeiras participantes do Open Banking Brasil
+    características entre as Instituições Financeiras participantes do Open Finance Brasil
   version: 1.0.0-rc1.0
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
   contact:
-    name: Governança do Open Banking Brasil – Especificações
+    name: Governança do Open Finance Brasil – Especificações
     email: gt-interfaces@openbankingbr.org
     url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
 servers:
@@ -473,7 +473,7 @@ components:
           type: string
           description: Razão social da pessoa jurídica autorizada pela CVM para o exercício de administrador de carteiras de valores mobiliários e responsável pela administração do fundo.
           maxLength: 100
-          example: ADM OPEN BANKING DTVM S.A.
+          example: ADM OPEN FINANCE DTVM S.A.
         cnpjNumber:
           type: string
           description: CNPJ do administrador.
@@ -491,7 +491,7 @@ components:
           type: string
           description: Pessoa natural ou jurídica responsável pela gestão profissional dos ativos da carteira de valores mobiliários autorizado pela CVM.
           maxLength: 100
-          example: GESTOR OPEN BANKING DTVM S.A.
+          example: GESTOR OPEN FINANCE DTVM S.A.
         cnpjNumber:
           type: string
           description: CNPJ do gestor do fundo de investimento.
@@ -785,7 +785,7 @@ components:
       example: ACOES
     Participant:
       type: object
-      description: Conjunto de informações relativas ao participante do produto de open banking
+      description: Conjunto de informações relativas ao participante do produto de Open Finance
       required:
         - brand
         - name
@@ -793,12 +793,12 @@ components:
       properties:
         brand:
           type: string
-          description: 'Nome da marca reportada pelo participante do Open Banking. O conceito a que se refere a ''marca'' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.'
+          description: 'Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a ''marca'' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.'
           maxLength: 80
           example: Organização
         name:
           type: string
-          description: Nome do participante do Open Banking.
+          description: Nome do participante do Open Finance.
           maxLength: 80
           example: Organização A1
         cnpjNumber:
