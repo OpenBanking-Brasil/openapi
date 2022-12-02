@@ -60,7 +60,7 @@ info:
         &ensp;1.2.2 Validação de Access_Token: Verifica se Access_Token utilizado está correto - HTTP Code 401 (UNAUTHORIZED);  
         &ensp;1.2.3 Validação de assinatura da mensagem: Valida se assinatura das mensagens enviadas está correta – HTTP Code 400 (BAD_SIGNATURE);  
         &ensp;1.2.4 Validação de Claims (exceto data);  
-          &emsp;1.2.4.1 Valida se dados (aud, iss, iat e jti) são válidos - HTTP Code 401 (INVALID_CLIENT);  
+          &emsp;1.2.4.1 Valida se dados (aud, iss, iat e jti) são válidos - HTTP status code 400 – (BAD REQUEST);  
           &emsp;1.2.4.2 Valida reuso de jti - HTTP Code 403 (INVALID_CLIENT).  
       1.3 **Casos de erros sintáticos e semânticos, previstos com retorno HTTP Code 422 - Unprocessable Entity (detalhamento adicional na documentação técnica da API):**   
         &ensp;1.3.1 **Sintáticas**  
@@ -79,7 +79,7 @@ info:
         &ensp;2.1.2 Validação de Access_Token: Verifica se Access_Token utilizado está correto - HTTP Code 401 (UNAUTHORIZED);  
         &ensp;2.1.3 Validação de assinatura da mensagem: Valida se assinatura das mensagens enviadas está correta – HTTP Code 400 (BAD_SIGNATURE);  
         &ensp;2.1.4 Validação de Claims (exceto data);  
-          &emsp;2.1.4.1 Valida se dados (aud, iss, iat e jti) são válidos - HTTP Code 401 (INVALID_CLIENT);  
+          &emsp;2.1.4.1 Valida se dados (aud, iss, iat e jti) são válidos - HTTP status code 400 – (BAD REQUEST);  
           &emsp;2.1.4.2 Valida reuso de jti - HTTP Code 403 (INVALID_CLIENT).  
       2.2 **Casos de erro sintáticos e semânticos, previstos com retorno HTTP Code 422 - Unprocessable Entity (detalhamento adicional na documentação técnica da API):**  
         &ensp;2.2.1 **Sintáticas**  
