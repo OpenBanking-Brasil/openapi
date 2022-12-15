@@ -15,21 +15,19 @@ VENDA";1;1;"";Não permitido;string;COMPRA;
 /data/deliveryForeignCurrency;deliveryForeignCurrency;A classificação da forma de operação, conforme a circular BCB nº 3690 de 16/12/2013. (Vide Enum)<br><ul><li>ESPECIE</li><li>CARTAO_PRE_PAGO</li><li>TELETRANSMISSAO_SWIFT</li></ul>;Texto;21;Obrigatório;;"ESPECIE 
 CARTAO_PRE_PAGO 
 TELETRANSMISSAO_SWIFT";1;1;"";Não permitido;string;CARTAO_PRE_PAGO;
-/data/rangeTransactionCategory;rangeTransactionCategory;A classificação conforme a circular BCB nº 4015.;Texto;17;Obrigatório;;"0,01_200 
+/data/rangeTransactionCategory;rangeTransactionCategory;"Faixa de valor da operação (equivalente em USD), conforme Instrução
+
+Normativa BCB 184, de 12 Novembro de 2021.
+";Texto;17;Obrigatório;;"0,01_200 
 200,01_500 
 500,01_1.000 
 1.000,01_3.000 
 3.000,01_10.000 
 10.000,01_30.000 
 30.000,01_100.000";1;1;"";Não permitido;string;0,01_200;
-/data/targetAudience;targetAudience;"A considerar os domínios abaixo:
-
-  1. Pessoa Natural
-  2. Pessoa Jurídica
-  3. Ambas (Pessoa Natural e Jurídica)
-";Texto;23;Obrigatório;;"PESSOA_NATURAL 
+/data/targetAudience;targetAudience;Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.;Texto;15;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA 
-PESSOA_NATURAL_JURIDICA";1;1;"";Não permitido;string;PESSOA_NATURAL;
+PESSOA_NATURAL_JURIDICA";1;1;"";Não permitido;string;PESSOA_JURIDICA;
 /data/vetAmount;vetAmount;Distribuição por frequência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/vetAmount/prices;prices;Distribuição dos preços.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;"[{""interval""=>""1_FAIXA"", ""value""=>""0.020300"", ""customerRate""=>""0.500000""}, {""interval""=>""2_FAIXA"", ""value""=>""0.030600"", ""customerRate""=>""0.100000""}, {""interval""=>""3_FAIXA"", ""value""=>""0.034300"", ""customerRate""=>""0.300000""}, {""interval""=>""4_FAIXA"", ""value""=>""0.246800"", ""customerRate""=>""0.100000""}]";
 /data/vetAmount/prices/interval;interval;Faixas de frequência;Texto;7;Obrigatório;;"1_FAIXA 
@@ -37,6 +35,6 @@ PESSOA_NATURAL_JURIDICA";1;1;"";Não permitido;string;PESSOA_NATURAL;
 3_FAIXA 
 4_FAIXA";1;1;"";Não permitido;string;1_FAIXA;
 /data/vetAmount/prices/value;value;Mediana.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.020300;
-/data/vetAmount/prices/operationRate;operationRate;Percentual de operação.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000;
+/data/vetAmount/prices/customerRate;customerRate;Percentual de clientes na faixa.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000;
 /data/vetAmount/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.010000;
 /data/vetAmount/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.300000;
