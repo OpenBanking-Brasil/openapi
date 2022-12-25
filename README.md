@@ -2,7 +2,7 @@
 ![Stoplight](https://github.com/openbanking-brasil/areadesenvolvedor/workflows/Stoplight/badge.svg)
 # Repositório Open Banking Brasil
 
-aRepositório para documentação e requisitos das APIs regulatórias do Open Banking Brasil. 
+Repositório para documentação e requisitos das APIs regulatórias do Open Banking Brasil. 
 
 ## O que é? 
 
