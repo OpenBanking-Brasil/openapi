@@ -26,7 +26,7 @@ RENDAS_CAPITAIS
 CAPITAIS_BRASILEIROS 
 CAPITAIS_ESTRANGEIROS 
 PRESTACAO_SERVICO_PAGAMENTO_OU_TRANSFERENCIA_INTERNACIONAL_EFX";1;1;"";Não permitido;string;COMERCIO_EXTERIOR;
-/data/values/targetAudience;targetAudience;Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.;Texto;15;Obrigatório;;"PESSOA_NATURAL 
+/data/values/targetAudience;targetAudience;Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.;Texto;;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA 
 PESSOA_NATURAL_JURIDICA";1;1;"";Não permitido;string;PESSOA_JURIDICA;
 /data/values/value;value;Valor da operação.;Texto;7;Obrigatório;^\d{1}\.\d{1,5}$;;1;1;"";Não permitido;string;5.5023;

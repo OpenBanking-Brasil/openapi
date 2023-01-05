@@ -25,7 +25,7 @@ Normativa BCB 184, de 12 Novembro de 2021.
 3.000,01_10.000 
 10.000,01_30.000 
 30.000,01_100.000";1;1;"";Não permitido;string;0,01_200;
-/data/targetAudience;targetAudience;Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.;Texto;15;Obrigatório;;"PESSOA_NATURAL 
+/data/targetAudience;targetAudience;Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.;Texto;;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA 
 PESSOA_NATURAL_JURIDICA";1;1;"";Não permitido;string;PESSOA_JURIDICA;
 /data/vetAmount;vetAmount;Distribuição por frequência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;

@@ -52,7 +52,7 @@ paths:
         - Exchange VET Value
       summary: Conjunto de informações de Câmbio para valor do VET.
       operationId: exchangeGetVetValue
-      description: 'Método para disponibilizar o valor VET.<br>O retorno, embora não especificado, deve abranger a classificação do tipo de operação, conforme a circular BCB n&#186; 3690 de 16/12/2013 com os seguintes items&#58;<br><ol><li>Comércio exterior</li><li>Transporte</li><li>Seguros</li><li>Viagens internacionais</li><li>Transferências unilaterais</li><li>Serviços diversos</li><li>Rendas de capitais</li><li>Capitais brasileiros</li><li>Capitais estrangeiros</li><li>Prestação de serviço de pagamento ou transferência internacional - EFX</li></ol>'
+      description: 'Método para disponibilizar os VETs praticados pela instituição nas operações de câmbio, agrupados por tipo de operação (compra ou venda), moeda, forma de entrega, faixas de valores e público-alvo (pessoa física, pessoa jurídica ou ambos).'
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -435,7 +435,6 @@ components:
     EnumDistinctTargetAudienceExchange:
       type: string
       description: 'Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.'
-      maxLength: 15
       enum:
         - PESSOA_NATURAL
         - PESSOA_JURIDICA
