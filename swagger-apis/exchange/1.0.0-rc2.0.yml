@@ -29,7 +29,10 @@ paths:
         - Exchange Online Rate
       summary: Conjunto de informações de Câmbio para taxa online.
       operationId: exchangeGetOnlineRate
-      description: Método para disponibilizar a taxa online.
+      description: |-
+        As instituições autorizadas a operar em câmbio que disponibilizam em seus canais digitais a possibilidade de contratação ou a informação de taxa de câmbio devem retornar as condições no momento da consulta, sendo admitida uma defasagem máxima de atualização de 5 minutos em relação a seus canais digitais.
+
+        Já as demais instituições participantes do Open Finance autorizadas a operar em câmbio podem adotar as janelas de consulta da PTAX como frequência mínima de atualização das informações retornadas neste serviço.
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
@@ -185,12 +188,14 @@ components:
               transactionCategory: COMERCIO_EXTERIOR
               targetAudience: PESSOA_NATURAL
               value: '5.5023'
+              valueUpdateDateTime: '2017-07-21T17:32:28Z'
             - foreignCurrency: EUR
               deliveryForeignCurrency: CARTAO_PRE_PAGO
               transactionType: VENDA
               transactionCategory: TRANSPORTE
               targetAudience: PESSOA_JURIDICA
               value: '2.7045'
+              valueUpdateDateTime: '2017-07-21T17:32:28Z'
         timestamp:
           type: string
           format: date-time
@@ -298,6 +303,7 @@ components:
         - transactionCategory
         - value
         - targetAudience
+        - valueUpdateDateTime
       properties:
         foreignCurrency:
           type: string
@@ -319,6 +325,12 @@ components:
           pattern: '^\d{1}\.\d{1,5}$'
           example: '5.5023'
           description: Valor da operação.
+        valueUpdateDateTime:
+          type: string
+          format: date-time
+          maxLength: 20
+          example: '2017-07-21T17:32:28Z'
+          description: Data e hora da última atualização da cotação.
       additionalProperties: false
     VetValueFrequencyDistributionPrice:
       type: object

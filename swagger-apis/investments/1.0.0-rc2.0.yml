@@ -244,16 +244,16 @@ components:
           example:
             - interval: 1_FAIXA
               value: '0.020300'
-              customerRate: '0.500000'
+              operationRate: '0.500000'
             - interval: 2_FAIXA
               value: '0.030600'
-              customerRate: '0.100000'
+              operationRate: '0.100000'
             - interval: 3_FAIXA
               value: '0.034300'
-              customerRate: '0.300000'
+              operationRate: '0.300000'
             - interval: 4_FAIXA
               value: '0.246800'
-              customerRate: '0.100000'
+              operationRate: '0.100000'
         minimum:
           type: string
           description: Valor mínimo.
@@ -557,7 +557,7 @@ components:
         quotationDays:
           type: integer
           format: int32
-          description: Prazo em dias indicada no regulamento do fundo para a conversão das cotas em dinheiro.
+          description: Prazo máximo em dias indicado no regulamento do fundo para a conversão das cotas em dinheiro.
           minimum: 0
           example: 3
         quotationTerm:
@@ -565,7 +565,7 @@ components:
         paymentDays:
           type: integer
           format: int32
-          description: 'Prazo em dias do efetivo pagamento, pelo fundo, do valor líquido devido ao cotista que efetuou pedido de resgate.'
+          description: 'Prazo máximo em dias do efetivo pagamento, pelo fundo, do valor líquido devido ao cotista que efetuou pedido de resgate.'
           example: 3
           minimum: 0
         paymentTerm:
