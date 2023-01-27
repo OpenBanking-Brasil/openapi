@@ -26,7 +26,7 @@ PRE_FIXADO
 OUTROS";1;1;"";Não permitido;string;CDI;
 /data/index/indexerAdditionalInfo;indexerAdditionalInfo;Campo a ser preenchido pelas participantes quando houver ‘Outros’ no campo ‘Indexador’.;Texto;50;Opcional;;;0;1;"";Não permitido;string;Dólar;
 /data/index/issueRemunerationRate;issueRemunerationRate;Distribuição por frequência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/index/issueRemunerationRate/prices;prices;Distribuição dos preços.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;"[{""interval""=>""1_FAIXA"", ""value""=>""0.020300"", ""customerRate""=>""0.500000""}, {""interval""=>""2_FAIXA"", ""value""=>""0.030600"", ""customerRate""=>""0.100000""}, {""interval""=>""3_FAIXA"", ""value""=>""0.034300"", ""customerRate""=>""0.300000""}, {""interval""=>""4_FAIXA"", ""value""=>""0.246800"", ""customerRate""=>""0.100000""}]";
+/data/index/issueRemunerationRate/prices;prices;Distribuição dos preços.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;"[{""interval""=>""1_FAIXA"", ""value""=>""0.020300"", ""operationRate""=>""0.500000""}, {""interval""=>""2_FAIXA"", ""value""=>""0.030600"", ""operationRate""=>""0.100000""}, {""interval""=>""3_FAIXA"", ""value""=>""0.034300"", ""operationRate""=>""0.300000""}, {""interval""=>""4_FAIXA"", ""value""=>""0.246800"", ""operationRate""=>""0.100000""}]";
 /data/index/issueRemunerationRate/prices/interval;interval;Faixas de frequência;Texto;7;Obrigatório;;"1_FAIXA 
 2_FAIXA 
 3_FAIXA 

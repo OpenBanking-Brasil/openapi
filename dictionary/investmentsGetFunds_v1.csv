@@ -14,7 +14,16 @@
 /data/fundManager;fundManager;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/fundManager/name;name;Pessoa natural ou jurídica responsável pela gestão profissional dos ativos da carteira de valores mobiliários autorizado pela CVM.;Texto;100;Obrigatório;;;1;1;"";Não permitido;string;GESTOR OPEN FINANCE DTVM S.A.;
 /data/fundManager/cnpjNumber;cnpjNumber;CNPJ do gestor do fundo de investimento.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;16332711000101;
-/data/anbimaCategory;anbimaCategory;Conforme classificação ANBIMA, que segue a deliberação 77 da ANBIMA.<br><ol><li>Renda Fixa</li><li>Ações</li><li>Multimercado</li><li>Cambial</li></ol><br><br> [https://www.anbima.com.br/data/files/5A/44/2C/B7/8411B510CD3B4DA568A80AC2/DeliberacaoN77-Diretriz-de-Classificacao-de-Fundos.pdf](https://www.anbima.com.br/data/files/5A/44/2C/B7/8411B510CD3B4DA568A80AC2/DeliberacaoN77-Diretriz-de-Classificacao-de-Fundos.pdf);Texto;12;Obrigatório;;"RENDA_FIXA 
+/data/anbimaCategory;anbimaCategory;"Conforme classificação ANBIMA
+
+– Renda Fixa
+
+– Ações
+
+– Multimercado
+
+– Cambial
+";Texto;12;Obrigatório;;"RENDA_FIXA 
 ACOES 
 MULTIMERCADO 
 CAMBIAL";1;1;"";Não permitido;string;MULTIMERCADO;
