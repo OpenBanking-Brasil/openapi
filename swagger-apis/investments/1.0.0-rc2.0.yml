@@ -205,10 +205,89 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InvestmentsVariableIncome'
+          example:
+            - participant:
+                brand: Organização
+                name: Organização A1
+                cnpjNumber: '13456789000112'
+                urlComplementaryList: 'https://empresaa1.com/companies'
+              investmentType: ACOES
+              custodyFee:
+                prices:
+                  - interval: 1_FAIXA
+                    value: '0.020300'
+                    operationRate: '0.500000'
+                  - interval: 2_FAIXA
+                    value: '0.030600'
+                    operationRate: '0.100000'
+                  - interval: 3_FAIXA
+                    value: '0.034300'
+                    operationRate: '0.300000'
+                  - interval: 4_FAIXA
+                    value: '0.246800'
+                    operationRate: '0.100000'
+                minimum: '0.010000'
+                maximum: '0.300000'
+              loadingRate:
+                prices:
+                  - interval: 1_FAIXA
+                    value: '0.020300'
+                    operationRate: '0.500000'
+                  - interval: 2_FAIXA
+                    value: '0.030600'
+                    operationRate: '0.100000'
+                  - interval: 3_FAIXA
+                    value: '0.034300'
+                    operationRate: '0.300000'
+                  - interval: 4_FAIXA
+                    value: '0.246800'
+                    operationRate: '0.100000'
+                minimum: '0.010000'
+                maximum: '0.300000'
+              targetAudience: PESSOA_JURIDICA
+            - participant:
+                brand: Organização
+                name: Organização A1
+                cnpjNumber: '13456789000112'
+                urlComplementaryList: 'https://empresaa1.com/companies'
+              investmentType: FUNDO_INDICES
+              custodyFee:
+                prices:
+                  - interval: 1_FAIXA
+                    value: '0.020300'
+                    operationRate: '0.500000'
+                  - interval: 2_FAIXA
+                    value: '0.030600'
+                    operationRate: '0.100000'
+                  - interval: 3_FAIXA
+                    value: '0.034300'
+                    operationRate: '0.300000'
+                  - interval: 4_FAIXA
+                    value: '0.246800'
+                    operationRate: '0.100000'
+                minimum: '0.010000'
+                maximum: '0.300000'
+              loadingRate:
+                prices:
+                  - interval: 1_FAIXA
+                    value: '0.020300'
+                    operationRate: '0.500000'
+                  - interval: 2_FAIXA
+                    value: '0.030600'
+                    operationRate: '0.100000'
+                  - interval: 3_FAIXA
+                    value: '0.034300'
+                    operationRate: '0.300000'
+                  - interval: 4_FAIXA
+                    value: '0.246800'
+                    operationRate: '0.100000'
+                minimum: '0.010000'
+                maximum: '0.300000'
+              targetAudience: PESSOA_JURIDICA
         links:
           $ref: '#/components/schemas/Links'
         meta:
-          $ref: '#/components/schemas/OpenDataMeta'
+          $ref: '#/components/schemas/OpenDataMeta2Records'
       additionalProperties: false
     OKResponseInvestmentsTreasure:
       type: object
@@ -884,6 +963,24 @@ components:
           format: int32
           description: Número total de registros no resultado
           example: 1
+        totalPages:
+          type: integer
+          format: int32
+          description: Número total de páginas no resultado
+          example: 1
+      additionalProperties: false
+    OpenDataMeta2Records:
+      type: object
+      description: Meta informações referente à API requisitada.
+      required:
+        - totalRecords
+        - totalPages
+      properties:
+        totalRecords:
+          type: integer
+          format: int32
+          description: Número total de registros no resultado
+          example: 2
         totalPages:
           type: integer
           format: int32

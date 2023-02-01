@@ -19,7 +19,7 @@ MDR_DEBITO";1;1;"";Não permitido;string;MDR_CREDITO;
 4_FAIXA";1;1;"";Não permitido;string;1_FAIXA;
 /data/prices/value;value;Mediana referente a cada intervalo.;Texto;6;Obrigatório;^\d{1}\.\d{1,4}$;;1;1;"";Não permitido;string;0.0203;
 /data/prices/customerRate;customerRate;Percentual de cliente em cada intervalo.;Texto;6;Obrigatório;^\d{1}\.\d{1,4}$;;1;1;"";Não permitido;string;0.5000;
-/data/chargingTriggerInfo;chargingTriggerInfo;"Recebimento através de transação de cartão.
-";Texto;200;Obrigatório;;;1;1;"";Não permitido;string;NA;
+/data/chargingTriggerInfo;chargingTriggerInfo;"""Descrição do Fator gerador de cobrança que incide sobre o serviço de credenciamento.""
+";Texto;200;Obrigatório;;;1;1;"";Não permitido;string;Recebimento através de transação de cartão.;
 /data/minimum;minimum;Valor mínimo;Texto;999999;Obrigatório;^\d{1}\.\d{1,4}$;;1;1;"";Não permitido;string;2.0;1
 /data/maximum;maximum;Valor máximo;Texto;999999;Obrigatório;^\d{1}\.\d{1,4}$;;1;1;"";Não permitido;string;5.0;1

@@ -268,9 +268,9 @@ components:
         chargingTriggerInfo:
           type: string
           maxLength: 200
-          example: NA
+          example: Recebimento através de transação de cartão.
           description: |
-            Recebimento através de transação de cartão.
+            "Descrição do Fator gerador de cobrança que incide sobre o serviço de credenciamento."
         minimum:
           type: string
           minLength: 1

@@ -29,12 +29,12 @@ Normativa BCB 184, de 12 Novembro de 2021.
 PESSOA_JURIDICA 
 PESSOA_NATURAL_JURIDICA";1;1;"";Não permitido;string;PESSOA_JURIDICA;
 /data/vetAmount;vetAmount;Distribuição por frequência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/vetAmount/prices;prices;Distribuição dos preços.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;"[{""interval""=>""1_FAIXA"", ""value""=>""0.020300"", ""customerRate""=>""0.500000""}, {""interval""=>""2_FAIXA"", ""value""=>""0.030600"", ""customerRate""=>""0.100000""}, {""interval""=>""3_FAIXA"", ""value""=>""0.034300"", ""customerRate""=>""0.300000""}, {""interval""=>""4_FAIXA"", ""value""=>""0.246800"", ""customerRate""=>""0.100000""}]";
+/data/vetAmount/prices;prices;Distribuição dos preços.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;"[{""interval""=>""1_FAIXA"", ""value""=>""0.020300"", ""operationRate""=>""0.500000""}, {""interval""=>""2_FAIXA"", ""value""=>""0.030600"", ""operationRate""=>""0.100000""}, {""interval""=>""3_FAIXA"", ""value""=>""0.034300"", ""operationRate""=>""0.300000""}, {""interval""=>""4_FAIXA"", ""value""=>""0.246800"", ""operationRate""=>""0.100000""}]";
 /data/vetAmount/prices/interval;interval;Faixas de frequência;Texto;7;Obrigatório;;"1_FAIXA 
 2_FAIXA 
 3_FAIXA 
 4_FAIXA";1;1;"";Não permitido;string;1_FAIXA;
 /data/vetAmount/prices/value;value;Mediana.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.020300;
-/data/vetAmount/prices/customerRate;customerRate;Percentual de clientes na faixa.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000;
+/data/vetAmount/prices/operationRate;operationRate;Percentual de Operação.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000;
 /data/vetAmount/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.010000;
 /data/vetAmount/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.300000;
