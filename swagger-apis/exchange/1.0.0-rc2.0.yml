@@ -171,41 +171,59 @@ components:
       description: Conjunto de informações referentes às informações de câmbio
       required:
         - participant
-        - values
-        - timestamp
+        - foreignCurrency
+        - deliveryForeignCurrency
+        - transactionType
+        - transactionCategory
+        - value
+        - targetAudience
+        - valueUpdateDateTime
         - disclaimer
       properties:
         participant:
           $ref: '#/components/schemas/Participant'
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnlineRate'
-          example:
-            - foreignCurrency: USD
-              deliveryForeignCurrency: ESPECIE
-              transactionType: COMPRA
-              transactionCategory: COMERCIO_EXTERIOR
-              targetAudience: PESSOA_NATURAL
-              value: '5.5023'
-              valueUpdateDateTime: '2017-07-21T17:32:28Z'
-            - foreignCurrency: EUR
-              deliveryForeignCurrency: CARTAO_PRE_PAGO
-              transactionType: VENDA
-              transactionCategory: TRANSPORTE
-              targetAudience: PESSOA_JURIDICA
-              value: '2.7045'
-              valueUpdateDateTime: '2017-07-21T17:32:28Z'
-        timestamp:
+        foreignCurrency:
+          $ref: '#/components/schemas/CurrencyCode'
+        deliveryForeignCurrency:
+          $ref: '#/components/schemas/EnumExchangeDeliveryForeignCurrency'
+        transactionType:
+          $ref: '#/components/schemas/EnumExchangeTransactionType'
+        transactionCategory:
+          $ref: '#/components/schemas/EnumExchangeTransactionCategory'
+        targetAudience:
+          $ref: '#/components/schemas/EnumDistinctTargetAudienceExchange'
+        value:
+          type: string
+          maxLength: 7
+          minLength: 3
+          pattern: '^\d{1}\.\d{1,5}$'
+          example: '5.5023'
+          description: Valor da operação.
+        valueUpdateDateTime:
           type: string
           format: date-time
-          description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
           maxLength: 20
           example: '2017-07-21T17:32:28Z'
+          description: Data e hora da última atualização da cotação.
+          pattern: '(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$)'
         disclaimer:
           type: string
           description: 'Disclaimer informando que a taxa apresentada é somente informativa, para a contratação de uma operação, deverá ser consultado o canal correspondente de cada instituição.'
           example: 'Informamos que esta taxa é estimada e exclusiva para fins de Open Finance,  não sendo válida para a contratação de operações de câmbio. Para obter a taxa para fechamento do câmbio, pedimos consultar os canais disponíveis para contratação.'
+      example:
+        participant:
+          brand: Organização
+          name: Organização A1
+          cnpjNumber: '13456789000112'
+          urlComplementaryList: 'https://empresaa1.com/companies'
+        foreignCurrency: USD
+        deliveryForeignCurrency: TELETRANSMISSAO_SWIFT
+        transactionType: COMPRA
+        transactionCategory: COMERCIO_EXTERIOR
+        targetAudience: PESSOA_NATURAL
+        value: '5.5023'
+        valueUpdateDateTime: '2017-07-21T17:32:28Z'
+        disclaimer: 'Informamos que esta taxa é estimada e exclusiva para fins de Open Finance,  não sendo válida para a contratação de operações de câmbio. Para obter a taxa para fechamento do câmbio, pedimos consultar os canais disponíveis para contratação.'
       additionalProperties: false
     ExchangeVetValue:
       type: object
@@ -224,7 +242,7 @@ components:
         transactionType:
           $ref: '#/components/schemas/EnumExchangeTransactionType'
         foreignCurrency:
-          $ref: '#/components/schemas/OnlineRate/properties/foreignCurrency'
+          $ref: '#/components/schemas/CurrencyCode'
         deliveryForeignCurrency:
           $ref: '#/components/schemas/EnumExchangeDeliveryForeignCurrency'
         rangeTransactionCategory:
@@ -232,66 +250,70 @@ components:
         targetAudience:
           $ref: '#/components/schemas/EnumDistinctTargetAudienceExchange'
         vetAmount:
-          type: object
-          description: Distribuição por frequência.
-          required:
-            - prices
-            - minimum
-            - maximum
-          properties:
-            prices:
-              type: array
-              description: Distribuição dos preços.
-              items:
-                type: object
-                required:
-                  - interval
-                  - value
-                  - operationRate
-                properties:
-                  interval:
-                    $ref: '#/components/schemas/VetValueFrequencyDistributionPrice/properties/interval'
-                  value:
-                    type: string
-                    description: Mediana.
-                    example: '0.020300'
-                    maxLength: 8
-                    pattern: '^\d{1}\.\d{1,6}$'
-                  operationRate:
-                    type: string
-                    description: Percentual de Operação.
-                    example: '0.500000'
-                    maxLength: 8
-                    pattern: '^\d{1}\.\d{1,6}$'
-                additionalProperties: false
-              minItems: 4
-              maxItems: 4
-              example:
-                - interval: 1_FAIXA
-                  value: '0.020300'
-                  operationRate: '0.500000'
-                - interval: 2_FAIXA
-                  value: '0.030600'
-                  operationRate: '0.100000'
-                - interval: 3_FAIXA
-                  value: '0.034300'
-                  operationRate: '0.300000'
-                - interval: 4_FAIXA
-                  value: '0.246800'
-                  operationRate: '0.100000'
-            minimum:
-              type: string
-              description: Valor mínimo.
-              maxLength: 8
-              pattern: '^\d{1}\.\d{1,6}$'
-              example: '0.010000'
-            maximum:
-              type: string
-              description: Valor máximo.
-              maxLength: 8
-              pattern: '^\d{1}\.\d{1,6}$'
-              example: '0.300000'
-          additionalProperties: false
+          $ref: '#/components/schemas/ExchangeNoIdentificationFrequencyDistribution'
+      additionalProperties: false
+    ExchangeNoIdentificationFrequencyDistribution:
+      type: object
+      description: Distribuição por frequência.
+      required:
+        - prices
+        - minimum
+        - maximum
+      properties:
+        prices:
+          type: array
+          description: Distribuição dos preços.
+          items:
+            $ref: '#/components/schemas/ExchangeFrequencyDistributionPrice'
+          minItems: 4
+          maxItems: 4
+          example:
+            - interval: 1_FAIXA
+              value: '0.020300'
+              operationRate: '0.500000'
+            - interval: 2_FAIXA
+              value: '0.030600'
+              operationRate: '0.100000'
+            - interval: 3_FAIXA
+              value: '0.034300'
+              operationRate: '0.300000'
+            - interval: 4_FAIXA
+              value: '0.246800'
+              operationRate: '0.100000'
+        minimum:
+          type: string
+          description: Valor mínimo.
+          maxLength: 8
+          pattern: '^\d{1}\.\d{1,6}$'
+          example: '0.010000'
+        maximum:
+          type: string
+          description: Valor máximo.
+          maxLength: 8
+          pattern: '^\d{1}\.\d{1,6}$'
+          example: '0.300000'
+      additionalProperties: false
+    ExchangeFrequencyDistributionPrice:
+      type: object
+      required:
+        - interval
+        - value
+        - operationRate
+      properties:
+        interval:
+          $ref: '#/components/schemas/EnumInterval'
+        value:
+          type: string
+          description: Mediana.
+          example: '0.020300'
+          maxLength: 8
+          pattern: '^\d{1}\.\d{1,6}$'
+        operationRate:
+          type: string
+          description: Percentual de Operação.
+          example: '0.500000'
+          maxLength: 8
+          pattern: '^\d{1}\.\d{1,6}$'
       additionalProperties: false
     OnlineRate:
       type: object
@@ -306,11 +328,7 @@ components:
         - valueUpdateDateTime
       properties:
         foreignCurrency:
-          type: string
-          pattern: '^[A-Z]{3}$'
-          maxLength: 3
-          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
-          example: BRL
+          $ref: '#/components/schemas/CurrencyCode'
         deliveryForeignCurrency:
           $ref: '#/components/schemas/EnumExchangeDeliveryForeignCurrency'
         transactionType:
@@ -322,6 +340,7 @@ components:
         value:
           type: string
           maxLength: 7
+          minLength: 3
           pattern: '^\d{1}\.\d{1,5}$'
           example: '5.5023'
           description: Valor da operação.
@@ -331,41 +350,11 @@ components:
           maxLength: 20
           example: '2017-07-21T17:32:28Z'
           description: Data e hora da última atualização da cotação.
-      additionalProperties: false
-    VetValueFrequencyDistributionPrice:
-      type: object
-      required:
-        - interval
-        - value
-        - customerRate
-      properties:
-        interval:
-          type: string
-          description: Faixas de frequência
-          maxLength: 7
-          enum:
-            - 1_FAIXA
-            - 2_FAIXA
-            - 3_FAIXA
-            - 4_FAIXA
-          example: 1_FAIXA
-        value:
-          type: string
-          description: Mediana.
-          example: '0.020300'
-          maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-        customerRate:
-          type: string
-          description: Percentual de clientes.
-          example: '0.500000'
-          maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$)'
       additionalProperties: false
     EnumExchangeDeliveryForeignCurrency:
       type: string
       description: 'A classificação da forma de operação, conforme a circular BCB nº 3690 de 16/12/2013. (Vide Enum)<br><ul><li>ESPECIE</li><li>CARTAO_PRE_PAGO</li><li>TELETRANSMISSAO_SWIFT</li></ul>'
-      maxLength: 21
       enum:
         - ESPECIE
         - CARTAO_PRE_PAGO
@@ -377,7 +366,6 @@ components:
         Faixa de valor da operação (equivalente em USD), conforme Instrução
 
         Normativa BCB 184, de 12 Novembro de 2021.
-      maxLength: 17
       enum:
         - '0,01_200'
         - '200,01_500'
@@ -390,7 +378,6 @@ components:
     EnumExchangeTransactionCategory:
       type: string
       description: 'A classificação do tipo de operação, conforme a circular BCB nº 3690 de 16/12/2013.'
-      maxLength: 68
       enum:
         - COMERCIO_EXTERIOR
         - TRANSPORTE
@@ -410,11 +397,33 @@ components:
         spot,  que se liquidam em até dois dias (não aplica-se a operações futuras. (Vide Enum)
         - Compra
         - Venda
-      maxLength: 6
       enum:
         - COMPRA
         - VENDA
       example: COMPRA
+    EnumDistinctTargetAudienceExchange:
+      type: string
+      description: 'Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.'
+      enum:
+        - PESSOA_NATURAL
+        - PESSOA_JURIDICA
+        - PESSOA_NATURAL_JURIDICA
+      example: PESSOA_JURIDICA
+    EnumInterval:
+      type: string
+      description: Faixas de frequência
+      enum:
+        - 1_FAIXA
+        - 2_FAIXA
+        - 3_FAIXA
+        - 4_FAIXA
+      example: 1_FAIXA
+    CnpjNumber:
+      type: string
+      description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
+      maxLength: 14
+      pattern: '^\d{14}$'
+      example: '13456789000112'
     Participant:
       type: object
       description: Conjunto de informações relativas ao participante do produto de Open Finance
@@ -426,46 +435,64 @@ components:
         brand:
           type: string
           description: 'Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a ''marca'' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.'
+          pattern: '[\w\W\s]*'
           maxLength: 80
           example: Organização
         name:
           type: string
           description: Nome do participante do Open Finance.
+          pattern: '[\w\W\s]*'
           maxLength: 80
           example: Organização A1
         cnpjNumber:
-          type: string
-          description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-          pattern: '^\d{14}$'
-          example: '13456789000112'
+          $ref: '#/components/schemas/CnpjNumber'
         urlComplementaryList:
           type: string
           maxLength: 1024
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
           example: 'https://empresaa1.com/companies'
       additionalProperties: false
-    EnumDistinctTargetAudienceExchange:
+    CurrencyCode:
       type: string
-      description: 'Público alvo. Em casos em que a instituição não possua taxas de câmbio diferenciadas para pessoa natural e jurídica utilizar a opção:PESSOA_NATURAL_JURIDICA.'
-      enum:
-        - PESSOA_NATURAL
-        - PESSOA_JURIDICA
-        - PESSOA_NATURAL_JURIDICA
-      example: PESSOA_JURIDICA
-    EnumTargetAudience:
-      type: string
-      description: |
-        A considerar os domínios abaixo:
-
-          1. Pessoa Natural
-          2. Pessoa Jurídica
-          3. Ambas (Pessoa Natural e Jurídica)
-      maxLength: 23
-      enum:
-        - PESSOA_NATURAL
-        - PESSOA_JURIDICA
-        - PESSOA_NATURAL_JURIDICA
-      example: PESSOA_NATURAL
+      pattern: '^[A-Z]{3}$'
+      maxLength: 3
+      description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+      example: BRL
+    OpenDataResponseError:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          maxItems: 13
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                description: Código de erro específico do endpoint
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 255
+              title:
+                description: Título legível por humanos deste erro específico
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 255
+              detail:
+                description: Descrição legível por humanos deste erro específico
+                type: string
+                pattern: '[\w\W\s]*'
+                maxLength: 2048
+            additionalProperties: false
+        meta:
+          $ref: '#/components/schemas/OpenDataMeta'
+      additionalProperties: false
   parameters:
     page:
       name: page
@@ -505,61 +532,28 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/NotFound/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/OpenDataResponseError'
     NotFound:
       description: O recurso solicitado não existe ou não foi implementado
       content:
         application/json; charset=utf-8:
           schema:
-            type: object
-            required:
-              - errors
-            properties:
-              errors:
-                type: array
-                minItems: 1
-                maxItems: 13
-                items:
-                  type: object
-                  required:
-                    - code
-                    - title
-                    - detail
-                  properties:
-                    code:
-                      description: Código de erro específico do endpoint
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 255
-                    title:
-                      description: Título legível por humanos deste erro específico
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 255
-                    detail:
-                      description: Descrição legível por humanos deste erro específico
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 2048
-                  additionalProperties: false
-              meta:
-                $ref: '#/components/schemas/OpenDataMeta'
-            additionalProperties: false
+            $ref: '#/components/schemas/OpenDataResponseError'
     MethodNotAllowed:
       description: O consumidor tentou acessar o recurso com um método não suportado
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/NotFound/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/OpenDataResponseError'
     TooManyRequests:
       description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/NotFound/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/OpenDataResponseError'
     InternalServerError:
       description: Ocorreu um erro no gateway da API ou no microsserviço
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/responses/NotFound/content/application~1json%3B%20charset%3Dutf-8/schema'
+            $ref: '#/components/schemas/OpenDataResponseError'
