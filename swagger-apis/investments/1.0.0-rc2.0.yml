@@ -336,14 +336,16 @@ components:
         minimum:
           type: string
           description: Valor mínimo.
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.010000'
         maximum:
           type: string
           description: Valor máximo.
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.300000'
       additionalProperties: false
     InvestmentsNoIdentificationFrequencyDistribution:
@@ -377,15 +379,17 @@ components:
         minimum:
           type: string
           description: Valor mínimo.
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-          example: '0.010000'
+          pattern: '^\d{1}\.\d{6}$'
+          example: '0.019800'
         maximum:
           type: string
           description: Valor máximo.
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
-          example: '0.300000'
+          minLength: 8
+          pattern: '^\d{1}\.\d{6}$'
+          example: '0.019800'
       additionalProperties: false
     DistributionFrequencyPrice:
       type: object
@@ -399,15 +403,17 @@ components:
         value:
           type: string
           description: Mediana.
-          example: '0.020300'
+          example: '0.019800'
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
         operationRate:
           type: string
           description: Percentual de operação.
-          example: '0.500000'
+          example: '0.019800'
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
       additionalProperties: false
     EnumDistinctTargetAudience:
       type: string
@@ -464,7 +470,7 @@ components:
           description: |
             Campo livre para preenchimento das informações adicionais referente ao encargo.
 
-            [Restrição] Obrigatório quando Indexador for igual 'OUTROS'.
+            [Restrição] Obrigatório quando "indexer" for igual 'OUTROS'.
           maxLength: 140
           example: Informações adicionais
           pattern: '[\w\W\s]*'
@@ -929,6 +935,14 @@ components:
           $ref: '#/components/schemas/CnpjNumber'
         urlComplementaryList:
           type: string
+          description: |
+            - 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+
+            - 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
+
+            - Ambos do tipo string;
+
+            - Ambos obrigatórios.
           maxLength: 1024
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
           example: 'https://empresaa1.com/companies'

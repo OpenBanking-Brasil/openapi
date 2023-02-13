@@ -194,10 +194,10 @@ components:
           $ref: '#/components/schemas/EnumDistinctTargetAudienceExchange'
         value:
           type: string
-          maxLength: 7
-          minLength: 3
-          pattern: '^\d{1}\.\d{1,5}$'
-          example: '5.5023'
+          maxLength: 8
+          minLength: 8
+          pattern: '^\d{1}\.\d{6}$'
+          example: '0.019800'
           description: Valor da operação.
         valueUpdateDateTime:
           type: string
@@ -221,7 +221,7 @@ components:
         transactionType: COMPRA
         transactionCategory: COMERCIO_EXTERIOR
         targetAudience: PESSOA_NATURAL
-        value: '5.5023'
+        value: '0.019800'
         valueUpdateDateTime: '2017-07-21T17:32:28Z'
         disclaimer: 'Informamos que esta taxa é estimada e exclusiva para fins de Open Finance,  não sendo válida para a contratação de operações de câmbio. Para obter a taxa para fechamento do câmbio, pedimos consultar os canais disponíveis para contratação.'
       additionalProperties: false
@@ -283,14 +283,16 @@ components:
         minimum:
           type: string
           description: Valor mínimo.
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.010000'
         maximum:
           type: string
           description: Valor máximo.
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.300000'
       additionalProperties: false
     ExchangeFrequencyDistributionPrice:
@@ -306,14 +308,16 @@ components:
           type: string
           description: Mediana.
           example: '0.020300'
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
         operationRate:
           type: string
           description: Percentual de Operação.
           example: '0.500000'
+          minLength: 8
           maxLength: 8
-          pattern: '^\d{1}\.\d{1,6}$'
+          pattern: '^\d{1}\.\d{6}$'
       additionalProperties: false
     OnlineRate:
       type: object
@@ -448,6 +452,14 @@ components:
           $ref: '#/components/schemas/CnpjNumber'
         urlComplementaryList:
           type: string
+          description: |
+            - 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+
+            - 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
+
+            - Ambos do tipo string;
+
+            - Ambos obrigatórios. 
           maxLength: 1024
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
           example: 'https://empresaa1.com/companies'

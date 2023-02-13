@@ -4,7 +4,14 @@
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização;
 /data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A1;
 /data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
-/data/participant/urlComplementaryList;urlComplementaryList;;Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
+/data/participant/urlComplementaryList;urlComplementaryList;"- 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+
+- 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
+
+- Ambos do tipo string;
+
+- Ambos obrigatórios.
+";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
 /data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;45086338000178;
 /data/issuerInstitutionName;issuerInstitutionName;Nome da instituição emissora.;Texto;250;Obrigatório;\w+\W*;;1;1;"";Não permitido;string;Organização A1;1
 /data/investmentType;investmentType;Especificação do ativo em questão.<br><ol><li>CDB</li><li>RDB</li><li>LCI</li><li>LCA</li></ol>;Texto;;Obrigatório;;"CDB 
@@ -26,8 +33,8 @@ PRE_FIXADO
 OUTROS";1;1;"";Não permitido;string;CDI;
 /data/index/indexerAdditionalInfo;indexerAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao encargo.
 
-[Restrição] Obrigatório quando Indexador for igual 'OUTROS'.
-";Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando Indexador for igual 'OUTROS'.
+[Restrição] Obrigatório quando ""indexer"" for igual 'OUTROS'.
+";Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando ""indexer"" for igual 'OUTROS'.
 ";Não permitido;string;Informações adicionais;
 /data/index/issueRemunerationRate;issueRemunerationRate;Distribuição por frequência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/index/issueRemunerationRate/prices;prices;Distribuição dos preços.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;"[{""interval""=>""1_FAIXA"", ""value""=>""0.020300"", ""operationRate""=>""0.500000""}, {""interval""=>""2_FAIXA"", ""value""=>""0.030600"", ""operationRate""=>""0.100000""}, {""interval""=>""3_FAIXA"", ""value""=>""0.034300"", ""operationRate""=>""0.300000""}, {""interval""=>""4_FAIXA"", ""value""=>""0.246800"", ""operationRate""=>""0.100000""}]";
@@ -35,10 +42,10 @@ OUTROS";1;1;"";Não permitido;string;CDI;
 2_FAIXA 
 3_FAIXA 
 4_FAIXA";1;1;"";Não permitido;string;1_FAIXA;
-/data/index/issueRemunerationRate/prices/value;value;Mediana.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.020300;
-/data/index/issueRemunerationRate/prices/operationRate;operationRate;Percentual de operação.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.500000;
-/data/index/issueRemunerationRate/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.010000;
-/data/index/issueRemunerationRate/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{1,6}$;;1;1;"";Não permitido;string;0.300000;
+/data/index/issueRemunerationRate/prices/value;value;Mediana.;Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.019800;8
+/data/index/issueRemunerationRate/prices/operationRate;operationRate;Percentual de operação.;Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.019800;8
+/data/index/issueRemunerationRate/minimum;minimum;Valor mínimo.;Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.019800;8
+/data/index/issueRemunerationRate/maximum;maximum;Valor máximo.;Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.019800;8
 /data/investmentConditions;investmentConditions;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/investmentConditions/minimumAmount;minimumAmount;Valor mínimo de aplicação no ativo.;Texto;19;Obrigatório;^\d{1,16}\.\d{2}$;;1;1;"";Não permitido;string;100.00;4
 /data/investmentConditions/redemptionTerm;redemptionTerm;Capacidade de conversão do título em dinheiro (resgate ou recompra).<br><br><ol><li>diária</li><li>na data de vencimento</li><li>diária após prazo de carência</li></ol>;Texto;;Obrigatório;;"DIARIA 

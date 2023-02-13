@@ -174,6 +174,11 @@ components:
           example: '13456789000112'
         urlComplementaryList:
           type: string
+          description: |
+            - 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+            - 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
+            - Ambos do tipo string;
+            - Ambos obrigatórios.
           maxLength: 1024
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
           example: 'https://empresaa1.com/companies'
@@ -216,15 +221,17 @@ components:
           $ref: '#/components/schemas/EnumAcquiringServicesInterval'
         value:
           type: string
-          example: '0.0203'
-          maxLength: 6
-          pattern: '^\d{1}\.\d{1,4}$'
-          description: Mediana referente a cada intervalo.
+          example: '0.019800'
+          minLength: 8
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
+          description: Mediana referente a taxa de desconto de débito ou crédito a cada intervalo.
         customerRate:
           type: string
-          example: '0.5000'
-          maxLength: 6
-          pattern: '^\d{1}\.\d{1,4}$'
+          example: '0.019800'
+          minLength: 8
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
           description: Percentual de cliente em cada intervalo.
       additionalProperties: false
     AcquiringServicesContractData:
@@ -253,38 +260,38 @@ components:
             $ref: '#/components/schemas/Price'
           example:
             - interval: 1_FAIXA
-              value: '0.0203'
-              customerRate: '0.5000'
+              value: '0.020300'
+              customerRate: '0.500000'
             - interval: 2_FAIXA
-              value: '0.0306'
-              customerRate: '0.1000'
+              value: '0.030600'
+              customerRate: '0.100000'
             - interval: 3_FAIXA
-              value: '0.0343'
-              customerRate: '0.3000'
+              value: '0.034300'
+              customerRate: '0.300000'
             - interval: 4_FAIXA
-              value: '0.2468'
-              customerRate: '0.1000'
+              value: '0.246800'
+              customerRate: '0.100000'
         chargingTriggerInfo:
           type: string
           minLength: 1
           maxLength: 200
           example: Recebimento através de transação de cartão.
           description: |
-            "Descrição do Fator gerador de cobrança que incide sobre o serviço de credenciamento."
+            Descrição do Fator gerador de cobrança que incide sobre o serviço de credenciamento.
         minimum:
           type: string
-          minLength: 1
-          maxLength: 999999
-          pattern: '^\d{1}\.\d{1,4}$'
+          minLength: 8
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
           description: Valor mínimo
-          example: '2.0'
+          example: '0.019800'
         maximum:
           type: string
-          minLength: 1
-          maxLength: 999999
-          pattern: '^\d{1}\.\d{1,4}$'
+          minLength: 8
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
           description: Valor máximo
-          example: '5.0'
+          example: '0.019800'
       additionalProperties: false
     OpenDataResponseError:
       type: object
