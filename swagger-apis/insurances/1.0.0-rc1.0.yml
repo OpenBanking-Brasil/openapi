@@ -113,6 +113,12 @@ components:
           $ref: '#/components/schemas/CnpjNumber'
         urlComplementaryList:
           type: string
+          description: |
+            Espera-se que valor de retorno, após acesso ao link 'urlComplementaryList', deve ser array de objeto com a estrutura abaixo:
+            - 'name' com o valor contido no campo 'LegalEntityName' conforme cadastro no diretório;
+            - 'cnpjNumber' com o valor contido no campo CNPJ ('RegistrationNumber') correspondente a esta instituição;
+            - Ambos do tipo string;
+            - Ambos obrigatórios. 
           maxLength: 1024
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
           example: 'https://empresaa1.com/companies'
@@ -287,7 +293,7 @@ components:
           type: string
           description: 'Sequência numérica utilizada para consulta dos processos eletrônicos na SUSEP, com caracteres especiais, conforme campo de consulta no site da SUSEP (XXXXX.XXXXXX/XXXX-XX)<br>Observação&#58; Mascaras da SUSEP – Serão permitidos todas as máscaras de Produtos. Limitar pelos códigos das Máscaras.'
           maxLength: 20
-          pattern: '^\d{5}\.\d{6}/\d{4}-\d{2}$'
+          pattern: '^\d{5}\.\d{6}\/\d{4}-\d{2}$|^\d{2}\.\d{6}\/\d{2}-\d{2}$|^\d{3}-\d{5}\/\d{2}$|^\d{5}\.\d{6}\/\d{2}-\d{2}$'
           example: 15414.622222/2222-22
         detail:
           type: string
@@ -362,9 +368,11 @@ components:
       properties:
         interestRate:
           type: string
-          pattern: '^\d{1,16}\.\d{4}$'
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
           description: Taxa de juros para capitalização da PMBaC
-          example: '14.2521'
+          example: '0.019800'
         updateIndexes:
           type: array
           items:
@@ -472,10 +480,11 @@ components:
           example: 12
         percentage:
           type: string
-          pattern: '^\d\.\d{4}$'
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
           description: Percentual de faixa de resgate.
-          maxLength: 6
-          example: '0.5000'
+          example: '0.019800'
       additionalProperties: false
     EnumPersonalIndemnifiablePeriodType:
       type: string
@@ -607,12 +616,16 @@ components:
       properties:
         min:
           type: string
-          pattern: '^\d\.\d{2}$'
-          example: '0.20'
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
+          example: '0.019800'
         max:
           type: string
-          pattern: '^\d\.\d{2}$'
-          example: '1.00'
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
+          example: '0.019800'
       additionalProperties: false
     AutomotiveCoverageItem:
       type: object
@@ -723,9 +736,10 @@ components:
         fullIndemnityPercentage:
           type: string
           description: 'Será caracterizada a indenização integral quando os prejuízos resultantes de um mesmo sinistro, atingirem ou ultrapassarem a quantia apurada a partir da aplicação de percentual previamente determinado sobre o valor contratado. (Circular 269/2004).'
-          pattern: '^\d\.\d{2}$'
-          maxLength: 4
-          example: '0.75'
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
+          example: '0.019800'
         deductibleTypes:
           description: Listagem de tipo de franquia para cada tipo de cobertura do produto.
           type: array
@@ -747,10 +761,11 @@ components:
           example: true
         deductiblePercentage:
           type: string
-          pattern: '^\d\.\d{2}$'
           description: Percentual de Franquia
-          maxLength: 4
-          example: '0.75'
+          pattern: '^\d{1}\.\d{6}$'
+          maxLength: 8
+          minLength: 8
+          example: '0.019800'
         mandatoryParticipation:
           type: string
           maxLength: 300
@@ -1251,10 +1266,11 @@ components:
           $ref: '#/components/schemas/HomeMinDeductibleAmount'
         insuredMandatoryParticipationPercentage:
           type: string
-          pattern: '^\d\.\d{6}$'
           description: 'Participação Obrigatória é o valor ou percentual definido na apólice referente à responsabilidade do Segurado nos prejuízos indenizáveis decorrentes de sinistros cobertos. (Circular SUSEP 347/07). Listagem de percentual de franquia e/ou Percentual Participação Obrigatória do Segurado estabelecida pela sociedade para cada tipo de cobertura do produto. Observação: Sugestão de Criação do campo em substituição ao campo abaixo ‘Valor Máximo de Franquia’.'
+          pattern: '^\d{1}\.\d{6}$'
           maxLength: 8
-          example: '0.000002'
+          minLength: 8
+          example: '0.019800'
       additionalProperties: false
     HomePropertyCharacteristics:
       type: object
@@ -1907,7 +1923,7 @@ components:
       additionalProperties: false
     Meta:
       type: object
-      description: Meta informações referente à API requisitada.
+      description: Meta informações referente a API requisitada.
       required:
         - totalRecords
         - totalPages
