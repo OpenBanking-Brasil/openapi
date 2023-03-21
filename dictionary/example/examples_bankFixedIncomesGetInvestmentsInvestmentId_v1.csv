@@ -1,0 +1,4 @@
+﻿data,,,,,,,,,,,,,,,,
+issuerInstitutionCnpjNumber,isinCode,investmentType,remuneration,,,,,,,issueUnitPrice,,dueDate,issueDate,clearingCode,purchaseDate,gracePeriodDate
+,,,preFixedRate,postFixedIndexerPercentage,rateType,ratePeriodicity,calculation,indexer,indexerAdditionalInfo,amount,currency,,,,,
+11225860000140,BRCST4CTF001,CDB,0.300000,1.100000,LINEAR,MENSAL,DIAS_CORRIDOS,CDI,Dólar,1000.000004,BRL,2018-02-15,2018-02-16,CDB421GPXXX,2018-02-15,2018-02-16
