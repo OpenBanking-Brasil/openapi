@@ -25,7 +25,9 @@ tags:
   - name: Balances
     description: Obtém a posição da operação de Renda Fixa Crédito identificada por investmentId.
   - name: Transactions
-    description: Obtém as movimentações da operação de Renda Fixa Crédito identificada por investmentId.
+    description: Obtém as movimentações históricas (últimos 12 meses) da operação de Fundos de Investimento identificada por investmentId.
+  - name: Transactions Current
+    description: 'Obtém as movimentações recentes da operação de Fundos de Investimento identificada por investmentId. O período a ser considerado para apresentação de movimentações será de até 7 dias - 7 dias anteriores da consulta, incluindo o dia da consulta (D-6).'
 paths:
   /investments:
     get:
@@ -182,7 +184,7 @@ paths:
         - Transactions
       summary: Obtém as movimentações da operação de Renda Fixa Crédito identificada por investmentId.
       operationId: creditFixedIncomesGetInvestmentsInvestmentIdTransactions
-      description: Obtém as movimentações da operação de Renda Fixa Crédito identificada por investmentId.
+      description: Obtém as movimentações históricas (últimos 12 meses) da operação de Fundos de Investimento identificada por investmentId.
       parameters:
         - $ref: '#/components/parameters/InvestmentId'
         - $ref: '#/components/parameters/Authorization'
@@ -193,35 +195,91 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/pagination-key'
+        - $ref: '#/components/parameters/fromTransactionDate'
+        - $ref: '#/components/parameters/toTransactionDate'
       responses:
         '200':
           $ref: '#/components/responses/ResponseCreditFixedIncomesTransactions'
         '400':
-          $ref: '#/components/responses/BadRequestWithAdditionalProperties'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          $ref: '#/components/responses/UnauthorizedWithAdditionalProperties'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          $ref: '#/components/responses/ForbiddenWithAdditionalProperties'
+          $ref: '#/components/responses/Forbidden'
         '404':
-          $ref: '#/components/responses/NotFoundWithAdditionalProperties'
+          $ref: '#/components/responses/NotFound'
         '405':
-          $ref: '#/components/responses/MethodNotAllowedWithAdditionalProperties'
+          $ref: '#/components/responses/MethodNotAllowed'
         '406':
-          $ref: '#/components/responses/NotAcceptableWithAdditionalProperties'
+          $ref: '#/components/responses/NotAcceptable'
         '422':
-          $ref: '#/components/responses/UnprocessableEntityWithAdditionalProperties'
+          $ref: '#/components/responses/UnprocessableEntity'
         '423':
-          $ref: '#/components/responses/LockedWithAdditionalProperties'
+          $ref: '#/components/responses/Locked'
         '429':
-          $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
+          $ref: '#/components/responses/TooManyRequests'
         '500':
-          $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+          $ref: '#/components/responses/InternalServerError'
         '504':
-          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
+          $ref: '#/components/responses/GatewayTimeout'
         '529':
-          $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
+          $ref: '#/components/responses/SiteIsOverloaded'
         default:
-          $ref: '#/components/responses/DefaultWithAdditionalProperties'
+          $ref: '#/components/responses/Default'
+      security:
+        - OpenId:
+            - openid
+          OAuth2Security:
+            - 'consent:consentId'
+            - credit-fixed-incomes
+  '/investments/{investmentId}/transactions-current':
+    get:
+      tags:
+        - Transactions Current
+      summary: Obtém as movimentações da operação de Renda Fixa Crédito identificada por investmentId.
+      operationId: creditFixedIncomesGetInvestmentsInvestmentIdTransactionsCurrent
+      description: 'Obtém as movimentações recentes da operação de Fundos de Investimento identificada por investmentId. O período a ser considerado para apresentação de movimentações será de até 7 dias - 7 dias anteriores da consulta, incluindo o dia da consulta (D-6).'
+      parameters:
+        - $ref: '#/components/parameters/InvestmentId'
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/xFapiAuthDate'
+        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
+        - $ref: '#/components/parameters/xFapiInteractionId'
+        - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
+        - $ref: '#/components/parameters/fromTransactionDateCurrent'
+        - $ref: '#/components/parameters/toTransactionDateCurrent'
+      responses:
+        '200':
+          $ref: '#/components/responses/ResponseCreditFixedIncomesTransactionsCurrent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '423':
+          $ref: '#/components/responses/Locked'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -239,6 +297,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/CreditFixedList'
         links:
@@ -331,12 +390,139 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/CreditFixedIncomesTransactions'
         links:
           $ref: '#/components/schemas/CreditFixedIncomesLinks'
         meta:
-          $ref: '#/components/schemas/CreditFixedIncomesMeta'
+          $ref: '#/components/schemas/CreditFixedIncomesMetaTransactions'
+    ResponseCreditFixedIncomesTransactionsCurrent:
+      type: object
+      required:
+        - data
+        - links
+        - meta
+      properties:
+        data:
+          type: array
+          minItems: 0
+          items:
+            type: object
+            required:
+              - type
+              - transactionType
+              - transactionDate
+              - transactionUnitPrice
+              - transactionQuantity
+              - transactionGrossValue
+              - transactionNetValue
+              - transactionId
+            properties:
+              type:
+                $ref: '#/components/schemas/Type'
+              transactionType:
+                $ref: '#/components/schemas/TransactionType'
+              typeAdditionalInfo:
+                type: string
+                description: |
+                  Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.         
+                  [Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'OUTROS' no campo 'transactionType'.
+                maxLength: 100
+                pattern: '[\w\W\s]*'
+              transactionDate:
+                type: string
+                format: date
+                description: Data da movimentação
+                maxLength: 10
+                pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+                example: '2018-02-15'
+              transactionUnitPrice:
+                type: object
+                description: valor unitário negociado com o cliente na data de aquisição
+                required:
+                  - amount
+                  - currency
+                properties:
+                  amount:
+                    type: string
+                    format: double
+                    pattern: '^\d{1,15}\.\d{2,8}$'
+                    maxLength: 24
+                    minLength: 4
+                    example: '1000.000004'
+                    description: Valor relacionado ao objeto.
+                  currency:
+                    $ref: '#/components/schemas/Currency'
+              transactionQuantity:
+                type: string
+                description: Quantidade de títulos envolvidos na movimentação
+                maxLength: 24
+                pattern: '^\d{1,15}\.\d{2,8}$'
+                example: '42.25'
+              transactionGrossValue:
+                $ref: '#/components/schemas/TransactionGrossValue'
+              incomeTax:
+                type: object
+                description: |
+                  Valor do imposto de renda recolhido na transação.               
+                  [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+                required:
+                  - amount
+                  - currency
+                properties:
+                  amount:
+                    type: string
+                    format: double
+                    pattern: '^\d{1,15}\.\d{2,4}$'
+                    maxLength: 20
+                    minLength: 4
+                    example: '1000.04'
+                    description: Valor relacionado ao objeto.
+                  currency:
+                    $ref: '#/components/schemas/Currency'
+              financialTransactionTax:
+                type: object
+                description: |
+                  Valor do IOF recolhido na transação.                  
+                  [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'. 
+                required:
+                  - amount
+                  - currency
+                properties:
+                  amount:
+                    type: string
+                    format: double
+                    pattern: '^\d{1,15}\.\d{2,4}$'
+                    maxLength: 20
+                    minLength: 4
+                    example: '1000.04'
+                    description: Valor relacionado ao objeto.
+                  currency:
+                    $ref: '#/components/schemas/Currency'
+              transactionNetValue:
+                $ref: '#/components/schemas/TransactionNetValue'
+              remunerationTransactionRate:
+                $ref: '#/components/schemas/RemunerationTransactionRate'
+              indexerPercentage:
+                type: string
+                description: |
+                  Percentual máximo do indexador na transação acordado com o cliente na contratação.     
+                  [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA'.
+                maxLength: 8
+                pattern: '^\d{1}\.\d{6}$'
+                example: '1.100000'
+              transactionId:
+                type: string
+                description: |
+                  Código ou identificador único prestado pela instituição para individualizar o movimento.  
+                maxLength: 100
+                pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
+                example: ABCD2126019929279212650822221989319253344
+        links:
+          $ref: '#/components/schemas/CreditFixedIncomesLinks'
+        meta:
+          $ref: '#/components/schemas/CreditFixedIncomesMetaTransactions'
     Amount:
       type: string
       format: double
@@ -511,6 +697,18 @@ components:
           format: int32
           description: Número total de páginas no resultado
           example: 1
+        requestDateTime:
+          description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
+          type: string
+          maxLength: 20
+          format: date-time
+          example: '2021-05-21T08:30:00Z'
+    CreditFixedIncomesMetaTransactions:
+      type: object
+      description: Meta informações referente a API requisitada.
+      required:
+        - requestDateTime
+      properties:
         requestDateTime:
           description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
           type: string
@@ -1296,6 +1494,54 @@ components:
         type: string
         maxLength: 2048
         pattern: '[\w\W\s]*'
+    fromTransactionDate:
+      name: fromTransactionDate
+      description: |
+        Data inicial de filtragem.      
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2022-01-01'
+    toTransactionDate:
+      name: toTransactionDate
+      description: |
+        Data final de filtragem.      
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2022-12-31'
+    fromTransactionDateCurrent:
+      name: fromTransactionDate
+      description: |
+        Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).       
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2023-02-01'
+    toTransactionDateCurrent:
+      name: toTransactionDate
+      description: |
+        Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).       
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2023-02-01'
   securitySchemes:
     OpenId:
       type: openIdConnect
@@ -1334,6 +1580,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ResponseCreditFixedIncomesTransactions'
+    ResponseCreditFixedIncomesTransactionsCurrent:
+      description: Dados obtidos com sucesso.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResponseCreditFixedIncomesTransactionsCurrent'
     BadRequest:
       description: 'A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.'
       content:

@@ -1,7 +1,7 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/type;type;"Tipo de movimentação na visão de investimento (entrada ou saída) . (Nos casos de motivo de pagamento  ""pagamento de juros"" e ""amortização"", fica convencionado que será considerado que o tipo de movimento será saída).";Texto;;Obrigatório;;"ENTRADA 
-SAÍDA";1;1;"";Não permitido;string;ENTRADA;
+SAIDA";1;1;"";Não permitido;string;ENTRADA;
 /data/transactionType;transactionType;Aplicação, resgate, cancelamento, vencimento, pagamento de juros/amortização, transferência de titularidade, transferência de custódia e outros.;Texto;;Obrigatório;;"APLICACAO 
 RESGATE 
 CANCELAMENTO 

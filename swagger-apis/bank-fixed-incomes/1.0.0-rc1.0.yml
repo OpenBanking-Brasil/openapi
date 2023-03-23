@@ -24,7 +24,9 @@ tags:
   - name: Balances
     description: Obtém a posição da operação de Renda Fixa Bancária identificada por investmentId.
   - name: Transactions
-    description: Obtém as movimentações da operação de Renda Fixa Bancária identificada por investmentId.
+    description: Obtém as movimentações históricas (últimos 12 meses) da operação de Fundos de Investimento identificada por investmentId.
+  - name: Transactions Current
+    description: 'Obtém as movimentações recentes da operação de Fundos de Investimento identificada por investmentId. O período a ser considerado para apresentação de movimentações será de até 7 dias - 7 dias anteriores da consulta, incluindo o dia da consulta (D-6).'
 paths:
   /investments:
     get:
@@ -186,9 +188,9 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Obtém as movimentações da operação de Renda Fixa Bancária identificada por investmentId.
+      summary: Obtém as movimentações históricas (últimos 12 meses) da operação de Fundos de Investimento identificada por investmentId.
       operationId: banktFixedIncomesGetInvestmentsInvestmentIdTransactions
-      description: Obtém as movimentações da operação de Renda Fixa Bancária identificada por investmentId.
+      description: Obtém as movimentações históricas (últimos 12 meses) da operação de Fundos de Investimento identificada por investmentId.
       parameters:
         - $ref: '#/components/parameters/InvestmentId'
         - $ref: '#/components/parameters/Authorization'
@@ -199,35 +201,91 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/pagination-key'
+        - $ref: '#/components/parameters/fromTransactionDate'
+        - $ref: '#/components/parameters/toTransactionDate'
       responses:
         '200':
           $ref: '#/components/responses/ResponseBankFixedIncomesProductMovement'
         '400':
-          $ref: '#/components/responses/BadRequestWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsBadRequestWithAdditionalProperties'
         '401':
-          $ref: '#/components/responses/UnauthorizedWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsUnauthorizedWithAdditionalProperties'
         '403':
-          $ref: '#/components/responses/ForbiddenWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsForbiddenWithAdditionalProperties'
         '404':
-          $ref: '#/components/responses/NotFoundWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsNotFoundWithAdditionalProperties'
         '405':
-          $ref: '#/components/responses/MethodNotAllowedWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsMethodNotAllowedWithAdditionalProperties'
         '406':
-          $ref: '#/components/responses/NotAcceptableWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsNotAcceptableWithAdditionalProperties'
         '422':
-          $ref: '#/components/responses/UnprocessableEntityWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsUnprocessableEntityWithAdditionalProperties'
         '423':
-          $ref: '#/components/responses/LockedWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsLockedWithAdditionalProperties'
         '429':
-          $ref: '#/components/responses/TooManyRequestsWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsTooManyRequestsWithAdditionalProperties'
         '500':
-          $ref: '#/components/responses/InternalServerErrorWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsInternalServerErrorWithAdditionalProperties'
         '504':
-          $ref: '#/components/responses/GatewayTimeoutWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsGatewayTimeoutWithAdditionalProperties'
         '529':
-          $ref: '#/components/responses/SiteIsOverloadedWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsSiteIsOverloadedWithAdditionalProperties'
         default:
-          $ref: '#/components/responses/DefaultWithAdditionalProperties'
+          $ref: '#/components/responses/TransactionsDefaultWithAdditionalProperties'
+      security:
+        - OpenId:
+            - openid
+          OAuth2Security:
+            - 'consent:consentId'
+            - bank-fixed-incomes
+  '/investments/{investmentId}/transactions-current':
+    get:
+      tags:
+        - Transactions Current
+      summary: 'Obtém as movimentações recentes da operação de Fundos de Investimento identificada por investmentId. O período a ser considerado para apresentação de movimentações será de até 7 dias - 7 dias anteriores da consulta, incluindo o dia da consulta (D-6).'
+      operationId: banktFixedIncomesGetInvestmentsInvestmentIdTransactionsCurrent
+      description: 'Obtém as movimentações recentes da operação de Fundos de Investimento identificada por investmentId. O período a ser considerado para apresentação de movimentações será de até 7 dias - 7 dias anteriores da consulta, incluindo o dia da consulta (D-6).'
+      parameters:
+        - $ref: '#/components/parameters/InvestmentId'
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/xFapiAuthDate'
+        - $ref: '#/components/parameters/xFapiCustomerIpAddress'
+        - $ref: '#/components/parameters/xFapiInteractionId'
+        - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/pagination-key'
+        - $ref: '#/components/parameters/fromTransactionDateMaxLimited'
+        - $ref: '#/components/parameters/toTransactionDateMaxLimited'
+      responses:
+        '200':
+          $ref: '#/components/responses/ResponseBankFixedIncomesProductMovement'
+        '400':
+          $ref: '#/components/responses/TransactionsBadRequestWithAdditionalProperties'
+        '401':
+          $ref: '#/components/responses/TransactionsUnauthorizedWithAdditionalProperties'
+        '403':
+          $ref: '#/components/responses/TransactionsForbiddenWithAdditionalProperties'
+        '404':
+          $ref: '#/components/responses/TransactionsNotFoundWithAdditionalProperties'
+        '405':
+          $ref: '#/components/responses/TransactionsMethodNotAllowedWithAdditionalProperties'
+        '406':
+          $ref: '#/components/responses/TransactionsNotAcceptableWithAdditionalProperties'
+        '422':
+          $ref: '#/components/responses/TransactionsUnprocessableEntityWithAdditionalProperties'
+        '423':
+          $ref: '#/components/responses/TransactionsLockedWithAdditionalProperties'
+        '429':
+          $ref: '#/components/responses/TransactionsTooManyRequestsWithAdditionalProperties'
+        '500':
+          $ref: '#/components/responses/TransactionsInternalServerErrorWithAdditionalProperties'
+        '504':
+          $ref: '#/components/responses/TransactionsGatewayTimeoutWithAdditionalProperties'
+        '529':
+          $ref: '#/components/responses/TransactionsSiteIsOverloadedWithAdditionalProperties'
+        default:
+          $ref: '#/components/responses/TransactionsDefaultWithAdditionalProperties'
       security:
         - OpenId:
             - openid
@@ -236,7 +294,7 @@ paths:
             - bank-fixed-incomes
 components:
   schemas:
-    LockedWithAdditionalProperties:
+    ResponseError:
       type: object
       required:
         - errors
@@ -294,7 +352,7 @@ components:
               example: '2021-05-21T08:30:00Z'
           additionalProperties: false
       additionalProperties: false
-    ResponseError:
+    ResponseErrorMetaSingle:
       type: object
       required:
         - errors
@@ -346,6 +404,7 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             type: object
             description: Lista de títulos de renda fixa bancária mantidos pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento
@@ -379,7 +438,7 @@ components:
         links:
           $ref: '#/components/schemas/BankFixedIncomeLinks'
         meta:
-          $ref: '#/components/schemas/BankFixedIncomeMeta'
+          $ref: '#/components/schemas/BankFixedIncomesMeta'
       additionalProperties: false
     ResponseBankFixedIncomesProductIdentification:
       type: object
@@ -393,7 +452,7 @@ components:
         links:
           $ref: '#/components/schemas/BankFixedIncomeLinks'
         meta:
-          $ref: '#/components/schemas/BankFixedIncomeMeta'
+          $ref: '#/components/schemas/BankFixedIncomesMeta'
       additionalProperties: false
     ResponseBankFixedIncomesBalances:
       type: object
@@ -544,9 +603,9 @@ components:
         links:
           $ref: '#/components/schemas/BankFixedIncomeLinks'
         meta:
-          $ref: '#/components/schemas/BankFixedIncomeMeta'
+          $ref: '#/components/schemas/BankFixedIncomesMeta'
       additionalProperties: false
-    ResponseBAnkFixedIncomesTransactions:
+    ResponseBankFixedIncomesTransactions:
       type: object
       required:
         - data
@@ -555,12 +614,13 @@ components:
       properties:
         data:
           type: array
+          minItems: 0
           items:
             $ref: '#/components/schemas/BankFixedIncomesProductMovement'
         links:
           $ref: '#/components/schemas/BankFixedIncomeLinks'
         meta:
-          $ref: '#/components/schemas/BankFixedIncomeMeta'
+          $ref: '#/components/schemas/BankFixedIncomesTransactionsMeta'
       additionalProperties: false
     IdentifyProduct:
       type: object
@@ -656,7 +716,7 @@ components:
         - LCI
         - LCA
       example: CDB
-    EnumInvestmentsFixedIncomeBankIndexer:
+    EnumBankFixedIncomeIndexer:
       type: string
       description: 'Índice utilizado como referência para a correção da rentabilidade e/ou rendimentos do ativo (CDI, DI , TR, IPCA, IGP_M, IGP_DI, INPC, BCP, TLC, SELIC, PRE_FIXADO e OUTROS)'
       enum:
@@ -715,7 +775,7 @@ components:
         calculation:
           $ref: '#/components/schemas/EnumCalculation'
         indexer:
-          $ref: '#/components/schemas/EnumInvestmentsFixedIncomeBankIndexer'
+          $ref: '#/components/schemas/EnumBankFixedIncomeIndexer'
         indexerAdditionalInfo:
           type: string
           description: |
@@ -752,7 +812,7 @@ components:
         - DIAS_UTEIS
         - DIAS_CORRIDOS
       example: DIAS_CORRIDOS
-    BankFixedIncomeMeta:
+    BankFixedIncomesMeta:
       type: object
       description: Meta informações referente a API requisitada.
       required:
@@ -770,6 +830,19 @@ components:
           format: int32
           description: Número total de páginas no resultado
           example: 1
+        requestDateTime:
+          description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
+          type: string
+          maxLength: 20
+          format: date-time
+          example: '2021-05-21T08:30:00Z'
+      additionalProperties: false
+    BankFixedIncomesTransactionsMeta:
+      type: object
+      description: Meta informações referente a API requisitada.
+      required:
+        - requestDateTime
+      properties:
         requestDateTime:
           description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
           type: string
@@ -1102,6 +1175,58 @@ components:
         pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
         minLength: 1
         maxLength: 100
+    fromTransactionDate:
+      name: fromTransactionDate
+      description: |
+        Data inicial de filtragem.
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
+    fromTransactionDateMaxLimited:
+      name: fromTransactionDate
+      description: |
+        Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
+    toTransactionDate:
+      name: toTransactionDate
+      description: |
+        Data final de filtragem.
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
+    toTransactionDateMaxLimited:
+      name: toTransactionDate
+      description: |
+        Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
+
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
   responses:
     OkResponseBankFixedIncomesBalances:
       description: Dados obtidos com sucesso
@@ -1126,154 +1251,232 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ResponseBAnkFixedIncomesTransactions'
+            $ref: '#/components/schemas/ResponseBankFixedIncomesTransactions'
     BadRequest:
       description: 'A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     Forbidden:
       description: O token tem escopo incorreto ou uma política de segurança foi violada
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     GatewayTimeout:
       description: GATEWAY TIMEOUT - A requisição não foi atendida dentro do tempo limite estabelecido
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     InternalServerError:
       description: Ocorreu um erro no gateway da API ou no microsserviço
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     Locked:
       description: Locked
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     MethodNotAllowed:
       description: O consumidor tentou acessar o recurso com um método não suportado
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     NotAcceptable:
       description: A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     NotFound:
       description: O recurso solicitado não existe ou não foi implementado
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     TooManyRequests:
       description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     Unauthorized:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     UnprocessableEntity:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     SiteIsOverloaded:
       description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     BadRequestWithAdditionalProperties:
       description: 'A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     ForbiddenWithAdditionalProperties:
       description: O token tem escopo incorreto ou uma política de segurança foi violada
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     GatewayTimeoutWithAdditionalProperties:
       description: GATEWAY TIMEOUT - A requisição não foi atendida dentro do tempo limite estabelecido
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     InternalServerErrorWithAdditionalProperties:
       description: Ocorreu um erro no gateway da API ou no microsserviço
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     LockedWithAdditionalProperties:
       description: Locked
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     MethodNotAllowedWithAdditionalProperties:
       description: O consumidor tentou acessar o recurso com um método não suportado
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     NotAcceptableWithAdditionalProperties:
       description: A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     NotFoundWithAdditionalProperties:
       description: O recurso solicitado não existe ou não foi implementado
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     TooManyRequestsWithAdditionalProperties:
       description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     UnauthorizedWithAdditionalProperties:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     UnprocessableEntityWithAdditionalProperties:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     DefaultWithAdditionalProperties:
       description: Erro inesperado.
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
     SiteIsOverloadedWithAdditionalProperties:
       description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/LockedWithAdditionalProperties'
+            $ref: '#/components/schemas/ResponseError'
+    TransactionsBadRequestWithAdditionalProperties:
+      description: 'A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsForbiddenWithAdditionalProperties:
+      description: O token tem escopo incorreto ou uma política de segurança foi violada
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsGatewayTimeoutWithAdditionalProperties:
+      description: GATEWAY TIMEOUT - A requisição não foi atendida dentro do tempo limite estabelecido
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsInternalServerErrorWithAdditionalProperties:
+      description: Ocorreu um erro no gateway da API ou no microsserviço
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsLockedWithAdditionalProperties:
+      description: Locked
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsMethodNotAllowedWithAdditionalProperties:
+      description: O consumidor tentou acessar o recurso com um método não suportado
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsNotAcceptableWithAdditionalProperties:
+      description: A solicitação continha um cabeçalho Accept diferente dos tipos de mídia permitidos ou um conjunto de caracteres diferente de UTF-8
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsNotFoundWithAdditionalProperties:
+      description: O recurso solicitado não existe ou não foi implementado
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsTooManyRequestsWithAdditionalProperties:
+      description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsUnauthorizedWithAdditionalProperties:
+      description: Cabeçalho de autenticação ausente/inválido ou token inválido
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsUnprocessableEntityWithAdditionalProperties:
+      description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsDefaultWithAdditionalProperties:
+      description: Erro inesperado.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    TransactionsSiteIsOverloadedWithAdditionalProperties:
+      description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
