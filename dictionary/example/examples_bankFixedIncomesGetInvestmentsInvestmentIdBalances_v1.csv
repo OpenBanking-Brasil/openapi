@@ -1,0 +1,4 @@
+﻿data,,,,,,,,,,,,,,,,,
+referenceDateTime,quantity,updatedUnitPrice,,grossAmount,,netAmount,,incomeTax,,financialTransactionTax,,blockedBalance,,purchaseUnitPrice,,preFixedRate,postFixedIndexerPercentage
+,,amount,currency,amount,currency,amount,currency,amount,currency,amount,currency,amount,currency,amount,currency,,
+2022-07-21T17:32:00Z,1000.0004,1000.000004,BRL,1000.0004,BRL,1000.0004,BRL,1000.0004,BRL,1000.0004,BRL,1000.0004,BRL,1000.000004,BRL,0.300000,1.000000
