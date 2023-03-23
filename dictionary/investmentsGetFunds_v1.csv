@@ -4,15 +4,15 @@
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização;
 /data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A1;
 /data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
-/data/participant/urlComplementaryList;urlComplementaryList;"Array de objeto com a estrutura abaixo:
+/data/participant/urlComplementaryList;urlComplementaryList;"Espera-se que valor de retorno, após acesso ao link ‘urlComplementaryList’, deve ser array de objeto com a estrutura abaixo:
 
-- 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+- ‘name’ com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
 
 - 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
 
-\- Ambos do tipo string;
+- Ambos do tipo string;
 
-\- Ambos obrigatórios. 
+- Ambos obrigatórios.
 ";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
 /data/name;name;Nome oficial do fundo de investimento.;Texto;250;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO;
 /data/cnpjNumber;cnpjNumber;CNPJ do fundo de investimento.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;64108803000191;
