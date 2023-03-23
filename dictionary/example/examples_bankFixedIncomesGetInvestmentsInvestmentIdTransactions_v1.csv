@@ -1,0 +1,4 @@
+﻿data,,,,,,,,,,,,,,,,,
+type,transactionType,typeAdditionalInfo,transactionDate,transactionUnitPrice,,transactionQuantity,transactionGrossValue,,incomeTax,,financialTransactionTax,,transactionNetValue,,remunerationTransactionRate,indexerPercentage,transactionId
+,,,,amount,currency,,amount,currency,amount,currency,amount,currency,amount,currency,,,
+ENTRADA,APLICACAO,string,2018-02-15,1000.04,BRL,42.25,1000.04,BRL,1000.04,BRL,1000.04,BRL,1000.04,BRL,0.300000,1.100000,ABCD2126019929279212650822221989319253344
