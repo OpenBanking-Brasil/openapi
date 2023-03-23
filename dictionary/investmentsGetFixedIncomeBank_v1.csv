@@ -4,15 +4,15 @@
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização;
 /data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A1;
 /data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
-/data/participant/urlComplementaryList;urlComplementaryList;"Array de objeto com a estrutura abaixo:
+/data/participant/urlComplementaryList;urlComplementaryList;"Espera-se que valor de retorno, após acesso ao link ‘urlComplementaryList’, deve ser array de objeto com a estrutura abaixo:
 
-- 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+- ‘name’ com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
 
 - 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
 
-\- Ambos do tipo string;
+- Ambos do tipo string;
 
-\- Ambos obrigatórios. 
+- Ambos obrigatórios.
 ";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
 /data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;45086338000178;
 /data/issuerInstitutionName;issuerInstitutionName;Nome da instituição emissora.;Texto;250;Obrigatório;\w+\W*;;1;1;"";Não permitido;string;Organização A1;1
@@ -21,7 +21,24 @@ RDB
 LCI 
 LCA";1;1;"";Não permitido;string;CDB;
 /data/index;index;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/index/indexer;indexer;"Índice utilizado como referência para a correção da rentabilidade e/ou rendimentos do ativo (p.ex. CDI).<br><br>Pré-fixado, em linha com padronização da B3&#58;<br><br><ol><li>CDI</li><li>DI</li><li>TR</li><li>IPCA</li><li>IGP-M</li><li>IGP-DI</li><li>INPC</li><li>BCP</li><li>TLC</li><li>Selic</li><li>PRE_FIXADO</li><li>Outros</li></ol>";Texto;;Obrigatório;;"CDI 
+/data/index/indexer;indexer;"– Qualquer operação com taxa mista em CDI, DI, SELIC deverá ser ignorada - serão consideradas apenas taxas sem cupom  
+– No caso do pré-fixado será utilizado apenas o cupom, mesmo que haja outro indexador misturado  
+– No caso de TR, IPCA, IGP_M, IGP_DI, INPC, BCP, TLC E OUTROS, o cálculo será feito em cima do cupom (mesmo que ele seja zero), desconsiderando as operações que tenham indexador diferente de 100%
+
+Regras de cálculo por indexador  
+▪ CDI = % DO CDI  
+▪ DI = % DO DI  
+▪ TR = TR + CUPOM  
+▪ IPCA = IPCA + CUPOM  
+▪ IGP_M = IGP_M + CUPOM  
+▪ IGP_DI = IGP_DI + CUPOM  
+▪ INPC = INPC + CUPOM  
+▪ BCP = BCP + CUPOM  
+▪ TLC = TLC + CUPOM  
+▪ SELIC = % DO SELIC  
+▪ PRE_FIXADO = CUPOM  
+▪ OUTROS = Indexador + Cupom
+";Texto;;Obrigatório;;"CDI 
 DI 
 TR 
 IPCA 
