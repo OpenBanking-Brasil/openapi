@@ -21,7 +21,24 @@ RDB
 LCI 
 LCA";1;1;"";Não permitido;string;CDB;
 /data/index;index;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/index/indexer;indexer;"Índice utilizado como referência para a correção da rentabilidade e/ou rendimentos do ativo (p.ex. CDI).<br><br>Pré-fixado, em linha com padronização da B3&#58;<br><br><ol><li>CDI</li><li>DI</li><li>TR</li><li>IPCA</li><li>IGP-M</li><li>IGP-DI</li><li>INPC</li><li>BCP</li><li>TLC</li><li>Selic</li><li>PRE_FIXADO</li><li>Outros</li></ol>";Texto;;Obrigatório;;"CDI 
+/data/index/indexer;indexer;"– Qualquer operação com taxa mista em CDI, DI, SELIC deverá ser ignorada - serão consideradas apenas taxas sem cupom  
+– No caso do pré-fixado será utilizado apenas o cupom, mesmo que haja outro indexador misturado  
+– No caso de TR, IPCA, IGP_M, IGP_DI, INPC, BCP, TLC E OUTROS, o cálculo será feito em cima do cupom (mesmo que ele seja zero), desconsiderando as operações que tenham indexador diferente de 100%
+
+Regras de cálculo por indexador  
+▪ CDI = % DO CDI  
+▪ DI = % DO DI  
+▪ TR = TR + CUPOM  
+▪ IPCA = IPCA + CUPOM  
+▪ IGP_M = IGP_M + CUPOM  
+▪ IGP_DI = IGP_DI + CUPOM  
+▪ INPC = INPC + CUPOM  
+▪ BCP = BCP + CUPOM  
+▪ TLC = TLC + CUPOM  
+▪ SELIC = % DO SELIC  
+▪ PRE_FIXADO = CUPOM  
+▪ OUTROS = Indexador + Cupom
+";Texto;;Obrigatório;;"CDI 
 DI 
 TR 
 IPCA 
