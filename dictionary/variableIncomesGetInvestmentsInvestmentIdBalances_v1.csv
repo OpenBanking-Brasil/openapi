@@ -1,0 +1,15 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/referenceDate;referenceDate;Posição fechada para o ativo da data do dia anterior.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2023-01-07;
+/data/priceFactor;priceFactor;"Fator que indica o número de ações utilizadas para a formação do preço. Valor informado deve ser maior que zero.
+";Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;100.0005;
+/data/grossAmount;grossAmount;Valor do investimento anterior à dedução de impostos, taxas e tarifas (se houver), atualizado na data de referência. Quantidade de ativos dividido pelo Fator de cotação e multiplicado pelo pelo preço de fechamento da data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/grossAmount/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/grossAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedBalance/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/blockedBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/quantity;quantity;Quatidade total do ativo na data de referência.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.00000004;
+/data/closingPrice;closingPrice;Preço de fechamento da data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/closingPrice/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/closingPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;

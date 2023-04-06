@@ -1,0 +1,35 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/brokerNoteNumber;brokerNoteNumber;Identificador da nota de negociação.;Texto;16;Obrigatório;^\d{1,16}$;;1;1;"";Não permitido;string;1854009930314350;
+/data/grossValue;grossValue;o valor da nota de negociação é o somatório das operações realizadas. Total de compra e venda do dia.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/grossValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;5000.0024;
+/data/grossValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/brokerageFee;brokerageFee;"a taxa de corretagem incide sobre o valor bruto da nota de negociação, e é livremente pactuada entre o investidor e o seu intermediário. 
+Pode ser cobrada como um valor fixo por operação, ou um como um percentual sobre o valor negociado, ou ainda de forma mista, conforme guia CVM do investidor.
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/brokerageFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/brokerageFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/clearingSettlementFee;clearingSettlementFee;Valor cobrado para liquidação na custódia.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/clearingSettlementFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/clearingSettlementFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/clearingRegistrationFee;clearingRegistrationFee;Valor cobrado para registro na custódia.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/clearingRegistrationFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/clearingRegistrationFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/stockExchangeAssetTradeNoticeFee;stockExchangeAssetTradeNoticeFee;Valor cobrada pela bolsa pelo aviso de negociação de ativo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/stockExchangeAssetTradeNoticeFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/stockExchangeAssetTradeNoticeFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/stockExchangeFee;stockExchangeFee;Valor cobrado pela bolsa para remunerar os serviços de registro prestados.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/stockExchangeFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/stockExchangeFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/clearingCustodyFee;clearingCustodyFee;Taxa cobrada pelas IF para custódia.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/clearingCustodyFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/clearingCustodyFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/taxes;taxes;Impostos cobrados na operação, exceto imposto de renda.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/taxes/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/taxes/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/incomeTax;incomeTax;Imposto de renda retido na fonte.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/incomeTax/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
+/data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/netValue;netValue;Valor bruto da nota de negociação após despesas com taxa de corretagem, taxa de liquidação, taxa de registro, taxa A.N.A, emolumentos, taxa de custódia, impostos e IRRF.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/netValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;4889.0012;
+/data/netValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
