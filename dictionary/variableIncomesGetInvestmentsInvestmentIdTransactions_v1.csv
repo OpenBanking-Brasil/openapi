@@ -1,0 +1,48 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/type;type;"Tipo de movimentação na visão de investimento: entrada ou saída. Nos casos de pagamento de dividendos, JCP e aluguéis, fica convencionado que será considerado que o tipo de movimento será saída.
+";Texto;;Obrigatório;;"ENTRADA 
+SAIDA";1;1;"";Não permitido;string;ENTRADA;
+/data/transactionType;transactionType;"O campo deve classificar a movimentação em um dos tipos descritos: compra, venda, dividendos, JCP, aluguéis, transferência de custódia, transferência de titularidade e outros. O transmissor deve classificar as movimentações disponíveis associando-a a um dos itens do Enum listado neste campo. A opção OUTROS só deve ser utilizada para os casos em que de fato a movimentação compartilhada não possa ser classificada como um dos itens deste Enum.
+";Texto;;Obrigatório;;"COMPRA 
+VENDA 
+DIVIDENDOS 
+JCP 
+ALUGUEIS 
+INPLIT 
+SPLIT_TRANSFERENCIA_CUSTODIA 
+TRANSFERENCIA_TITULARIDADE 
+OUTROS";1;1;"";Não permitido;string;DIVIDENDOS;
+/data/typeAdditionalInfo;typeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com o valor 'OUTROS'.
+";Texto;100;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com o valor 'OUTROS'.
+";Não permitido;string;;
+/data/transactionDate;transactionDate;"Data da movimentação.
+
+[Restrição] Data do pregão: compartilhar movimentos até a data da posição.
+";Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;" Data do pregão: compartilhar movimentos até a data da posição.
+";Não permitido;string;2018-02-15;10
+/data/priceFactor;priceFactor;"Fator que indica o número de ações utilizadas para a formação do preço. Valor informado deve ser maior que zero.
+";Texto;24;Opcional;^\d{1,15}\.\d{2,8}$;;0;1;"";Não permitido;string;100.0005;
+/data/transactionUnitPrice;transactionUnitPrice;"Preço unitário da movimentação: valor da unidade do produto na movimentação do investimento.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
+";Não permitido;object;;
+/data/transactionUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/transactionQuantity;transactionQuantity;"Quantidade de ativos movimentados.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
+";Texto;24;Condicional;^\d{1,15}\.\d{2,8}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
+";Não permitido;string;42.00000025;
+/data/transactionValue;transactionValue;Valor da operação realizada pelo cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/transactionValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a representação individual do movimento.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;ABCD2126019929279212650822221989319253344;
+/data/brokerNoteId;brokerNoteId;"Identificador da nota de negociação.
+
+[Restrição] Informação de envio obrigatório caso o motivo da movimentação seja compra ou venda.
+";Texto;100;Condicional;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;0;1;" Informação de envio obrigatório caso o motivo da movimentação seja compra ou venda.
+";Não permitido;string;XWYZ555019929279212650822221989319252233;
