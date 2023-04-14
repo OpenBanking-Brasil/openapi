@@ -1,0 +1,61 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/isinCode;isinCode;"Código ISIN da emissão, Código ISIN do produto, Código da emissora
+: código universal que identifica cada valor mobiliário ou instrumento
+financeiro, conforme Norma ISO 6166.
+";Texto;12;Obrigatório;^[A-Z]{2}([A-Z0-9]){9}\d{1}$;;1;1;"";Não permitido;string;BRCST4CTF001;
+/data/productName;productName;Descrição do ativo em questão.;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;TESOURODIRETO;
+/data/remuneration;remuneration;Objeto para detalhamento de remuneração do titulo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/remuneration/indexer;indexer;Índice utilizado como referência para a correção da rentabilidade e/ou rendimentos do ativo (CDI, DI , TR, IPCA, IGP_M, IGP_DI, INPC, BCP, TLC, SELIC, PRE_FIXADO e OUTROS);Texto;;Obrigatório;;"CDI 
+DI 
+TR 
+IPCA 
+IGP_M 
+IGP_DI 
+INPC 
+BCP 
+TLC 
+SELIC 
+PRE_FIXADO 
+OUTROS";1;1;"";Não permitido;string;CDI;
+/data/remuneration/indexerAdditionalInfo;indexerAdditionalInfo;"Informações adicionais do indexador.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido com o valor 'OUTROS'.
+";Texto;50;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido com o valor 'OUTROS'.
+";Não permitido;string;Dólar;
+/data/remuneration/preFixedRate;preFixedRate;"Valor da taxa da aquisição do contrato.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido com o valor ‘PRE FIXADO’.
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido com o valor ‘PRE FIXADO’.
+";Não permitido;string;0.300000;
+/data/remuneration/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador da aquisição do contrato.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido de forma diferente de ‘PRE FIXADO’.
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido de forma diferente de ‘PRE FIXADO’.
+";Não permitido;string;1.100000;
+/data/remuneration/ratePeriodicity;ratePeriodicity;Periodicidade da taxa de remuneração (mensal, anual, diário e semestral);Texto;;Obrigatório;;"MENSAL 
+ANUAL 
+DIARIO 
+SEMESTRAL";1;1;"";Não permitido;string;DIARIO;
+/data/remuneration/calculation;calculation;Base de cálculo (dias úteis ou dias corridos);Texto;;Obrigatório;;"DIAS_UTEIS 
+DIAS_CORRIDOS";1;1;"";Não permitido;string;DIAS_CORRIDOS;
+/data/dueDate;dueDate;Data de vencimento do título.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;
+/data/purchaseDate;purchaseDate;Data de aquisição do cliente.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;
+/data/voucherPaymentIndicator;voucherPaymentIndicator;Indicativo se há pagamento de cupom (Sim ou não).;Texto;;Obrigatório;;"SIM 
+NAO";1;1;"";Não permitido;string;SIM;
+/data/voucherPaymentPeriodicity;voucherPaymentPeriodicity;"Em caso de haver pagamento de cupom, descrever a periodicidade
+(mensal, trimestral, semestral, anual, irregular e outros)
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'voucherPaymentIndicator' for preenchido com o valor 'SIM'.
+";Texto;;Condicional;;"MENSAL 
+TRIMESTRAL 
+SEMESTRAL 
+ANUAL 
+IRREGULAR 
+OUTROS";0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'voucherPaymentIndicator' for preenchido com o valor 'SIM'.
+";Não permitido;string;MENSAL;
+/data/voucherPaymentPeriodicityAdditionalInfo;voucherPaymentPeriodicityAdditionalInfo;"Informações adicionais da periodicidade de pagamento de cupom.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'voucherPaymentPeriodicity' for preenchido com o valor 'OUTROS'.
+";Texto;50;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'voucherPaymentPeriodicity' for preenchido com o valor 'OUTROS'.
+";Não permitido;string;Diária;
