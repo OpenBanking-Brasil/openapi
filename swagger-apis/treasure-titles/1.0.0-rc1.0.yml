@@ -407,40 +407,6 @@ components:
         meta:
           $ref: '#/components/schemas/TreasureTitlesMeta'
       additionalProperties: false
-    EnumInvestmentsFixedIncomeBankIndexer:
-      type: string
-      description: |
-        – Qualquer operação com taxa mista em CDI, DI, SELIC deverá ser ignorada - serão consideradas apenas taxas sem cupom  
-        – No caso do pré-fixado será utilizado apenas o cupom, mesmo que haja outro indexador misturado  
-        – No caso de TR, IPCA, IGP_M, IGP_DI, INPC, BCP, TLC E OUTROS, o cálculo será feito em cima do cupom (mesmo que ele seja zero), desconsiderando as operações que tenham indexador diferente de 100%
-
-        Regras de cálculo por indexador  
-        ▪ CDI = % DO CDI  
-        ▪ DI = % DO DI  
-        ▪ TR = TR + CUPOM  
-        ▪ IPCA = IPCA + CUPOM  
-        ▪ IGP_M = IGP_M + CUPOM  
-        ▪ IGP_DI = IGP_DI + CUPOM  
-        ▪ INPC = INPC + CUPOM  
-        ▪ BCP = BCP + CUPOM  
-        ▪ TLC = TLC + CUPOM  
-        ▪ SELIC = % DO SELIC  
-        ▪ PRE_FIXADO = CUPOM  
-        ▪ OUTROS = Indexador + Cupom
-      enum:
-        - CDI
-        - DI
-        - TR
-        - IPCA
-        - IGP_M
-        - IGP_DI
-        - INPC
-        - BCP
-        - TLC
-        - SELIC
-        - PRE_FIXADO
-        - OUTROS
-      example: CDI
     TreasureTitlesMeta:
       type: object
       description: Meta informações referente a API requisitada.
