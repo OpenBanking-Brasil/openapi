@@ -1,0 +1,22 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Informações da posição do fundo de investimento a que se refere investmentId.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/referenceDate;referenceDate;Data da última posição consolidada disponível a que se referem os dados transacionais do cliente disponíveis nos canais eletrônicos.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2023-01-07;
+/data/grossAmount;grossAmount;Valor do investimento que se refere a quantidade da cota x valor da cota, atualizado na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/grossAmount/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/grossAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/netAmount;netAmount;Valor do investimento atualizado na data de referência, posterior a dedução de impostos (IOF e IR) e taxa de saída, caso a instituição considere este valor na composição do saldo líquido.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/netAmount/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/netAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/incomeTaxProvision;incomeTaxProvision;Valor do imposto considerando a alíquota vigente na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/incomeTaxProvision/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;50.02;
+/data/incomeTaxProvision/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/financialTransactionTaxProvision;financialTransactionTaxProvision;Valor do imposto considerando a alíquota vigente na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/financialTransactionTaxProvision/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;50.02;
+/data/financialTransactionTaxProvision/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/blockedAmount;blockedAmount;"Valor líquido não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros);";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedAmount/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/blockedAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/quotaQuantity;quotaQuantity;Quantidade de cotas detidas em posição do cliente .;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;42.25;
+/data/quotaGrossPriceValue;quotaGrossPriceValue;Valor bruto da cota atualizado na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/quotaGrossPriceValue/amount;amount;Valor relacionado ao objeto.;Texto;25;Obrigatório;^-?\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.04;
+/data/quotaGrossPriceValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;

@@ -1,0 +1,22 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/brandName;brandName;Nome da Marca reportada pelo participante no Open Finance. Recomenda-se utilizar, sempre que possível, o mesmo nome de marca atribuído no campo do diretório Customer Friendly Server Name (Authorisation Server).;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A;
+/data/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;21128159000166;
+/data/anbimaCategory;anbimaCategory;"Conforme classificação ANBIMA, que segue a deliberação 77 da ANBIMA.
+
+– Renda Fixa
+
+– Ações
+
+– Multimercado
+
+– Cambial
+
+https://www.anbima.com.br/data/files/5A/44/2C/B7/8411B510CD3B4DA568A80AC2/DeliberacaoN77-Diretriz-de-Classificacao-de-Fundos.pdf
+";Texto;;Opcional;;"RENDA_FIXA 
+ACOES 
+MULTIMERCADO 
+CAMBIAL";0;1;"";Não permitido;string;RENDA_FIXA;
+/data/anbimaClass;anbimaClass;Campo necessário para aderência a Resolução CVM175. Aguardando definições de mercado. Deve se tratar de campo do tipo enum.;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;;
+/data/anbimaSubclass;anbimaSubclass;Campo necessário para aderência a Resolução CVM175. Aguardando definições de mercado. Deve se tratar de campo do tipo enum.;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;;
+/data/investmentId;investmentId;Identifica de forma única  o relacionamento do cliente com o fundo, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;92792126019929200000000000000000000000000;

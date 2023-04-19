@@ -1,0 +1,4 @@
+﻿data,,,,,,,,,,,,,,links,,,,meta,,
+referenceDate,grossAmount,,netAmount,,incomeTaxProvision,,financialTransactionTaxProvision,,blockedAmount,,quotaQuantity,quotaGrossPriceValue,,self,first,prev,next,totalRecords,totalPages,requestDateTime
+,amount,currency,amount,currency,amount,currency,amount,currency,amount,currency,,amount,currency,,,,,,,
+2023-01-07,1000.04,BRL,1000.04,BRL,50.02,BRL,50.02,BRL,1000.04,BRL,42.25,1000.04,BRL,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,1,1,2021-05-21T08:30:00Z
