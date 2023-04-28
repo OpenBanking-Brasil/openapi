@@ -1,0 +1,31 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/referenceDateTime;referenceDateTime;Data da última posição consolidada disponível a que se referem os dados transacionais do cliente disponíveis nos canais eletrônicos.;Date Hora;20;Obrigatório;(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$);;1;1;"";Não permitido;string;2022-07-21T17:32:00Z;
+/data/updatedUnitPrice;updatedUnitPrice;Valor bruto unitário atualizado (a mercado) na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/updatedUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;
+/data/updatedUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/grossAmount;grossAmount;"Valor do investimento anterior à dedução de impostos, taxas e
+tarifas (se houver), atualizado (a mercado) na data de referência.
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/grossAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/grossAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/netAmount;netAmount;Valor do investimento posterior a dedução de impostos, taxas e tarifas (se houver), atualizado (a mercado) na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/netAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/netAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/incomeTax;incomeTax;"Valor do imposto provisionado considerando a alíquota vigente na data de referência.
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/incomeTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/financialTransactionTax;financialTransactionTax;"IOF provisionado.
+
+Caso seja um produto com alíquota zero esse objeto pode ser enviado sem valores (vazio).
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedBalance/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/blockedBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/purchaseUnitPrice;purchaseUnitPrice;Valor unitário negociado com o cliente na data de aquisição.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/purchaseUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;
+/data/purchaseUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/quantity;quantity;Quantidade de títulos detidos na data da posição do cliente.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$ ;;1;1;"";Não permitido;string;1000.015;

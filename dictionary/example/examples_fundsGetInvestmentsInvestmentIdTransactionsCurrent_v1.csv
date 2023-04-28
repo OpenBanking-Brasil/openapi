@@ -1,0 +1,4 @@
+﻿data,,,,,,,,,,,,,,,,,,,,links,,,,meta
+transactionId,type,transactionType,typeAdditionalInfo,transactionConversionDate,transactionQuotaPrice,,transactionQuotaQuantity,transactionValue,,transactionGrossValue,,incomeTax,,financialTransactionTax,,transactionExitFee,,transactionNetValue,,self,first,prev,next,requestDateTime
+,,,,,amount,currency,,amount,currency,amount,currency,amount,currency,amount,currency,amount,currency,amount,currency,,,,,
+ABCD2126019929279212650822221989319253344,ENTRADA,AMORTIZACAO,"z/eLZ-~Bg/Qx5mo_,Zypf v21k-baUxLraptoQ+v*0mp[8::ZW_mDF'""\I4H\fdp@UxS`3[B0MmK`<$HbkJ",2023-01-07,1000.04,BRL,42.25,1000.04,BRL,1000.04,BRL,1000.04,BRL,1000.04,BRL,1000.04,BRL,1000.04,BRL,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,2021-05-21T08:30:00Z

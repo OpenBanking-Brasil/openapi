@@ -1,0 +1,30 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Informações do produto de fundo de investimento a que se refere investmentId.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/name;name;Nome oficial do fundo de investimento conforme exibido para os clientes nos canais eletrônicos.;Texto;250;Obrigatório;;;1;1;"";Não permitido;string;CONSTELLATION MASTER FIA;
+/data/cnpjNumber;cnpjNumber;CNPJ do fundo de investimento.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11225860000140;
+/data/isinCode;isinCode;"Código universal que identifica cada valor mobiliário ou instrumento financeiro, conforme Norma ISO 6166.
+
+DEFINIÇÃO: O ISIN (International Securities Identification Number) é um código que identifica um valor mobiliário, conforme a norma ISO 6166.
+
+ESTRUTURA: O ISIN é um código alfanumérico que possui 12 caracteres com a seguinte estrutura:  
+- Um prefixo, composto de 2 caracteres alfa, que identifica o código do país (Norma ISO 3166);
+- O número básico, composto de 9 caracteres alfabéticos ou numéricos em sua extensão;
+- Um dígito numérico de controle.
+";Texto;12;Opcional;^[A-Z]{2}([A-Z0-9]){9}\d{1}$;;0;1;"";Não permitido;string;BRCST4CTF001;12
+/data/anbimaCategory;anbimaCategory;"Conforme classificação ANBIMA, que segue a deliberação 77 da ANBIMA.
+
+– Renda Fixa
+
+– Ações
+
+– Multimercado
+
+– Cambial
+
+https://www.anbima.com.br/data/files/5A/44/2C/B7/8411B510CD3B4DA568A80AC2/DeliberacaoN77-Diretriz-de-Classificacao-de-Fundos.pdf
+";Texto;;Opcional;;"RENDA_FIXA 
+ACOES 
+MULTIMERCADO 
+CAMBIAL";0;1;"";Não permitido;string;RENDA_FIXA;
+/data/anbimaClass;anbimaClass;Campo necessário para aderência a Resolução CVM175. Aguardando definições de mercado. Deve se tratar de campo do tipo enum.;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;;
+/data/anbimaSubclass;anbimaSubclass;Campo necessário para aderência a Resolução CVM175. Aguardando definições de mercado. Deve se tratar de campo do tipo enum.;Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;;
