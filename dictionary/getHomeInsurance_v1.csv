@@ -4,7 +4,12 @@
 /data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização;
 /data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Organização A1;
 /data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
-/data/participant/urlComplementaryList;urlComplementaryList;;Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
+/data/participant/urlComplementaryList;urlComplementaryList;"Espera-se que valor de retorno, após acesso ao link 'urlComplementaryList', deve ser array de objeto com a estrutura abaixo:
+- 'name' com o valor contido no campo 'LegalEntityName' conforme cadastro no diretório;
+- 'cnpjNumber' com o valor contido no campo CNPJ ('RegistrationNumber') correspondente a esta instituição;
+- Ambos do tipo string;
+- Ambos obrigatórios. 
+";Texto;1024;Opcional;^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
 /data/society;society;Conjunto de informações relativas à seguradora do produto de open insurance;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Society A1;
 /data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
@@ -59,7 +64,7 @@ OUTROS";1;1;"";Não permitido;string;IMOVEL_BASICA;
 /data/coverages/attributes/minDeductibleAmount;minDeductibleAmount;Quantia fixa, definida na apólice, que, em caso de sinistro, representa a parte do prejuízo apurado que poderá deixar de ser paga pela Sociedade Seguradora, dependendo das disposições do contrato. (RESOLUÇÃO CNSP Nº 341/2016). Listagem de valor mínimo da franquia (Reais) estabelecida pela sociedade para cada tipo de cobertura do produto.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/coverages/attributes/minDeductibleAmount/amount;amount;;Texto;;Obrigatório;^\d{1,16}\.\d{2,4}$;;1;1;"";Não permitido;string;1.1000;
 /data/coverages/attributes/minDeductibleAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/coverages/attributes/insuredMandatoryParticipationPercentage;insuredMandatoryParticipationPercentage;Participação Obrigatória é o valor ou percentual definido na apólice referente à responsabilidade do Segurado nos prejuízos indenizáveis decorrentes de sinistros cobertos. (Circular SUSEP 347/07). Listagem de percentual de franquia e/ou Percentual Participação Obrigatória do Segurado estabelecida pela sociedade para cada tipo de cobertura do produto. Observação: Sugestão de Criação do campo em substituição ao campo abaixo ‘Valor Máximo de Franquia’.;Texto;8;Opcional;^\d\.\d{6}$;;0;1;"";Não permitido;string;0.000002;
+/data/coverages/attributes/insuredMandatoryParticipationPercentage;insuredMandatoryParticipationPercentage;Participação Obrigatória é o valor ou percentual definido na apólice referente à responsabilidade do Segurado nos prejuízos indenizáveis decorrentes de sinistros cobertos. (Circular SUSEP 347/07). Listagem de percentual de franquia e/ou Percentual Participação Obrigatória do Segurado estabelecida pela sociedade para cada tipo de cobertura do produto. Observação: Sugestão de Criação do campo em substituição ao campo abaixo ‘Valor Máximo de Franquia’.;Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.019800;8
 /data/propertyCharacteristics;propertyCharacteristics;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
 /data/propertyCharacteristics/type;type;"Proposta conforme os domínios abaixo:
   1. Casa
@@ -104,7 +109,7 @@ CUSTOMIZAVEL";0;1;"";Não permitido;string;ATE_10_SERVICOS;
 ";Texto;8;Opcional;;"GRATUITA 
 PAGO";0;1;"";Não permitido;string;GRATUITA;
 /data/termsAndConditions;termsAndConditions;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
-/data/termsAndConditions/susepProcessNumber;susepProcessNumber;"Sequência numérica utilizada para consulta dos processos eletrônicos na SUSEP, com caracteres especiais, conforme campo de consulta no site da SUSEP (XXXXX.XXXXXX/XXXX-XX)<br>Observação&#58; Mascaras da SUSEP – Serão permitidos todas as máscaras de Produtos. Limitar pelos códigos das Máscaras.";Texto;20;Obrigatório;^\d{5}\.\d{6}/\d{4}-\d{2}$;;1;1;"";Não permitido;string;15414.622222/2222-22;
+/data/termsAndConditions/susepProcessNumber;susepProcessNumber;"Sequência numérica utilizada para consulta dos processos eletrônicos na SUSEP, com caracteres especiais, conforme campo de consulta no site da SUSEP (XXXXX.XXXXXX/XXXX-XX)<br>Observação&#58; Mascaras da SUSEP – Serão permitidos todas as máscaras de Produtos. Limitar pelos códigos das Máscaras.";Texto;20;Obrigatório;^\d{5}\.\d{6}\/\d{4}-\d{2}$|^\d{2}\.\d{6}\/\d{2}-\d{2}$|^\d{3}-\d{5}\/\d{2}$|^\d{5}\.\d{6}\/\d{2}-\d{2}$;;1;1;"";Não permitido;string;15414.622222/2222-22;12
 /data/termsAndConditions/detail;detail;Representam as Condições Gerais, Condições Especiais e Condições ou Cláusulas Particulares de um mesmo produto. (Circular SUSEP 321/06). Campo aberto (possibilidade de incluir URL);Texto;1024;Obrigatório;;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;
 /data/terms;terms;;Lista;23;Obrigatório;;"ANUAL 
 ANUAL_INTERMITENTE 
