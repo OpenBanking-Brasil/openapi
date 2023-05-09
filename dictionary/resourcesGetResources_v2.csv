@@ -1,26 +1,39 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Lista de recursos e seus respectivos status.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
-/data/resourceId;resourceId;"Identifica o recurso reportado pelo participante do Open Banking, no caso de:
+/data/resourceId;resourceId;"Identifica o recurso reportado pelo participante do Open Finance, no caso de:
 Contas de depósito à vista, de poupança ou de pagamento pré-paga : corresponde ao accountId;
 Conta de pagamento pós-paga: corresponde ao creditCardAccountId;
-Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;25cac914-d8ae-6789-b215-650a6215820d;1
+Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;25cac914-d8ae-6789-b215-650a6215820d;1
 /data/type;type;"Tipo de recurso (vide Enum):
-Account - Conta de depósito à vista, poupança ou pagamento pré-paga
-Credit Card Account - Conta de pagamento pós-paga (Cartão de Crédito)
-Loan - Empréstimo
-Financing - Financiamento
-Unarranged Account Overdraft - Cheque Especial
-Invoice Financing - Financiamento de Fatura";Texto;;Obrigatório;;"ACCOUNT 
+  - Account - Conta de depósito à vista, poupança ou pagamento pré-paga
+  - Credit Card Account - Conta de pagamento pós-paga (Cartão de Crédito)
+  - Loan - Empréstimo
+  - Financing - Financiamento
+  - Unarranged Account Overdraft - Cheque Especial
+  - Invoice Financing - Financiamento de Fatura
+  - Bank Fixed Income - Renda Fixa Bancária
+  - Credit Fixed Income - Renda Fixa Crédito
+  - Variabel Income - Renda Variável
+  - Treasure Title - Título do Tesouro Direto
+  - Fund - Fundo de Investimento
+";Texto;;Obrigatório;;"ACCOUNT 
 CREDIT_CARD_ACCOUNT 
 LOAN 
 FINANCING 
 UNARRANGED_ACCOUNT_OVERDRAFT 
-INVOICE_FINANCING";1;1;"";Não permitido;string;ACCOUNT;
+INVOICE_FINANCING 
+BANK_FIXED_INCOME 
+CREDIT_FIXED_INCOME 
+VARIABLE_INCOME 
+TREASURE_TITLE 
+FUND";1;1;"";Não permitido;string;ACCOUNT;
 /data/status;status;"Tipo de status de recurso (vide Enum):
 Available - Disponível
 Unavailable - Indisponível
 Temporarily Unavailable - Temporariamente Indisponível
-Pending Authorisation - Pendente de Autorização";Texto;;Obrigatório;;"AVAILABLE 
+Pending Authorisation - Pendente de Autorização
+";Texto;;Obrigatório;;"AVAILABLE 
 UNAVAILABLE 
 TEMPORARILY_UNAVAILABLE 
 PENDING_AUTHORISATION";1;1;"";Não permitido;string;AVAILABLE;
