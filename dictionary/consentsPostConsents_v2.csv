@@ -1,13 +1,21 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;"";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/consentId;consentId;"O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
-Um URN, conforme definido na";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
+Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource 
+Identifier - URI - que é atribuído sob o URI scheme ""urn"" e um namespace URN específico, com a intenção de que o URN 
+seja um identificador de recurso persistente e independente da localização.  
+Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+- o namespace(urn)
+- o identificador associado ao namespace da instituição transnmissora (bancoex) 
+- o identificador específico dentro do namespace (C1DD33123).  
+Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
 /data/creationDateTime;creationDateTime;Data e hora em que o recurso foi criado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/status;status;Estado atual do consentimento cadastrado.;Texto;;Obrigatório;;"AUTHORISED 
 AWAITING_AUTHORISATION 
 REJECTED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
 /data/statusUpdateDateTime;statusUpdateDateTime;Data e hora em que o recurso foi atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
-/data/permissions;permissions;Especifica os tipos de permissões de acesso às APIs no escopo do Open Banking Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.;Lista;;Obrigatório;;"ACCOUNTS_READ 
+/data/permissions;permissions;Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.;Lista;;Obrigatório;;"ACCOUNTS_READ 
 ACCOUNTS_BALANCES_READ 
 ACCOUNTS_TRANSACTIONS_READ 
 ACCOUNTS_OVERDRAFT_LIMITS_READ 
@@ -36,5 +44,10 @@ UNARRANGED_ACCOUNTS_OVERDRAFT_READ
 UNARRANGED_ACCOUNTS_OVERDRAFT_SCHEDULED_INSTALMENTS_READ 
 UNARRANGED_ACCOUNTS_OVERDRAFT_PAYMENTS_READ 
 UNARRANGED_ACCOUNTS_OVERDRAFT_WARRANTIES_READ 
-RESOURCES_READ";1;30;"";Não permitido;array;;
+RESOURCES_READ 
+BANK_FIXED_INCOMES_READ 
+CREDIT_FIXED_INCOMES_READ 
+FUNDS_READ 
+VARIABLE_INCOMES_READ 
+TREASURE_TITLES_READ";1;30;"";Não permitido;array;;
 /data/expirationDateTime;expirationDateTime;Data e hora de expiração da permissão. De preenchimento obrigatório, reflete a data limite de validade do consentimento. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
