@@ -49,8 +49,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-        '529':
-          $ref: '#/components/responses/SiteIsOverloaded'
   /vet-values:
     get:
       tags:
@@ -74,8 +72,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-        '529':
-          $ref: '#/components/responses/SiteIsOverloaded'
 components:
   schemas:
     Links:
@@ -198,9 +194,9 @@ components:
           $ref: '#/components/schemas/EnumDistinctTargetAudienceExchange'
         value:
           type: string
-          maxLength: 22
+          maxLength: 8
           minLength: 8
-          pattern: '^\d{1,15}\.\d{6}$'
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.019800'
           description: Valor da operação.
         valueUpdateDateTime:
@@ -288,15 +284,15 @@ components:
           type: string
           description: Valor mínimo.
           minLength: 8
-          maxLength: 22
-          pattern: '^\d{1,15}\.\d{6}$'
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.010000'
         maximum:
           type: string
           description: Valor máximo.
           minLength: 8
-          maxLength: 22
-          pattern: '^\d{1,15}\.\d{6}$'
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
           example: '0.300000'
       additionalProperties: false
     ExchangeFrequencyDistributionPrice:
@@ -313,8 +309,8 @@ components:
           description: Mediana.
           example: '0.020300'
           minLength: 8
-          maxLength: 22
-          pattern: '^\d{1,15}\.\d{6}$'
+          maxLength: 8
+          pattern: '^\d{1}\.\d{6}$'
         operationRate:
           type: string
           description: Percentual de Operação.
@@ -362,7 +358,7 @@ components:
       additionalProperties: false
     EnumExchangeDeliveryForeignCurrency:
       type: string
-      description: 'A classificação da forma de operação, conforme Resolução BCB nº 277 de 31/12/2022 ou outro normativo que a revogue. (Vide Enum)<br><ul><li>ESPECIE</li><li>CARTAO_PRE_PAGO</li><li>TELETRANSMISSAO_SWIFT</li></ul>'
+      description: 'A classificação da forma de operação, conforme a circular BCB nº 3690 de 16/12/2013. (Vide Enum)<br><ul><li>ESPECIE</li><li>CARTAO_PRE_PAGO</li><li>TELETRANSMISSAO_SWIFT</li></ul>'
       enum:
         - ESPECIE
         - CARTAO_PRE_PAGO
@@ -385,7 +381,7 @@ components:
       example: '0,01_200'
     EnumExchangeTransactionCategory:
       type: string
-      description: 'A classificação do tipo de operação, conforme Resolução BCB nº 277 de 31/12/2022 ou outro normativo que a revogue.'
+      description: 'A classificação do tipo de operação, conforme a circular BCB nº 3690 de 16/12/2013.'
       enum:
         - COMERCIO_EXTERIOR
         - TRANSPORTE
@@ -457,15 +453,15 @@ components:
         urlComplementaryList:
           type: string
           description: |
-            Espera-se que valor de retorno, após acesso ao link ‘urlComplementaryList’, deve ser array de objeto com a estrutura abaixo:
+            Array de objeto com a estrutura abaixo:
 
-            - ‘name’ com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+            - 'name' com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
 
             - 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
 
-            - Ambos do tipo string;
+            \- Ambos do tipo string;
 
-            - Ambos obrigatórios.
+            \- Ambos obrigatórios. 
           maxLength: 1024
           pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
           example: 'https://empresaa1.com/companies'
@@ -564,7 +560,7 @@ components:
           schema:
             $ref: '#/components/schemas/OpenDataResponseError'
     TooManyRequests:
-      description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite de requisições concorrentes foi atingido.'
+      description: 'A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido'
       content:
         application/json; charset=utf-8:
           schema:
@@ -575,50 +571,3 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/OpenDataResponseError'
-    SiteIsOverloaded:
-      description: 'O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.'
-      content:
-        application/json; charset=utf-8:
-          schema:
-            type: object
-            required:
-              - errors
-            properties:
-              errors:
-                type: array
-                minItems: 1
-                maxItems: 13
-                items:
-                  type: object
-                  required:
-                    - code
-                    - title
-                    - detail
-                  properties:
-                    code:
-                      description: Código de erro específico do endpoint
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 255
-                    title:
-                      description: Título legível por humanos deste erro específico
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 255
-                    detail:
-                      description: Descrição legível por humanos deste erro específico
-                      type: string
-                      pattern: '[\w\W\s]*'
-                      maxLength: 2048
-              meta:
-                type: object
-                description: Meta informações referente à API requisitada.
-                required:
-                  - requestDateTime
-                properties:
-                  requestDateTime:
-                    description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
-                    type: string
-                    maxLength: 20
-                    format: date-time
-                    example: '2021-05-21T08:30:00Z'
