@@ -1,0 +1,208 @@
+﻿openapi: 3.0.0
+info:
+  title: API Webhook - Open Finance Brasil
+  description: |
+    API de Webhook é responsável por notificar eventos definidos em cada uma das APIs que possuem a funcionalidade no Open Finance Brasil.
+    
+    <u>Endpoints que possuem a funcionalidade de Webhook</u>
+    <br/>
+    
+    Na versão atual, temos os seguintes endpoints: 
+    
+    API Payments v2:
+      - POST /pix/payments
+      - POST /consents
+
+    # Orientações
+    <u>Todos os endpoints nessa API utilizam-se de mTLS para autenticação, não possuem scopes e permissions específicos de segurança. Toda a segurança é feita via certificado(mTLS – BRCAC).</u>
+
+    Dado que as URLs do ecossistema são formadas com a configuração abaixo:  
+    \<host> / \<string> / \<api> / \<versão> / \<recurso>
+
+    <u>Para a utilização desse recurso é necessário que:</u>
+    - Iniciadoras de pagamentos e/ou Receptora de dados: Precisam cadastrar a sua URI base (\<host>) no diretório de participantes no campo `<CAMPO_A_DEFINIR>`,
+    - Detentoras de contas e/ou Transmissora de dados: Precisam construir a URI de notificação da seguinte forma:
+
+    <u>Exemplo de URI do consentimento:</u>
+    <br/>
+    <br/>
+    <img src="./img/image001.png" alt="Image Webhook"/>
+    <br/>
+    <br/>
+
+    <u>Exemplo de URI do pagamento:</u>
+    <br/>
+    <br/>
+    <img src="./img/image002.png" alt="Image Webhook"/>
+    
+  version: '1.0.0-beta1'
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+  contact:
+    name: Governança do Open Finance Brasil – Especificações
+    email: gt-interfaces@openbankingbr.org
+    url: 'https://openbanking-brasil.github.io/areadesenvolvedor/'
+servers:
+  - url: 'https://api.banco.com.br/open-banking/webhook/v1'
+    description: Servidor de Produção
+  - url:  'https://apih.banco.com.br/open-banking/webhook/v1'
+    description: Servidor de Homologação
+tags:
+  - name: Consent Notification
+    description: Notificações de mudanças de estados de consentimentos da API de Iniciação de Pagamentos.
+  - name: Pix Payment Notification
+    description: 'Notificações de mudanças de estados do pagamento: Arranjo Pix da API de Iniciação de Pagamentos.'
+    
+paths:
+  '/payments/{versionApi}/consents/{consentId}':
+    post:
+      tags:
+        - Consent Notification
+      summary: Notificações de mudanças de estados de consentimentos da API de Iniciação de Pagamentos.
+      operationId: consentNotification
+      description: Notificações de mudanças de estados de consentimentos da API de Iniciação de Pagamentos.
+      parameters:
+        - $ref: '#/components/parameters/consentId'
+        - $ref: '#/components/parameters/versionApi'
+        - $ref: '#/components/parameters/xWebhookInteractionId'
+      requestBody:
+        content:
+          application/jwt:
+            schema:
+              $ref: '#/components/schemas/RequestBodyWebhook'
+        description: Payload para criação do consentimento para iniciação do pagamento.
+        required: true
+      responses:
+        '202':
+          $ref: '#/components/responses/202Webhook'
+      security:
+        - OAuth2ClientCredentials:
+            - payments  
+  '/payments/{versionApi}/pix/payments/{paymentId}':
+    post:
+      tags:
+        - Pix Payment Notification
+      summary: 'Notificações de mudanças de estados do pagamento: Arranjo Pix da API de Iniciação de Pagamentos.'
+      operationId: pixPaymentNotification
+      description: 'Notificações de mudanças de estados do pagamento: Arranjo Pix da API de Iniciação de Pagamentos.'
+      parameters:
+        - $ref: '#/components/parameters/paymentId'
+        - $ref: '#/components/parameters/versionApi'
+        - $ref: '#/components/parameters/xWebhookInteractionId'
+      requestBody:
+        content:
+          application/jwt:
+            schema:
+              $ref: '#/components/schemas/RequestBodyWebhook'
+        description: Payload para criação do consentimento para iniciação do pagamento.
+        required: true
+      responses:
+        '202':
+          $ref: '#/components/responses/202Webhook'
+      security:
+        - OAuth2ClientCredentials:
+            - payments  
+components:
+  schemas:
+    RequestBodyWebhook:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          description: Informações referentes à chamada realizada.
+          required:
+            - timestamp
+          properties:
+            timestamp:
+              type: string
+              format: date-time
+              description: Data e hora que foi realizado o cancelamento, conforme especificação RFC-3339, formato UTC.
+              maxLength: 20
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+              example: '2021-05-21T08:30:00Z'
+    xWebhookInteractionId:
+      type: string
+      pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+      maxLength: 100
+      description: Identificador único recebido da detentora de conta na notificação enviada pelo Webhook.
+  parameters:
+    consentId:
+      name: consentId
+      in: path
+      description: |
+        O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
+        Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource 
+        Identifier - URI - que é atribuído sob o URI scheme "urn" e um namespace URN específico, com a intenção de que o URN 
+        seja um identificador de recurso persistente e independente da localização.  
+        Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+        - o namespace(urn)
+        - o identificador associado ao namespace da instituição transnmissora (bancoex) 
+        - o identificador específico dentro do namespace (C1DD33123).  
+        Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+      required: true
+      schema:
+        type: string
+        pattern: '^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*''%\/?#]+$'
+        maxLength: 256
+    versionApi:
+      name: versionApi
+      in: path
+      description: Identifica a versão da API que deverá ser utilizada para recebimento da notificação via webhook
+      required: true
+      schema:
+        type: string
+        pattern: '^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*''%\/?#]+$'
+        maxLength: 256
+    paymentId:
+      name: paymentId
+      in: path
+      description: Identificador da operação de pagamento.
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+        maxLength: 100
+    xWebhookInteractionId:
+      name: x-webhook-interaction-id
+      in: header
+      description: Identificador único para cada tentativa de notificação realizada. O identificador deverá seguir o padrão UID [RFC4122](https://tools.ietf.org/html/rfc4122).
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+        minLength: 1
+        maxLength: 100
+  securitySchemes:
+    OpenId:
+      type: openIdConnect
+      openIdConnectUrl: 'https://auth.mockbank.poc.raidiam.io/.well-known/openid-configuration'
+    OAuth2ClientCredentials:
+      type: oauth2
+      description: |
+        Fluxo OAuth necessário para que a iniciadora possa iniciar pagamentos. Requer o processo de redirecionamento e autenticação do usuário.  
+        Apenas pagamentos iniciados pela mesma iniciadora de pagamentos podem ser consultados ou cancelados através de modelo client credentials.
+      flows:
+        clientCredentials:
+          tokenUrl: 'https://authserver.example/token'
+          scopes:
+            payments: Escopo necessário para acesso à API Payment Initiation.
+    OAuth2AuthorizationCode:
+      type: oauth2
+      description: Fluxo OAuth necessário para que a iniciadora possa iniciar pagamentos. Requer o processo de redirecionamento e autenticação do usuário.
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://authserver.example/token'
+          tokenUrl: 'https://authserver.example/token'
+          scopes:
+            payments: Escopo necessário para acesso à API Payment Initiation.
+  responses:
+    202Webhook:
+      description: Requisição aceita para processamento posterior.
+      headers:
+        x-webhook-interaction-id:      
+          description: Identificador único recebido da detentora de conta na notificação enviada pelo Webhook.
+          schema:
+            $ref: '#/components/schemas/xWebhookInteractionId'
