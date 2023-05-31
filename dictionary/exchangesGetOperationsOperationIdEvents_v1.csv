@@ -1,0 +1,69 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/eventSequenceNumber;eventSequenceNumber;Número sequência do registro do evento de câmbio no Bacen.;Texto;12;Obrigatório;^\d{12}$;;1;1;"";Não permitido;string;493874649457;
+/data/eventType;eventType;"Para o campo domínio:
+
+1 - Contratação no Mercado Primário.  
+2 - Alteração de Operação Cambial no Mercado Primário.  
+3 - Cancelamento de Operação Cambial no Mercado Primário.  
+4 - Liquidação de Operação Cambial no Mercado Primário.  
+5 - Baixa de Valor a Liquidar de Operação Cambial no Mercado Primário.  
+6 - Restabelecimento de Baixa de Valor a Liquidar de Operação Cambial no Mercado Primário.  
+
+O evento está relacionado ao tipo de contratação.
+";Texto;;Obrigatório;;"1 
+2 
+3 
+4 
+5 
+6";1;1;"";Não permitido;string;2;
+/data/eventDate;eventDate;Data do evento relacionado com a operação.;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2023-03-07T08:30:00Z;
+/data/dueDate;dueDate;Data em que a operação (compra ou venda), após evento, está prevista para ser liquidada.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15;
+/data/localCurrencyOperationTax;localCurrencyOperationTax;Valor da taxa de câmbio aplicada à operação, em moeda nacional.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/localCurrencyOperationTax/amount;amount;Valor relacionado ao objeto.;Texto;31;Obrigatório;^\d{1,15}\.\d{1,15}$;;1;1;"";Não permitido;string;1.3;
+/data/localCurrencyOperationTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/localCurrencyOperationValue;localCurrencyOperationValue;Valor negociado em moeda nacional.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/localCurrencyOperationValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,17}\.\d{2}$;;1;1;"";Não permitido;string;1000.04;
+/data/localCurrencyOperationValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/foreignOperationValue;foreignOperationValue;Valor da operação em moeda estrangeira.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/foreignOperationValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,17}\.\d{2}$;;1;1;"";Não permitido;string;1000.04;
+/data/foreignOperationValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;USD;
+/data/operationOutstandingBalance;operationOutstandingBalance;Valor do saldo da operação, após evento, a liquidar em moeda estrangeira. Objeto de envio obrigatório nos casos de operações de câmbio com liquidação futura.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/operationOutstandingBalance/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,17}\.\d{2}$;;1;1;"";Não permitido;string;1000.04;
+/data/operationOutstandingBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/vetAmount;vetAmount;Representa o custo de uma operação de câmbio em reais por moeda estrangeira, englobando a taxa de câmbio, as tarifas e tributos incidentes sobre essa operação. Campo de envio obrigatório nas operações de câmbio pronto que atingirem até o limite de US$100.000 ou equivalente em outras moedas.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/vetAmount/amount;amount;Valor relacionado ao objeto.;Texto;31;Obrigatório;\d{1,15}\.\d{1,15}$;;1;1;"";Não permitido;string;1000.000004;
+/data/vetAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/localCurrencyAdvancePercentage;localCurrencyAdvancePercentage;"Percentual do valor de moeda nacional concedido ao cliente antecipadamente. p.ex. 0.014500.
+
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). Campos de envio obrigatório no caso de operações de câmbio com liquidação futura.
+";Texto;8;Opcional;^\d{1}\.\d{1,6}$;;0;1;"";Não permitido;string;0.12;3
+/data/deliveryForeignCurrency;deliveryForeignCurrency;Forma de entrega da moeda estrangeira.;Texto;;Opcional;;"CONTA_DEPOSITO_MOEDA_ESTRANGEIRA_PAIS 
+CONTA_DEPOSITO_OU_PAGAMENTO_EXPORTADOR_INSTITUICAO_EXTERIOR 
+ESPECIE_CHEQUES_VIAGEM 
+CARTAO_PREPAGO 
+TELETRANSMISSAO 
+SEM_MOVIMENTACAO_VALORES 
+DEMAIS 
+CARTA_CREDITO_A_VISTA 
+CARTA_CREDITO_A_PRAZO 
+CONTA_DEPOSITO 
+CHEQUE 
+TITULOS_VALORES 
+SIMBOLICA";0;1;"";Não permitido;string;CARTA_CREDITO_A_PRAZO;
+/data/operationCategoryCode;operationCategoryCode;Código da natureza fato do fechamento da operação. Deve respeitar os códigos de natureza referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.;Texto;5;Opcional;^\d{5}$;;0;1;"";Não permitido;string;90302;
+/data/relationshipCode;relationshipCode;"Código de Relação de vínculo entre o Cliente e o Pagador/Recebedor no Exterior. Deve respeitar os códigos de vínculo referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.
+
+[Restrição] Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
+";Texto;2;Condicional;^\d{2}$;;0;1;" Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
+";Não permitido;string;50;
+/data/foreignPartieName;foreignPartieName;"Nome do pagador ou recebedor no exterior.
+
+[Restrição] Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
+";Texto;80;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
+";Não permitido;string;José da Silva;
+/data/foreignPartieCountryCode;foreignPartieCountryCode;"País do pagador ou recebedor. Código do país segundo a norma ISO 3166-1.
+
+[Restrição] Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
+";Texto;2;Condicional;^[A-Z]{2}$;;0;1;" Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
+";Não permitido;string;ZA;
