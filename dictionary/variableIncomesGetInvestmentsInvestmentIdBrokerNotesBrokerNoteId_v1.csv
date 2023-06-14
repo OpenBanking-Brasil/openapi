@@ -30,6 +30,6 @@ Pode ser cobrada como um valor fixo por operação, ou um como um percentual sob
 /data/incomeTax;incomeTax;Imposto de renda retido na fonte.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/incomeTax/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
 /data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/netValue;netValue;Valor bruto da nota de negociação após despesas com taxa de corretagem, taxa de liquidação, taxa de registro, taxa A.N.A, emolumentos, taxa de custódia, impostos e IRRF.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/netValue;netValue;Valor líquido da nota de negociação após despesas com taxa de corretagem, taxa de liquidação, taxa de registro, taxa A.N.A, emolumentos, taxa de custódia, impostos e IRRF.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/netValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;4889.0012;
 /data/netValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
