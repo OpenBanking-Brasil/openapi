@@ -55,6 +55,6 @@ OUTROS";1;1;"";Não permitido;string;CDI;
 /data/issueUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/dueDate;dueDate;Data de vencimento do título.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;10
 /data/issueDate;issueDate;Data de emissão do título.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-16;10
-/data/clearingCode;clearingCode;Código de registro do ativo na clearing.;Texto;30;Opcional;[\w\W-]*;;0;1;"";Não permitido;string;;
+/data/clearingCode;clearingCode;Código de registro do ativo na clearing.;Texto;30;Opcional;[\w\W-]*;;0;1;"";Não permitido;string;CDB421GPXXX;
 /data/purchaseDate;purchaseDate;Data de aquisição do cliente.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;10
 /data/gracePeriodDate;gracePeriodDate;Data até a qual o cliente não poderá resgatar antecipadamente seu investimento.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-16;10
