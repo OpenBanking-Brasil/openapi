@@ -3,9 +3,9 @@
 /data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a representação individual do movimento na posição do fundo.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;ABCD2126019929279212650822221989319253344;
 /data/type;type;"Tipo de movimentação (Entrada ou Saída).
 
-ENTRADA: APLICACAO, TRANSFERENCIA_COTAS, AMORTIZACAO, OUTROS.
+ENTRADA: APLICACAO, TRANSFERENCIA_COTAS,  OUTROS.
 
-SAIDA: RESGATE, COME_COTAS, TRANSFERENCIA_COTAS, OUTROS.
+SAIDA: RESGATE, COME_COTAS, TRANSFERENCIA_COTAS, AMORTIZACAO, OUTROS.
 ";Texto;;Obrigatório;;"ENTRADA 
 SAIDA";1;1;"";Não permitido;string;ENTRADA;
 /data/transactionType;transactionType;"O campo deve classificar a transação de movimentação de investimento em um dos tipos descritos (amortização, transferência de cotas, aplicação, resgate ou come-cotas).  
@@ -31,7 +31,8 @@ OUTROS";1;1;"";Não permitido;string;AMORTIZACAO;
 /data/transactionValue;transactionValue;Valor da movimentação.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/transactionValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/transactionValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/transactionGrossValue;transactionGrossValue;"Valor da movimentação que se refere a quantidade da cota x valor da cota da movimentação.
+/data/transactionGrossValue;transactionGrossValue;"Valor da movimentação que se refere a quantidade da cota x valor da cota da movimentação.   
+Nos casos em que não houver movimentação de cotas, por exemplo: amortização, não considerar a regra descrita.
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/transactionGrossValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/transactionGrossValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
@@ -56,6 +57,9 @@ OUTROS";1;1;"";Não permitido;string;AMORTIZACAO;
 ";Não permitido;object;;
 /data/transactionExitFee/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/transactionExitFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/transactionNetValue;transactionNetValue;Valor líquido da movimentação posterior à dedução de impostos (IOF e IR) e taxa de saída.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionNetValue;transactionNetValue;"Valor líquido da movimentação posterior à dedução de impostos (IOF e IR) e taxa de saída.   
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Não permitido;object;;
 /data/transactionNetValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/transactionNetValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
