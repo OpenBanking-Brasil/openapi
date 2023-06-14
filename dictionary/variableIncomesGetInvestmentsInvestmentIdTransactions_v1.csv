@@ -3,17 +3,19 @@
 /data/type;type;"Tipo de movimentação na visão de investimento: entrada ou saída. Nos casos de pagamento de dividendos, JCP e aluguéis, fica convencionado que será considerado que o tipo de movimento será saída.
 ";Texto;;Obrigatório;;"ENTRADA 
 SAIDA";1;1;"";Não permitido;string;ENTRADA;
-/data/transactionType;transactionType;"O campo deve classificar a movimentação em um dos tipos descritos: compra, venda, dividendos, JCP, aluguéis, transferência de custódia, transferência de titularidade e outros. O transmissor deve classificar as movimentações disponíveis associando-a a um dos itens do Enum listado neste campo. A opção OUTROS só deve ser utilizada para os casos em que de fato a movimentação compartilhada não possa ser classificada como um dos itens deste Enum.
+/data/transactionType;transactionType;"O campo deve classificar a movimentação em um dos tipos descritos: compra, venda, dividendos, JCP, aluguéis, transferência de custódia, transferência de titularidade e outros. 
+O transmissor deve classificar as movimentações disponíveis associando-a a um dos itens do Enum listado neste campo. 
+A opção OUTROS só deve ser utilizada para os casos em que de fato a movimentação compartilhada não possa ser classificada como um dos itens deste Enum. 
+A expressão “aluguéis” deverá ser utilizada apenas para informar os juros/remuneração pagos/recebidos pelo cliente dos contratos de ações alugadas, seguindo o mesmo entendimento de ENTRADA/SAÍDA da expressão “dividendos”.
 ";Texto;;Obrigatório;;"COMPRA 
 VENDA 
 DIVIDENDOS 
 JCP 
 ALUGUEIS 
-INPLIT 
-SPLIT_TRANSFERENCIA_CUSTODIA 
+TRANSFERENCIA_CUSTODIA 
 TRANSFERENCIA_TITULARIDADE 
 OUTROS";1;1;"";Não permitido;string;DIVIDENDOS;
-/data/typeAdditionalInfo;typeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.
+/data/transactionTypeAdditionalInfo;transactionTypeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com o valor 'OUTROS'.
 ";Texto;100;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com o valor 'OUTROS'.
@@ -27,8 +29,8 @@ OUTROS";1;1;"";Não permitido;string;DIVIDENDOS;
 ";Texto;24;Opcional;^\d{1,15}\.\d{2,8}$;;0;1;"";Não permitido;string;100.0005;
 /data/transactionUnitPrice;transactionUnitPrice;"Preço unitário da movimentação: valor da unidade do produto na movimentação do investimento.
 
-[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
-";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA' ou 'VENDA'.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA' ou 'VENDA'.
 ";Não permitido;object;;
 /data/transactionUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
 /data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
