@@ -1,19 +1,18 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11225860000140;
-/data/isinCode;isinCode;"Código ISIN da emissão, Código ISIN do produto, Código da emissora (campo opcional): código universal que identifica cada valor mobiliário ou instrumento financeiro, conforme Norma ISO 6166.
-";Texto;12;Opcional;^[A-Z]{2}([A-Z0-9]){9}\d{1}$;;0;1;"";Não permitido;string;BRCST4CTF001;
+/data/isinCode;isinCode;"Código ISIN é um código universal que identifica cada valor mobiliário ou instrumento financeiro, conforme Norma ISO 6166. Caso a transmissora possua a informação o envio deste campo é obrigatório.
+
+[Restrição] Deve ser preenchido nos casos em que o 'clearingCode' não seja preenchido.
+";Texto;12;Condicional;^[A-Z]{2}([A-Z0-9]){9}\d{1}$;;0;1;" Deve ser preenchido nos casos em que o 'clearingCode' não seja preenchido.
+";Não permitido;string;BRCST4CTF001;
 /data/investmentType;investmentType;Especificação do ativo em questão (Debêntures, CRI ou CRA).;Texto;;Obrigatório;;"DEBENTURES 
 CRI 
 CRA";1;1;"";Não permitido;string;CRI;
-/data/debtorCnpjNumber;debtorCnpjNumber;"CNPJ do devedor (condicional para CRI e CRA)  
-[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'investmentType' for igual a ""CRI"" ou ""CRA"".
-";Texto;14;Condicional;^\d{14}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'investmentType' for igual a ""CRI"" ou ""CRA"".
-";Não permitido;string;11225860000140;
-/data/debtorName;debtorName;"Nome do devedor (condicional para CRI e CRA)  
-[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'investmentType' for igual a ""CRI"" ou ""CRA"".
-";Texto;70;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'investmentType' for igual a ""CRI"" ou ""CRA"".
-";Não permitido;string;Roberto Marino;
+/data/debtorCnpjNumber;debtorCnpjNumber;"CNPJ do devedor. Caso a transmissora possua a informação para os produtos CRI e CRA, o envio deste campo é obrigatório.
+";Texto;14;Opcional;^\d{14}$;;0;1;"";Não permitido;string;11225860000140;
+/data/debtorName;debtorName;"Nome do devedor. Caso a transmissora possua a informação para os produtos CRI e CRA, o envio deste campo é obrigatório.
+";Texto;70;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Roberto Marino;
 /data/taxExemptProduct;taxExemptProduct;Indicador de um produto incentivado;Texto;;Obrigatório;;"SIM 
 NAO";1;1;"";Não permitido;string;SIM;
 /data/remuneration;remuneration;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
@@ -103,6 +102,10 @@ OUTROS";0;1;" Campo de preenchimento obrigatório pelos participantes quando hou
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo 'voucherPaymentPeriodicity'.
 ";Texto;50;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo 'voucherPaymentPeriodicity'.
 ";Não permitido;string;Diária;
-/data/clearingCode;clearingCode;Código de registro do ativo na clearing;Texto;30;Opcional;[\w\W-]*;;0;1;"";Não permitido;string;CDB421GPXXX;
+/data/clearingCode;clearingCode;"Código de registro do ativo na Clearing. Caso a transmissora possua a informação o envio deste campo é obrigatório.
+
+[Restrição] Deve ser preenchido nos casos em que o 'isinCode' não seja preenchido.
+";Texto;30;Condicional;[\w\W-]*;;0;1;" Deve ser preenchido nos casos em que o 'isinCode' não seja preenchido.
+";Não permitido;string;CDB421GPXXX;
 /data/purchaseDate;purchaseDate;Data de aquisição do cliente;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;
 /data/gracePeriodDate;gracePeriodDate;Data até a qual o cliente não poderá resgatar antecipadamente seu investimento;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-16;
