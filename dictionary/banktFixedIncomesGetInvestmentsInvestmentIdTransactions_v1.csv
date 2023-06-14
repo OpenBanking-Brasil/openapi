@@ -1,16 +1,24 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
-/data/type;type;"Tipo de movimentação na visão de investimento (entrada ou saída) . (Nos casos de motivo de pagamento  ""pagamento de juros"" e ""amortização"", fica convencionado que será considerado que o tipo de movimento será saída).";Texto;;Obrigatório;;"ENTRADA 
-SAÍDA";1;1;"";Não permitido;string;ENTRADA;
-/data/transactionType;transactionType;Aplicação, resgate, cancelamento, vencimento, pagamento de juros/amortização, transferência de titularidade, transferência de custódia e outros.;Texto;;Obrigatório;;"APLICACAO 
+/data/type;type;"Tipo de movimentação na visão de investimento
+
+- ENTRADA: APLICACAO, CANCELAMENTO, TRANSFERENCIA_TITULARIDADE, TRANSFERENCIA_CUSTODIA, OUTROS.
+
+- SAIDA: RESGATE, CANCELAMENTO, VENCIMENTO, PAGAMENTO_JUROS, AMORTIZACAO, TRANSFERENCIA_TITULARIDADE, TRANSFERENCIA_CUSTODIA, OUTROS.
+
+Por exemplo, para movimentação de CANCELAMENTO, tipicamente, será o type contrário ao evento originário. Ou seja, para cancelamento de APLICACAO, considera-se type SAIDA; para cancelamento de RESGATE, considera-se type ENTRADA.
+";Texto;;Obrigatório;;"ENTRADA 
+SAIDA";1;1;"";Não permitido;string;ENTRADA;
+/data/transactionType;transactionType;Aplicação, resgate, cancelamento, vencimento, pagamento de juros, amortização, transferência de titularidade, transferência de custódia e outros.;Texto;;Obrigatório;;"APLICACAO 
 RESGATE 
 CANCELAMENTO 
 VENCIMENTO 
-PAGAMENTO_JUROS_AMORTIZACAO 
+PAGAMENTO_JUROS 
+AMORTIZACAO 
 TRANSFERENCIA_TITULARIDADE 
 TRANSFERENCIA_CUSTODIA 
 OUTROS";1;1;"";Não permitido;string;APLICACAO;
-/data/typeAdditionalInfo;typeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.
+/data/transactionTypeAdditionalInfo;transactionTypeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo Motivo da movimentação.
 ";Texto;100;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo Motivo da movimentação.
