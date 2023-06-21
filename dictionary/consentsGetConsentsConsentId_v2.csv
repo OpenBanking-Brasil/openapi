@@ -15,7 +15,7 @@ Informações mais detalhadas sobre a construção de namespaces devem ser consu
 AWAITING_AUTHORISATION 
 REJECTED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
 /data/statusUpdateDateTime;statusUpdateDateTime;Data e hora em que o recurso foi atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
-/data/permissions;permissions;Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Fase 2, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs.;Lista;;Obrigatório;;"ACCOUNTS_READ 
+/data/permissions;permissions;Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Dados cadastrais e transacionais, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs. Esse array não deve ter duplicidade de itens.;Lista;;Obrigatório;;"ACCOUNTS_READ 
 ACCOUNTS_BALANCES_READ 
 ACCOUNTS_TRANSACTIONS_READ 
 ACCOUNTS_OVERDRAFT_LIMITS_READ 
@@ -49,7 +49,7 @@ BANK_FIXED_INCOMES_READ
 CREDIT_FIXED_INCOMES_READ 
 FUNDS_READ 
 VARIABLE_INCOMES_READ 
-TREASURE_TITLES_READ";1;30;"";Não permitido;array;;
+TREASURE_TITLES_READ";1;N;"";Não permitido;array;;
 /data/expirationDateTime;expirationDateTime;Data e hora de expiração da permissão. De preenchimento obrigatório, reflete a data limite de validade do consentimento. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/rejection;rejection;Objeto a ser retornado caso o consentimento seja rejeitado.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/rejection/rejectedBy;rejectedBy;"Informar usuário responsável pela rejeição.   
