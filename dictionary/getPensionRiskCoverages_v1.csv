@@ -19,7 +19,7 @@
 /data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;^(\d{14})$|^(NA)$;;1;1;"";Não permitido;string;13456789000112;
 /data/name;name;Nome comercial do produto, pelo qual é identificado nos canais de distribuição e atendimento da sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;Produto A;
 /data/code;code;Código único a ser definido pela sociedade.;Texto;80;Obrigatório;;;1;1;"";Não permitido;string;0001;
-/data/modality;modality;<ol><li>Funeral</li><li>Prestamista (exceto Habitacional e Rural)</li><li>Viagem</li><li>Educacional</li><li>Dotal (Misto e Puro)</li><li>Acidentes Pessoais</li><li>Vida</li><li>Perda do Certificado de Habilitação de Voo – PCHV</li><li>Doenças Graves ou Doença Terminal</li><li>Desemprego/ Perda de Renda</li><li>Eventos Aleatórios</li><li>Pecúlio</li><li>Pensão prazo certo</li><li>Pensão menores 21 anos</li><li>Pensão menores 24 anos</li><li>Pensão cônjuge vitalícia</li><li>Pensão cônjuge temporária</li><li>NA</li></ol>;Texto;33;Obrigatório;;"FUNERAL 
+/data/modality;modality;<ol><li>Funeral</li><li>Prestamista (exceto Habitacional e Rural)</li><li>Viagem</li><li>Educacional</li><li>Dotal (Misto e Puro)</li><li>Acidentes Pessoais</li><li>Vida</li><li>Perda do Certificado de Habilitação de Voo – PCHV</li><li>Doenças Graves ou Doença Terminal</li><li>Desemprego/ Perda de Renda</li><li>Eventos Aleatórios</li><li>Pecúlio</li><li>Pensão prazo certo</li><li>Pensão menores 21 anos</li><li>Pensão menores 24 anos</li><li>Pensão cônjuge vitalícia</li><li>Pensão cônjuge temporária</li><li>NA</li></ol>;Texto;;Obrigatório;;"FUNERAL 
 PRESTAMISTA 
 VIAGEM 
 EDUCACIONAL 
@@ -38,7 +38,7 @@ PENSAO_CONJUGE_VITALICIA
 PENSAO_CONJUGE_TEMPORARIA 
 NA";1;1;"";Não permitido;string;FUNERAL;
 /data/coverages;coverages;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
-/data/coverages/type;type;É o conjunto dos riscos cobertos elencados na apólice. (RESOLUÇÃO CNSP Nº 341/2016). Listagem de coberturas incluídas no produto que deve observar a relação discriminada de coberturas, conforme Tabela Tipo de Cobertura.;Texto;9;Obrigatório;;"MORTE 
+/data/coverages/type;type;É o conjunto dos riscos cobertos elencados na apólice. (RESOLUÇÃO CNSP Nº 341/2016). Listagem de coberturas incluídas no produto que deve observar a relação discriminada de coberturas, conforme Tabela Tipo de Cobertura.;Texto;;Obrigatório;;"MORTE 
 INVALIDEZ 
 OUTROS 
 NA";1;1;"";Não permitido;string;MORTE;
@@ -71,11 +71,11 @@ SOB_FORMA_RENDA
 NA";1;1;"";Não permitido;string;UNICO;
 /data/coverages/attributes/gracePeriod;gracePeriod;Período de carência da cobertura;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/coverages/attributes/gracePeriod/amount;amount;Informar o prazo de carência;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;90;
-/data/coverages/attributes/gracePeriod/unit;unit;"Informar o critério de carência para a cobertura&#58;<br><ol><li>Dias</li><li>Meses</li><li>Não se aplica</li><li>NA</li></ol>";Texto;10;Opcional;;"DIAS 
+/data/coverages/attributes/gracePeriod/unit;unit;"Informar o critério de carência para a cobertura&#58;<br><ol><li>Dias</li><li>Meses</li><li>Não se aplica</li><li>NA</li></ol>";Texto;;Opcional;;"DIAS 
 MESES 
 NAO_APLICA 
 NA";0;1;"";Não permitido;string;MESES;
-/data/coverages/attributes/excludedRisks;excludedRisks;;Lista;40;Obrigatório;;"ATO_RECONHECIMENTO_PERIGOSO 
+/data/coverages/attributes/excludedRisks;excludedRisks;;Lista;;Obrigatório;;"ATO_RECONHECIMENTO_PERIGOSO 
 ATO_ILICITO_DOLOSO_PRATICADO_SEGURADO 
 OPERACOES_GUERRA 
 FURACOES_CICLONES_TERREMOTOS 
@@ -91,7 +91,7 @@ NA";1;N;"";Não permitido;array;ATO_RECONHECIMENTO_PERIGOSO;
 ";Texto;;Obrigatório;;"PAGAMENTO_UNICO 
 FORMA_RENDA 
 NA";1;1;"";Não permitido;string;PAGAMENTO_UNICO;
-/data/assistanceTypes;assistanceTypes;;Lista;43;Opcional;;"ACOMPANHANTE_CASO_HOSPITALIZACAO_PROLONGADA 
+/data/assistanceTypes;assistanceTypes;;Lista;;Opcional;;"ACOMPANHANTE_CASO_HOSPITALIZACAO_PROLONGADA 
 ARQUITETO_VIRTUAL 
 ASSESSORIA_FINANCEIRA 
 AUTOMOVEL 
@@ -169,7 +169,7 @@ IGPM
 INPC 
 NA";1;1;"";Não permitido;string;IPCA;
 /data/ageAdjustment;ageAdjustment;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/ageAdjustment/criterias;criterias;;Lista;27;Obrigatório;;"APOS_PERIODO_ANOS 
+/data/ageAdjustment/criterias;criterias;;Lista;;Obrigatório;;"APOS_PERIODO_ANOS 
 CADA_PERIODO_ANOS 
 MUDANCA_FAIXA_ETARIA 
 NAO_APLICAVEL 
