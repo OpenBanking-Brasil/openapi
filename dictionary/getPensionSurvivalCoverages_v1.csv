@@ -25,13 +25,13 @@
 1. Seguro de Pessoas
 2. Previdência
 3. NA
-";Texto;20;Obrigatório;;"SEGURO_PESSOAS 
+";Texto;;Obrigatório;;"SEGURO_PESSOAS 
 PREVIDENCIA 
 NA";1;1;"";Não permitido;string;PREVIDENCIA;
 /data/modality;modality;"1. Contribuição Variável;
 2. Benefício Definido.
 3. NA
-";Texto;21;Obrigatório;;"CONTRIBUICAO_VARIAVEL 
+";Texto;;Obrigatório;;"CONTRIBUICAO_VARIAVEL 
 BENEFICIO_DEFINIDO 
 NA";1;1;"";Não permitido;string;BENEFICIO_DEFINIDO;
 /data/additionalInfo;additionalInfo;Campo aberto (possibilidade de incluir URL);Texto;1024;Opcional;;;0;1;"";Não permitido;string;https://openinsurance.com.br/aaa;
@@ -52,7 +52,7 @@ NA";1;1;"";Não permitido;string;BENEFICIO_DEFINIDO;
 12. VDR
 13. Demais produtos de Previdência.
 14. NA
-";Texto;27;Opcional;;"PGBL 
+";Texto;;Opcional;;"PGBL 
 PRGP 
 PAGP 
 PRSA 
@@ -74,7 +74,7 @@ NA";0;1;"";Não permitido;string;;
 3. INPC (IBGE).
 4. Não se aplica
 5. NA
-";Texto;5;Obrigatório;;"IPCA 
+";Texto;;Obrigatório;;"IPCA 
 IGP_M 
 INPC 
 NAO_SE_APLICA 
@@ -83,7 +83,7 @@ NA";1;1;"";Não permitido;string;IPCA;
 /data/defferalPeriod/reversalFinancialResults;reversalFinancialResults;Percentual de reversão de excedente financeiro na concessão. Em %.;Texto;9;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/defferalPeriod/minimumPremiums;minimumPremiums;;Lista;;Opcional;;;0;N;"";Não permitido;array;;
 /data/defferalPeriod/minimumPremiums/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Opcional;^([A-Z]{3})$|^(NA)$;;0;1;"";Não permitido;string;BRL;
-/data/defferalPeriod/minimumPremiums/periodicity;periodicity;;Texto;10;Opcional;;"DIARIO 
+/data/defferalPeriod/minimumPremiums/periodicity;periodicity;;Texto;;Opcional;;"DIARIO 
 SEMANAL 
 QUINZENAL 
 MENSAL 
@@ -94,7 +94,7 @@ ANUAL
 UNICO 
 NA";0;1;"";Não permitido;string;MENSAL;
 /data/defferalPeriod/minimumPremiums/amount;amount;Valor mínimo em R$ de prêmio/ contribuição aceita pela sociedade ao plano (identificar valor mensal e/ou aporte único).;Texto;21;Opcional;^(\d{1,16}\.\d{2,4})$|^(NA)$;;0;1;"";Não permitido;string;250.00;
-/data/defferalPeriod/premiumPaymentMethods;premiumPaymentMethods;;Lista;27;Opcional;;"CARTAO_CREDITO 
+/data/defferalPeriod/premiumPaymentMethods;premiumPaymentMethods;;Lista;;Opcional;;"CARTAO_CREDITO 
 DEBITO_CONTA 
 DEBITO_CONTA_POUPANCA 
 BOLETO_BANCARIO 
@@ -133,7 +133,7 @@ NA";0;N;"";Não permitido;array;CARTAO_CREDITO;
 ";Texto;9;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/defferalPeriod/investmentFunds/typePerformanceFee;typePerformanceFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
    - Tipo de taxa de performance
-";Texto;13;Obrigatório;;"DIRETAMENTE 
+";Texto;;Obrigatório;;"DIRETAMENTE 
 INDIRETAMENTE 
 NAO_APLICA 
 NA";1;1;"";Não permitido;string;DIRETAMENTE;
@@ -163,7 +163,7 @@ RENDA_VITALICIA_CONJUGE_CONTINUIDADE_MENORES
 RENDA_VITALICIA_MINIMO_GARANTIDO 
 RENDA_VITALICIA_PRAZO_MINIMO_GRANTIDO 
 NA";1;N;"";Não permitido;array;PAGAMENTO_UNICO;
-/data/grantPeriodBenefit/biometricTable;biometricTable;;Lista;32;Opcional;;"AT_2000_MALE 
+/data/grantPeriodBenefit/biometricTable;biometricTable;;Lista;;Opcional;;"AT_2000_MALE 
 AT_2000_FEMALE 
 AT_2000_MALE_FEMALE 
 AT_2000_MALE_SUAVIZADA_10 
@@ -186,7 +186,7 @@ NA";0;N;"";Não permitido;array;AT_2000_MALE;
 3. INPC (IBGE).
 4. Não se aplica
 5. NA
-";Texto;5;Obrigatório;;"IPCA 
+";Texto;;Obrigatório;;"IPCA 
 IGP_M 
 INPC 
 NAO_SE_APLICA 
@@ -202,7 +202,7 @@ NA";1;1;"";Não permitido;string;IPCA;
 ";Texto;9;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/grantPeriodBenefit/investmentFunds/typePerformanceFee;typePerformanceFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
    - Tipo de taxa de performance
-";Texto;13;Obrigatório;;"DIRETAMENTE 
+";Texto;;Obrigatório;;"DIRETAMENTE 
 INDIRETAMENTE 
 NAO_APLICA 
 NA";1;1;"";Não permitido;string;DIRETAMENTE;
@@ -232,7 +232,7 @@ NA";1;1;"";Não permitido;string;DIRETAMENTE;
 2. Coletivo instituído;
 3. Individual.
 4. NA
-";Texto;27;Obrigatório;;"COLETIVO_AVERBADO 
+";Texto;;Obrigatório;;"COLETIVO_AVERBADO 
 COLETIVO_INSTITUIDO 
 INDIVIDUAL 
 NA";1;1;"";Não permitido;string;COLETIVO_AVERBADO;
@@ -246,6 +246,6 @@ NA";1;1;"";Não permitido;string;COLETIVO_AVERBADO;
   1. Pessoa Natural
   2. Pessoa Jurídica
   3. NA
-";Texto;23;Obrigatório;;"PESSOA_NATURAL 
+";Texto;;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA 
 NA";1;1;"";Não permitido;string;PESSOA_NATURAL;
