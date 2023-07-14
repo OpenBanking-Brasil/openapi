@@ -139,26 +139,25 @@ Se localInstrument for igual INIC, DICT, QRDN ou QRES, o campo proxy deve ser se
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/payment/details/creditorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
-/data/payment/details/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
-(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).  
-[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+/data/payment/details/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
+(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+
+[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
 /data/payment/details/creditorAccount/number;number;"Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.
 ";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
 /data/payment/details/creditorAccount/accountType;accountType;"Tipos de contas usadas para pagamento.
-Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
+Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, 
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.
 Segue descrição de cada valor do ENUM.
 
 - CACC - Current - Conta Corrente.
-- SLRY - Salary - Conta-Salário.
 - SVGS - Savings - Conta de Poupança.
 - TRAN - TransactingAccount - Conta de Pagamento pré-paga.
 ";Texto;;Obrigatório;;"CACC 
-SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
 /data/debtorAccount;debtorAccount;"Objeto que contém a identificação da conta de origem do pagador.
@@ -174,25 +173,24 @@ No caso em que o cliente não preenche os dados na iniciadora, a detentora dever
 ";Não permitido;object;;
 /data/debtorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
-/data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
-(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).  
-[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+/data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
+(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+
+[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
 /data/debtorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.
 ";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
 /data/debtorAccount/accountType;accountType;"Tipos de contas usadas para pagamento.
-Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
+Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, 
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.
 Segue descrição de cada valor do ENUM.
 
 - CACC - Current - Conta Corrente.
-- SLRY - Salary - Conta-Salário.
 - SVGS - Savings - Conta de Poupança.
 - TRAN - TransactingAccount - Conta de Pagamento pré-paga.
 ";Texto;;Obrigatório;;"CACC 
-SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
