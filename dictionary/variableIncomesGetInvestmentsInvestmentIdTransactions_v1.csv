@@ -32,7 +32,7 @@ OUTROS";1;1;"";Não permitido;string;DIVIDENDOS;
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA' ou 'VENDA'.
 ";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA' ou 'VENDA'.
 ";Não permitido;object;;
-/data/transactionUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/transactionUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
 /data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/transactionQuantity;transactionQuantity;"Quantidade de ativos movimentados.
 
