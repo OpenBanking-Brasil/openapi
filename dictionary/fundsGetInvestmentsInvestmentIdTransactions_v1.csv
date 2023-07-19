@@ -28,7 +28,7 @@ OUTROS";1;1;"";Não permitido;string;AMORTIZACAO;
 /data/transactionQuotaPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/transactionQuotaQuantity;transactionQuotaQuantity;"Número de cotas convertidas na data da movimentação.
 ";Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;42.25;
-/data/transactionValue;transactionValue;Valor da movimentação.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionValue;transactionValue;Valor solicitado pelo cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/transactionValue/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/transactionValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/transactionGrossValue;transactionGrossValue;"Valor da movimentação que se refere a quantidade da cota x valor da cota da movimentação.   
