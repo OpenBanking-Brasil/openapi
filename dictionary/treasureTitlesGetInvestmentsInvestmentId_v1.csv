@@ -4,7 +4,7 @@
 : código universal que identifica cada valor mobiliário ou instrumento
 financeiro, conforme Norma ISO 6166.
 ";Texto;12;Obrigatório;^[A-Z]{2}([A-Z0-9]){9}\d{1}$;;1;1;"";Não permitido;string;BRCST4CTF001;
-/data/productName;productName;Descrição do ativo em questão.;Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;TESOURODIRETO;
+/data/productName;productName;Nome do título em questão, conforme listado no site do Tesouro Direto [https://www.tesourodireto.com.br](https://www.tesourodireto.com.br);Texto;70;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Tesouro Selic 2025;
 /data/remuneration;remuneration;Objeto para detalhamento de remuneração do titulo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/remuneration/indexer;indexer;Índice utilizado como referência para a correção da rentabilidade e/ou rendimentos do ativo (CDI, DI , TR, IPCA, IGP_M, IGP_DI, INPC, BCP, TLC, SELIC, PRE_FIXADO e OUTROS);Texto;;Obrigatório;;"CDI 
 DI 
