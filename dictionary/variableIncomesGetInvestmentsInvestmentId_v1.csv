@@ -1,6 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11225860000140;
+/data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora. Caso a transmissora possua a informação o envio deste campo é obrigatório.;Texto;14;Opcional;^\d{14}$;;0;1;"";Não permitido;string;11225860000140;
 /data/isinCode;isinCode;"Código ISIN da emissão, Código ISIN do produto, Código da emissora: código universal que identifica cada valor mobiliário ou instrumento financeiro, conforme Norma ISO 6166.
 ";Texto;12;Obrigatório;^[A-Z]{2}([A-Z0-9]){9}\d{1}$;;1;1;"";Não permitido;string;BRCST4CTF001;
 /data/ticker;ticker;Código de negociação para identificação de ativos negociados em bolsa.;Texto;35;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PETR4;
