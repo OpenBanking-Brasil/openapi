@@ -12,7 +12,7 @@ tarifas (se houver), atualizado (a mercado) na data de referência.
 /data/netAmount;netAmount;Valor do investimento posterior a dedução de impostos, taxas e tarifas (se houver), atualizado (a mercado) na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/netAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/netAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/incomeTax;incomeTax;"Valor do imposto provisionado considerando a alíquota vigente na data de referência.
+/data/incomeTax;incomeTax;"Valor do imposto de renda provisionado considerando a alíquota vigente na data de referência.
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/incomeTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
