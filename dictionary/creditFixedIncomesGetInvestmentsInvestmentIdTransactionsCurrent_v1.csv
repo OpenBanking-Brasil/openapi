@@ -9,7 +9,7 @@ SAIDA: VENDA, CANCELAMENTO, VENCIMENTO, PAGAMENTO_JUROS, AMORTIZACAO, PREMIO, TR
 Por exemplo, para movimentação de CANCELAMENTO, tipicamente, será o type contrário ao evento originário. Ou seja, para cancelamento de COMPRA, considera-se type SAIDA; para cancelamento de VENDA, considera-se type ENTRADA.
 ";Texto;;Obrigatório;;"ENTRADA 
 SAIDA";1;1;"";Não permitido;string;ENTRADA;
-/data/transactionType;transactionType;Compra, venda, cancelamento, vencimento, pagamento de juros, amortização, prêmio, transferência de titularidade, transferência de custódia, multa, mora e outros;Texto;;Obrigatório;;"COMPRA 
+/data/transactionType;transactionType;Compra, venda, cancelamento, vencimento, pagamento de juros, amortização, prêmio, transferência de titularidade, transferência de custódia, multa, mora e outros. Para movimentos de transferência (titularidade ou custódia) deve ser considerado o preço unitário (transactionUnitPrice) da aquisição do título.;Texto;;Obrigatório;;"COMPRA 
 VENDA 
 CANCELAMENTO 
 VENCIMENTO 

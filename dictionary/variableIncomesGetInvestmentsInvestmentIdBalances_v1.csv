@@ -11,5 +11,5 @@
 /data/blockedBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/quantity;quantity;Quatidade total do ativo na data de referência.;Texto;25;Obrigatório;^-?\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.00000004;
 /data/closingPrice;closingPrice;Preço de fechamento da data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/closingPrice/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/closingPrice/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
 /data/closingPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;

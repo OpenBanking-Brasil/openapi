@@ -9,7 +9,7 @@
 Por exemplo, para movimentação de CANCELAMENTO, tipicamente, será o type contrário ao evento originário. Ou seja, para cancelamento de APLICACAO, considera-se type SAIDA; para cancelamento de RESGATE, considera-se type ENTRADA.
 ";Texto;;Obrigatório;;"ENTRADA 
 SAIDA";1;1;"";Não permitido;string;ENTRADA;
-/data/transactionType;transactionType;Aplicação, resgate, cancelamento, vencimento, pagamento de juros, amortização, transferência de titularidade, transferência de custódia e outros.;Texto;;Obrigatório;;"APLICACAO 
+/data/transactionType;transactionType;Aplicação, resgate, cancelamento, vencimento, pagamento de juros, amortização, transferência de titularidade, transferência de custódia e outros. Para movimentos de transferência (titularidade ou custódia) deve ser considerado o preço unitário (transactionUnitPrice) da aquisição do título.;Texto;;Obrigatório;;"APLICACAO 
 RESGATE 
 CANCELAMENTO 
 VENCIMENTO 

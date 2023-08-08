@@ -1,6 +1,9 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;CNPJ da instituição emissora;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11225860000140;
+/data/issuerInstitutionCnpjNumber;issuerInstitutionCnpjNumber;"CNPJ da instituição emissora.
+
+Caso a instituição tenha a informação, o envio será obrigatório.
+";Texto;14;Opcional;^\d{14}$;;0;1;"";Não permitido;string;11225860000140;
 /data/isinCode;isinCode;"Código ISIN é um código universal que identifica cada valor mobiliário ou instrumento financeiro, conforme Norma ISO 6166. Caso a transmissora possua a informação o envio deste campo é obrigatório.
 
 [Restrição] Deve ser preenchido nos casos em que o 'clearingCode' não seja preenchido.
@@ -27,17 +30,24 @@ NAO";1;1;"";Não permitido;string;SIM;
 /data/remuneration/rateType;rateType;"Tipo da taxa de remuneração
   1. LINEAR
   2. EXPONENCIAL
-";Texto;;Obrigatório;;"LINEAR 
-EXPONENCIAL";1;1;"";Não permitido;string;LINEAR;
-/data/remuneration/ratePeriodicity;ratePeriodicity;Periodicidade da taxa de remuneração (mensal, anual, diário, semestral);Texto;;Obrigatório;;"MENSAL 
+
+Caso a instituição tenha a informação, o envio será obrigatório.
+";Texto;;Opcional;;"LINEAR 
+EXPONENCIAL";0;1;"";Não permitido;string;LINEAR;
+/data/remuneration/ratePeriodicity;ratePeriodicity;"Periodicidade da taxa de remuneração (mensal, anual, diário, semestral).
+
+Caso a instituição tenha a informação, o envio será obrigatório.
+";Texto;;Opcional;;"MENSAL 
 ANUAL 
 DIARIO 
-SEMESTRAL";1;1;"";Não permitido;string;MENSAL;
+SEMESTRAL";0;1;"";Não permitido;string;MENSAL;
 /data/remuneration/calculation;calculation;"Base de cálculo (dias úteis ou dias corridos).
   1. dias úteis
-  2. dias corridos
-";Texto;;Obrigatório;;"DIAS_UTEIS 
-DIAS_CORRIDOS";1;1;"";Não permitido;string;DIAS_CORRIDOS;
+  2. dias corridos.
+
+Caso a instituição tenha a informação, o envio será obrigatório.
+";Texto;;Opcional;;"DIAS_UTEIS 
+DIAS_CORRIDOS";0;1;"";Não permitido;string;DIAS_CORRIDOS;
 /data/remuneration/indexer;indexer;"Índice utilizado como referência para a correção da rentabilidade e/ou rendimentos do ativo 
 1. CDI
 2. DI 
@@ -108,4 +118,7 @@ OUTROS";0;1;" Campo de preenchimento obrigatório pelos participantes quando hou
 ";Texto;30;Condicional;[\w\W-]*;;0;1;" Deve ser preenchido nos casos em que o 'isinCode' não seja preenchido.
 ";Não permitido;string;CDB421GPXXX;
 /data/purchaseDate;purchaseDate;Data de aquisição do cliente;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;
-/data/gracePeriodDate;gracePeriodDate;Data até a qual o cliente não poderá resgatar antecipadamente seu investimento;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-16;
+/data/gracePeriodDate;gracePeriodDate;"Data até a qual o cliente não poderá resgatar antecipadamente seu investimento.
+
+Caso a instituição tenha a informação, o envio será obrigatório.
+";Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-16;

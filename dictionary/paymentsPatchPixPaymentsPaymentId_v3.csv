@@ -160,26 +160,25 @@ Todos os valores monetários informados estão representados com a moeda vigente
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/creditorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
-/data/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
-(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).  
-[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+/data/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
+(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+
+[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
 /data/creditorAccount/number;number;"Deve ser preenchido com o número da conta do usuário recebedor, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.
 ";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
 /data/creditorAccount/accountType;accountType;"Tipos de contas usadas para pagamento.
-Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
+Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, 
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.
 Segue descrição de cada valor do ENUM.
 
 - CACC - Current - Conta Corrente.
-- SLRY - Salary - Conta-Salário.
 - SVGS - Savings - Conta de Poupança.
 - TRAN - TransactingAccount - Conta de Pagamento pré-paga.
 ";Texto;;Obrigatório;;"CACC 
-SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
 /data/cancellation;cancellation;"Objeto que contém os dados referentes ao usuário pagador que solicitou o cancelamento, o canal utilizado por ele e o motivo.
@@ -215,31 +214,31 @@ As informações quanto à conta de origem do pagador poderão ser trazidas no c
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/debtorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
-/data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito.  
-(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito,  
-no exercício de atividades da instituição, não podendo ser móvel ou transitória).  
-[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
-";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA), SVGS (CONTA_POUPANCA) e SLRY (CONTA_SALARIO).
+/data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
+(Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+
+[Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
 /data/debtorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir),  
 se houver valor alfanumérico, este deve ser convertido para 0.
 ";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
 /data/debtorAccount/accountType;accountType;"Tipos de contas usadas para pagamento.
-Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas,  
+Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, 
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.
 Segue descrição de cada valor do ENUM.
 
 - CACC - Current - Conta Corrente.
-- SLRY - Salary - Conta-Salário.
 - SVGS - Savings - Conta de Poupança.
 - TRAN - TransactingAccount - Conta de Pagamento pré-paga.
 ";Texto;;Obrigatório;;"CACC 
-SLRY 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
 /data/authorisationFlow;authorisationFlow;"Campo condicional utilizado para identificar o fluxo de autorização em que o pagamento foi solicitado.
 
-[Restrição] Caso o campo não esteja presente no payload, subentende-se que o fluxo de autorização utilizado é o HYBRID_FLOW.
+[Restrição] Se CIBA ou FIDO, preenchimento obrigatório. Caso o campo não esteja presente no payload, subentende-se que o fluxo de autorização utilizado é o HYBRID_FLOW.
 ";Texto;;Condicional;;"HYBRID_FLOW 
-CIBA_FLOW";0;1;" Caso o campo não esteja presente no payload, subentende-se que o fluxo de autorização utilizado é o HYBRID_FLOW.
+CIBA_FLOW 
+FIDO_FLOW";0;1;" Se CIBA ou FIDO, preenchimento obrigatório. Caso o campo não esteja presente no payload, subentende-se que o fluxo de autorização utilizado é o HYBRID_FLOW.
 ";Não permitido;string;HYBRID_FLOW;
