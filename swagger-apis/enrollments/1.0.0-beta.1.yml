@@ -1959,7 +1959,7 @@ components:
     UnprocessableEntityEnrollmentFidoRegistration:
       description: |
         A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.
-        A falha de verificação da credencial FIDO2 deve causar a revogação do vínculo de conta por parte da detentora, uma vez que não é possível reusar um mesmo "challenge" para mais de um registro.
+        A falha de verificação da credencial FIDO2 deve causar a rejeição do vínculo de conta por parte da detentora, uma vez que não é possível reusar um mesmo "challenge" para mais de um registro.
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
