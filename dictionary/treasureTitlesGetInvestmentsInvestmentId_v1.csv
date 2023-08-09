@@ -27,12 +27,12 @@ OUTROS";1;1;"";Não permitido;string;CDI;
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido com o valor ‘PRE FIXADO’.
 ";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido com o valor ‘PRE FIXADO’.
-";Não permitido;string;0.300000;
+";Não permitido;string;0.300000;8
 /data/remuneration/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador da aquisição do contrato.
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido de forma diferente de ‘PRE FIXADO’.
 ";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido de forma diferente de ‘PRE FIXADO’.
-";Não permitido;string;1.100000;
+";Não permitido;string;1.100000;8
 /data/remuneration/ratePeriodicity;ratePeriodicity;Periodicidade da taxa de remuneração (mensal, anual, diário e semestral);Texto;;Obrigatório;;"MENSAL 
 ANUAL 
 DIARIO 
