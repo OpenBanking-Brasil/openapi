@@ -4,6 +4,7 @@
 Contas de depósito à vista, de poupança ou de pagamento pré-paga : corresponde ao accountId;
 Conta de pagamento pós-paga: corresponde ao creditCardAccountId;
 Empréstimos, Financiamentos, Direitos creditórios descontados e Adiantamento a depositantes: corresponde ao contractId.
+Renda Fixa Crédito, Renda Fixa Bancária, Renda Variável, Títulos do Tesouro Direto e Fundos de Investimentos: corresponde ao investmentId
 ";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;25cac914-d8ae-6789-b215-650a6215820d;1
 /data/type;type;"Tipo de recurso (vide Enum):
   - Account - Conta de depósito à vista, poupança ou pagamento pré-paga
