@@ -19,7 +19,7 @@
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;4
 /data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros). Prazo de carência não é considerado como bloqueio.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/blockedBalance/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;4
 /data/blockedBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/purchaseUnitPrice;purchaseUnitPrice;valor unitário negociado com o cliente na data de aquisição;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
@@ -28,11 +28,11 @@
 /data/preFixedRate;preFixedRate;"Taxa de remuneração acordada com o cliente na contratação. 
 Em casos de produtos progressivos, considerar taxa vigente. 
 É esperado que o preenchimento deste campo pelas participantes seja enviado de acordo com o campo preFixedRate do endpoint /investment/{investmentId}.
-";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.300000;
+";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.300000;8
 /data/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador acordado com o cliente na contratação. 
 Em casos de produtos progressivos, considerar taxa vigente. 
 É esperado que o preenchimento deste campo pelas participantes seja enviado de acordo com o campo postFixedIndexerPercentagedo endpoint /investment/{investmentId}.
-";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;1.100000;
+";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;1.100000;8
 /data/fine;fine;"Valor de multa devido ao atraso do pagamento acordado em contrato.       
 Caso a transmissora possua a informação, o envio deste campo é obrigatório.
 ";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
