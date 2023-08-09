@@ -52,10 +52,10 @@ OUTROS";1;1;"";Não permitido;string;APLICACAO;
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA'.
 ";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA'.
-";Não permitido;string;0.300000;3
+";Não permitido;string;0.300000;8
 /data/indexerPercentage;indexerPercentage;"Percentual máximo do indexador acordado com o cliente na contratação.
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA'.
 ";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA'.
-";Não permitido;string;1.100000;3
+";Não permitido;string;1.100000;8
 /data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a representação individual do movimento.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;ABCD2126019929279212650822221989319253344;
