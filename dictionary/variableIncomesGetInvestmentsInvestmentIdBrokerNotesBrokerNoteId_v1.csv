@@ -24,7 +24,7 @@ Pode ser cobrada como um valor fixo por operação, ou um como um percentual sob
 /data/clearingCustodyFee;clearingCustodyFee;Taxa cobrada pelas IF para custódia.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/clearingCustodyFee/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
 /data/clearingCustodyFee/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/taxes;taxes;Impostos cobrados na operação, exceto imposto de renda.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/taxes;taxes;Impostos cobrados na operação, inclusive imposto de renda day-trade, exceto imposto de renda retido na fonte.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/taxes/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;13.8751;
 /data/taxes/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/incomeTax;incomeTax;Imposto de renda retido na fonte.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;

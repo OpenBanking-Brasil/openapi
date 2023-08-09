@@ -2,7 +2,7 @@
 /data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/type;type;"Tipo de movimentação na visão de investimento: entrada ou saída. Nos casos de pagamento de dividendos, JCP e aluguéis, fica convencionado que será considerado que o tipo de movimento será saída.
 ";Texto;;Obrigatório;;"ENTRADA 
-SAIDA";1;1;"";Não permitido;string;ENTRADA;
+SAIDA";1;1;"";Não permitido;string;SAIDA;
 /data/transactionType;transactionType;"O campo deve classificar a movimentação em um dos tipos descritos: compra, venda, dividendos, JCP, aluguéis, transferência de custódia, transferência de titularidade e outros. 
 O transmissor deve classificar as movimentações disponíveis associando-a a um dos itens do Enum listado neste campo. 
 A opção OUTROS só deve ser utilizada para os casos em que de fato a movimentação compartilhada não possa ser classificada como um dos itens deste Enum. 
