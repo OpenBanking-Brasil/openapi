@@ -22,7 +22,7 @@ Caso seja um produto com alíquota zero esse objeto pode ser enviado sem valores
 ";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros). Prazo de carência não é considerado como bloqueio.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/blockedBalance/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/blockedBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/purchaseUnitPrice;purchaseUnitPrice;Valor unitário negociado com o cliente na data de aquisição.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
