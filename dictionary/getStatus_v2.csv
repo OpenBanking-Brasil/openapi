@@ -1,0 +1,17 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/status;status;;Lista;;Obrigatório;;;1;1;"";Não permitido;array;;
+/data/status/code;code;"Condição atual da API:
+  * `OK` - A implementação é totalmente funcional
+  * `PARTIAL_FAILURE` - Um ou mais endpoints estão indisponíveis
+  * `UNAVAILABLE` - A implementação completa está indisponível
+  * `SCHEDULED_OUTAGE` - Uma interrupção anunciada está em vigor
+";Texto;;Obrigatório;;"OK 
+PARTIAL_FAILURE 
+UNAVAILABLE 
+SCHEDULED_OUTAGE";1;1;"";Não permitido;string;OK;
+/data/status/explanation;explanation;Fornece uma explicação da interrupção atual que pode ser exibida para um cliente final. Será obrigatoriamente preenchido se code tiver algum valor que não seja OK;Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Retorno com Sucesso;
+/data/status/detectionTime;detectionTime;A data e hora em que a interrupção atual foi detectada. Será obrigatoriamente preenchido se a propriedade code for PARTIAL_FAILURE ou UNAVAILABLE;Texto;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/status/expectedResolutionTime;expectedResolutionTime;A data e hora em que o serviço completo deve continuar (se conhecido). Será obrigatoriamente preenchido se code tiver algum valor que não seja OK;Texto;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/status/updateTime;updateTime;A data e hora em que esse status foi atualizado pela última vez pelo titular dos dados.;Texto;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2020-01-02T01:00:00Z;
+/data/status/unavailableEndpoints;unavailableEndpoints;Endpoints com indisponibilidade;Lista;2000;Opcional;;;0;1;"";Não permitido;array;;
