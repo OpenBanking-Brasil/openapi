@@ -1,17 +1,26 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;Lista dos lançamentos referentes às transações realizadas e de lançamentos futuros para as contas de: depósito à vista, poupança e de pagamento pré-paga;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
-/data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;0;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
+/data;data;"Lista dos lançamentos referentes às transações realizadas e de lançamentos futuros para as contas de: depósito à vista, poupança e de pagamento pré-paga
+";Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/transactionId;transactionId;"Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual. 
+O ideal é que o `transactionId` seja imutável. 
+No entanto, o `transactionId` deve obedecer, no mínimo, as regras de imutabilidade propostas conforme tabela “Data de imutabilidade por tipo de transação” presente nas orientações desta API.
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
 /data/completedAuthorisedPaymentType;completedAuthorisedPaymentType;"Indicador da transação: 
-- Transação efetivada
-- Lançamento futuro";Texto;;Obrigatório;;"TRANSACAO_EFETIVADA 
-LANCAMENTO_FUTURO";1;1;"";Não permitido;string;TRANSACAO_EFETIVADA;
+  - Transação efetivada: a transação atinge esse status quando o `transactionId` torna-se imutável;
+  - Lançamento futuro: a transação será efetivada em momento futuro, ou seja, o `transactionId` pode mudar;
+  - Transação processando: a transação está em processamento, ou seja, o `transactionId` pode mudar.
+";Texto;;Obrigatório;;"TRANSACAO_EFETIVADA 
+LANCAMENTO_FUTURO 
+TRANSACAO_PROCESSANDO";1;1;"";Não permitido;string;TRANSACAO_EFETIVADA;
 /data/creditDebitType;creditDebitType;"Indicador do tipo de lançamento: 
 Débito (no extrato) Em um extrato bancário, os débitos, marcados com a letra “D” ao lado do valor registrado, informam as saídas de dinheiro na conta-corrente.
-Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.";Texto;;Obrigatório;;"CREDITO 
+Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.
+";Texto;;Obrigatório;;"CREDITO 
 DEBITO";1;1;"";Não permitido;string;DEBITO;
-/data/transactionName;transactionName;Campo livre que corresponde ao identificador da transação na instituição financeira;Texto;60;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;TRANSFCWAR5TXHCX5I9IDBHML8082N8NEO30M6LNNG7ANAYIJYRM00ZBZPU8;
+/data/transactionName;transactionName;Literal usada na instituição financeira para identificar a transação. A informação apresentada precisa ser a mesma utilizada nos canais eletrônicos da instituição (extrato).;Texto;200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;TRANSFCWAR5TXHCX5I9IDBHML8082N8NEO30M6LNNG7ANAYIJYRM00ZBZPU8;
 /data/type;type;"O campo deve classificar a transação em um dos tipos descritos. O transmissor deve classificar as transações disponíveis associando-a a um dos itens do Enum listado neste campo. 
-A opção OUTROS só deve ser utilizada para os casos em que de fato a transação compartilhada não possa ser classificada como um dos itens deste Enum.";Texto;;Obrigatório;;"TED 
+A opção OUTROS só deve ser utilizada para os casos em que de fato a transação compartilhada não possa ser classificada como um dos itens deste Enum.
+";Texto;;Obrigatório;;"TED 
 DOC 
 PIX 
 TRANSFERENCIA_MESMA_INSTITUICAO 
@@ -32,13 +41,14 @@ OUTROS";1;1;"";Não permitido;string;PIX;
 /data/transactionAmount;transactionAmount;Valor da transação. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/transactionAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/transactionAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/transactionDate;transactionDate;"Se indicador de transação:
-TRANSACAO_EFETIVADA - corresponde a data de lançamento da transação
-LANCAMENTO_FUTURO - corresponde a data prevista de efetivação da transação";Texto;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-01-07;
-/data/partieCnpjCpf;partieCnpjCpf;Identificação da pessoa envolvida na transação: pagador ou recebedor (Preencher com o CPF ou CNPJ, sem formatação);Texto;14;Opcional;^\d{11}$|^\d{14}$;;0;1;"";Não permitido;string;43908445778;
+/data/transactionDateTime;transactionDateTime;"Data e hora original da transação. No primeiro momento, as instituições poderão complementar informações faltantes com 0 (Por exemplo: 2016-01-29T00:00:00.000Z). A partir de 31/01/2024 é esperado que o campo seja preenchido com informações reais.
+";Texto;24;Obrigatório;(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)\.(?:[0-9]){3}Z$);;1;1;"";Não permitido;string;2016-01-29T12:29:03.374Z;
+/data/partieCnpjCpf;partieCnpjCpf;"Identificação da pessoa envolvida na transação: pagador ou recebedor (Preencher com o CPF ou CNPJ, sem formatação). Exceção a obrigatoriedade de envio: Tipo de transação TED quando se tratar de Transferência entre Reservas (STR0004) e Recebimento de recursos judiciais (STR0051R2).
+";Texto;14;Opcional;^\d{11}$|^\d{14}$;;0;1;"";Não permitido;string;43908445778;
 /data/partiePersonType;partiePersonType;"Identificação do Tipo de Pessoa da pessoa envolvida na transação.   
 Pessoa Natural - Informar CPF no campo “payerCnpjCpf”.   
-Pessoa Jurídica - Informar CNPJ no campo “payerCnpjCpf”.";Texto;;Opcional;;"PESSOA_NATURAL 
+Pessoa Jurídica - Informar CNPJ no campo “payerCnpjCpf”.
+";Texto;;Opcional;;"PESSOA_NATURAL 
 PESSOA_JURIDICA";0;1;"";Não permitido;string;PESSOA_NATURAL;
 /data/partieCompeCode;partieCompeCode;Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas) referente à pessoa envolvida na transação. O número-código substituiu o antigo código COMPE. Todos os participantes do STR, exceto as Infraestruturas do Mercado Financeiro (IMF) e a Secretaria do Tesouro Nacional, possuem um número-código independentemente de participarem da Centralizadora da Compensação de Cheques (Compe). O campo tem a anotação “n/a” (“não se aplica”) para os participantes do STR aos quais não é atribuído um número-código;Texto;3;Opcional;^\d{3}$;;0;1;"";Não permitido;string;001;
 /data/partieBranchCode;partieBranchCode;Código da Agência detentora da conta da pessoa envolvida na transação. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória);Texto;4;Opcional;^\d{4}$;;0;1;"";Não permitido;string;6272;

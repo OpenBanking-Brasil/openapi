@@ -1,5 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;Conjunto de informações da Conta de: depósito à vista;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data;data;"Conjunto de informações da Conta de: depósito à vista
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/overdraftContractedLimit;overdraftContractedLimit;Valor do limite contratado do cheque especial.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/overdraftContractedLimit/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/overdraftContractedLimit/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
