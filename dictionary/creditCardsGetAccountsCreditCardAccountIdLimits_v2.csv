@@ -1,5 +1,10 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;"";Lista;;Condicional;;;0;N;" A lista vazia deve ser interpretada como a ausência da informação.
+/data;data;"[Restrição] A lista vazia deve ser interpretada como a ausência da informação.
+
+Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
+
+Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
+";Lista;;Obrigatório;;;0;N;" A lista vazia deve ser interpretada como a ausência da informação.
 
 Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
 
@@ -9,36 +14,65 @@ Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é 
 
 LIMITE_CREDITO_TOTAL: Limite de crédito total aplicado a conta cartão.
 
-LIMITE_CREDITO_MODALIDADE_OPERACAO: Limite de crédito por modalidade desse conta cartão (observar lineName e listar os aplicáveis da instituição).";Texto;;Obrigatório;;"LIMITE_CREDITO_TOTAL 
+LIMITE_CREDITO_MODALIDADE_OPERACAO: Limite de crédito por modalidade desse conta cartão (observar lineName e listar os aplicáveis da instituição).
+";Texto;;Obrigatório;;"LIMITE_CREDITO_TOTAL 
 LIMITE_CREDITO_MODALIDADE_OPERACAO";1;1;"";Não permitido;string;LIMITE_CREDITO_TOTAL;
 /data/consolidationType;consolidationType;"Indicador que permite informar se o valor do limite é consolidado ou individual.
 
 CONSOLIDADO: utilizado quando o limite da conta cartão é compartilhado entre todos os métodos de pagamento (paymentMethod) atrelados a conta.
 
-INDIVIDUAL: Utilizado quando cada método de pagamento (paymentMethod) possui seu limite segregado.";Texto;;Obrigatório;;"CONSOLIDADO 
+INDIVIDUAL: Utilizado quando cada método de pagamento (paymentMethod) possui seu limite segregado.
+";Texto;;Obrigatório;;"CONSOLIDADO 
 INDIVIDUAL";1;1;"";Não permitido;string;CONSOLIDADO;
-/data/identificationNumber;identificationNumber;Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;4453;1
-/data/lineName;lineName;"";Texto;;Opcional;;"CREDITO_A_VISTA 
+/data/identificationNumber;identificationNumber;"Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Finance.
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;4453;1
+/data/lineName;lineName;;Texto;;Opcional;;"CREDITO_A_VISTA 
 CREDITO_PARCELADO 
 SAQUE_CREDITO_BRASIL 
 SAQUE_CREDITO_EXTERIOR 
 EMPRESTIMO_CARTAO_CONSIGNADO 
 OUTROS";0;1;"";Não permitido;string;CREDITO_A_VISTA;
 /data/lineNameAdditionalInfo;lineNameAdditionalInfo;Campo de preenchimento obrigatório se selecionada a opção 'OUTRAS' em lineName.;Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Informações adicionais e complementares.;
-/data/isLimitFlexible;isLimitFlexible;Indica se a operação de crédito é: com limite flexível (true) ou com limite (false).;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
-/data/limitAmount;limitAmount;Valor total do limite informado.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/limitAmount/amount;amount;Valor total do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;20;Condicional;^\d{1,15}\.\d{2,4}$;;1;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
+/data/isLimitFlexible;isLimitFlexible;True= Indica que a conta cartão possui limite total flexível ou “sem limite”. False = Indica que a conta cartão possui limite predeterminado exibido no canal para o cliente.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
+/data/limitAmount;limitAmount;"Valor total do limite concedido.
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/limitAmount/amount;amount;"Valor total do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+
+[Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
+";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
 ";Não permitido;string;1000.0400;4
 /data/limitAmount/currency;currency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-Todos os limite informados estão representados com a moeda vigente do Brasil.";Texto;3;Condicional;^[A-Z]{3}$;;1;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
+Todos os limite informados estão representados com a moeda vigente do Brasil.
+
+[Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
+";Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
 ";Não permitido;string;BRL;
+/data/limitAmount/limitAmountReason;limitAmountReason;"Razão pela qual o valor total do limite informado está igual a zero.
+
+[Restrição] Campo de preenchimento obrigatório quando limitAmount for igual a 0.00.
+";Texto;200;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório quando limitAmount for igual a 0.00.
+";Não permitido;string;O perfil do cliente passou por uma análise e o limite precisou ser zerado;
 /data/usedAmount;usedAmount;Valor utilizado do limite informado;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/usedAmount/amount;amount;Valor utilizado do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/usedAmount/currency;currency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-Todos os saldos informados estão representados com a moeda vigente do Brasil.";Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/availableAmount;availableAmount;Valor disponível do limite informado;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/availableAmount/amount;amount;Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
+Todos os saldos informados estão representados com a moeda vigente do Brasil. 
+";Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/availableAmount;availableAmount;"Valor disponível do limite informado   
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/availableAmount/amount;amount;"Valor disponível do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+
+[Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
+";Texto;21;Condicional;^-?\d{1,15}\.\d{2,4}$;;0;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
 ";Não permitido;string;1000.0400;4
 /data/availableAmount/currency;currency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
-Todos os saldos informados estão representados com a moeda vigente do Brasil.";Texto;3;Condicional;^[A-Z]{3}$;;0;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
+Todos os saldos informados estão representados com a moeda vigente do Brasil.  
+
+[Restrição] O campo é obrigatório caso isLimitFlexible for igual a false.
+";Texto;3;Condicional;^[A-Z]{3}$;;0;1;" O campo é obrigatório caso isLimitFlexible for igual a false.
 ";Não permitido;string;BRL;
+/data/customizedLimitAmount;customizedLimitAmount;"Valor total do limite customizado pelo cliente nos canais eletrônicos da instituição. Esse objeto é de envio obrigatório nos casos em que a instituição permita ao cliente alterar o seu limite.
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/customizedLimitAmount/amount;amount;"Valor total do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
+";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/customizedLimitAmount/currency;currency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.' Todos os limite informados estão representados com a moeda vigente do Brasil.
+";Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;

@@ -32,7 +32,8 @@ MAIS
 OUTROS";1;1;"";Não permitido;string;OUTROS;
 /data/productAdditionalInfo;productAdditionalInfo;Informações complementares se tipo de Cartão 'OUTROS';Texto;50;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;;
 /data/creditCardNetwork;creditCardNetwork;"Categoria de Bandeiras de Cartões de Crédito (Instituidor do arranjo de pagamento).
-Bandeira é a detentora de todos os direitos e deveres da utilização da marca estampada no cartão, inclusive as bandeiras pertencentes aos emissores.";Texto;;Obrigatório;;"VISA 
+Bandeira é a detentora de todos os direitos e deveres da utilização da marca estampada no cartão, inclusive as bandeiras pertencentes aos emissores.
+";Texto;;Obrigatório;;"VISA 
 MASTERCARD 
 AMERICAN_EXPRESS 
 DINERS_CLUB 
