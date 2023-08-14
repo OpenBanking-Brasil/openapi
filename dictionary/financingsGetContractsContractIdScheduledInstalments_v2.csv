@@ -5,19 +5,32 @@ SEMANA
 MES 
 ANO 
 SEM_PRAZO_TOTAL";1;1;"";Não permitido;string;MES;
-/data/totalNumberOfInstalments;totalNumberOfInstalments;Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Condicional;;;0;1;" Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
+/data/totalNumberOfInstalments;totalNumberOfInstalments;"Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+[Restrição] Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
+";Número;;Condicional;;;0;1;" Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
 ";Não permitido;number;130632;
-/data/typeContractRemaining;typeContractRemaining;Tipo de prazo remanescente do contrato referente à modalidade de crédito informada.;Texto;;Obrigatório;;"DIA 
+/data/typeContractRemaining;typeContractRemaining;"Tipo de prazo remanescente do contrato referente à modalidade de crédito informada.
+";Texto;;Obrigatório;;"DIA 
 SEMANA 
 MES 
 ANO 
 SEM_PRAZO_REMANESCENTE";1;1;"";Não permitido;string;;
-/data/contractRemainingNumber;contractRemainingNumber;Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Condicional;;;0;1;" Obrigatoriamente deve ser preenchido caso o typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
+/data/contractRemainingNumber;contractRemainingNumber;"Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+[Restrição] Obrigatoriamente deve ser preenchido caso o typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
+";Número;;Condicional;;;0;1;" Obrigatoriamente deve ser preenchido caso o typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
 ";Não permitido;number;14600;
 /data/paidInstalments;paidInstalments;Quantidade de prestações pagas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;73;
-/data/dueInstalments;dueInstalments;Quantidade de prestações a vencer.;Número;;Condicional;;;0;1;" Obrigatório para modalidades que possuam parcelas.
+/data/dueInstalments;dueInstalments;"Quantidade de prestações a vencer.
+
+[Restrição] Obrigatório para modalidades que possuam parcelas.
+";Número;;Condicional;;;0;1;" Obrigatório para modalidades que possuam parcelas.
 ";Não permitido;number;57;
-/data/pastDueInstalments;pastDueInstalments;Quantidade de prestações vencidas.;Número;;Condicional;;;0;1;" Obrigatório para modalidades que possuam parcelas.
+/data/pastDueInstalments;pastDueInstalments;"Quantidade de prestações vencidas.
+
+[Restrição] Obrigatório para modalidades que possuam parcelas.
+";Número;;Condicional;;;0;1;" Obrigatório para modalidades que possuam parcelas.
 ";Não permitido;number;73;
 /data/balloonPayments;balloonPayments;Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada;Lista;;Opcional;;;1;N;"";Não permitido;array;;
 /data/balloonPayments/dueDate;dueDate;Data de vencimento da parcela não regular  a vencer do contrato da modalidade de crédito consultada, conforme especificação RFC-3339. p.ex. 2014-03-19;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2020-01-10;
