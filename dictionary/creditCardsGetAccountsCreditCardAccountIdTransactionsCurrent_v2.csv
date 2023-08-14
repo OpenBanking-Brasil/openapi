@@ -1,12 +1,19 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;"";Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
-/data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;0;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
-/data/identificationNumber;identificationNumber;Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Banking.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;4453;1
-/data/transactionName;transactionName;Campo de livre preenchimento. Literal usada na instituição financeira para identificar a transação;Texto;100;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PGTO;
-/data/billId;billId;Informação que identifica a fatura onde consta a transação informada.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;0;1;"";Não permitido;string;MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM;1
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/transactionId;transactionId;"Código ou identificador único prestado pela instituição que mantém a conta para representar a transação individual. 
+O ideal é que o `transactionId` seja imutável. 
+No entanto, para casos em que a transação ainda está em processamento, é esperado que o `transactionId` intermediário seja estável, mudando apenas quando a transação sofrer uma mudança em seu estado. 
+Para transações processadas, é esperado que o `transactionld` e demais dados da transação sejam imutáveis. 
+O `transactionId` deve obedecer, no mínimo, as regras de imutabilidade propostas conforme a tabela “Data de imutabilidade por tipo de transação” presente nas orientações desta API
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
+/data/identificationNumber;identificationNumber;"Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Finance.
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;4453;1
+/data/transactionName;transactionName;Literal usada na instituição financeira para identificar a transação. A informação apresentada precisa ser a mesma utilizada nos canais eletrônicos da instituição (extrato e fatura).;Texto;200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PGTO;
+/data/billId;billId;Informação que identifica a fatura onde consta a transação informada. Preencher apenas para casos de transação em fatura fechada, ou seja, este campo não é esperado em casos de transação em fatura aberta.;Texto;100;Opcional;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;0;1;"";Não permitido;string;MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM;1
 /data/creditDebitType;creditDebitType;"Indicador do tipo de lançamento: 
 Débito (no extrato) Em um extrato bancário, os débitos, marcados com a letra “D” ao lado do valor registrado, informam as saídas de dinheiro na conta-corrente.
-Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.";Texto;;Obrigatório;;"CREDITO 
+Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.
+";Texto;;Obrigatório;;"CREDITO 
 DEBITO";1;1;"";Não permitido;string;DEBITO;
 /data/transactionType;transactionType;Traz os tipos de Transação;Texto;;Obrigatório;;"PAGAMENTO 
 TARIFA 
@@ -14,11 +21,17 @@ OPERACOES_CREDITO_CONTRATADAS_CARTAO
 ESTORNO 
 CASHBACK 
 OUTROS";1;1;"";Não permitido;string;CASHBACK;
-/data/transactionalAdditionalInfo;transactionalAdditionalInfo;Campo livre, de preenchimento obrigatório quando selecionado tipo de transação OUTROS;Texto;140;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;;
-/data/paymentType;paymentType;Traz os tipos de pagamento.;Texto;;Condicional;;"A_VISTA 
+/data/transactionalAdditionalInfo;transactionalAdditionalInfo;"Campo livre, de preenchimento obrigatório quando selecionado tipo de transação ""OUTROS""";Texto;140;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;;
+/data/paymentType;paymentType;"Traz os tipos de pagamento.
+
+[Restrição] Preenchimento obrigatório se Tipo de Transação selecionada for 'PAGAMENTO'.
+";Texto;;Condicional;;"A_VISTA 
 A_PRAZO";0;1;" Preenchimento obrigatório se Tipo de Transação selecionada for 'PAGAMENTO'.
 ";Não permitido;string;A_VISTA;
-/data/feeType;feeType;Traz os tipos de Tarifas: (Vide Enum) Anuidade, Saque com cartão no Brasil, Saque com cartão no exterior, Avaliação emergencial de crédito, Emissão segunda via, Tarifa pagamento de contas, SMS, OUTRA.;Texto;;Condicional;;"ANUIDADE 
+/data/feeType;feeType;"Traz os tipos de Tarifas: (Vide Enum) Anuidade, Saque com cartão no Brasil, Saque com cartão no exterior, Avaliação emergencial de crédito, Emissão segunda via, Tarifa pagamento de contas, SMS, OUTRA.
+
+[Restrição] Preenchimento obrigatório se Tipo de Transação selecionada for 'TARIFA'.
+";Texto;;Condicional;;"ANUIDADE 
 SAQUE_CARTAO_BRASIL 
 SAQUE_CARTAO_EXTERIOR 
 AVALIACAO_EMERGENCIAL_CREDITO 
@@ -27,23 +40,37 @@ TARIFA_PAGAMENTO_CONTAS
 SMS 
 OUTRA";0;1;" Preenchimento obrigatório se Tipo de Transação selecionada for 'TARIFA'.
 ";Não permitido;string;ANUIDADE;
-/data/feeTypeAdditionalInfo;feeTypeAdditionalInfo;Campo livre, de preenchimento obrigatório quando selecionada tipo de tarifa OUTRA;Texto;140;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;;
-/data/otherCreditsType;otherCreditsType;Traz outros tipos de crédito contratados no cartão.;Texto;;Condicional;;"CREDITO_ROTATIVO 
+/data/feeTypeAdditionalInfo;feeTypeAdditionalInfo;"Campo livre, de preenchimento obrigatório quando selecionada tipo de tarifa ""OUTRA""";Texto;140;Opcional;^\S[\s\S]*$;;0;1;"";Não permitido;string;;
+/data/otherCreditsType;otherCreditsType;"Traz outros tipos de crédito contratados no cartão.
+
+[Restrição] Preenchimento obrigatório se o tipo transação selecionado for 'OPERACOES_CREDITO_CONTRATADAS_CARTAO'.
+";Texto;;Condicional;;"CREDITO_ROTATIVO 
 PARCELAMENTO_FATURA 
 EMPRESTIMO 
 OUTROS";0;1;" Preenchimento obrigatório se o tipo transação selecionado for 'OPERACOES_CREDITO_CONTRATADAS_CARTAO'.
 ";Não permitido;string;CREDITO_ROTATIVO;
-/data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.;Texto;50;Condicional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
+/data/otherCreditsAdditionalInfo;otherCreditsAdditionalInfo;"Campo livre para preenchimento de dados adicionais de outros tipos de crédito contratados no cartão.
+
+[Restrição] Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
+";Texto;50;Condicional;^\S[\s\S]*$;;0;1;" Preenchimento obrigatório quando selecionado no campo outros tipos de crédito ""OUTROS"".
 ";Não permitido;string;;
-/data/chargeIdentificator;chargeIdentificator;Identificador da parcela que está sendo informada. Campo de livre preenchimento;Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;PARCELA_1;
-/data/chargeNumber;chargeNumber;Quantidade de parcelas.;Número;;Condicional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
+/data/chargeIdentificator;chargeIdentificator;Número da parcela que está sendo informada.;Número;;Obrigatório;;;1;1;"";Não permitido;number;12;
+/data/chargeNumber;chargeNumber;"Quantidade de parcelas.   
+[Restrição] O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
+";Número;;Condicional;;;0;1;" O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
 ";Não permitido;number;12;
-/data/brazilianAmount;brazilianAmount;Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil. Deve ser o valor de amount convertido para BRL (em caso de compra internacional) ou o mesmo valor de amount (em caso de compra nacional).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/brazilianAmount;brazilianAmount;"Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil. Deve ser o valor de amount convertido para BRL (em caso de compra internacional) ou o mesmo valor de amount (em caso de compra nacional).
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/brazilianAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/brazilianAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/amount;amount;Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/amount;amount;"Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo.
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/amount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/transactionDate;transactionDate;Data original da transação;Data;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21;
+/data/transactionDateTime;transactionDateTime;"Data e hora original da transação. 
+No primeiro momento, as instituições poderão complementar informações faltantes com 0 (Por exemplo: 2016-01-29T00:00:00.000Z) 
+A partir de 31/01/2024 é esperado que o campo seja preenchido com informações reais.
+";Date Hora;24;Obrigatório;(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)\.(?:[0-9]){3}Z$);;1;1;"";Não permitido;string;2016-01-29T12:29:03.374Z;
 /data/billPostDate;billPostDate;Data em que a transação foi inserida na fatura;Data;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21;
-/data/payeeMCC;payeeMCC;O MCC ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades. O MCC é usado para classificar o negócio pelo tipo fornecido de bens ou serviços. Os MCCs são atribuídos por tipo de comerciante (por exemplo, um para hotéis, um para lojas de materiais de escritório, etc.) ou por nome de comerciante (por exemplo, 3000 para a United Airlines).;Número;;Opcional;;;0;1;"";Não permitido;number;5137;
+/data/payeeMCC;payeeMCC;"O MCC ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades. O MCC é usado para classificar o negócio pelo tipo fornecido de bens ou serviços. Os MCCs são atribuídos por tipo de comerciante (por exemplo, um para hotéis, um para lojas de materiais de escritório, etc.) ou por nome de comerciante (por exemplo, 3000 para a United Airlines).
+";Número;;Opcional;;;0;1;"";Não permitido;number;5137;
