@@ -1,14 +1,16 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;"";Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/contractId;contractId;Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;
 /data/brandName;brandName;Nome da Marca reportada pelo participante no Open Finance. Recomenda-se utilizar, sempre que possível, o mesmo nome de marca atribuído no campo do diretório Customer Friendly Server Name (Authorisation Server).;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A;
 /data/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;21128159000166;
-/data/productType;productType;"Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
-Financiamentos, Financiamentos rurais  e Financiamentos imobiliários";Texto;;Obrigatório;;"FINANCIAMENTOS 
+/data/productType;productType;"""Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
+Financiamentos, Financiamentos rurais  e Financiamentos imobiliários""
+";Texto;;Obrigatório;;"FINANCIAMENTOS 
 FINANCIAMENTOS_RURAIS 
 FINANCIAMENTOS_IMOBILIARIOS";1;1;"";Não permitido;string;FINANCIAMENTOS;
-/data/productSubType;productSubType;"Sub tipo da modalidades de crédito contratadas, conforme  circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
-Aquisição de bens veículos automotores, Aquisição de bens de outros bens, Microcrédito, Custeio, Investimento, Industrialização, Comercialização, Financiamento habitacional SFH e Financiamento habitacional exceto SFH";Texto;;Obrigatório;;"AQUISICAO_BENS_VEICULOS_AUTOMOTORES 
+/data/productSubType;productSubType;"""Sub tipo da modalidades de crédito contratadas, conforme  circular 4.015 e descrição do DOC3040 do SCR). (Vide Enum)
+Aquisição de bens veículos automotores, Aquisição de bens de outros bens, Microcrédito, Custeio, Investimento, Industrialização, Comercialização, Financiamento habitacional SFH e Financiamento habitacional exceto SFH""
+";Texto;;Obrigatório;;"AQUISICAO_BENS_VEICULOS_AUTOMOTORES 
 AQUISICAO_BENS_OUTROS_BENS 
 MICROCREDITO 
 CUSTEIO 
@@ -25,4 +27,5 @@ FINANCIAMENTO_HABITACIONAL_EXCETO_SFH";1;1;"";Não permitido;string;AQUISICAO_BE
   1. Para clientes pessoa física com CPF (tipo de cliente = 1), informar as 11 (onze) posições do CPF;
   2. Para clientes pessoa jurídica com CNPJ (tipo de cliente = 2), informar as 8 (oito) posições iniciais do CNPJ;
   3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
-- **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.";Texto;67;Obrigatório;^\d{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;22
+- **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.
+";Texto;67;Obrigatório;^\d{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;22
