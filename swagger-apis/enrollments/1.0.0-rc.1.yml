@@ -147,19 +147,70 @@ paths:
         content:
           application/jwt:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EnrollmentCancellation'
-                - type: object
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: object
                   required:
-                    - data
+                    - cancellation
+                  description: |
+                    Objeto que agrupa as informações de qual foi o usuário logado que solicitou o cancelamento do vínculo de conta.
                   properties:
-                    data:
+                    cancellation:
                       type: object
                       required:
-                        - cancellation
+                        - reason
                       properties:
-                        cancellation:
+                        cancelledBy:
                           type: object
+                          description: |
+                            Informação relacionada ao usuário pagador que solicitou o cancelamento do vínculo de conta.
+                            Pode estar ausente em cenários de processos automatizados realizarem o cancelamento do vínculo, por exemplo, por data de expiração.
+                          required:
+                            - document
+                          properties:
+                            document:
+                              type: object
+                              description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+                              required:
+                                - identification
+                                - rel
+                              properties:
+                                identification:
+                                  type: string
+                                  maxLength: 11
+                                  description: Número do documento do usuário responsável pelo cancelamento do vínculo de conta.
+                                  example: '11111111111'
+                                  pattern: '^\d{11}$'
+                                rel:
+                                  type: string
+                                  maxLength: 3
+                                  description: Tipo do documento do usuário responsável pelo cancelamento do vínculo de conta.
+                                  example: CPF
+                                  pattern: '^[A-Z]{3}$'
+                        reason:
+                          oneOf:
+                            - type: object
+                              required:
+                              - rejectionReason
+                              description: Motivo da rejeição do vínculo de conta.
+                              properties:
+                                rejectionReason:
+                                  $ref: '#/components/schemas/EnrollmentRejectionReason'
+                            - type: object
+                              required:
+                              - revocationReason
+                              description: Motivo da revogação do vínculo de conta.
+                              properties:
+                                revocationReason:
+                                  $ref: '#/components/schemas/EnrollmentRevocationReason'
+                        additionalInformation:
+                          type: string
+                          pattern: '[\w\W\s]*'
+                          example: Contrato entre iniciadora e detentora interrompido
+                          maxLength: 2048
       responses:
         '204':
           $ref: '#/components/responses/204EnrollmentsEnrollmentIdDelete'
@@ -336,19 +387,34 @@ paths:
         content:
           application/jwt:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EnrollmentFidoOptionsInput'
-                - type: object
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: object
+                  description: |
+                    Objeto que contém as informações sobre a Relying Party e a plataforma sobre a qual o usuário está utilizando o serviço da iniciadora para utilização de FIDO2.
                   required:
-                    - data
+                    - rp
+                    - platform
+                    - consentId
                   properties:
-                    data:
-                      type: object
-                      required:
-                        - consentId
-                      properties:
-                        consentId:
-                          $ref: '#/components/schemas/consentId'
+                    rp:
+                      type: string
+                      description: Identificador único da Relying Party.
+                    platform:
+                      type: string
+                      description: |
+                        Indica a plataforma em que o usuário criará a nova credencial FIDO2. 
+                        Este campo permite que o servidor FIDO inclua extensões de acordo com a plataforma utilizada.
+                      enum:
+                        - ANDROID
+                        - BROWSER
+                        - CROSS_PLATFORM
+                        - IOS
+                    consentId:
+                      $ref: '#/components/schemas/consentId'
       responses:
         '201':
           $ref: '#/components/responses/201EnrollmentFidoSignOptions'
@@ -433,6 +499,12 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '529':
           $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          description: Erro inesperado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseError'
       security:
         - OAuth2ClientCredentials:
             - payments
@@ -645,51 +717,6 @@ components:
               code:
                 type: string
                 enum:
-                  - STATUS_VINCULO_INVALIDO
-                example: STATUS_VINCULO_INVALIDO
-                description: |
-                  Códigos de erros previstos:
-
-                  - STATUS_VINCULO_INVALIDO: O status do vínculo de conta é incompatível com a operação.
-              title:
-                type: string
-                maxLength: 255
-                pattern: '[\w\W\s]*'
-                example: Permissões inválidas
-                description: |
-                  Título específico do erro reportado, de acordo com o código enviado:
-
-                  - STATUS_VINCULO_INVALIDO: Status do vínculo de conta inválido.
-              detail:
-                type: string
-                maxLength: 2048
-                pattern: '[\w\W\s]*'
-                example: 'Permissões inválidas'
-                description: |
-                  Descrição específica do erro de acordo com o código reportado:
-
-                  - STATUS_VINCULO_INVALIDO: O status do vínculo de conta é incompatível com a operação.
-        meta:
-          $ref: '#/components/schemas/Meta'
-    422ResponseErrorRiskSignals:
-      type: object
-      required:
-        - errors
-        - meta
-      properties:
-        errors:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            required:
-              - code
-              - title
-              - detail
-            properties:
-              code:
-                type: string
-                enum:
                   - RP_INVALIDA
                   - STATUS_VINCULO_INVALIDO
                 example: STATUS_VINCULO_INVALIDO
@@ -721,6 +748,51 @@ components:
                   • RP_INVALIDA: O identificador da Relying Party informado não pode ser verificado.
                   
                   • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite o registro de nova credencial.
+        meta:
+          $ref: '#/components/schemas/Meta'
+    422ResponseErrorRiskSignals:
+      type: object
+      required:
+        - errors
+        - meta
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                type: string
+                enum:
+                  - STATUS_VINCULO_INVALIDO
+                example: STATUS_VINCULO_INVALIDO
+                description: |
+                  Códigos de erros previstos:
+
+                  - STATUS_VINCULO_INVALIDO: O status do vínculo de conta é incompatível com a operação.
+              title:
+                type: string
+                maxLength: 255
+                pattern: '[\w\W\s]*'
+                example: Permissões inválidas
+                description: |
+                  Título específico do erro reportado, de acordo com o código enviado:
+
+                  - STATUS_VINCULO_INVALIDO: Status do vínculo de conta inválido.
+              detail:
+                type: string
+                maxLength: 2048
+                pattern: '[\w\W\s]*'
+                example: 'Permissões inválidas'
+                description: |
+                  Descrição específica do erro de acordo com o código reportado:
+
+                  - STATUS_VINCULO_INVALIDO: O status do vínculo de conta é incompatível com a operação.
         meta:
           $ref: '#/components/schemas/Meta'
     422ResponseErrorFidoSignOptions:
@@ -983,19 +1055,88 @@ components:
         data:
           type: object
           description: Informa a integridade do dispositivo e app
+          required:
+            - deviceId
+            - isRootedDevice
+            - screenBrightness
+            - elapsedTimeSinceBoot
+            - osVersion
+            - userTimeZone
+            - language
+            - screenDimensions
+            - accountTenure
           properties:
+            deviceId:
+              type: string
+              description: ID único do dispositivo gerado pela plataforma.
+            isRootedDevice:
+              type: boolean
+              description: Indica se o dispositivo sofreu processo de “root”.
+            screenBrightness:
+              type: integer
+              description: Indica o nível de brilho da tela do dispositivo.
+            elapsedTimeSinceBoot:
+              type: integer
+              format: int64
+              description: Indica por quanto tempo o dispositivo está ligado.
+            osVersion:
+              type: string
+              description: Versão do sistema operacional.
+            userTimeZone:
+              type: string
+              description: Detalha o fuso horário em que o dispositivo está definido.
+            language:
+              type: string
+              description: Idioma configurado no dispositivo.
+            screenDimensions:
+              type: string
+              description: Tamanho de tela do dispositivo
+            accountTenure:
+              type: string
+              description: Tempo que o cliente fez cadastro no ITP.
+            latitudeLongitude:
+              type: string
+              description: |
+                Latitude (2 casas decimais) e Longitude.
+
+                [Restrição] Caso o sinal de risco esteja disponível (cliente permitiu que fosse coletado), o mesmo deverá ser enviado
+            isCallingProgress:
+              type: boolean
+              description: |
+                Indica chamada ativa no momento do vínculo.
+
+                [Restrição] Caso o sinal de risco esteja disponível (cliente permitiu que fosse coletado), o mesmo deverá ser enviado
+            isDevModeEnabled:
+              type: boolean
+              description: Indica se o dispositivo está em modo de desenvolvedor.
+            isMockGPS:
+              type: boolean
+              description: Indica se o dispositivo está usando um GPS falso.
+            isEmulated:
+              type: boolean
+              description: Indica se o dispositivo é emulado ou real.
+            isMonkeyRunner:
+              type: boolean
+              description: Indica o uso do MonkeyRunner.
+            isCharging:
+              type: boolean
+              description: Indica se a bateria do dispositivo está sendo carregada.
+            antennaInformation:
+              type: string
+              description: Indica em qual antena o dispositivo está conectado.
+            isUsbConnected:
+              type: boolean
+              description: Indica se o dispositivo está conectado em um USB de um computador.
             integrity:
               type: object
               description: Informa a integridade do dispositivo e app
               properties:
                 appRecognitionVerdict:
                   type: string
-                  description: Informa a integridade do dispositivo e app
+                  description: Informa a integridade do app
                 deviceRecognitionVerdict:
                   type: string
-                  description: Informa a integridade do dispositivo e app
-
-
+                  description: Informa a integridade do dispositivo
     ConsentAuthorization:
       type: object
       required:
@@ -1007,6 +1148,7 @@ components:
           required:
             - enrollmentId
             - riskSignals
+            - fidoAssertion
           properties:
             enrollmentId:
               $ref: '#/components/schemas/enrollmentId'
@@ -1839,11 +1981,148 @@ components:
         meta:
           $ref: '#/components/schemas/Meta'
     ResponseEnrollment:
-      allOf:
-        - $ref: '#/components/schemas/ResponseCreateEnrollment'
-        - $ref: '#/components/schemas/EnrollmentCancellation'
-        - $ref: '#/components/schemas/EnrollmentRejectionFrom'
-        - $ref: '#/components/schemas/EnrollmentLimits'
+      type: object
+      required:
+        - data
+        - links
+        - meta
+      properties:
+        data:
+          type: object
+          description: Objeto que agrupa as informações de qual foi o usuário logado que solicitou o cancelamento do vínculo de conta.
+          required:
+            - enrollmentId
+            - creationDateTime
+            - status
+            - statusUpdateDateTime
+            - permissions
+            - expirationDateTime
+            - loggedUser
+            - dailyLimit
+            - debtorAccount
+            - transactionLimit
+          properties:
+            enrollmentId:
+              $ref: '#/components/schemas/enrollmentId'
+            creationDateTime:
+              type: string
+              format: date-time
+              example: '2023-07-12T08:30:00Z'
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+              maxLength: 20
+              description: O instante em que o vínculo de conta foi criado no ambiente da detentora.
+            status:
+              $ref: '#/components/schemas/EnumEnrollmentStatus'
+            statusUpdateDateTime:
+              type: string
+              format: date-time
+              example: '2023-07-12T08:30:00Z'
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+              maxLength: 20
+              description: O instante em que ocorreu a última alteração de status do vínculo de conta.
+            permissions:
+              type: array
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/EnumEnrollmentPermission'
+            expirationDateTime:
+              type: string
+              format: date-time
+              example: '2023-07-12T08:30:00Z'
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+              maxLength: 20
+              description: O instante de expiração deste vínculo de conta, de acordo com a regulação vigente.
+            loggedUser:
+              $ref: '#/components/schemas/LoggedUser'
+            businessEntity:
+              $ref: '#/components/schemas/BusinessEntity'
+            debtorAccount:
+              $ref: '#/components/schemas/DebtorAccount'
+            cancellation:
+              type: object
+              required:
+                - cancelledFrom
+                - reason
+              properties:
+                cancelledBy:
+                  type: object
+                  description: |
+                    Informação relacionada ao usuário pagador que solicitou o cancelamento do vínculo de conta.
+                    Pode estar ausente em cenários de processos automatizados realizarem o cancelamento do vínculo, por exemplo, por data de expiração.
+                  required:
+                    - document
+                  properties:
+                    document:
+                      type: object
+                      description: Objeto que consolida os dados do documento do usuário que solicitou o cancelamento.
+                      required:
+                        - identification
+                        - rel
+                      properties:
+                        identification:
+                          type: string
+                          maxLength: 11
+                          description: Número do documento do usuário responsável pelo cancelamento do vínculo de conta.
+                          example: '11111111111'
+                          pattern: '^\d{11}$'
+                        rel:
+                          type: string
+                          maxLength: 3
+                          description: Tipo do documento do usuário responsável pelo cancelamento do vínculo de conta.
+                          example: CPF
+                          pattern: '^[A-Z]{3}$'
+                reason:
+                  oneOf:
+                    - type: object
+                      required:
+                      - rejectionReason
+                      description: Motivo da rejeição do vínculo de conta.
+                      properties:
+                        rejectionReason:
+                          $ref: '#/components/schemas/EnrollmentRejectionReason'
+                    - type: object
+                      required:
+                      - revocationReason
+                      description: Motivo da revogação do vínculo de conta.
+                      properties:
+                        revocationReason:
+                          $ref: '#/components/schemas/EnrollmentRevocationReason'
+                additionalInformation:
+                  type: string
+                  pattern: '[\w\W\s]*'
+                  example: Contrato entre iniciadora e detentora interrompido
+                  maxLength: 2048
+                cancelledFrom:
+                  $ref: '#/components/schemas/EnumEnrollmentCancelledFrom'
+                rejectedAt:
+                  type: string
+                  format: date-time
+                  example: '2023-07-12T08:30:00Z'
+                  pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
+                  maxLength: 20
+                  description: Instante de rejeição do vínculo de conta no ambiente da detentora.     
+            transactionLimit:
+              type: string
+              minLength: 4
+              maxLength: 19
+              pattern: '^((\d{1,16}\.\d{2}))$'
+              example: '100000.12'
+              description: |
+                Valor máximo, por transação, admitido para este vínculo de conta. Este limite não garante a autorização de iniciações de pagamento;
+                servindo como referência para a iniciadora evitar a criação de consentimentos de valores tais que, garantidamente, não serão autorizados.
+            dailyLimit:
+              type: string
+              minLength: 4
+              maxLength: 19
+              pattern: '^((\d{1,16}\.\d{2}))$'
+              example: '100000.12'
+              description: |
+                Limite diário cumulativo para este vínculo de conta. Este limite não garante a autorização de iniciações de pagamento;
+                servindo como referência para a iniciadora evitar a criação de consentimentos para valores tais que, garantidamente, não serão autorizados.
+        links:
+          $ref: '#/components/schemas/LinkSingle'
+        meta:
+          $ref: '#/components/schemas/Meta'
     XFapiInteractionId:
       type: string
       pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
