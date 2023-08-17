@@ -191,7 +191,11 @@ Segue descrição de cada valor do ENUM.
 ";Texto;;Obrigatório;;"CACC 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
-/data/rejectionReason;rejectionReason;Motivo da rejeição do consentimento. Informações complementares sobre o motivo do status;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/rejectionReason;rejectionReason;"Motivo da rejeição do consentimento. Informações complementares sobre o motivo do status. 
+
+[Restrição] Esse motivo deverá ser enviado quando o campo /data/status for igual a REJECTED.
+";Objeto;;Condicional;;;0;1;" Esse motivo deverá ser enviado quando o campo /data/status for igual a REJECTED.
+";Não permitido;object;;
 /data/rejectionReason/code;code;"Define o código da razão pela qual o consentimento foi rejeitado
 - VALOR_INVALIDO
 - NAO_INFORMADO
@@ -226,5 +230,8 @@ QRCODE_INVALIDO";1;1;"";Não permitido;string;SALDO_INSUFICIENTE;
 - CONTA_NAO_PERMITE_PAGAMENTO: A conta selecionada é do tipo [salario/investimento/liquidação/outros] e não permite realizar esse pagamento.
 - SALDO_INSUFICIENTE: A conta selecionada não possui saldo suficiente para realizar o pagamento.
 - VALOR_ACIMA_LIMITE: O valor ultrapassa o limite estabelecido [na instituição/no arranjo/outro] para permitir a realização de transações pelo cliente.
-- QRCODE_INVALIDO: O QRCode utilizado para a iniciação de pagamento não é válido.
-";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;O usuário rejeitou a autorização do consentimento;
+- QRCODE_INVALIDO: O QRCode utilizado para a iniciação de pagamento não é válido. 
+
+[Restrição] Caso consentimento rejeitado de versões nas quais não havia o campo rejectionReason retornar o seguinte detail: Motivo de rejeição inexistente em versões anteriores.
+";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;" Caso consentimento rejeitado de versões nas quais não havia o campo rejectionReason retornar o seguinte detail: Motivo de rejeição inexistente em versões anteriores.
+";Não permitido;string;O usuário rejeitou a autorização do consentimento;
