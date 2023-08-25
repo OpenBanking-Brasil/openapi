@@ -17,8 +17,11 @@ Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
 - o namespace(urn)
 - o identificador associado ao namespace da instituição transnmissora (bancoex)
 - o identificador específico dentro do namespace (C1DD33123).
-Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
-";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
+Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).  
+
+[Restrição] Este campo é de preenchimento obrigatório quando o valor do campo authorisationFlow for igual a FIDO_FLOW.
+";Texto;256;Condicional;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;0;1;" Este campo é de preenchimento obrigatório quando o valor do campo authorisationFlow for igual a FIDO_FLOW.
+";Não permitido;string;urn:bancoex:C1DD33123;
 /data/creationDateTime;creationDateTime;"Data e hora em que o recurso foi criado.
 Uma string com data e hora conforme especificação RFC-3339,
 sempre com a utilização de timezone UTC(UTC time format).
