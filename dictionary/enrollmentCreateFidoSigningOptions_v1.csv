@@ -1,0 +1,10 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Objeto que contém as informações necessárias para assinatura com uma credencial FIDO2 previamente registrada.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/challenge;challenge;Sequência de bytes aleatórios gerados pelo servidor FIDO2, codificados em base64.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/timeout;timeout;Expiração, em milissegundos, do challenge.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;;
+/data/rpId;rpId;Identificador da Relying Party.;Texto;;Opcional;;;0;1;"";Não permitido;string;;
+/data/allowCredentials;allowCredentials;;Lista;;Opcional;;;0;N;"";Não permitido;array;;
+/data/allowCredentials/id;id;Identificador único da credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/allowCredentials/type;type;Identificador do tipo de credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;public-key;
+/data/allowCredentials/transports;transports;Indicação opcional de como o cliente pode se comunicar com o autenticador do dispositivo.;Lista;;Opcional;;;0;N;"";Não permitido;array;usb, nfc, ble, smart-card, hybrid, internal;
+/data/userVerification;userVerification;;Texto;;Opcional;;;0;1;"";Não permitido;string;required, preferred, discouraged;
