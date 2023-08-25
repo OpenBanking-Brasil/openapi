@@ -1,0 +1,34 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Objeto que contém as informações necessárias para registro de uma nova credencial FIDO2.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/enrollmentId;enrollmentId;"Identificador único do vínculo de conta criado para a iniciação de pagamento solicitada. Deverá ser um URN - Uniform Resource Name.
+Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource
+Identifier - URI - que é atribuído sob o URI scheme ""urn"" e um namespace URN específico, com a intenção de que o URN
+seja um identificador de recurso persistente e independente da localização.
+Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+- o namespace(urn)
+- o identificador associado ao namespace da instituição transnmissora (bancoex)
+- o identificador específico dentro do namespace (C1DD33123).
+Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
+/data/rp;rp;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/rp/id;id;Identificador único da Relying Party.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/rp/name;name;Nome amigável da Relying Party para exibição aos usuários.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/user;user;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/user/id;id;Identificador único do usuário sob registro.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/user/name;name;Identificador do usuário human-readable.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/user/displayName;displayName;Identificador do usuário para fins de apresentação.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/challenge;challenge;Sequência de bytes aleatórios gerados pelo servidor FIDO2, codificados em base64.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/pubKeyCredParams;pubKeyCredParams;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/pubKeyCredParams/alg;alg;Identificador do algoritmo (COSE);Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;-7;
+/data/pubKeyCredParams/type;type;Identificador do tipo de credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;public-key;
+/data/timeout;timeout;Timeout, em milissegundos, para registro da credencial FIDO2.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;;
+/data/excludeCredentials;excludeCredentials;;Lista;;Opcional;;;0;N;"";Não permitido;array;;
+/data/excludeCredentials/id;id;Identificador único da credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/excludeCredentials/type;type;Identificador do tipo de credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;public-key;
+/data/excludeCredentials/transports;transports;Indicação opcional de como o cliente pode se comunicar com o autenticador do dispositivo.;Lista;;Opcional;;;0;N;"";Não permitido;array;usb, nfc, ble, smart-card, hybrid, internal;
+/data/authenticatorSelection;authenticatorSelection;Restrições adicionais sobre os tipos de autenticadores permitidos para o registro.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/authenticatorSelection/authenticatorAttachment;authenticatorAttachment;Indica os tipos de autenticadores suportados (ex: Sistema Operacional ou Cross-Platform como uma chave USB);Texto;;Opcional;;;0;1;"";Não permitido;string;platform, cross-platform;
+/data/authenticatorSelection/requireResidentKey;requireResidentKey;"Indica o tipo de ""discoverability"" da credencial.";Texto;;Opcional;;;0;1;"";Não permitido;string;discouraged, preferred, required;
+/data/authenticatorSelection/userVerification;userVerification;Indica o requisito de verificação do usuário.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/attestation;attestation;Indica o tipo de attestation que o autenticador pode utilizar.;Texto;;Opcional;;;0;1;"";Não permitido;string;none, indirect, direct, enterprise;
+/data/attestationFormats;attestationFormats;Indica as preferências de formato sobre o campo attestation.;Lista;;Opcional;;;0;N;"";Não permitido;array;packed, tpm, android-key, android-safetynet, fido-u2f, apple, none;
