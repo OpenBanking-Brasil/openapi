@@ -2,7 +2,9 @@
 info:
   title: API Enrollments for Payment Initiation - Open Finance Brasil
   description: |
-    API de Dispositivo Vínculado para suportar Iniciação de Pagamentos na Jornada Sem Redirecionamento do Open Finance Brasil.
+    Família de API para permitir o pagamento sem redirecionamento via Open Finance Brasil.  
+    Permite tanto o gerenciamento dos dispositivos vinculados as contas quanto a autorização de consentimentos criados via fluxo sem redirecionamento.
+    
   version: 1.0.0-rc.3
   license:
     name: Apache 2.0
@@ -12,9 +14,9 @@ info:
     email: squad-jornada@openfinancebrasil.org.br
     url: 'https://openfinancebrasil.atlassian.net/wiki/spaces/OF'
 servers:
-  - url: 'https://mtls-api.banco.com.br/open-banking/enrollments/v2'
+  - url: 'https://mtls-api.banco.com.br/open-banking/enrollments/v1'
     description: Servidor de Produção
-  - url: 'https://mtls-api.hml.banco.com.br/open-banking/enrollments/v2'
+  - url: 'https://mtls-api.hml.banco.com.br/open-banking/enrollments/v1'
     description: Servidor de Homologação
 tags:
   - name: Vínculo de dispositivo
