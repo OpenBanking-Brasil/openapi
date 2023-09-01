@@ -316,7 +316,7 @@ paths:
       description: |
         O vínculo de conta deve estar no status "AWAITING_ENROLLMENT". 
         Após o registro com sucesso, o vínculo de conta deve transitar ao status "AUTHORISED".
-        A falha de verificação da credencial FIDO2 deve causar a revogação do vínculo de conta por parte da detentora, uma vez que não é possível reusar um mesmo "challenge" para mais de um registro.
+        A falha de verificação da credencial FIDO2 deve causar a rejeição do vínculo de conta por parte da detentora, uma vez que não é possível reusar um mesmo "challenge" para mais de um registro.
       parameters:
         - $ref: '#/components/parameters/enrollmentId'
         - $ref: '#/components/parameters/Authorization'
@@ -376,7 +376,7 @@ paths:
       operationId: enrollmentCreateFidoSigningOptions
       description: |
         Método para obter os parâmetros para autenticação a partir de uma credencial FIDO2 previamente registrada. Um novo challenge deve ser criado a cada chamada.
-        Os parâmetros da resposta devem ser compatíveis com a definição [W3C](https://www.w3.org/TR/webauthn-2/#dictionary-assertion-options)
+        Os parâmetros da resposta devem ser compatíveis com a [definição W3C](https://www.w3.org/TR/webauthn-2/#dictionary-assertion-options)
       parameters:
         - $ref: '#/components/parameters/enrollmentId'
         - $ref: '#/components/parameters/Authorization'
@@ -457,12 +457,10 @@ paths:
     post:
       tags:
         - Vínculo de dispositivo
-      summary: Autorização de um consentimento de pagamentos na jornada sem redirecionamento
+      summary: Envio de sinais de risco para iniciação do vínculo de dispositivo
       operationId: riskSignals
       description: |
-        Autorização de um consentimento de pagamentos a partir do access token emitido pela jornada sem redirecionamento e envio de sinais de risco.
-        O consentimento de pagamento deve transitar ao status "AUTHORISED" na execução com sucesso deste método.
-        Em caso de falha, o status do consentimento do pagamento transitará par o status "REJECTED".
+        Envio de sinais de risco para iniciação do vínculo de dispositivo, o status do enrollment deve estar em `AWAITING_RISK_SIGNALS`. Após recebimento com sucesso dos sinais, o status do enrollment deve transitar para `AWAITING_ACCOUNT_HOLDER_VALIDATION`.
       parameters:
         - $ref: '#/components/parameters/enrollmentId'
         - $ref: '#/components/parameters/Authorization'
@@ -519,9 +517,9 @@ paths:
       summary: Autorização de um consentimento de pagamentos na jornada sem redirecionamento
       operationId: authorizeConsent
       description: |
-        Autorização de um consentimento de pagamentos a partir do access token emitido pela jornada sem redirecionamento e envio de sinais de risco.
-        O consentimento de pagamento deve transitar ao status "AUTHORISED" na execução com sucesso deste método.
-        Em caso de falha, o status do consentimento do pagamento transitará par o status "REJECTED".
+        Autorização de um consentimento de pagamentos em status `AWAITING_AUTHORISATION` a partir do access_token emitido pela jornada sem redirecionamento e envio de sinais de risco.  
+        O consentimento de pagamento deve transitar ao status `AUTHORISED` na execução com sucesso desse método.  
+        Em caso de falha, o status do consentimento do pagamento precisa transitar para o status `REJECTED`.
       parameters:
         - $ref: '#/components/parameters/consentId'
         - $ref: '#/components/parameters/Authorization'
@@ -832,7 +830,7 @@ components:
 
                   • RP_INVALIDA: O identificador da Relying Party informado não pode ser verificado.
                   
-                  • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite o registro de nova credencial. 
+                  • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite assinatura. 
                   
                   • STATUS_CONSENTIMENTO_INVALIDO: O status do consentimento não permite autorização.
               title:
@@ -858,7 +856,7 @@ components:
 
                   • RP_INVALIDA: O identificador da Relying Party informado não pode ser verificado.
                   
-                  • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite o registro de nova credencial. 
+                  • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite assinatura. 
                   
                   • STATUS_CONSENTIMENTO_INVALIDO: O status do consentimento não permite autorização.
         meta:
@@ -894,11 +892,11 @@ components:
 
                   • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite o registro de nova credencial.
                   
-                  • ORIGEM_FIDO_INVALIDA: O valor contido no campo response.clientDataJSON.origin não pode ser verificado. 
+                  • ORIGEM_FIDO_INVALIDA: O valor contido no campo [response.clientDataJSON.origin](https://www.w3.org/TR/webauthn-2/#dom-authenticatorresponse-clientdatajson) não pode ser verificado. 
                   
-                  • RP_INVALIDA: O valor contido no campo response.attestationObject.authData.rpIdHash não pode ser verificado.
+                  • RP_INVALIDA: O valor contido no campo [data.response.attestationObject.authData.rpIdHash](https://www.w3.org/TR/webauthn-2/#sctn-authenticator-data) não pode ser verificado. 
                   
-                  • CHALLENGE_INVALIDO: O campo response.clientDataJSON.challenge possui valor codificado diferente do valor gerado pelo servidor.
+                  • CHALLENGE_INVALIDO: O campo [response.clientDataJSON.challenge](https://www.w3.org/TR/webauthn-2/#dom-authenticatorresponse-clientdatajson) possui valor codificado diferente do valor gerado pelo servidor.
                   
                   • PUBLIC_KEY_INVALIDA: A chave pública enviada é incompatível com as definições do servidor FIDO2.
                   
@@ -932,11 +930,11 @@ components:
 
                   • STATUS_VINCULO_INVALIDO: O status do vínculo de conta é tal que não permite o registro de nova credencial.
                   
-                  • ORIGEM_FIDO_INVALIDA: O valor contido no campo response.clientDataJSON.origin não pode ser verificado.
+                  • ORIGEM_FIDO_INVALIDA: O valor contido no campo [response.clientDataJSON.origin](https://www.w3.org/TR/webauthn-2/#dom-authenticatorresponse-clientdatajson) não pode ser verificado.
                   
-                  • RP_INVALIDA: O valor contido no campo response.attestationObject.authData.rpIdHash não pode ser verificado.
+                  • RP_INVALIDA: O valor contido no campo [response.attestationObject.authData.rpIdHash](https://www.w3.org/TR/webauthn-2/#sctn-authenticator-data) não pode ser verificado.
                   
-                  • CHALLENGE_INVALIDO: O campo response.clientDataJSON.challenge possui valor codificado diferente do valor gerado pelo servidor.
+                  • CHALLENGE_INVALIDO: O campo [response.clientDataJSON.challenge](https://www.w3.org/TR/webauthn-2/#dom-authenticatorresponse-clientdatajson) possui valor codificado diferente do valor gerado pelo servidor.
                   
                   • PUBLIC_KEY_INVALIDA: A chave pública enviada é incompatível com as definições do servidor FIDO2.
                   
@@ -1070,7 +1068,7 @@ components:
             - screenBrightness
             - elapsedTimeSinceBoot
             - osVersion
-            - userTimeZone
+            - userTimeZoneOffset
             - language
             - screenDimensions
             - accountTenure
@@ -1080,36 +1078,63 @@ components:
               description: ID único do dispositivo gerado pela plataforma.
             isRootedDevice:
               type: boolean
-              description: Indica se o dispositivo sofreu processo de “root”.
+              description: Indica se o dispositivo atualmente está com permissão de “root”.
             screenBrightness:
-              type: integer
-              description: Indica o nível de brilho da tela do dispositivo.
+              type: number
+              format: double
+              description: |
+               Indica o nível de brilho da tela do dispositivo.  
+               Em dispositivos Android o valor é um inteiro, entre 0 e 255, inclusive;  
+               Em dispositivos iOS o valor é um ponto flutuante entre 0.0 e 1.0.
             elapsedTimeSinceBoot:
               type: integer
               format: int64
-              description: Indica por quanto tempo o dispositivo está ligado.
+              description: Indica por quanto tempo (em milissegundos) o dispositivo está ligado.
             osVersion:
               type: string
               description: Versão do sistema operacional.
-            userTimeZone:
-              type: string
-              description: Detalha o fuso horário em que o dispositivo está definido.
-            language:
-              type: string
-              description: Idioma configurado no dispositivo.
-            screenDimensions:
-              type: string
-              description: Tamanho de tela do dispositivo
-            accountTenure:
-              type: string
-              description: Tempo que o cliente fez cadastro no ITP.
-            latitudeLongitude:
+            userTimeZoneOffset:
               type: string
               description: |
-                Latitude (2 casas decimais) e Longitude.
-
-                [Restrição] Caso o sinal de risco esteja disponível (cliente permitiu que fosse coletado), o mesmo deverá ser enviado
-            isCallingProgress:
+                Indica a configuração de fuso horário do dispositivo do usuário, com o formato UTC offset: ±hh[:mm]
+              example: '-03'
+            language:
+              type: string
+              description: Indica o idioma do dispositivo no formato ISO 639-1.
+              example: 'pt'
+            screenDimensions:
+              type: object
+              description: Dimensões da tela do dispositivo
+              required:
+                - height
+                - width
+              properties:
+                height:
+                  type: integer
+                  description: Altura da tela, em pixels.
+                width:
+                  type: integer
+                  description: Largura da tela, em pixels.
+            accountTenure:
+              type: string
+              format: date
+              pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+              description: Data de cadastro do cliente na iniciadora.
+              example: 2023-09-01
+            geolocation:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+                type:
+                  type: string
+                  enum:
+                    - COARSE
+                    - FINE
+                    - INFERRED
+            isCallInProgress:
               type: boolean
               description: |
                 Indica chamada ativa no momento do vínculo.
@@ -1135,10 +1160,13 @@ components:
               description: Indica em qual antena o dispositivo está conectado.
             isUsbConnected:
               type: boolean
-              description: Indica se o dispositivo está conectado em um USB de um computador.
+              description: Indica se o dispositivo está conectado a outro dispositivo via USB.
             integrity:
               type: object
-              description: Informa a integridade do dispositivo e app
+              description: |
+                Informa a integridade do dispositivo e app.  
+                No Android, conforme documentação [Play API Integrity](https://developer.android.com/google/play/integrity/overview?hl=pt-br).  
+                No iOS, conforme documentação [App Attest](https://developer.apple.com/documentation/devicecheck/establishing_your_app_s_integrity).
               properties:
                 appRecognitionVerdict:
                   type: string
@@ -1163,64 +1191,44 @@ components:
               $ref: '#/components/schemas/enrollmentId'
             riskSignals:
               type: object
+              required:
+                - deviceId
+                - isRootedDevice
+                - screenBrightness
+                - elapsedTimeSinceBoot
+                - osVersion
+                - userTimeZoneOffset
+                - language
+                - screenDimensions
+                - accountTenure
               description: |
                 Conjunto de sinais extraídos do dispositivo do usuário para ativação do consentimento de pagamento.
                 A obrigatoriedade das informações variam de acordo com a plataforma utilizada.
               properties:
-                geolocation:
-                  type: object
-                  properties:
-                    latitude:
-                      type: number
-                    longitude:
-                      type: number
-                    type:
-                      type: string
-                      enum:
-                        - COARSE
-                        - FINE
-                        - INFERRED
                 deviceId:
                   type: string
-                  description: Identificador do dispositivo.
+                  description: ID único do dispositivo gerado pela plataforma.
                 isRootedDevice:
                   type: boolean
-                  description: Indica se o usuário possui permissão root no dispositivo.
+                  description: Indica se o dispositivo atualmente está com permissão de “root”.
                 screenBrightness:
-                  type: integer
-                  description: Indica o nível de brilho da tela do dispositivo.
+                  type: number
+                  format: double
+                  description: |
+                   Indica o nível de brilho da tela do dispositivo.  
+                   Em dispositivos Android o valor é um inteiro, entre 0 e 255, inclusive;  
+                   Em dispositivos iOS o valor é um ponto flutuante entre 0.0 e 1.0.
                 elapsedTimeSinceBoot:
                   type: integer
                   format: int64
-                  description: Indica por quanto tempo o dispositivo está ligado desde a última inicialização.
-                isCallInProgress:
-                  type: boolean
-                  description: Indica se há uma chamada em curso
-                isDevModeEnabled:
-                  type: boolean
-                  description: Indica se o modo desenvolvedor está ativado no dispositivo.
-                isMockGPS:
-                  type: boolean
-                  description: Indica se o dispositivo está utilizando geolocalização fictícia.
-                isEmulated:
-                  type: boolean
-                  description: Indica se o dispositivo é emulado.
-                isMonkeyRunner:
-                  type: boolean
-                  description: Indica se o dispositivo está sob controle de uma ferramenta de automação.
-                isCharging:
-                  type: boolean
-                  description: Indica se a bateria do dispositivo está em carregamento.
-                antennaInformation:
+                  description: Indica por quanto tempo (em milissegundos) o dispositivo está ligado.
+                osVersion:
                   type: string
-                  description: Indica o tipo de conexão com a rede de celular do dispositivo.
-                  example: 3G, 4G, 4G+, 5G
-                isUsbConnected:
-                  type: boolean
-                  description: Indica se existe ao menos uma conexão USB ao dispositivo.
-                userTimeZone:
+                  description: Versão do sistema operacional.
+                userTimeZoneOffset:
                   type: string
-                  description: 'Indica a configuração de fuso horário do dispositivo no formato UTC offset: ±hh[:mm]'
+                  description: |
+                    Indica a configuração de fuso horário do dispositivo do usuário, com o formato UTC offset: ±hh[:mm]
                   example: '-03'
                 language:
                   type: string
@@ -1240,8 +1248,64 @@ components:
                       type: integer
                       description: Largura da tela, em pixels.
                 accountTenure:
-                  type: integer
-                  description: Indica há quanto tempo o cliente realizou seu cadastro na iniciadora.
+                  type: string
+                  format: date
+                  pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+                  description: Data de cadastro do cliente na iniciadora.
+                  example: 2023-09-01
+                geolocation:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                    type:
+                      type: string
+                      enum:
+                        - COARSE
+                        - FINE
+                        - INFERRED
+                isCallInProgress:
+                  type: boolean
+                  description: |
+                    Indica chamada ativa no momento do vínculo.
+    
+                    [Restrição] Caso o sinal de risco esteja disponível (cliente permitiu que fosse coletado), o mesmo deverá ser enviado
+                isDevModeEnabled:
+                  type: boolean
+                  description: Indica se o dispositivo está em modo de desenvolvedor.
+                isMockGPS:
+                  type: boolean
+                  description: Indica se o dispositivo está usando um GPS falso.
+                isEmulated:
+                  type: boolean
+                  description: Indica se o dispositivo é emulado ou real.
+                isMonkeyRunner:
+                  type: boolean
+                  description: Indica o uso do MonkeyRunner.
+                isCharging:
+                  type: boolean
+                  description: Indica se a bateria do dispositivo está sendo carregada.
+                antennaInformation:
+                  type: string
+                  description: Indica em qual antena o dispositivo está conectado.
+                isUsbConnected:
+                  type: boolean
+                  description: Indica se o dispositivo está conectado a outro dispositivo via USB.
+                integrity:
+                  type: object
+                  description: |
+                    Informa a integridade do dispositivo e app.  
+                    No Android, conforme documentação [Play API Integrity](https://developer.android.com/google/play/integrity/overview?hl=pt-br).  
+                    No iOS, conforme documentação [App Attest](https://developer.apple.com/documentation/devicecheck/establishing_your_app_s_integrity).
+                  properties:
+                    appRecognitionVerdict:
+                      type: string
+                      description: Informa a integridade do app
+                    deviceRecognitionVerdict:
+                      type: string
+                      description: Informa a integridade do dispositivo
             fidoAssertion:
               type: object
               description: Dados da asserção
@@ -1262,7 +1326,7 @@ components:
                   description: Tipo da credencial.
                 response:
                   type: object
-                  description: Tras as informações da resposta a asserção.
+                  description: Traz as informações da resposta a asserção.
                   required:
                     - clientDataJSON
                     - authenticatorData
@@ -1347,7 +1411,7 @@ components:
         seja um identificador de recurso persistente e independente da localização.
         Considerando a string urn:bancoex:C1DD33123 como exemplo para enrollmentId temos:
         - o namespace(urn)
-        - o identificador associado ao namespace da instituição transnmissora (bancoex)
+        - o identificador associado ao namespace da instituição detentora de conta (bancoex)
         - o identificador específico dentro do namespace (C1DD33123).
         Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
     consentId:
@@ -1361,7 +1425,7 @@ components:
         seja um identificador de recurso persistente e independente da localização.  
         Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
         - o namespace(urn)
-        - o identificador associado ao namespace da instituição transnmissora (bancoex) 
+        - o identificador associado ao namespace da instituição detentora de conta (bancoex) 
         - o identificador específico dentro do namespace (C1DD33123).  
         Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
     EnrollmentCancellation:
@@ -2160,7 +2224,7 @@ components:
         seja um identificador de recurso persistente e independente da localização.  
         Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
         - o namespace(urn)
-        - o identificador associado ao namespace da instituição transnmissora (bancoex) 
+        - o identificador associado ao namespace da instituição detentora de conta (bancoex) 
         - o identificador específico dentro do namespace (C1DD33123).  
         Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
       required: true
@@ -2179,7 +2243,7 @@ components:
         seja um identificador de recurso persistente e independente da localização.
         Considerando a string urn:bancoex:C1DD33123 como exemplo para enrollmentId temos:
         - o namespace(urn)
-        - o identificador associado ao namespace da instituição detentora (bancoex)
+        - o identificador associado ao namespace da instituição detentora de conta (bancoex)
         - o identificador específico dentro do namespace (C1DD33123).
         Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
       schema:
@@ -2226,7 +2290,7 @@ components:
     xFapiInteractionId:
       name: x-fapi-interaction-id
       in: header
-      description: 'Um UID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora.'
+      description: 'Um UUID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação. A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora.'
       required: true
       schema:
         type: string
@@ -2367,7 +2431,7 @@ components:
               Cabeçalho que indica o tempo (em segundos) que o cliente deverá aguardar para realizar uma nova tentativa de chamada. Este cabeçalho deverá estar presente quando o código HTTP de retorno for 429 Too many requests.
             type: integer
     UnprocessableEntityConsentsAuthorization:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
+      description: 'A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
       content:
         application/jwt:
           schema:
@@ -2376,7 +2440,7 @@ components:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
     UnprocessableEntityEnrollment:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
+      description: 'A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
       content:
         application/jwt:
           schema:
@@ -2395,7 +2459,7 @@ components:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
     UnprocessableEntityEnrollmentCancel:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
+      description: 'A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
       content:
         application/jwt:
           schema:
@@ -2404,7 +2468,7 @@ components:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
     UnprocessableEntityEnrollmentFidoRegistrationOptions:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
+      description: 'A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
       content:
         application/jwt:
           schema:
@@ -2413,7 +2477,7 @@ components:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
     UnprocessableEntityEnrollmentRiskSignals:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
+      description: 'A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
       content:
         application/jwt:
           schema:
@@ -2422,7 +2486,7 @@ components:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
     UnprocessableEntityEnrollmentFidoSignOptions:
-      description: 'A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
+      description: 'A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.'
       content:
         application/jwt:
           schema:
@@ -2432,8 +2496,8 @@ components:
           $ref: '#/components/headers/xFapiInteractionId'
     UnprocessableEntityEnrollmentFidoRegistration:
       description: |
-        A solicitação foi bem formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.
-        A falha de verificação da credencial FIDO2 deve causar a revogação do vínculo de conta por parte da detentora, uma vez que não é possível reusar um mesmo "challenge" para mais de um registro.
+        A solicitação foi bem-formada, mas não pôde ser processada devido à lógica de negócios específica da solicitação.
+        A falha de verificação da credencial FIDO2 deve causar a rejeição do vínculo de conta por parte da detentora, uma vez que não é possível reusar um mesmo "challenge" para mais de um registro.
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/xFapiInteractionId'
