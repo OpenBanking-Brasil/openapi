@@ -5,7 +5,7 @@ info:
     Família de API para permitir o pagamento sem redirecionamento via Open Finance Brasil.  
     Permite tanto o gerenciamento dos dispositivos vinculados as contas quanto a autorização de consentimentos criados via fluxo sem redirecionamento.
     
-  version: 1.0.0-rc.3
+  version: 1.0.0
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
