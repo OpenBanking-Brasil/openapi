@@ -335,7 +335,7 @@ paths:
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '422':
-          $ref: '#/components/responses/UnprocessableEntity'
+          $ref: '#/components/responses/UnprocessableEntityConsents'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '500':
@@ -953,6 +953,56 @@ components:
                 maxLength: 2048
         meta:
           $ref: '#/components/schemas/Meta'
+    422ResponseErrorCreateConsent:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                type: string
+                enum:
+                  - DEPENDE_MULTIPLA_ALCADA
+                  - REFRESH_TOKEN_JWT
+                  - ESTADO_CONSENTIMENTO_INVALIDO
+                example: DEPENDE_MULTIPLA_ALCADA
+                description: |
+                 Códigos de erros previstos na durante o processo de extensão do consentimento:  
+                  • DEPENDE_MULTIPLA_ALCADA: Necessário aprovação de múltipla alçada.  
+                  • REFRESH_TOKEN_JWT: Refresh token não pode ser expandido.  
+                  • ESTADO_CONSENTIMENTO_INVALIDO: Estado inválido do consentimento.  
+              title:
+                type: string
+                maxLength: 255
+                pattern: '[\w\W\s]*'
+                example: Necessário aprovação de múltipla alçada.
+                description: |
+                  Título específico do erro reportado, de acordo com o código enviado:  
+                  • DEPENDE_MULTIPLA_ALCADA: Necessário aprovação de múltipla alçada.  
+                  • REFRESH_TOKEN_JWT: Refresh token não pode ser expandido.  
+                  • ESTADO_CONSENTIMENTO_INVALIDO: Estado inválido do consentimento.  
+              detail:
+                type: string
+                maxLength: 2048
+                pattern: '[\w\W\s]*'
+                example: O consentimento informado não pode ser renovado sem redirecionamento porque depende de múltipla alçada para aprovação.
+                description: |
+                  Título específico do erro reportado, de acordo com o código enviado:  
+                  • DEPENDE_MULTIPLA_ALCADA: O consentimento informado não pode ser renovado sem redirecionamento porque depende de múltipla alçada para aprovação.  
+                  • REFRESH_TOKEN_JWT: O consentimento informado não pode ser renovado sem redirecionamento porque está vinculado a um refresh token JWT e não pode ter seu prazo de validade alterado.  
+                  • ESTADO_CONSENTIMENTO_INVALIDO: O consentimento informado não pode ser.  
+        meta:
+          $ref: '#/components/schemas/Meta'
     LoggedUser:
       type: object
       description: Usuário (pessoa natural) que encontra-se logado na instituição receptora e que iniciará o processo de consentimento para compartilhamento de dados.
@@ -1206,6 +1256,22 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/ResponseError'
+    UnprocessableEntityConsents:
+      description: 'Seguir as orientações presentes na descrição da API, item 1.3 e seus subitens.'
+      content:
+        application/jwt:
+          schema:
+            $ref: '#/components/schemas/422ResponseErrorCreateConsent'
+          examples:
+            Necessário aprovação de múltipla alçada:
+              summary: Necessário aprovação de múltipla alçada
+              value:
+                errors:
+                  - code: DEPENDE_MULTIPLA_ALCADA
+                    title: Necessário aprovação de múltipla alçada.
+                    detail: 'O consentimento informado não pode ser renovado sem redirecionamento porque depende de múltipla alçada para aprovação'
+                meta:
+                  requestDateTime: '2021-05-21T08:30:00Z'
     Unauthorized:
       description: Cabeçalho de autenticação ausente/inválido ou token inválido
       content:
