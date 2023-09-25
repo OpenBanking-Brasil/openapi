@@ -1,0 +1,192 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/participant;participant;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/participant/brand;brand;Nome da Marca selecionada pelas Organizações;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A;
+/data/participant/name;name;Nome da Instituição, pertencente à marca, responsável pela modalidade de Empréstimos. p.ex.'Empresa da Organização A';Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Empresa A1;
+/data/participant/cnpjNumber;cnpjNumber;CNPJ;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362000135;
+/data/participant/urlComplementaryList;urlComplementaryList;"URL do link que conterá a lista complementar com os nomes e CNPJs agrupados sob o mesmo cnpjNumber. Os contidos nessa lista possuem as mesmas características para produtos e serviços. Endereço eletrônico de acesso ao canal. Será obrigatoriamente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada.
+Restrição: Será obrigatorimente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada
+";Texto;1024;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;https://empresadaorganizacaoa.com/complementarylist;
+/data/name;name;Denominação/Identificação do nome da conta (cartão de crédito);Texto;50;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Cartão Vantagens;
+/data/identification;identification;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/identification/product;product;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/identification/product/type;type;Categoria atribuída a um cartão de pagamento, sob uma certa denominação, que lhe agrega um conjunto de vantagens, diferenciando-o de acordo com o perfil do portador. Essa categoria é definida pelo BACEN e está contida no documento de nome 'Elaboração e Remessa de Informações Relativas aos Cartões de Pagamento  Emissores';Texto;;Obrigatório;;"CLASSIC_NACIONAL 
+CLASSIC_INTERNACIONAL 
+GOLD 
+PLATINUM 
+INFINITE 
+ELECTRON 
+STANDARD_NACIONAL 
+STANDARD_INTERNACIONAL 
+ELETRONIC 
+BLACK 
+REDESHOP 
+MAESTRO_MASTERCARD_MAESTRO 
+GREEN 
+BLUE 
+BLUEBOX 
+PROFISSIONAL_LIBERAL 
+CHEQUE_ELETRONICO 
+CORPORATIVO 
+EMPRESARIAL 
+COMPRAS 
+OUTROS";1;1;"";Não permitido;string;PLATINUM;
+/data/identification/product/typeAdditionalInfo;typeAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao campo ""type"".
+
+[Restrição] Obrigatório quando ""type"" for igual ""OUTROS"".
+";Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando ""type"" for igual ""OUTROS"".
+";Não permitido;string;Informações adicionais;
+/data/identification/creditCard;creditCard;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/identification/creditCard/network;network;"Categoria de Bandeiras de Cartões de Crédito (Instituidor do arranjo de pagamento). Bandeira é a detentora de todos os direitos e deveres da utilização da marca estampada no cartão, inclusive as bandeiras pertencentes aos emissores. p.ex. ""American Express"", ""Diners Club"" Essas bandeiras estão definidas em documento do BACEN de nome ""Elaboração e Remessa de Informações Relativas aos Cartões de Pagamento  Emissores""";Texto;;Obrigatório;;"VISA 
+MASTERCARD 
+AMERICAN_EXPRESS 
+DINERS_CLUB 
+HIPERCARD 
+BANDEIRA_PROPRIA 
+CHEQUE_ELETRONICO 
+ELO 
+OUTRAS";1;1;"";Não permitido;string;MASTERCARD;
+/data/identification/creditCard/networkAdditionalInfo;networkAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao campo ""network"".
+
+[Restrição] Obrigatório quando ""network"" for igual ""OUTROS"".
+";Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando ""network"" for igual ""OUTROS"".
+";Não permitido;string;Informações adicionais;
+/data/rewardsProgram;rewardsProgram;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/rewardsProgram/hasRewardProgram;hasRewardProgram;Indicador da existência de programa de fidelidade/recompensa associado à conta de pagamento pós-paga (cartão) true false;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false;
+/data/rewardsProgram/rewardProgramInfo;rewardProgramInfo;Informações de termos e condições do programa de fidelidade/recompensa. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Será de preenchimento obrigatório caso o campo hasRewardProgram esteja preenchido como true;Texto;2000;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;https://empresaa1.com/credit_cards_rewards;
+/data/fees;fees;Objeto que reúne informações de tarifas de serviços;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/services;services;Lista das Tarifas cobradas sobre Serviço relacionadas a Modalidade de Pagamento Pós-Pagas;Lista;;Opcional;;;1;9;"";Não permitido;array;;
+/data/fees/services/name;name;Denominação de Serviços relacionados à Modalidade de Contas de Pagamento Pós-Pagas (Vide ENUM);Texto;;Obrigatório;;"ANUIDADE_CARTAO_BASICO_NACIONAL 
+ANUIDADE_CARTAO_BASICO_INTERNACIONAL 
+ANUIDADE_DIFERENCIADA 
+UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_BRASIL 
+UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_EXTERIOR 
+AVALIACAO_EMERGENCIAL_CREDITO 
+FORNECIMENTO_SEGUNDA_VIA_FUNCAO_CREDITO 
+PAGAMENTO_CONTAS_UTILIZANDO_FUNCAO_CREDITO 
+SMS";1;1;"";Não permitido;string;ANUIDADE_CARTAO_BASICO_NACIONAL;
+/data/fees/services/code;code;Sigla de identificação do Serviço relacionado à Modalidade de Contas de Pagamento Pós-Pagas (Vide ENUM);Texto;;Obrigatório;;"ANUIDADE_NACIONAL 
+ANUIDADE_INTERNACIONAL 
+ANUIDADE_DIFERENCIADA 
+SAQUE_CARTAO_BRASIL 
+SAQUE_CARTAO_EXTERIOR 
+AVALIACAO_EMERGENCIAL_CREDITO 
+EMISSAO_SEGUNDA_VIA 
+TARIFA_PAGAMENTO_CONTAS 
+SMS";1;1;"";Não permitido;string;ANUIDADE_NACIONAL;
+/data/fees/services/chargingTriggerInfo;chargingTriggerInfo;Fatos geradores de cobrança que incidem sobre as Modalidades de Contas de Pagamento Pós-Pagas informada, para pessoa jurídica. (Campo Livre);Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Disponibilização de rede de estabelecimentos afiliados, instalada no País, para pagamentos de bens e serviços, cobrada no máximo uma vez a cada doze meses, admitido o parcelamento da cobrança;
+/data/fees/services/prices;prices;Lista distribuição preços tarifas de serviços;Lista;;Obrigatório;;;4;4;"";Não permitido;array;;
+/data/fees/services/prices/interval;interval;"Segundo Normativa nº 32, BCB, de 2020: Distribuição de frequência relativa dos valores de tarifas cobradas dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana em cada uma dessas faixas. Informando: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa
+";Texto;;Obrigatório;;"1_FAIXA 
+2_FAIXA 
+3_FAIXA 
+4_FAIXA";1;1;"";Não permitido;string;1_FAIXA;
+/data/fees/services/prices/value;value;"Valor da mediana de cada faixa relativa ao serviço ofertado, informado no período, conforme Res nº 32 BCB, 2020. p.ex. '45.00' (representa um valor monetário. p.ex: 1547368.92. Este valor, considerando que a moeda seja BRL, significa R$ 1.547.368,92. O único separador presente deve ser o '.' (ponto) para indicar a casa decimal. Não deve haver separador de milhar).
+
+Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+";Texto;12;Obrigatório;^(\d{1,9}\.\d{2}){1}$;;1;1;"";Não permitido;string;2000.00;
+/data/fees/services/prices/currency;currency;Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;
+/data/fees/services/prices/customers;customers;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/services/prices/customers/rate;rate;"Percentual de clientes em cada faixa.
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/fees/services/minimum;minimum;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/services/minimum/value;value;"Valor mínimo apurado para a tarifa de serviços sobre a base de clientes no mês de referência.
+
+Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+";Texto;12;Obrigatório;^(\d{1,9}\.\d{2}){1}$;;1;1;"";Não permitido;string;1350.00;
+/data/fees/services/minimum/currency;currency;Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;
+/data/fees/services/maximum;maximum;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/services/maximum/value;value;"Valor máximo apurado para a tarifa de serviços sobre a base de clientes no mês de referência.
+
+Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+";Texto;12;Obrigatório;^(\d{1,9}\.\d{2}){1}$;;1;1;"";Não permitido;string;8800.00;
+/data/fees/services/maximum/currency;currency;Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;
+/data/interest;interest;Informações sobre taxas de juros;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interest/rates;rates;Lista da representação que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios para crédito rotativo;Lista;;Obrigatório;;;1;20;"";Não permitido;array;;
+/data/interest/rates/referentialRateIndexer;referentialRateIndexer;"Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040
+";Texto;;Obrigatório;;"SEM_INDEXADOR_TAXA 
+PRE_FIXADO 
+POS_FIXADO_TR_TBF 
+POS_FIXADO_TJLP 
+POS_FIXADO_LIBOR 
+POS_FIXADO_TLP 
+OUTRAS_TAXAS_POS_FIXADAS 
+FLUTUANTES_CDI 
+FLUTUANTES_SELIC 
+OUTRAS_TAXAS_FLUTUANTES 
+INDICES_PRECOS_IGPM 
+INDICES_PRECOS_IPCA 
+INDICES_PRECOS_IPCC 
+OUTROS_INDICES_PRECO 
+CREDITO_RURAL_TCR_PRE 
+CREDITO_RURAL_TCR_POS 
+CREDITO_RURAL_TRFC_PRE 
+CREDITO_RURAL_TRFC_POS 
+OUTROS_INDEXADORES";1;1;"";Não permitido;string;SEM_INDEXADOR_TAXA;
+/data/interest/rates/rate;rate;"Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/interest/rates/applications;applications;Lista distribuição percentuais relativos à taxa de juros remuneratórios;Lista;;Obrigatório;;;4;4;"";Não permitido;array;;
+/data/interest/rates/applications/interval;interval;"Faixas para cobrança da taxa efetiva aplicada pela contratação do crédito, no intervalo informado: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa. Segundo Normativa nº32 de 2020: 'Distribuição de frequência relativa dos valores de tarifas e taxas de juros cobrados dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana e o percentual de clientes em cada uma dessas faixas.
+";Texto;;Obrigatório;;"1_FAIXA 
+2_FAIXA 
+3_FAIXA 
+4_FAIXA";1;1;"";Não permitido;string;;
+/data/interest/rates/applications/indexer;indexer;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interest/rates/applications/indexer/rate;rate;"Percentual que corresponde a mediana da taxa efetiva cobrada do cliente pela contratação do crédito, no intervalo informado. p.ex. '0,8700%'. A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.870000;8
+/data/interest/rates/applications/customers;customers;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interest/rates/applications/customers/rate;rate;"Percentual de clientes em cada faixa.
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/interest/rates/minimumRate;minimumRate;Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%);Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.045600;8
+/data/interest/rates/maximumRate;maximumRate;Percentual máximo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%);Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.686500;8
+/data/interest/instalmentRates;instalmentRates;Lista da representação que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios para parcelamento do saldo devedor;Lista;;Obrigatório;;;1;20;"";Não permitido;array;;
+/data/interest/instalmentRates/referentialRateIndexer;referentialRateIndexer;"Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040
+";Texto;;Obrigatório;;"SEM_INDEXADOR_TAXA 
+PRE_FIXADO 
+POS_FIXADO_TR_TBF 
+POS_FIXADO_TJLP 
+POS_FIXADO_LIBOR 
+POS_FIXADO_TLP 
+OUTRAS_TAXAS_POS_FIXADAS 
+FLUTUANTES_CDI 
+FLUTUANTES_SELIC 
+OUTRAS_TAXAS_FLUTUANTES 
+INDICES_PRECOS_IGPM 
+INDICES_PRECOS_IPCA 
+INDICES_PRECOS_IPCC 
+OUTROS_INDICES_PRECO 
+CREDITO_RURAL_TCR_PRE 
+CREDITO_RURAL_TCR_POS 
+CREDITO_RURAL_TRFC_PRE 
+CREDITO_RURAL_TRFC_POS 
+OUTROS_INDEXADORES";1;1;"";Não permitido;string;SEM_INDEXADOR_TAXA;
+/data/interest/instalmentRates/rate;rate;"Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/interest/instalmentRates/applications;applications;Lista distribuição percentuais relativos à taxa de juros remuneratórios;Lista;;Obrigatório;;;4;4;"";Não permitido;array;;
+/data/interest/instalmentRates/applications/interval;interval;"Faixas para cobrança da taxa efetiva aplicada pela contratação do crédito, no intervalo informado: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa. Segundo Normativa nº32 de 2020: 'Distribuição de frequência relativa dos valores de tarifas e taxas de juros cobrados dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana e o percentual de clientes em cada uma dessas faixas.
+";Texto;;Obrigatório;;"1_FAIXA 
+2_FAIXA 
+3_FAIXA 
+4_FAIXA";1;1;"";Não permitido;string;;
+/data/interest/instalmentRates/applications/indexer;indexer;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interest/instalmentRates/applications/indexer/rate;rate;"Percentual que corresponde a mediana da taxa efetiva cobrada do cliente pela contratação do crédito, no intervalo informado. p.ex. '0,8700%'. A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.870000;8
+/data/interest/instalmentRates/applications/customers;customers;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interest/instalmentRates/applications/customers/rate;rate;"Percentual de clientes em cada faixa.
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/interest/instalmentRates/minimumRate;minimumRate;Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%);Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.045600;8
+/data/interest/instalmentRates/maximumRate;maximumRate;Percentual máximo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%);Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.686500;8
+/data/interest/otherCredits;otherCredits;Lista de outras operações de crédito;Lista;;Obrigatório;;;1;3;"";Não permitido;array;;
+/data/interest/otherCredits/code;code;Lista de outras operações de crédito;Texto;;Obrigatório;;"SAQUE_A_CREDITO 
+PAGAMENTOS_CONTAS 
+OUTROS";1;1;"";Não permitido;string;SAQUE_A_CREDITO;
+/data/interest/otherCredits/codeAdditionalInfo;codeAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao campo ""code"".
+
+[Restrição] Obrigatório quando ""code"" for igual ""OUTROS"".
+";Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório quando ""code"" for igual ""OUTROS"".
+";Não permitido;string;Informações adicionais;
+/data/termsConditions;termsConditions;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/termsConditions/minimumFeeRate;minimumFeeRate;Percentual para pagamento mínimo sobre o saldo devedor da fatura.;Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.250000;8
+/data/termsConditions/additionalInfo;additionalInfo;Campo aberto para detalhamento de taxas de juros;Texto;500;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;NA;
+/data/termsConditions/elegibilityCriteriaInfo;elegibilityCriteriaInfo;Informação sobre as condições e critérios de elegibilidade do emissor do cartão. Pode ser informada a URL referente ao endereço onde constam as condições informadas.;Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;https://empresaa1.com/creditcards_elegibility_criteria;
+/data/termsConditions/closingProcessInfo;closingProcessInfo;Descrição dos procedimentos para encerramento da conta de pagamento pós paga. Pode ser informada a URL referente ao endereço onde constam as condições informadas.;Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;https://empresaa1.com/creditcards_closing_process;
