@@ -98,5 +98,5 @@ BENS_ARRENDADOS
 GARANTIAS_INTERNACIONAIS 
 OPERACOES_GARANTIDAS_OUTRAS_ENTIDADES 
 ACORDOS_COMPENSACAO 
-NAO_APLICAVEL";1;14;"";Não permitido;array;CESSAO_DIREITOS_CREDITORIOS;
+NAO_EXIGE_GARANTIA";1;14;"";Não permitido;array;CESSAO_DIREITOS_CREDITORIOS;
 /data/termsConditions;termsConditions;Campo aberto para informar as condições contratuais relativas à Modalidade de Empréstimo para pessoa jurídica informada. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.;Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;https://empresaa1.com/personal_loans;
