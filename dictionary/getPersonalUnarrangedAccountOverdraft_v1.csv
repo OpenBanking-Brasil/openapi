@@ -1,0 +1,80 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/participant;participant;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/participant/brand;brand;Nome da Marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Organização A;
+/data/participant/name;name;Nome da Instituição, pertencente à marca, responsável pela modalidade de Empréstimos. p.ex.'Empresa da Organização A';Texto;80;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Empresa A1;
+/data/participant/cnpjNumber;cnpjNumber;CNPJ;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362000135;
+/data/participant/urlComplementaryList;urlComplementaryList;"URL do link que conterá a lista complementar com os nomes e CNPJs agrupados sob o mesmo cnpjNumber. Os contidos nessa lista possuem as mesmas características para produtos e serviços. Endereço eletrônico de acesso ao canal. Será obrigatoriamente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada.
+Restrição: Será obrigatorimente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada
+";Texto;1024;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;https://empresadaorganizacaoa.com/complementarylist;
+/data/fees;fees;Objeto que reúne informações de tarifas de serviços;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/priorityServices;priorityServices;Lista das Tarifas cobradas sobre Serviços Prioritários;Lista;;Opcional;;;1;20;"";Não permitido;array;;
+/data/fees/priorityServices/name;name;Nome da Tarifa cobrada sobre Serviço que incide sobre Adiantamento a depositante, para pessoa jurídica.;Texto;;Obrigatório;;CONCESSAO_ADIANTAMENTO_DEPOSITANTE;1;1;"";Não permitido;string;;
+/data/fees/priorityServices/code;code;Sigla de identificação do serviço relacionado à Modalidade de Adiantamento a depositante, para pessoa jurídica.;Texto;;Obrigatório;;ADIANT_DEPOSITANTE;1;1;"";Não permitido;string;;
+/data/fees/priorityServices/chargingTriggerInfo;chargingTriggerInfo;Fato gerador de cobrança que incide sobre a Modalidade de Adiantamento a depositante informada, para pessoa jurídica.;Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;;
+/data/fees/priorityServices/prices;prices;lista das faixas dos  valores de tarfas cobradas;Lista;;Obrigatório;;;4;4;"";Não permitido;array;;
+/data/fees/priorityServices/prices/interval;interval;"Segundo Normativa nº 32, BCB, de 2020: Distribuição de frequência relativa dos valores de tarifas cobradas dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana em cada uma dessas faixas. Informando: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa
+";Texto;;Obrigatório;;"1_FAIXA 
+2_FAIXA 
+3_FAIXA 
+4_FAIXA";1;1;"";Não permitido;string;1_FAIXA;
+/data/fees/priorityServices/prices/value;value;"Valor da mediana de cada faixa relativa ao serviço ofertado, informado no período, conforme Res nº 32 BCB, 2020. p.ex. '45.00' (representa um valor monetário. p.ex: 1547368.92. Este valor, considerando que a moeda seja BRL, significa R$ 1.547.368,92. O único separador presente deve ser o '.' (ponto) para indicar a casa decimal. Não deve haver separador de milhar).
+
+Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+";Texto;12;Obrigatório;^(\d{1,9}\.\d{2}){1}$;;1;1;"";Não permitido;string;2000.00;
+/data/fees/priorityServices/prices/currency;currency;Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;
+/data/fees/priorityServices/prices/customers;customers;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/priorityServices/prices/customers/rate;rate;"Percentual de clientes em cada faixa.
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/fees/priorityServices/minimum;minimum;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/priorityServices/minimum/value;value;"Valor mínimo apurado para a tarifa de serviços sobre a base de clientes no mês de referência.
+
+Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+";Texto;12;Obrigatório;^(\d{1,9}\.\d{2}){1}$;;1;1;"";Não permitido;string;1350.00;
+/data/fees/priorityServices/minimum/currency;currency;Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;
+/data/fees/priorityServices/maximum;maximum;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/fees/priorityServices/maximum/value;value;"Valor máximo apurado para a tarifa de serviços sobre a base de clientes no mês de referência.
+
+Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+";Texto;12;Obrigatório;^(\d{1,9}\.\d{2}){1}$;;1;1;"";Não permitido;string;8800.00;
+/data/fees/priorityServices/maximum/currency;currency;Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;
+/data/interestRates;interestRates;Lista que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios da Modalidade de crédito;Lista;;Opcional;;;1;N;"";Não permitido;array;;
+/data/interestRates/referentialRateIndexer;referentialRateIndexer;"Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040
+";Texto;;Obrigatório;;"SEM_INDEXADOR_TAXA 
+PRE_FIXADO 
+POS_FIXADO_TR_TBF 
+POS_FIXADO_TJLP 
+POS_FIXADO_LIBOR 
+POS_FIXADO_TLP 
+OUTRAS_TAXAS_POS_FIXADAS 
+FLUTUANTES_CDI 
+FLUTUANTES_SELIC 
+OUTRAS_TAXAS_FLUTUANTES 
+INDICES_PRECOS_IGPM 
+INDICES_PRECOS_IPCA 
+INDICES_PRECOS_IPCC 
+OUTROS_INDICES_PRECO 
+CREDITO_RURAL_TCR_PRE 
+CREDITO_RURAL_TCR_POS 
+CREDITO_RURAL_TRFC_PRE 
+CREDITO_RURAL_TRFC_POS 
+OUTROS_INDEXADORES";1;1;"";Não permitido;string;SEM_INDEXADOR_TAXA;
+/data/interestRates/rate;rate;"Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/interestRates/applications;applications;Lista  das faixas de cobrança da taxa efetiva de remuneração.;Lista;;Obrigatório;;;4;4;"";Não permitido;array;;
+/data/interestRates/applications/interval;interval;"Faixas para cobrança da taxa efetiva aplicada pela contratação do crédito, no intervalo informado: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa. Segundo Normativa nº32 de 2020: 'Distribuição de frequência relativa dos valores de tarifas e taxas de juros cobrados dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana e o percentual de clientes em cada uma dessas faixas.
+";Texto;;Obrigatório;;"1_FAIXA 
+2_FAIXA 
+3_FAIXA 
+4_FAIXA";1;1;"";Não permitido;string;;
+/data/interestRates/applications/indexer;indexer;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interestRates/applications/indexer/rate;rate;"Percentual que corresponde a mediana da taxa efetiva cobrada do cliente pela contratação do crédito, no intervalo informado. p.ex. '0,8700%'. A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.870000;8
+/data/interestRates/applications/customers;customers;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/interestRates/applications/customers/rate;rate;"Percentual de clientes em cada faixa.
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
+/data/interestRates/minimumRate;minimumRate;"Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o crédito contratado A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;;8
+/data/interestRates/maximumRate;maximumRate;"Percentual máximo cobrado (taxa efetiva) no mês de referência, para o crédito contratado A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+";Texto;8;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;;8
+/data/termsConditions;termsConditions;Campo aberto para informar as condições contratuais relativas à Modalidade de Adiantamento a depositante para pessoa natural. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Endereço eletrônico de acesso ao canal.;Texto;2000;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;https://empresaa1.com/personal_unarranged_account_overdraft;
