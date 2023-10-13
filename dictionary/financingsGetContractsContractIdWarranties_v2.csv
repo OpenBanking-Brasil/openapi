@@ -69,4 +69,7 @@ TRIBUTOS_RECEITAS_ORCAMENTARIAS
 VEICULOS 
 VEICULOS_AUTOMOTORES";1;1;"";Não permitido;string;NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO;
 /data/warrantyAmount;warrantyAmount;"Valor original da garantia. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
-";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+
+[Restrição] Nos casos em que warrantyType for igual a ""GARANTIA_FIDEJUSSORIA“ pode ser enviado o valor 0.00.
+";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;" Nos casos em que warrantyType for igual a ""GARANTIA_FIDEJUSSORIA“ pode ser enviado o valor 0.00.
+";Não permitido;string;1000.0400;4
