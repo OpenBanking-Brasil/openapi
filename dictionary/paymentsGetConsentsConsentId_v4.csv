@@ -18,19 +18,27 @@ O tempo do expirationDateTime é garantido com os 15 minutos do access token, se
 ";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/statusUpdateDateTime;statusUpdateDateTime;"Data e hora em que o recurso foi atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).
 ";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
-/data/status;status;"Retorna o estado do consentimento, o qual no momento de sua criação será AWAITING_AUTHORISATION.
-Este estado será alterado depois da autorização do consentimento na detentora da conta do pagador (Debtor) para AUTHORISED ou REJECTED. 
-O consentimento fica no estado CONSUMED após ocorrer a iniciação do pagamento referente ao consentimento.  
-Em caso de consentimento expirado a detentora deverá retornar o status REJECTED.  
-Estados possíveis:  
-AWAITING_AUTHORISATION - Aguardando autorização  
-AUTHORISED - Autorizado   
-REJECTED - Rejeitado  
-CONSUMED - Consumido 
+/data/status;status;"Retorna o estado do consentimento, o qual no momento de sua criação será AWAITING_AUTHORISATION. Na situação de múltiplas alçadas PARTIALLY_ACCEPTED, indica que consentimento precisa da confirmação de mais autorizadores. Este estado será alterado depois da(s) autorização(ões) do(s) consentimento(s) na detentora da conta do pagador (Debtor) para AUTHORISED ou REJECTED. O consentimento fica no estado CONSUMED após ocorrer a iniciação do pagamento referente ao consentimento.
+
+Em caso de consentimento expirado a detentora deverá retornar o status REJECTED.
+
+
+Estados possíveis:
+
+AWAITING_AUTHORISATION - Aguardando autorização
+
+PARTIALLY_ACCEPTED – Aguardando múltiplas alçadas
+
+AUTHORISED - Autorizado
+
+REJECTED - Rejeitado
+
+CONSUMED - Consumido
 ";Texto;;Obrigatório;;"AWAITING_AUTHORISATION 
 AUTHORISED 
 REJECTED 
-CONSUMED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
+CONSUMED 
+PARTIALLY_ACCEPTED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
 /data/loggedUser;loggedUser;Usuário (pessoa natural) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/loggedUser/document;document;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/loggedUser/document/identification;identification;Número do documento de identificação oficial do usuário.;Texto;11;Obrigatório;^\d{11}$;;1;1;"";Não permitido;string;11111111111;

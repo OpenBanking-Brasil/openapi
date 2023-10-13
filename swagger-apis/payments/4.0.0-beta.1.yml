@@ -1136,17 +1136,26 @@ components:
         - AUTHORISED
         - REJECTED
         - CONSUMED
+        - PARTIALLY_ACCEPTED
       example: AWAITING_AUTHORISATION
       description: |
-        Retorna o estado do consentimento, o qual no momento de sua criação será AWAITING_AUTHORISATION.
-        Este estado será alterado depois da autorização do consentimento na detentora da conta do pagador (Debtor) para AUTHORISED ou REJECTED. 
-        O consentimento fica no estado CONSUMED após ocorrer a iniciação do pagamento referente ao consentimento.  
-        Em caso de consentimento expirado a detentora deverá retornar o status REJECTED.  
-        Estados possíveis:  
-        AWAITING_AUTHORISATION - Aguardando autorização  
-        AUTHORISED - Autorizado   
-        REJECTED - Rejeitado  
-        CONSUMED - Consumido 
+        Retorna o estado do consentimento, o qual no momento de sua criação será AWAITING_AUTHORISATION. Na situação de múltiplas alçadas PARTIALLY_ACCEPTED, indica que consentimento precisa da confirmação de mais autorizadores. Este estado será alterado depois da(s) autorização(ões) do(s) consentimento(s) na detentora da conta do pagador (Debtor) para AUTHORISED ou REJECTED. O consentimento fica no estado CONSUMED após ocorrer a iniciação do pagamento referente ao consentimento.
+
+        Em caso de consentimento expirado a detentora deverá retornar o status REJECTED.
+
+
+        Estados possíveis:
+        
+        AWAITING_AUTHORISATION - Aguardando autorização
+        
+        PARTIALLY_ACCEPTED – Aguardando múltiplas alçadas
+        
+        AUTHORISED - Autorizado
+       
+        REJECTED - Rejeitado
+        
+        CONSUMED - Consumido
+
     EnumErrorsCreatePixPayment:
       type: string
       enum:
