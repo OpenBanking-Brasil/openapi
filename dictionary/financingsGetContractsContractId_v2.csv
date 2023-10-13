@@ -58,14 +58,16 @@ OUTROS";1;1;"";Não permitido;string;SEMANAL;
 ";Não permitido;string;Informações adicionais sobre periodicidade;
 /data/firstInstalmentDueDate;firstInstalmentDueDate;"Data de vencimento primeira parcela do principal.
 ";Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15;
-/data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).   
+/data/CET;CET;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
 
-O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000.
+Este valor representa 15%. O valor 1 representa 100%).  
 
-Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. 
-Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. 
-Excepcionalmente nos casos de operações de crédito rural, o envio do campo CET será obrigatório a partir de 2019, conforme Resolução CMN 4.699. 
-O campo poderá ser preenchido com 0.00, como exceção, em contratos anteriores a 2008 (para o público PF), anteriores a 2011 (para o público PJ) e anteriores a 2019 para os casos de operações de crédito rural (ambos os públicos PF e PJ), para os quais a casa não tenha a informação de CET (Custo efetivo total)
+Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. Excepcionalmente nos casos de operações de crédito rural, o envio do campo CET será obrigatório a partir de 2019, conforme Resolução CMN 4.699. O campo poderá ser preenchido com 0.00 em cenários nos quais a casa não tenha a informação de CET (Custo efetivo total) apenas para as exceções listadas abaixo:
+- Em contratos anteriores a 2008 (para o público PF);
+- Em contratos anteriores a 2011 (para o público PJ);
+- Em contratos anteriores a 2019 para os casos de operações de crédito rural (ambos os públicos PF e PJ);
+- Público PJ de médio ou grande porte.
 ";Texto;9;Obrigatório;^\d{1,2}\.\d{6}$;;1;1;"";Não permitido;string;0.290000;8
 /data/amortizationScheduled;amortizationScheduled;"Sistema de amortização (Vide Enum):
 - SAC (Sistema de Amortização Constante) - É aquele em que o valor da amortização permanece igual até o final. Os juros cobrados sobre o parcelamento não entram nesta conta.
