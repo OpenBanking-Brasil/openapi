@@ -108,7 +108,7 @@ TITULARIDADE_INCONSISTENTE";1;1;" Esse motivo deverá ser enviado quando o campo
 /data/remittanceInformation;remittanceInformation;"Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional em um pagamento, a ser enviada ao recebedor.
 ";Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Pagamento da nota RSTO035-002.;
 /data/creditorAccount;creditorAccount;"Objeto que contém a identificação da conta de destino do beneficiário/recebedor. 
-";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/creditorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
 /data/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 

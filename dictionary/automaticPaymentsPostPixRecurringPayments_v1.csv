@@ -110,7 +110,7 @@ TITULARIDADE_INCONSISTENTE";1;1;" Esse motivo deverá ser enviado quando o campo
 /data/creditorAccount;creditorAccount;"Objeto que contém a identificação da conta de destino do beneficiário/recebedor.
 
 [Restrição] Se localInstrument for igual a MANU, o campo creditorAccount deve ser preenchido.
-";Objeto;;Obrigatório;;;1;1;" Se localInstrument for igual a MANU, o campo creditorAccount deve ser preenchido.
+";Objeto;;Condicional;;;0;1;" Se localInstrument for igual a MANU, o campo creditorAccount deve ser preenchido.
 ";Não permitido;object;;
 /data/creditorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
