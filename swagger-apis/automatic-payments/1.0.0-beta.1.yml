@@ -8,7 +8,7 @@ info:
     # Orientações
     - `CONTA`, referente às instituições detentoras de conta participantes do Open Finance Brasil;
     - `PAGTO`, referente às instituições iniciadoras de pagamento participantes do Open Finance Brasil. 
-    Os tokens utilizados para consumo nos endpoints de consentimentos devem possuir o scope payments e os endpoints de pagamentos recorrentes devem possuir os scopes openid e payments. 
+    Os tokens utilizados para consumo nos endpoints de consentimentos devem possuir o scope recurringPayments e os endpoints de pagamentos recorrentes devem possuir os scopes openid e recurringPayments. 
     Esta API não requer a implementação de permissions para sua utilização. 
     Todas as requisições e respostas devem ser assinadas seguindo o protocolo estabelecido na sessão Assinaturas do guia de segurança.
 
