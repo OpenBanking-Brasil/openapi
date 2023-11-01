@@ -70,6 +70,8 @@ VEICULOS
 VEICULOS_AUTOMOTORES";1;1;"";Não permitido;string;NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO;
 /data/warrantyAmount;warrantyAmount;"Valor original da garantia. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
 
-[Restrição] Nos casos em que warrantyType for igual a ""GARANTIA_FIDEJUSSORIA“ pode ser enviado o valor 0.00.
-";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;" Nos casos em que warrantyType for igual a ""GARANTIA_FIDEJUSSORIA“ pode ser enviado o valor 0.00.
+[Restrição]  Para casos em que warrantyType for igual a ""GARANTIA_FIDEJUSSORIA"" o valor da garantia corresponde a uma porcentagem do total garantido. 
+Dessa forma, os casos de garantia fidejussória para os quais não é possível determinar um valor monetário para a garantia devem ser preenchidos com 0.00.
+";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"  Para casos em que warrantyType for igual a ""GARANTIA_FIDEJUSSORIA"" o valor da garantia corresponde a uma porcentagem do total garantido. 
+Dessa forma, os casos de garantia fidejussória para os quais não é possível determinar um valor monetário para a garantia devem ser preenchidos com 0.00.
 ";Não permitido;string;1000.0400;4
