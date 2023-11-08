@@ -28,8 +28,9 @@ Informações mais detalhadas sobre a construção de namespaces devem ser consu
 /data/excludeCredentials/transports;transports;Indicação opcional de como o cliente pode se comunicar com o autenticador do dispositivo.;Lista;;Opcional;;;0;N;"";Não permitido;array;usb, nfc, ble, smart-card, hybrid, internal;
 /data/authenticatorSelection;authenticatorSelection;Restrições adicionais sobre os tipos de autenticadores permitidos para o registro.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/authenticatorSelection/authenticatorAttachment;authenticatorAttachment;Indica os tipos de autenticadores suportados (ex: Sistema Operacional ou Cross-Platform como uma chave USB);Texto;;Opcional;;;0;1;"";Não permitido;string;platform, cross-platform;
-/data/authenticatorSelection/requireResidentKey;requireResidentKey;"Indica o tipo de ""discoverability"" da credencial.";Texto;;Opcional;;;0;1;"";Não permitido;string;discouraged, preferred, required;
-/data/authenticatorSelection/userVerification;userVerification;Indica o requisito de verificação do usuário.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/authenticatorSelection/userVerification;userVerification;"Indica o tipo de ""discoverability"" da credencial.";Texto;;Opcional;;;0;1;"";Não permitido;string;discouraged, preferred, required;
+/data/authenticatorSelection/requireResidentKey;requireResidentKey;Indica o requisito de verificação do usuário.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/authenticatorSelection/residentKey;residentKey;Indica o requisito de verificação do usuário.;Texto;;Opcional;;;0;1;"";Não permitido;string;;
 /data/attestation;attestation;Indica o tipo de attestation que o autenticador pode utilizar.;Texto;;Opcional;;;0;1;"";Não permitido;string;none, indirect, direct, enterprise;
 /data/attestationFormats;attestationFormats;Indica as preferências de formato sobre o campo attestation.;Lista;;Opcional;;;0;N;"";Não permitido;array;packed, tpm, android-key, android-safetynet, fido-u2f, apple, none;
 /data/extensions;extensions;Campo de extensão com opções que variam por plataforma.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
