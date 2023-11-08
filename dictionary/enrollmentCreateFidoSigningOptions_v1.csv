@@ -8,4 +8,3 @@
 /data/allowCredentials/type;type;Identificador do tipo de credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;public-key;
 /data/allowCredentials/transports;transports;Indicação opcional de como o cliente pode se comunicar com o autenticador do dispositivo.;Lista;;Opcional;;;0;N;"";Não permitido;array;usb, nfc, ble, smart-card, hybrid, internal;
 /data/userVerification;userVerification;;Texto;;Opcional;;;0;1;"";Não permitido;string;required, preferred, discouraged;
-/data/extensions;extensions;Campo de extensão com opções que variam por plataforma.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
