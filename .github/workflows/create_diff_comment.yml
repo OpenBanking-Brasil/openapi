@@ -11,8 +11,9 @@ jobs:
       - name: Realizar o diff entre arquivos
         uses: oasdiff/oasdiff-action/diff@main
         id: job1
+        env:
+          GITHUB_TOKEN: ${{ secrets.OASDIFF_TOKEN }}
         with:
-          github_token: ${{ secrets.OASDIFF_TOKEN }}
           base: './swagger-apis/automatic-payments/1.0.0-beta.1.yml'
           revision: './swagger-apis/automatic-payments/1.0.0-beta.2.yml'
   comment_diff:
@@ -20,8 +21,9 @@ jobs:
     steps:
      - name: Criar o comentário no PR
        uses: mshick/add-pr-comment@v2
+       env:
+        GITHUB_TOKEN: ${{ secrets.OASDIFF_TOKEN }}       
        with:
-         github_token: ${{ secrets.OASDIFF_TOKEN }}
          message: |
            ${{ steps.job1.outputs }}
 
