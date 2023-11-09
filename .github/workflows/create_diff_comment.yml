@@ -1,0 +1,27 @@
+name: Comentar no PR o diff das specs
+on: 
+  pull_request:
+    types: [opened]
+    branches:
+      - "main"
+jobs:
+  list_diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Realizar o diff entre arquivos
+        uses: oasdiff/oasdiff-action/diff@main
+        id: job1
+        with:
+          github_token: ${{ secrets.OASDIFF_TOKEN }}
+          base: './swagger-apis/automatic-payments/1.0.0-beta.1.yml'
+          revision: './swagger-apis/automatic-payments/1.0.0-beta.2.yml'
+  comment_diff:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Criar o comentário no PR
+       uses: mshick/add-pr-comment@v2
+       with:
+         github_token: ${{ secrets.OASDIFF_TOKEN }}
+         message: |
+           ${{ steps.job1.outputs }}
+
