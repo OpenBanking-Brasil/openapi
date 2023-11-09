@@ -1,5 +1,5 @@
-Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Objeto contendo dados do pagamento e da conta do recebedor (creditor).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/paymentId;paymentId;"Código ou identificador único informado pela instituição detentora da conta para representar
 a iniciação de pagamento individual. O `paymentId` deve ser diferente do `endToEndId`.
 Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.
@@ -134,11 +134,14 @@ FALHA_AGENDAMENTO_PAGAMENTOS";1;1;"";Não permitido;string;SALDO_INSUFICIENTE;
 - QRDN - QR code dinâmico
 - QRES - QR code estático
 - INIC - Indica que o recebedor (creditor) contratou o Iniciador de Pagamentos especificamente para realizar iniciações de pagamento em que o beneficiário é previamente conhecido.
+
+[Restrição] Se /data/payment/schedule enviado com valor diferente de single durante a criação do consentimento, apenas os métodos MANU, DICT ou QRES são permitidos.
 ";Texto;;Obrigatório;;"MANU 
 DICT 
 QRDN 
 QRES 
-INIC";1;1;"";Não permitido;string;DICT;
+INIC";1;1;" Se /data/payment/schedule enviado com valor diferente de single durante a criação do consentimento, apenas os métodos MANU, DICT ou QRES são permitidos.
+";Não permitido;string;DICT;
 /data/cnpjInitiator;cnpjInitiator;CNPJ do Iniciador de Pagamento devidamente habilitado para a prestação de Serviço de Iniciação no Pix.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362000135;
 /data/payment;payment;Objeto contendo dados do pagameto como moeda e valor.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/payment/amount;amount;"Valor da transação com 2 casas decimais. O valor deve ser o mesmo enviado no consentimento. 
