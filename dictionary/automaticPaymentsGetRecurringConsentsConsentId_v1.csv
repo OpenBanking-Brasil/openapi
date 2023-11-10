@@ -27,7 +27,6 @@ Considerando a string urn:bancoex:C1DD33123 como exemplo para `recurringConsentI
 - REJECTED - Rejeitado
 - REVOKED - Revogado
 - CONSUMED - Consumido
-- ERRO_IDEMPOTENCIA: Erro idempotência.
 ";Texto;;Obrigatório;;"AWAITING_AUTHORISATION 
 PARTIALLY_ACCEPTED 
 AUTHORISED 
@@ -151,13 +150,12 @@ REVOGADO_RECEBEDOR";1;1;"";Não permitido;string;REVOGADO_RECEBEDOR;
 - REVOGADO_USUARIO: O usuário pagador revogou a recorrência do consentimento;
 - REVOGADO_RECEBEDOR: O usuário recebedor revogou a recorrência do consentimento.
 ";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;O usuário rejeitou a autorização do consentimento;
-/data/recurringConfiguration;recurringConfiguration;Campo destinado a configuração dos diferentes produtos de pagamentos recorrentes.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration;;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/automatic;automatic;Definição da configuração de recorrência para pagamentos automáticos;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/automatic/contractId;contractId;Identificador do contrato de transação;Texto;35;Obrigatório;^[a-zA-Z0-9]{1,35}$;;1;1;"";Não permitido;string;XE00038166201907261559y6j6;1
-/data/recurringConfiguration/recurringConfiguration/automatic/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/automatic/transactionLimit;transactionLimit;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
-/data/recurringConfiguration/recurringConfiguration/automatic/period;period;"Define a periodicidade permitida para realização de transações
+/data/recurringConfiguration;;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic;automatic;Definição da configuração de recorrência para pagamentos automáticos;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic/contractId;contractId;Identificador do contrato de transação;Texto;35;Obrigatório;^[a-zA-Z0-9]{1,35}$;;1;1;"";Não permitido;string;XE00038166201907261559y6j6;1
+/data/recurringConfiguration/automatic/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/automatic/transactionLimit;transactionLimit;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
+/data/recurringConfiguration/automatic/period;period;"Define a periodicidade permitida para realização de transações
 - DIARIO
 - SEMANAL
 - MENSAL
@@ -166,12 +164,12 @@ REVOGADO_RECEBEDOR";1;1;"";Não permitido;string;REVOGADO_RECEBEDOR;
 SEMANAL 
 MENSAL 
 ANUAL";1;1;"";Não permitido;string;DIARIO;
-/data/recurringConfiguration/recurringConfiguration/automatic/dayOfMonth;dayOfMonth;"Dia fixo do mês que está prevista a transação.
+/data/recurringConfiguration/automatic/dayOfMonth;dayOfMonth;"Dia fixo do mês que está prevista a transação.
 
 [Restrição] Campo deve ser enviado quando o campo `/data/recurringConfiguration/automatic/period` for igual a MENSAL ou ANUAL.
 ";Inteiro;;Condicional;;;0;1;" Campo deve ser enviado quando o campo `/data/recurringConfiguration/automatic/period` for igual a MENSAL ou ANUAL.
 ";Não permitido;integer;10;
-/data/recurringConfiguration/recurringConfiguration/automatic/dayOfWeek;dayOfWeek;"Dia da semana que está prevista a transação.
+/data/recurringConfiguration/automatic/dayOfWeek;dayOfWeek;"Dia da semana que está prevista a transação.
 - SEGUNDA_FEIRA
 - TERCA_FEIRA
 - QUARTA_FEIRA
@@ -185,7 +183,7 @@ QUARTA_FEIRA
 QUINTA_FEIRA 
 SEXTA_FEIRA";0;1;" Campo deve ser enviado quando o campo `/data/recurringConfiguration/automatic/period` for igual a SEMANAL.
 ";Não permitido;string;SEGUNDA_FEIRA;
-/data/recurringConfiguration/recurringConfiguration/automatic/month;month;"Mês previstos para ocorrer transações.
+/data/recurringConfiguration/automatic/month;month;"Mês previstos para ocorrer transações.
 - JANEIRO
 - FEVEREIRO
 - MARCO
@@ -213,39 +211,39 @@ OUTUBRO
 NOVEMBRO 
 DEZEMBRO";0;1;" Campo deve ser enviado quando o campo `/data/recurringConfiguration/automatic/period` for igual a ANUAL
 ";Não permitido;string;JANEIRO;
-/data/recurringConfiguration/recurringConfiguration/automatic/contractDebtor;contractDebtor;Informações sobre o cliente devedor do contrato.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/automatic/contractDebtor/name;name;Em caso de pessoa natural deve ser informado o nome completo do titular da conta do recebedor.;Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ,.@:&*+_<>()!?/\\$%\d' -]+)$;;1;1;"";Não permitido;string;Policarpo Quaresma;
-/data/recurringConfiguration/recurringConfiguration/automatic/contractDebtor/document;document;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/automatic/contractDebtor/document/identification;identification;Número do documento de identificação oficial do cliente devedor do contrato.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11111111111111;
-/data/recurringConfiguration/recurringConfiguration/automatic/contractDebtor/document/rel;rel;Tipo do documento de identificação oficial do cliente devedor do contrato.;Texto;4;Obrigatório;^[A-Z]{4}$;;1;1;"";Não permitido;string;CNPJ;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment;immediatePayment;Definições para transação imediata.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/type;type;"Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.
+/data/recurringConfiguration/automatic/contractDebtor;contractDebtor;Informações sobre o cliente devedor do contrato.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic/contractDebtor/name;name;Em caso de pessoa natural deve ser informado o nome completo do titular devedor do contrato.;Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ,.@:&*+_<>()!?/\\$%\d' -]+)$;;1;1;"";Não permitido;string;Policarpo Quaresma;
+/data/recurringConfiguration/automatic/contractDebtor/document;document;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic/contractDebtor/document/identification;identification;Número do documento de identificação oficial do cliente devedor do contrato.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11111111111111;
+/data/recurringConfiguration/automatic/contractDebtor/document/rel;rel;Tipo do documento de identificação oficial do cliente devedor do contrato.;Texto;4;Obrigatório;^[A-Z]{4}$;;1;1;"";Não permitido;string;CNPJ;
+/data/recurringConfiguration/automatic/immediatePayment;immediatePayment;Definições para transação imediata.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic/immediatePayment/type;type;"Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.
 ";Texto;;Obrigatório;;PIX;1;1;"";Não permitido;string;PIX;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/date;date;"Define a data alvo da liquidação do pagamento.
+/data/recurringConfiguration/automatic/immediatePayment/date;date;"Define a data alvo da liquidação do pagamento.
 O fuso horário de Brasília deve ser utilizado para criação e racionalização sobre os dados deste campo.
 ";Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-01-01;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/currency;currency;"Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.
+/data/recurringConfiguration/automatic/immediatePayment/currency;currency;"Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
 ";Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRL;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/amount;amount;"Valor da transação com 2 casas decimais.
+/data/recurringConfiguration/automatic/immediatePayment/amount;amount;"Valor da transação com 2 casas decimais.
 ";Texto;19;Obrigatório;^((\d{1,16}\.\d{2}))$;;1;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/remittanceInformation;remittanceInformation;"Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional em um pagamento, a ser enviada ao recebedor.
+/data/recurringConfiguration/automatic/immediatePayment/remittanceInformation;remittanceInformation;"Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional em um pagamento, a ser enviada ao recebedor.
 ";Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Pagamento da nota RSTO035-002;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/creditorAccount;creditorAccount;"Recebe os dados de conta do usuário recebedor. 
+/data/recurringConfiguration/automatic/immediatePayment/creditorAccount;creditorAccount;"Recebe os dados de conta do usuário recebedor. 
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/creditorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
+/data/recurringConfiguration/automatic/immediatePayment/creditorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
+/data/recurringConfiguration/automatic/immediatePayment/creditorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
 (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
 no exercício de atividades da instituição, não podendo ser móvel ou transitória).
 
 [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Texto;4;Obrigatório;^[0-9]{1,4}$;;1;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/creditorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), 
+/data/recurringConfiguration/automatic/immediatePayment/creditorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), 
 se houver valor alfanumérico, este deve ser convertido para 0.
 ";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
-/data/recurringConfiguration/recurringConfiguration/automatic/immediatePayment/creditorAccount/accountType;accountType;"Tipos de contas usadas para pagamento. 
+/data/recurringConfiguration/automatic/immediatePayment/creditorAccount/accountType;accountType;"Tipos de contas usadas para pagamento. 
 Modalidades tradicionais previstas pela Resolução 4.753, não contemplando contas vinculadas, 
 conta de domiciliados no exterior, contas em moedas estrangeiras e conta correspondente moeda eletrônica.  
 Segue descrição de cada valor do ENUM.
@@ -256,72 +254,72 @@ Segue descrição de cada valor do ENUM.
 ";Texto;;Obrigatório;;"CACC 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
-/data/recurringConfiguration/recurringConfiguration/sweeping;sweeping;Definição da configuração de recorrência para transferências automáticas de fundos.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/sweeping/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/sweeping/transactionLimit;transactionLimit;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits;periodicLimits;Limites transacionais por período determinado pelo usuário pagador.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/day;day;"Configurar limite transacional diário determinado pelo usuário pagador.
+/data/recurringConfiguration/sweeping;sweeping;Definição da configuração de recorrência para transferências automáticas de fundos.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/sweeping/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/sweeping/transactionLimit;transactionLimit;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
+/data/recurringConfiguration/sweeping/periodicLimits;periodicLimits;Limites transacionais por período determinado pelo usuário pagador.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/sweeping/periodicLimits/day;day;"Configurar limite transacional diário determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos.
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos.
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/day/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um dia.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;2;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/day/transactionLimit;transactionLimit;Valor máximo a ser transacionado diariamente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/week;week;"Configurar limite transacional semanal determinado pelo usuário pagador.
+/data/recurringConfiguration/sweeping/periodicLimits/day/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um dia.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;2;
+/data/recurringConfiguration/sweeping/periodicLimits/day/transactionLimit;transactionLimit;Valor máximo a ser transacionado diariamente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/sweeping/periodicLimits/week;week;"Configurar limite transacional semanal determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/week/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante uma semana.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/week/transactionLimit;transactionLimit;Valor máximo a ser transacionado semanalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/month;month;"Configurar limite transacional mensal determinado pelo usuário pagador.
+/data/recurringConfiguration/sweeping/periodicLimits/week/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante uma semana.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
+/data/recurringConfiguration/sweeping/periodicLimits/week/transactionLimit;transactionLimit;Valor máximo a ser transacionado semanalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/sweeping/periodicLimits/month;month;"Configurar limite transacional mensal determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/month/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um mês.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;30;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/month/transactionLimit;transactionLimit;Valor máximo a ser transacionado mensalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/year;year;"Configurar limite transacional anual determinado pelo usuário pagador.
+/data/recurringConfiguration/sweeping/periodicLimits/month/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um mês.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;30;
+/data/recurringConfiguration/sweeping/periodicLimits/month/transactionLimit;transactionLimit;Valor máximo a ser transacionado mensalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/sweeping/periodicLimits/year;year;"Configurar limite transacional anual determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;
-/data/recurringConfiguration/recurringConfiguration/sweeping/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/vrp;vrp;Definição da configuração de recorrência para realização de transações de valores variáveis;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/transactionLimit;transactionLimit;Limite máximo de valor permitido para cada transação de pagamento.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/vrp/globalLimits;globalLimits;"Limite transacional máximo para pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED"".";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/globalLimits/quantityLimit;quantityLimit;"Quantidade máxima de ocorrência  de pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED""";Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
-/data/recurringConfiguration/recurringConfiguration/vrp/globalLimits/transactionLimit;transactionLimit;"Valor transacional máximo para pagamentos sob este consentimento, após atingir este valor, o consentimento deve ir para o status ""CONSUMED"".";Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits;periodicLimits;Limites transacionais por período determinado pelo usuário pagador.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/day;day;"Configurar limite transacional diário determinado pelo usuário pagador.
+/data/recurringConfiguration/sweeping/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;
+/data/recurringConfiguration/sweeping/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp;vrp;Definição da configuração de recorrência para realização de transações de valores variáveis;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/vrp/transactionLimit;transactionLimit;Limite máximo de valor permitido para cada transação de pagamento.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp/globalLimits;globalLimits;"Limite transacional máximo para pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED"".";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/vrp/globalLimits/quantityLimit;quantityLimit;"Quantidade máxima de ocorrência  de pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED""";Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
+/data/recurringConfiguration/vrp/globalLimits/transactionLimit;transactionLimit;"Valor transacional máximo para pagamentos sob este consentimento, após atingir este valor, o consentimento deve ir para o status ""CONSUMED"".";Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp/periodicLimits;periodicLimits;Limites transacionais por período determinado pelo usuário pagador.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/vrp/periodicLimits/day;day;"Configurar limite transacional diário determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos.
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos.
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/day/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um dia.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;2;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/day/transactionLimit;transactionLimit;Valor máximo a ser transacionado diariamente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/week;week;"Configurar limite transacional semanal determinado pelo usuário pagador.
+/data/recurringConfiguration/vrp/periodicLimits/day/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um dia.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;2;
+/data/recurringConfiguration/vrp/periodicLimits/day/transactionLimit;transactionLimit;Valor máximo a ser transacionado diariamente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp/periodicLimits/week;week;"Configurar limite transacional semanal determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/week/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante uma semana.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/week/transactionLimit;transactionLimit;Valor máximo a ser transacionado semanalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/month;month;"Configurar limite transacional mensal determinado pelo usuário pagador.
+/data/recurringConfiguration/vrp/periodicLimits/week/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante uma semana.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
+/data/recurringConfiguration/vrp/periodicLimits/week/transactionLimit;transactionLimit;Valor máximo a ser transacionado semanalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp/periodicLimits/month;month;"Configurar limite transacional mensal determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/month/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um mês.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;30;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/month/transactionLimit;transactionLimit;Valor máximo a ser transacionado mensalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/year;year;"Configurar limite transacional anual determinado pelo usuário pagador.
+/data/recurringConfiguration/vrp/periodicLimits/month/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um mês.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;30;
+/data/recurringConfiguration/vrp/periodicLimits/month/transactionLimit;transactionLimit;Valor máximo a ser transacionado mensalmente.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp/periodicLimits/year;year;"Configurar limite transacional anual determinado pelo usuário pagador.
 
 [Restrição] Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Objeto;;Condicional;;;0;1;" Caso enviado o objeto, ao menos um dos campos (`quantityLimit` ou `transactionLimit`) devem ser preenchidos
 ";Não permitido;object;;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;
-/data/recurringConfiguration/recurringConfiguration/vrp/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/vrp/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;
+/data/recurringConfiguration/vrp/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/ibgeTownCode;ibgeTownCode;"Campo utilizado pela iniciadora para cálculo do dia útil de liquidação do pagamento (vide especificação do endToEndId) baseado no munícipio de cadastro do usuário pagador no detentor.
 
 [Restrições]
@@ -331,3 +329,48 @@ TRAN";1;1;"";Não permitido;string;CACC;
 - Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
 - Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”.
 ";Não permitido;string;5300108;7
+/data/riskSignals;riskSignals;"Sinais de risco para iniciação de pagamentos automáticos
+
+[Restrição] Deve ser enviado quando o consentimento for para o produto Sweeping Accounts (O objeto ""/data/recurringConfiguration/sweeping"" usado no oneOf)
+";Objeto;;Condicional;;;0;1;" Deve ser enviado quando o consentimento for para o produto Sweeping Accounts (O objeto ""/data/recurringConfiguration/sweeping"" usado no oneOf)
+";Não permitido;object;;
+/data/riskSignals/deviceId;deviceId;ID único do dispositivo gerado pela plataforma.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;00000000-54b3-e7c7-0000-000046bffd97;
+/data/riskSignals/isRootedDevice;isRootedDevice;Indica se o dispositivo atualmente está com permissão de “root”.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false;
+/data/riskSignals/screenBrightness;screenBrightness;"Indica o nível de brilho da tela do dispositivo.  
+Em dispositivos Android o valor é um inteiro, entre 0 e 255, inclusive;  
+Em dispositivos iOS o valor é um ponto flutuante entre 0.0 e 1.0.
+";Número;;Obrigatório;;;1;1;"";Não permitido;number;;
+/data/riskSignals/elapsedTimeSinceBoot;elapsedTimeSinceBoot;Indica por quanto tempo (em milissegundos) o dispositivo está ligado.;Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;;
+/data/riskSignals/osVersion;osVersion;Versão do sistema operacional.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/riskSignals/userTimeZoneOffset;userTimeZoneOffset;"Indica a configuração de fuso horário do dispositivo do usuário, com o formato UTC offset: ±hh[:mm]
+";Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/riskSignals/language;language;Indica o idioma do dispositivo no formato ISO 639-1.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/riskSignals/screenDimensions;screenDimensions;Dimensões da tela do dispositivo;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/riskSignals/screenDimensions/height;height;Altura da tela, em pixels.;Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;;
+/data/riskSignals/screenDimensions/width;width;Largura da tela, em pixels.;Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;;
+/data/riskSignals/accountTenure;accountTenure;Data de cadastro do cliente na iniciadora.;Data;;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;;
+/data/riskSignals/geolocation;geolocation;Dados de geolocalização do cliente enquanto logado na iniciadora;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/riskSignals/geolocation/latitude;latitude;Coordenada latitudial do cliente enquanto logado na iniciadora;Número;;Opcional;;;0;1;"";Não permitido;number;;
+/data/riskSignals/geolocation/longitude;longitude;Coordenada longitudinal do cliente enquanto logado na iniciadora;Número;;Opcional;;;0;1;"";Não permitido;number;;
+/data/riskSignals/geolocation/type;type;"Tipo de mecanismo utilizado na geração da geolocalização
+";Texto;;Opcional;;"COARSE 
+FINE 
+INFERRED";0;1;"";Não permitido;string;;
+/data/riskSignals/isCallInProgress;isCallInProgress;"Indica chamada ativa no momento do vínculo.
+
+[Restrição] Caso o sinal de risco esteja disponível (cliente permitiu que fosse coletado), o mesmo deverá ser enviado
+";Booleano;;Condicional;;;0;1;" Caso o sinal de risco esteja disponível (cliente permitiu que fosse coletado), o mesmo deverá ser enviado
+";Não permitido;boolean;;
+/data/riskSignals/isDevModeEnabled;isDevModeEnabled;Indica se o dispositivo está em modo de desenvolvedor.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/riskSignals/isMockGPS;isMockGPS;Indica se o dispositivo está usando um GPS falso.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/riskSignals/isEmulated;isEmulated;Indica se o dispositivo é emulado ou real.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/riskSignals/isMonkeyRunner;isMonkeyRunner;Indica o uso do MonkeyRunner.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/riskSignals/isCharging;isCharging;Indica se a bateria do dispositivo está sendo carregada.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/riskSignals/antennaInformation;antennaInformation;Indica em qual antena o dispositivo está conectado.;Texto;;Opcional;;;0;1;"";Não permitido;string;;
+/data/riskSignals/isUsbConnected;isUsbConnected;Indica se o dispositivo está conectado a outro dispositivo via USB.;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;;
+/data/riskSignals/integrity;integrity;"Informa a integridade do dispositivo e app.  
+No Android, conforme documentação Play API Integrity - [Android](https://developer.android.com/google/play/integrity/overview?hl=pt-br).  
+No iOS, conforme documentação App Attest [iOS](https://developer.apple.com/documentation/devicecheck/establishing_your_app_s_integrity)
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/riskSignals/integrity/appRecognitionVerdict;appRecognitionVerdict;Informa a integridade do app;Texto;;Opcional;;;0;1;"";Não permitido;string;;
+/data/riskSignals/integrity/deviceRecognitionVerdict;deviceRecognitionVerdict;Informa a integridade do dispositivo;Texto;;Opcional;;;0;1;"";Não permitido;string;;
