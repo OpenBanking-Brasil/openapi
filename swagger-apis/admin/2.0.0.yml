@@ -87,8 +87,8 @@ components:
         endpoint:
           type: string
           maxLength: 2000
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-          description: URL do endpoint
+          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#={}]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/={}]*)$'
+          description: URL ou URI do endpoint
         requestTime:
           type: string
           maxLength: 20

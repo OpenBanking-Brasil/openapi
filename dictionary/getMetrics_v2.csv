@@ -1,6 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
-/data/endpoint;endpoint;URL do endpoint;Texto;2000;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;1;1;"";Não permitido;string;;
+/data/endpoint;endpoint;URL ou URI do endpoint;Texto;2000;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#={}]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/={}]*)$;;1;1;"";Não permitido;string;;
 /data/requestTime;requestTime;Data e hora que as métricas foram requisitadas.;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/availability;availability;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/availability/uptime;uptime;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
