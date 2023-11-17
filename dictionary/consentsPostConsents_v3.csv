@@ -1,0 +1,58 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Obrigatório por Regulação;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/consentId;consentId;"O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
+Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource 
+Identifier - URI - que é atribuído sob o URI scheme ""urn"" e um namespace URN específico, com a intenção de que o URN 
+seja um identificador de recurso persistente e independente da localização.  
+Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+- o namespace(urn)
+- o identificador associado ao namespace da instituição transnmissora (bancoex) 
+- o identificador específico dentro do namespace (C1DD33123).  
+Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+";Texto;256;Obrigatório;Opcional;"^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
+/data/creationDateTime;creationDateTime;Data e hora em que o recurso foi criado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/status;status;Estado atual do consentimento cadastrado.;Texto;;Obrigatório;Opcional;;"AUTHORISED 
+AWAITING_AUTHORISATION 
+REJECTED";1;1;"";Não permitido;string;AWAITING_AUTHORISATION;
+/data/statusUpdateDateTime;statusUpdateDateTime;Data e hora em que o recurso foi atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/permissions;permissions;Especifica os tipos de permissões de acesso às APIs no escopo do Open Finance Brasil - Dados cadastrais e transacionais, de acordo com os blocos de consentimento fornecidos pelo usuário e necessários ao acesso a cada endpoint das APIs. Esse array não deve ter duplicidade de itens.;Lista;;Obrigatório;Obrigatório;;"ACCOUNTS_READ 
+ACCOUNTS_BALANCES_READ 
+ACCOUNTS_TRANSACTIONS_READ 
+ACCOUNTS_OVERDRAFT_LIMITS_READ 
+CREDIT_CARDS_ACCOUNTS_READ 
+CREDIT_CARDS_ACCOUNTS_BILLS_READ 
+CREDIT_CARDS_ACCOUNTS_BILLS_TRANSACTIONS_READ 
+CREDIT_CARDS_ACCOUNTS_LIMITS_READ 
+CREDIT_CARDS_ACCOUNTS_TRANSACTIONS_READ 
+CUSTOMERS_PERSONAL_IDENTIFICATIONS_READ 
+CUSTOMERS_PERSONAL_ADITTIONALINFO_READ 
+CUSTOMERS_BUSINESS_IDENTIFICATIONS_READ 
+CUSTOMERS_BUSINESS_ADITTIONALINFO_READ 
+FINANCINGS_READ 
+FINANCINGS_SCHEDULED_INSTALMENTS_READ 
+FINANCINGS_PAYMENTS_READ 
+FINANCINGS_WARRANTIES_READ 
+INVOICE_FINANCINGS_READ 
+INVOICE_FINANCINGS_SCHEDULED_INSTALMENTS_READ 
+INVOICE_FINANCINGS_PAYMENTS_READ 
+INVOICE_FINANCINGS_WARRANTIES_READ 
+LOANS_READ 
+LOANS_SCHEDULED_INSTALMENTS_READ 
+LOANS_PAYMENTS_READ 
+LOANS_WARRANTIES_READ 
+UNARRANGED_ACCOUNTS_OVERDRAFT_READ 
+UNARRANGED_ACCOUNTS_OVERDRAFT_SCHEDULED_INSTALMENTS_READ 
+UNARRANGED_ACCOUNTS_OVERDRAFT_PAYMENTS_READ 
+UNARRANGED_ACCOUNTS_OVERDRAFT_WARRANTIES_READ 
+RESOURCES_READ 
+BANK_FIXED_INCOMES_READ 
+CREDIT_FIXED_INCOMES_READ 
+FUNDS_READ 
+VARIABLE_INCOMES_READ 
+TREASURE_TITLES_READ 
+EXCHANGES_READ";1;N;"";Não permitido;array;;
+/data/expirationDateTime;expirationDateTime;"Data e hora de expiração da permissão. Reflete a data limite de validade do consentimento. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC (UTC time format). 
+
+[Restrição] De preenchimento obrigatório nos casos em que houver validade determinada. Em casos de consentimento com prazo indeterminado o campo não deve ser enviado.
+";Date Hora;20;Condicional;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;" De preenchimento obrigatório nos casos em que houver validade determinada. Em casos de consentimento com prazo indeterminado o campo não deve ser enviado.
+";Não permitido;string;2021-05-21T08:30:00Z;
