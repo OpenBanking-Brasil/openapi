@@ -12,7 +12,10 @@ Considerando a string urn:bancoex:C1DD33123 como exemplo para `recurringConsentI
 - o identificador associado ao namespace da instituição transmissora (bancoex)
 - o identificador específico dentro do namespace (C1DD33123).
 Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
-";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
+
+[Restrição] Este campo é de preenchimento obrigatório quando o valor do campo authorisationFlow for igual a FIDO_FLOW.
+";Texto;256;Condicional;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;0;1;" Este campo é de preenchimento obrigatório quando o valor do campo authorisationFlow for igual a FIDO_FLOW.
+";Não permitido;string;urn:bancoex:C1DD33123;
 /data/endToEndId;endToEndId;"Trata-se de um identificador único, gerado na instituição iniciadora de pagamento e recebido na instituição detentora de conta, permeando toda a jornada do pagamento Pix.
 
 [Restrição] A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora.

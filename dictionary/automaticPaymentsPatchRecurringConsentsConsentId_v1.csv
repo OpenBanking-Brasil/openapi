@@ -74,10 +74,15 @@ Segue descrição de cada valor do ENUM.
 ";Texto;;Obrigatório;;"CACC 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
-/data/debtorAccount/ibgeTownCode;ibgeTownCode;"O campo ibgeTownCode no arranjo Pix, tem o mesmo comportamento que o campo codMun descrito no item 1.6.6 do manual do Pix, conforme segue:
-1. Caso a informação referente ao município não seja enviada, o PSP do recebedor assumirá que não existem feriados estaduais e municipais no período em questão;
-";Texto;7;Obrigatório;^\d{7}$;;1;1;"";Não permitido;string;5300108;7
-/data/debtorAccount/overdraftLimit;overdraftLimit;Indica se o usuário pagador autorizou a utilização de limite na sua conta para realização de pagamentos;Booleano;;Opcional;;;0;1;"";Não permitido;boolean;true;
+/data/debtorAccount/ibgeTownCode;ibgeTownCode;"Campo utilizado pela iniciadora para cálculo do dia útil de liquidação do pagamento (vide especificação do endToEndId) baseado no município de cadastro do usuário pagador no detentor.
+
+[Restrições]
+- Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
+- Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”. 
+";Texto;7;Obrigatório;^\d{7}$;;1;1;"
+- Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
+- Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”. 
+";Não permitido;string;5300108;7
 /data/rejection;rejection;"Objeto contendo as informações de rejeição dos consentimentos.
 
 [Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"" ou ""REVOKED""
@@ -320,15 +325,6 @@ TRAN";1;1;"";Não permitido;string;CACC;
 ";Não permitido;object;;
 /data/recurringConfiguration/vrp/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;
 /data/recurringConfiguration/vrp/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/ibgeTownCode;ibgeTownCode;"Campo utilizado pela iniciadora para cálculo do dia útil de liquidação do pagamento (vide especificação do endToEndId) baseado no munícipio de cadastro do usuário pagador no detentor.
-
-[Restrições]
-- Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
-- Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”.
-";Texto;7;Condicional;^\d{7}$;;0;1;"
-- Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
-- Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”.
-";Não permitido;string;5300108;7
 /data/riskSignals;riskSignals;"Sinais de risco para iniciação de pagamentos automáticos
 
 [Restrição] Deve ser enviado quando o consentimento for para o produto Sweeping Accounts (O objeto ""/data/recurringConfiguration/sweeping"" usado no oneOf)
