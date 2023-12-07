@@ -52,18 +52,18 @@ CHEQUE
 TITULOS_VALORES 
 SIMBOLICA";0;1;"";Não permitido;string;CARTA_CREDITO_A_PRAZO;
 /data/operationCategoryCode;operationCategoryCode;Código da natureza fato do fechamento da operação. Deve respeitar os códigos de natureza referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.;Texto;5;Opcional;^\d{5}$;;0;1;"";Não permitido;string;90302;
-/data/relationshipCode;relationshipCode;"Código de Relação de vínculo entre o Cliente e o Pagador/Recebedor no Exterior. Deve respeitar os códigos de vínculo referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.
+/data/foreignPartie;foreignPartie;"Lista para envio de informações de parte envolvida.
 
-[Restrição] Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
-";Texto;2;Condicional;^\d{2}$;;0;1;" Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
-";Não permitido;string;50;
-/data/foreignPartieName;foreignPartieName;"Nome do pagador ou recebedor no exterior.
-
-[Restrição] Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
-";Texto;80;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
-";Não permitido;string;José da Silva;
-/data/foreignPartieCountryCode;foreignPartieCountryCode;"País do pagador ou recebedor. Código do país segundo a norma ISO 3166-1.
-
-[Restrição] Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
-";Texto;2;Condicional;^[A-Z]{2}$;;0;1;" Campo de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM.
-";Não permitido;string;ZA;
+[Restrição] Lista de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM. 
+Caso a instituição possua a informação, ela é de envio obrigatório. 
+Caso a informação seja atualizada posteriormente a contratação, ela deve ser enviada através de eventos.
+";Lista;;Condicional;;;1;N;" Lista de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM. 
+Caso a instituição possua a informação, ela é de envio obrigatório. 
+Caso a informação seja atualizada posteriormente a contratação, ela deve ser enviada através de eventos.
+";Não permitido;array;;
+/data/foreignPartie/relationshipCode;relationshipCode;"Código de Relação de vínculo entre o Cliente e o Pagador/Recebedor no Exterior. Deve respeitar os códigos de vínculo referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.
+";Texto;2;Obrigatório;^\d{2}$;;1;1;"";Não permitido;string;50;
+/data/foreignPartie/foreignPartieName;foreignPartieName;"Nome do pagador ou recebedor no exterior.
+";Texto;80;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;José da Silva;
+/data/foreignPartie/foreignPartieCountryCode;foreignPartieCountryCode;"País do pagador ou recebedor. Código do país segundo a norma ISO 3166-1.
+";Texto;2;Obrigatório;^[A-Z]{2}$;;1;1;"";Não permitido;string;ZA;
