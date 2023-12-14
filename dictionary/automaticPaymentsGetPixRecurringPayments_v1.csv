@@ -106,3 +106,7 @@ CONSENTIMENTO_INVALIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/d
 Essa informação permitirá ao recebedor identificar e correlacionar a transferência, quando recebida, com a apresentação das instruções ao pagador. 
 Os caracteres permitidos no contexto do Pix para o campo txid (EMV 62-05) são:Letras minúsculas, de 'a' a 'z' Letras maiúsculas, de 'A' a 'z' Dígitos decimais, de '0' a '9'.
 ";Texto;35;Opcional;^[a-zA-Z0-9]{1,35}$;;0;1;"";Não permitido;string;E00038166201907261559y6j6;
+/data/document;document;Informações do documento identificador.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/document/identification;identification;Número do documento de identificação oficial do titular pessoa natural ou jurídica.;Texto;14;Obrigatório;^(?:\d{11}|\d{14})$;;1;1;"";Não permitido;string;11111111111111;11
+/data/document/rel;rel;Tipo do documento de identificação oficial do titular pessoa natural ou jurídica.;Texto;;Obrigatório;;"CPF 
+CNPJ";1;1;"";Não permitido;string;CNPJ;
