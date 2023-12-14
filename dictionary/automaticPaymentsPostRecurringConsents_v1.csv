@@ -15,7 +15,7 @@ Considerando a string urn:bancoex:C1DD33123 como exemplo para `recurringConsentI
 /data/businessEntity;businessEntity;"Usuário (pessoa jurídica) que encontra-se logado na instituição Iniciadora de Pagamento.
 
 [Restrição] Preenchimento obrigatório se usuário logado na instituição Iniciadora de Pagamento for um CNPJ (pessoa jurídica).
-";Objeto;;Obrigatório;;;1;1;" Preenchimento obrigatório se usuário logado na instituição Iniciadora de Pagamento for um CNPJ (pessoa jurídica).
+";Objeto;;Condicional;;;0;1;" Preenchimento obrigatório se usuário logado na instituição Iniciadora de Pagamento for um CNPJ (pessoa jurídica).
 ";Não permitido;object;;
 /data/businessEntity/document;document;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/businessEntity/document/identification;identification;Número do documento de identificação oficial do titular pessoa jurídica.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11111111111111;
@@ -59,7 +59,7 @@ Do contrário, será coletada na detentora e trazida para a iniciadora como resp
 no exercício de atividades da instituição, não podendo ser móvel ou transitória).
 
 [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
-";Texto;4;Obrigatório;^[0-9]{1,4}$;;1;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
 /data/debtorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), se houver valor alfanumérico, este deve ser convertido para 0.
 ";Texto;20;Obrigatório;^[0-9]{1,20}$;;1;1;"";Não permitido;string;1234567890;1
@@ -79,7 +79,7 @@ TRAN";1;1;"";Não permitido;string;CACC;
 [Restrições]
 - Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
 - Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”. 
-";Texto;7;Obrigatório;^\d{7}$;;1;1;"
+";Texto;7;Condicional;^\d{7}$;;0;1;"
 - Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
 - Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”. 
 ";Não permitido;string;5300108;7
@@ -156,7 +156,7 @@ REVOGADO_RECEBEDOR";1;1;"";Não permitido;string;REVOGADO_RECEBEDOR;
 - REVOGADO_RECEBEDOR: O usuário recebedor revogou a recorrência do consentimento.
 ";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;O usuário rejeitou a autorização do consentimento;
 /data/recurringConfiguration;;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/automatic;automatic;Definição da configuração de recorrência para pagamentos automáticos;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic;automatic;Definição da configuração de recorrência para pagamentos automáticos;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/recurringConfiguration/automatic/contractId;contractId;Identificador do contrato de transação;Texto;35;Obrigatório;^[a-zA-Z0-9]{1,35}$;;1;1;"";Não permitido;string;XE00038166201907261559y6j6;1
 /data/recurringConfiguration/automatic/amount;amount;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/automatic/transactionLimit;transactionLimit;Valor da transação com 2 casas decimais.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
@@ -259,8 +259,8 @@ Segue descrição de cada valor do ENUM.
 ";Texto;;Obrigatório;;"CACC 
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
-/data/recurringConfiguration/sweeping;sweeping;Definição da configuração de recorrência para transferências automáticas de fundos.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/recurringConfiguration/sweeping/amount;amount;Valor máximo a ser atingido pelo somatório de todas as transações que utilizam o consentimento autorizado pelo cliente. Caso o valor seja superado, a detentora de conta deve negar a transação solicitada pela iniciadora.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
+/data/recurringConfiguration/sweeping;sweeping;Definição da configuração de recorrência para transferências automáticas de fundos.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/recurringConfiguration/sweeping/totalAllowedAmount;totalAllowedAmount;Valor máximo a ser atingido pelo somatório de todas as transações que utilizam o consentimento autorizado pelo cliente. Caso o valor seja superado, a detentora de conta deve negar a transação solicitada pela iniciadora.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/sweeping/transactionLimit;transactionLimit;Valor máximo para cada transação de pagamento associada a esse consentimento. Caso valor do pagamento seja maior que esse limite, a detentora de contas deve rejeitar a transação de pagamento.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
 /data/recurringConfiguration/sweeping/periodicLimits;periodicLimits;Limites transacionais por período determinado pelo usuário pagador.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/recurringConfiguration/sweeping/periodicLimits/day;day;"Configurar limite transacional diário determinado pelo usuário pagador.
@@ -291,7 +291,7 @@ TRAN";1;1;"";Não permitido;string;CACC;
 ";Não permitido;object;;
 /data/recurringConfiguration/sweeping/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;
 /data/recurringConfiguration/sweeping/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
-/data/recurringConfiguration/vrp;vrp;Definição da configuração de recorrência para realização de transações de valores variáveis;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/vrp;vrp;Definição da configuração de recorrência para realização de transações de valores variáveis;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/recurringConfiguration/vrp/transactionLimit;transactionLimit;Limite máximo de valor permitido para cada transação de pagamento.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/vrp/globalLimits;globalLimits;"Limite transacional máximo para pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED"".";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/recurringConfiguration/vrp/globalLimits/quantityLimit;quantityLimit;"Quantidade máxima de ocorrência  de pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED""";Inteiro;;Opcional;;;0;1;"";Não permitido;integer;10;
