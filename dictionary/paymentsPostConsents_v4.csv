@@ -91,7 +91,11 @@ DOMINGO";1;1;"";Não permitido;string;QUINTA_FEIRA;
 /data/payment/schedule/monthly/dayOfMonth;dayOfMonth;;Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;10;
 /data/payment/schedule/monthly/startDate;startDate;;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2023-08-23;
 /data/payment/schedule/monthly/quantity;quantity;;Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;24;
-/data/payment/schedule/custom;custom;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/payment/schedule/custom;custom;"[Restrição] As datas enviadas na lista de datas (array “dates”) não podem ser repetidas. 
+Caso datas repetidas sejam enviadas, o detentor deve rejeitar a criação do consentimento, informando o erro PARAMETRO_INVALIDO.
+";Objeto;;Obrigatório;;;1;1;" As datas enviadas na lista de datas (array “dates”) não podem ser repetidas. 
+Caso datas repetidas sejam enviadas, o detentor deve rejeitar a criação do consentimento, informando o erro PARAMETRO_INVALIDO.
+";Não permitido;object;;
 /data/payment/schedule/custom/dates;dates;;Lista;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;2;730;"";Não permitido;array;2023-08-23;
 /data/payment/schedule/custom/additionalInformation;additionalInformation;"Texto livre para Iniciador preencher de forma compreensível pelo usuário aprovador/pagador. 
 O texto pode ser utilizado pelo detentor para exibição do resumo da transação durante aprovação do usuário aprovador/pagador.
