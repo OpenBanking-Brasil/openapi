@@ -36,8 +36,8 @@ OUTROS";1;1;"";Não permitido;string;DIVIDENDOS;
 /data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/transactionQuantity;transactionQuantity;"Quantidade de ativos movimentados.
 
-[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
-";Texto;24;Condicional;^\d{1,15}\.\d{2,8}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA' ou 'ALUGUEIS'.
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA' ou 'VENDA'.
+";Texto;24;Condicional;^\d{1,15}\.\d{2,8}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA' ou 'VENDA'.
 ";Não permitido;string;42.00000025;
 /data/transactionValue;transactionValue;Valor da operação realizada pelo cliente.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/transactionValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
