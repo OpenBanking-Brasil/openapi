@@ -9,6 +9,8 @@
 4 - Liquidação de Operação Cambial no Mercado Primário.  
 5 - Baixa de Valor a Liquidar de Operação Cambial no Mercado Primário.  
 6 - Restabelecimento de Baixa de Valor a Liquidar de Operação Cambial no Mercado Primário.  
+9 - Anulação de Operação Cambial no Mercado Primário (utilizado, por exemplo, na anulação de um evento de liquidação/cancelamento).  
+Obs.: Códigos seguem o layout de mensageria enviada pelas instituições ao Banco Central.  
 
 O evento está relacionado ao tipo de contratação.
 ";Texto;;Obrigatório;;"1 
@@ -16,7 +18,8 @@ O evento está relacionado ao tipo de contratação.
 3 
 4 
 5 
-6";1;1;"";Não permitido;string;2;
+6 
+9";1;1;"";Não permitido;string;2;
 /data/eventDate;eventDate;Data do evento relacionado com a operação.;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2023-03-07T08:30:00Z;
 /data/dueDate;dueDate;Data em que a operação (compra ou venda), após evento, está prevista para ser liquidada.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15;
 /data/localCurrencyOperationTax;localCurrencyOperationTax;Valor da taxa de câmbio aplicada à operação, em moeda nacional.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
@@ -54,13 +57,19 @@ SIMBOLICA";0;1;"";Não permitido;string;CARTA_CREDITO_A_PRAZO;
 /data/operationCategoryCode;operationCategoryCode;Código da natureza fato do fechamento da operação. Deve respeitar os códigos de natureza referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.;Texto;5;Opcional;^\d{5}$;;0;1;"";Não permitido;string;90302;
 /data/foreignPartie;foreignPartie;"Lista para envio de informações de parte envolvida.
 
-[Restrição] Lista de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM. 
-Caso a instituição possua a informação, ela é de envio obrigatório. 
-Caso a informação seja atualizada posteriormente a contratação, ela deve ser enviada através de eventos.
-";Lista;;Condicional;;;1;N;" Lista de preenchimento opcional pelas participantes quando o campo 'deliveryForeignCurrency ' for igual EM ESPÉCIE E/OU CHEQUES DE VIAGEM. 
-Caso a instituição possua a informação, ela é de envio obrigatório. 
-Caso a informação seja atualizada posteriormente a contratação, ela deve ser enviada através de eventos.
-";Não permitido;array;;
+[Restrição] Lista de preenchimento opcional pelas participantes quando:
+- O campo `deliveryForeignCurrency` for igual a ESPECIE_CHEQUES_VIAGEM ou CARTAO_PREPAGO.
+- O campo `eventType` for diferente de ""4 - Liquidação de Operação Cambial no Mercado Primário.""
+
+Caso a instituição possua a informação, ela é de envio obrigatório. Caso a informação seja atualizada
+posteriormente à contratação, ela deve ser enviada através de eventos.
+";Objeto;;Condicional;;;0;1;" Lista de preenchimento opcional pelas participantes quando:
+- O campo `deliveryForeignCurrency` for igual a ESPECIE_CHEQUES_VIAGEM ou CARTAO_PREPAGO.
+- O campo `eventType` for diferente de ""4 - Liquidação de Operação Cambial no Mercado Primário.""
+
+Caso a instituição possua a informação, ela é de envio obrigatório. Caso a informação seja atualizada
+posteriormente à contratação, ela deve ser enviada através de eventos.
+";Não permitido;object;;
 /data/foreignPartie/relationshipCode;relationshipCode;"Código de Relação de vínculo entre o Cliente e o Pagador/Recebedor no Exterior. Deve respeitar os códigos de vínculo referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.
 ";Texto;2;Obrigatório;^\d{2}$;;1;1;"";Não permitido;string;50;
 /data/foreignPartie/foreignPartieName;foreignPartieName;"Nome do pagador ou recebedor no exterior.
