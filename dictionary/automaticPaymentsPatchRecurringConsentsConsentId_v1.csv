@@ -85,8 +85,8 @@ TRAN";1;1;"";Não permitido;string;CACC;
 ";Não permitido;string;5300108;7
 /data/rejection;rejection;"Objeto contendo as informações de rejeição dos consentimentos.
 
-[Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"" ou ""REVOKED""
-";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"" ou ""REVOKED""
+[Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"".
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"".
 ";Não permitido;object;;
 /data/rejection/rejectedBy;rejectedBy;"Quem iniciou a solicitação de rejeição
 - INICIADORA
@@ -130,7 +130,11 @@ VALOR_ACIMA_LIMITE";1;1;"";Não permitido;string;VALOR_ACIMA_LIMITE;
 - SALDO_INSUFICIENTE: A conta selecionada não possui saldo suficiente para realizar o pagamento;
 - VALOR_ACIMA_LIMITE: O valor ultrapassa o limite estabelecido para permitir a realização de transações pelo cliente;
 ";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;O usuário rejeitou a autorização do consentimento;
-/data/revocation;revocation;Objeto contendo as informações de revogação dos consentimentos.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/revocation;revocation;"Objeto contendo as informações de revogação dos consentimentos.
+
+[Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REVOKED"".
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório caso status do consentimento igual a ""REVOKED"".
+";Não permitido;object;;
 /data/revocation/revokedBy;revokedBy;"Quem iniciou a solicitação de revogação  
 - INICIADORA
 - USUARIO
