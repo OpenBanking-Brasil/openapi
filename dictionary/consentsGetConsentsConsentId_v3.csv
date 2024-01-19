@@ -71,7 +71,7 @@ TPP";1;1;"";Não permitido;string;USER;
 - CUSTOMER_MANUALLY_REJECTED – cliente efetuou a rejeição do consentimento manualmente através de interação nas instituições participantes.   
 - CUSTOMER_MANUALLY_REVOKED – cliente efetuou a revogação após a autorização do consentimento.   
 - CONSENT_MAX_DATE_REACHED – consentimento que ultrapassou o tempo limite de compartilhamento.   
-- CONSENT_TECHNICAL_ISSUE – consentimento que foi rejeitado devido a um problema técnico que impossibilita seu uso pela instituição receptora, por exemplo: falha associada a troca do AuthCode pelo AccessToken, durante o processo de Hybid Flow.   
+- CONSENT_TECHNICAL_ISSUE – consentimento que foi rejeitado devido a um problema técnico que impossibilita seu uso pela instituição receptora, por exemplo: falha associada a troca do AuthCode pelo AccessToken, durante o processo de Hybrid Flow.   
 - INTERNAL_SECURITY_REASON – consentimento que foi rejeitado devido as políticas de segurança aplicada pela instituição transmissora.
 ";Texto;;Obrigatório;Opcional;;"CONSENT_EXPIRED 
 CUSTOMER_MANUALLY_REJECTED 
