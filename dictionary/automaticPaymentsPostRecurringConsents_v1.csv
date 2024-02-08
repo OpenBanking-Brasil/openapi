@@ -45,7 +45,11 @@ O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou tra
 /data/creditors/name;name;"Em caso de pessoa natural deve ser informado o nome completo do titular da conta do recebedor.  
 Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.
 ";Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ,.@:&*+_<>()!?/\\$%\d' -]+)$;;1;1;"";Não permitido;string;Marco Antonio de Brito;
-/data/startDateTime;startDateTime;Data e hora em que o consentimento deve passar a ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/startDateTime;startDateTime;"Data e hora em que o consentimento deve passar a ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+
+[Restrição] Preenchimento obrigatório quando o consentimento de pagamento passa a valer em data (dia e hora) futura.
+";Date Hora;20;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;" Preenchimento obrigatório quando o consentimento de pagamento passa a valer em data (dia e hora) futura.
+";Não permitido;string;2021-05-21T08:30:00Z;
 /data/creationDateTime;creationDateTime;Data e hora em que o consentimento foi criado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/expirationDateTime;expirationDateTime;Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/additionalInformation;additionalInformation;Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional no consentimento;Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Minha recorrência;
@@ -85,8 +89,8 @@ TRAN";1;1;"";Não permitido;string;CACC;
 ";Não permitido;string;5300108;7
 /data/rejection;rejection;"Objeto contendo as informações de rejeição dos consentimentos.
 
-[Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"" ou ""REVOKED""
-";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"" ou ""REVOKED""
+[Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"".
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório caso status do consentimento igual a ""REJECTED"".
 ";Não permitido;object;;
 /data/rejection/rejectedBy;rejectedBy;"Quem iniciou a solicitação de rejeição
 - INICIADORA
@@ -130,7 +134,11 @@ VALOR_ACIMA_LIMITE";1;1;"";Não permitido;string;VALOR_ACIMA_LIMITE;
 - SALDO_INSUFICIENTE: A conta selecionada não possui saldo suficiente para realizar o pagamento;
 - VALOR_ACIMA_LIMITE: O valor ultrapassa o limite estabelecido para permitir a realização de transações pelo cliente;
 ";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;O usuário rejeitou a autorização do consentimento;
-/data/revocation;revocation;Objeto contendo as informações de revogação dos consentimentos.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/revocation;revocation;"Objeto contendo as informações de revogação dos consentimentos.
+
+[Restrição] Campo de preenchimento obrigatório caso status do consentimento igual a ""REVOKED"".
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório caso status do consentimento igual a ""REVOKED"".
+";Não permitido;object;;
 /data/revocation/revokedBy;revokedBy;"Quem iniciou a solicitação de revogação  
 - INICIADORA
 - USUARIO

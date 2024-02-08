@@ -65,6 +65,8 @@ Motivo da rejeição do pagamento. Informações complementares sobre o motivo d
 - FALHA_INFRAESTRUTURA_ICP
 - FALHA_INFRAESTRUTURA_PSP_RECEBEDOR
 - FALHA_INFRAESTRUTURA_DETENTORA
+- LIMITE_PERIODO_VALOR_EXCEDIDO
+- LIMITE_PERIODO_QUANTIDADE_EXCEDIDO
 
 [Restrição] Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
 ";Texto;;Obrigatório;;"SALDO_INSUFICIENTE 
@@ -78,7 +80,8 @@ FALHA_INFRAESTRUTURA_SPI
 FALHA_INFRAESTRUTURA_ICP 
 FALHA_INFRAESTRUTURA_PSP_RECEBEDOR 
 FALHA_INFRAESTRUTURA_DETENTORA 
-CONSENTIMENTO_INVALIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
+LIMITE_PERIODO_VALOR_EXCEDIDO 
+LIMITE_PERIODO_QUANTIDADE_EXCEDIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
 ";Não permitido;string;SALDO_INSUFICIENTE;
 /data/rejectionReason/detail;detail;"Detalhe sobre o código identificador do motivo de rejeição.
 
@@ -94,6 +97,8 @@ CONSENTIMENTO_INVALIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/d
 - FALHA_INFRAESTRUTURA_ICP: Indica uma falha na Infraestrutura de Chaves Públicas (ICP);
 - FALHA_INFRAESTRUTURA_PSP_RECEBEDOR: Indica uma falha na infraestrutura do Prestador de Serviço de Pagamento (PSP) que recebe o pagamento;
 - FALHA_INFRAESTRUTURA_DETENTORA: indica uma falha na infraestrutura da instituição detentora das informações ou recursos;
+- LIMITE_PERIODO_VALOR_EXCEDIDO – A transação não pode ser realizada pois o valor parametrizado no consentimento foi excedido.
+- LIMITE_PERIODO_QUANTIDADE_EXCEDIDO – A transação não pode ser realizada pois a quantidade parametrizada no consentimento foi excedida.
 ";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;;
 /data/payment;payment;Objeto contendo as informações do pagamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/payment/amount;amount;"Valor da transação com 2 casas decimais.
