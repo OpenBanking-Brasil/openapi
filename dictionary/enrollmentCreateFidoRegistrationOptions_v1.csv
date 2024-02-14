@@ -11,13 +11,13 @@ Considerando a string urn:bancoex:C1DD33123 como exemplo para enrollmentId temos
 Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
 ";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
 /data/rp;rp;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/rp/id;id;Identificador único da Relying Party.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
-/data/rp/name;name;Nome amigável da Relying Party para exibição aos usuários.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/rp/id;id;Identificador único da Relying Party. Esse campo deve ser preenchido com o valor que é enviado na requisição no campo /data/rp.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/rp/name;name;Nome amigável da Relying Party para exibição aos usuários. Pode ser obtido através do Software Statement Assertion, atributo software_client_name.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user;user;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/user/id;id;Identificador único do usuário sob registro.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/user/id;id;Identificador único do usuário sob registro em formato base64. A conversão deste valor para o formato original (BufferSource ou ArrayBuffer) não deve ultrapassar 64 bytes.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user/name;name;Identificador do usuário human-readable.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user/displayName;displayName;Identificador do usuário para fins de apresentação.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
-/data/challenge;challenge;Sequência de bytes aleatórios gerados pelo servidor FIDO2, codificados em base64.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/challenge;challenge;Sequência de bytes aleatórios gerados pelo servidor FIDO2. Deve ser o valor em formato base64url.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/pubKeyCredParams;pubKeyCredParams;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
 /data/pubKeyCredParams/alg;alg;Identificador do algoritmo (COSE);Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;-7;
 /data/pubKeyCredParams/type;type;Identificador do tipo de credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;public-key;
@@ -25,7 +25,6 @@ Informações mais detalhadas sobre a construção de namespaces devem ser consu
 /data/excludeCredentials;excludeCredentials;;Lista;;Opcional;;;0;N;"";Não permitido;array;;
 /data/excludeCredentials/id;id;Identificador único da credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/excludeCredentials/type;type;Identificador do tipo de credencial.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;public-key;
-/data/excludeCredentials/transports;transports;Indicação opcional de como o cliente pode se comunicar com o autenticador do dispositivo.;Lista;;Opcional;;;0;N;"";Não permitido;array;usb, nfc, ble, smart-card, hybrid, internal;
 /data/authenticatorSelection;authenticatorSelection;Restrições adicionais sobre os tipos de autenticadores permitidos para o registro.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/authenticatorSelection/authenticatorAttachment;authenticatorAttachment;Indica os tipos de autenticadores suportados (ex: Sistema Operacional ou Cross-Platform como uma chave USB);Texto;;Opcional;;;0;1;"";Não permitido;string;platform, cross-platform;
 /data/authenticatorSelection/userVerification;userVerification;"Indica o tipo de ""discoverability"" da credencial.";Texto;;Opcional;;;0;1;"";Não permitido;string;discouraged, preferred, required;
@@ -34,3 +33,4 @@ Informações mais detalhadas sobre a construção de namespaces devem ser consu
 /data/attestation;attestation;Indica o tipo de attestation que o autenticador pode utilizar.;Texto;;Opcional;;;0;1;"";Não permitido;string;none, indirect, direct, enterprise;
 /data/attestationFormats;attestationFormats;Indica as preferências de formato sobre o campo attestation.;Lista;;Opcional;;;0;N;"";Não permitido;array;packed, tpm, android-key, android-safetynet, fido-u2f, apple, none;
 /data/extensions;extensions;Campo de extensão com opções que variam por plataforma.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/extensions/additionalProperties;additionalProperties;;Texto;;Opcional;;;0;1;"";Não permitido;string;;
