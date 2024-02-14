@@ -59,7 +59,10 @@ CREDITO_RURAL_TCR_POS
 CREDITO_RURAL_TRFC_PRE 
 CREDITO_RURAL_TRFC_POS 
 OUTROS_INDEXADORES";1;1;"";Não permitido;string;SEM_INDEXADOR_TAXA;
-/data/interestRates/rate;rate;"Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+/data/interestRates/rate;rate;"Percentual que representa o indexador Pós selecionado. Ex: 100% da TR = 1.000000 da TR, 90% da TR = 0.9000000. 
+Em casos em que não haja indexador, deve ser selecionado Sem Indexador no campo /referentialRateIndexe e representado o rate de 0.000000 (zero). 
+Em caso em que a taxa é somente Pré fixada, o rate também deverá ser colocado como 0.000000 (zero).
+A apuração pode acontecer com até 6 casas decimais. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem - Ex: 0.150000 = 15%. O valor 1.000000 representa 100%).
 ";Texto;8;Obrigatório;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
 /data/interestRates/applications;applications;Lista  das faixas de cobrança da taxa efetiva de remuneração.;Lista;;Obrigatório;Opcional;;;4;4;"";Não permitido;array;;
 /data/interestRates/applications/interval;interval;"Faixas para cobrança da taxa efetiva aplicada pela contratação do crédito, no intervalo informado: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa. Segundo Normativa nº32 de 2020: 'Distribuição de frequência relativa dos valores de tarifas e taxas de juros cobrados dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana e o percentual de clientes em cada uma dessas faixas.
@@ -68,8 +71,11 @@ OUTROS_INDEXADORES";1;1;"";Não permitido;string;SEM_INDEXADOR_TAXA;
 3_FAIXA 
 4_FAIXA";1;1;"";Não permitido;string;4_FAIXA;
 /data/interestRates/applications/indexer;indexer;;Objeto;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/interestRates/applications/indexer/rate;rate;"Percentual que corresponde a mediana da taxa efetiva cobrada do cliente pela contratação do crédito, no intervalo informado. p.ex. '0,8700%'. A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
-";Texto;8;Opcional;Obrigatório;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.870000;8
+/data/interestRates/applications/indexer/rate;rate;"Percentual que corresponde a mediana da taxa pré fixada cobrada do cliente pela contratação do crédito, no intervalo informado. Ex: 0.087000 = 8,7%. 
+Nos casos de produtos puramente pós fixados, as faixas 1,2, 3 e 4 deverão receber o valor 0.000000 (zero). 
+Nesse caso, o customers/rate deverá ser representado com 1.000000, ou seja, 100%.
+A apuração pode acontecer com até 6 casas decimais. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1.000000 representa 100%).
+";Texto;8;Opcional;Obrigatório;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.087000;8
 /data/interestRates/applications/customers;customers;Informações relevantes para o cliente.;Objeto;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/interestRates/applications/customers/rate;rate;"Percentual de clientes em cada faixa.
 ";Texto;8;Obrigatório;Obrigatório;^\d{1}\.\d{6}$;;1;1;"";Não permitido;string;0.150000;8
