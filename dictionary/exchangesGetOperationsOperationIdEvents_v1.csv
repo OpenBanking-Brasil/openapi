@@ -37,7 +37,7 @@ O evento está relacionado ao tipo de contratação.
 /data/vetAmount;vetAmount;Representa o custo de uma operação de câmbio em reais por moeda estrangeira, englobando a taxa de câmbio, as tarifas e tributos incidentes sobre essa operação. Campo de envio obrigatório nas operações de câmbio pronto que atingirem até o limite de US$100.000 ou equivalente em outras moedas.;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/vetAmount/amount;amount;Valor relacionado ao objeto.;Texto;31;Obrigatório;\d{1,15}\.\d{1,15}$;;1;1;"";Não permitido;string;1000.000004;
 /data/vetAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/localCurrencyAdvancePercentage;localCurrencyAdvancePercentage;"Percentual do valor de moeda nacional concedido ao cliente antecipadamente. p.ex. 0.014500.
+/data/localCurrencyAdvancePercentage;localCurrencyAdvancePercentage;"Percentual do valor de moeda estrangeira concedido ao cliente antecipadamente. p.ex. 0.014500.
 
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). Campos de envio obrigatório no caso de operações de câmbio com liquidação futura.
 ";Texto;8;Opcional;^\d{1}\.\d{1,6}$;;0;1;"";Não permitido;string;0.12;3
