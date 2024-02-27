@@ -54,8 +54,13 @@ Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasi
 /data/expirationDateTime;expirationDateTime;Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/additionalInformation;additionalInformation;Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional no consentimento;Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Minha recorrência;
 /data/debtorAccount;debtorAccount;"Objeto que contém a identificação da conta de origem do pagador. As informações quanto à conta de origem do pagador poderão ser trazidas no consentimento para a detentora, caso a iniciadora tenha coletado essas informações do cliente. 
-Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.  
-";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.
+
+[Restrições]
+- Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
+";Objeto;;Condicional;;;0;1;"
+- Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
+";Não permitido;object;;
 /data/debtorAccount/ispb;ispb;"Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
 ";Texto;8;Obrigatório;^[0-9]{8}$;;1;1;"";Não permitido;string;12345678;8
 /data/debtorAccount/issuer;issuer;"Código da Agência emissora da conta sem dígito. 
@@ -81,10 +86,8 @@ TRAN";1;1;"";Não permitido;string;CACC;
 /data/debtorAccount/ibgeTownCode;ibgeTownCode;"Campo utilizado pela iniciadora para cálculo do dia útil de liquidação do pagamento (vide especificação do endToEndId) baseado no município de cadastro do usuário pagador no detentor.
 
 [Restrições]
-- Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
 - Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”. 
 ";Texto;7;Condicional;^\d{7}$;;0;1;"
-- Campo obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
 - Campo obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”. 
 ";Não permitido;string;5300108;7
 /data/rejection;rejection;"Objeto contendo as informações de rejeição dos consentimentos.
