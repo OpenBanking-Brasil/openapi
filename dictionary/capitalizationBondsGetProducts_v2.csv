@@ -1,0 +1,168 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Obrigatório por Regulação;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Conjunto de informações do Título de Capitalização;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
+/data/participant;participant;Conjunto de informações relativas ao participante do produto de Open Finance;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Organização;1
+/data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Organização A1;1
+/data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
+/data/participant/urlComplementaryList;urlComplementaryList;"Espera-se que valor de retorno, após acesso ao link ‘urlComplementaryList’, deve ser array de objeto com a estrutura abaixo:
+
+- ‘name’ com o valor contido no campo ‘LegalEntityName’ conforme cadastro no diretório;
+
+- 'cnpjNumber' com o valor contido no campo CNPJ (‘RegistrationNumber’) correspondente a esta instituição;
+
+- Ambos do tipo string;
+
+- Ambos obrigatórios.
+";Texto;1024;Opcional;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
+/data/society;society;Dados sobre a seguradora participante do OPIN.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Society A1;1
+/data/society/cnpjNumber;cnpjNumber;CNPJ da sociedade seguradora participante do OPIN.;Texto;;Obrigatório;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
+/data/society/products;products;Lista de produtos da sociedade seguradora participante do OPIN.;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
+/data/society/products/name;name;Nome comercial do produto, pelo qual é identificado nos canais de distribuição e atendimento da sociedade.;Texto;80;Obrigatório;Opcional;;;1;1;"";Não permitido;string;ACMEcap;1
+/data/society/products/code;code;Código único a ser definido pela sociedade.;Texto;100;Obrigatório;Opcional;;;1;1;"";Não permitido;string;01234589_cap;1
+/data/society/products/modality;modality;"Modalidades de capitalização permitidas pela Susep para comercialização: 
+
+  1.Tradicional: A modalidade tradicional tem por objetivo restituir ao titular, ao final do prazo de vigência, no mínimo, o valor total das contribuições efetuadas pelo subscritor, desde que todas as contribuições previstas tenham sido realizadas nas datas programadas. (Res CNSP 384/20)
+
+  2.Instrumento de Garantia: A modalidade tem por objetivo propiciar que a provisão matemática para capitalização do título de capitalização seja utilizada para assegurar o cumprimento de obrigação assumida em contrato principal pelo titular perante terceiro. (Res CNSP 384/20)
+
+  3.Compra Programada: A modalidade compra programada garante o valor de resgate em moeda corrente nacional, sendo disponibilizada ao assim desejar e sem qualquer outro custo, pelo recebimento do bem e/ou serviço referenciado no subsidiado por acordos comerciais celebrados com indústrias, atacadistas, empresas comerciais ou prestadores de serviço. (Res CNSP 384/20)
+
+  4.Popular: A modalidade popular tem por objetivo propiciar a capitalização da contribuição e a participação do titular em sorteios, sem que haja devolução integral do valor pago. (Res CNSP 384/20)
+
+  5.Incentivo: A modalidade incentivo tem por objetivo a vinculação a um evento promocional de caráter comercial instituído pelo subscritor para alavancar a venda de seu(s) produto(s) ou serviços ou para fidelizar seus clientes. (Res CNSP 384/20)
+
+  6.Filantropia Premiável: A modalidade filantropia premiável é destinada ao subscritor interessado em contribuir com entidades beneficentes de assistências sociais, certificadas nos termos da legislação vigente, e participar de sorteio(s). (Res CNSP 384/20)
+";Texto;;Opcional;Obrigatório;;"TRADICIONAL 
+INSTRUMENTO_GARANTIA 
+COMPRA_PROGRAMADA 
+POPULAR 
+INCENTIVO 
+FILANTROPIA_PREMIAVEL";0;1;"";Não permitido;string;TRADICIONAL;
+/data/society/products/costType;costType;"Pagamento efetuado ao subscritor à sociedade de capitalização para aquisição do título de capitalização, podendo ser única, periódica ou mensal.
+";Texto;;Opcional;Obrigatório;;"PAGAMENTO_UNICO 
+PAGAMENTO_MENSAL 
+PAGAMENTO_PERIODICO";0;1;"";Não permitido;string;PAGAMENTO_UNICO;
+/data/society/products/termsAndConditions;termsAndConditions;Informações relativas aos termos e condições.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/society/products/termsAndConditions/susepProcessNumber;susepProcessNumber;"Sequência numérica utilizada para consulta dos processos eletrônicos na SUSEP, com caracteres especiais, conforme campo de consulta no site da SUSEP (XXXXX.XXXXXX/XXXX-XX)<br>Observação&#58; Mascaras da SUSEP – Serão permitidos todas as máscaras de Produtos. Limitar pelos códigos das Máscaras.";Texto;30;Opcional;Obrigatório;^\d{5}\.\d{6}\/\d{4}-\d{2}$|^\d{2}\.\d{6}\/\d{2}-\d{2}$|^\d{3}-\d{5}\/\d{2}$|^\d{5}\.\d{6}\/\d{2}-\d{2}$;;0;1;"";Não permitido;string;15414.622222/2222-22;2
+/data/society/products/termsAndConditions/termsRegulations;termsRegulations;Campo aberto para representar as Condições Gerais, Condições Especiais e Condições ou Cláusulas Particulares de um mesmo produto, conforme Circular SUSEP 321/06. Pode-se incluir URL que apresenta esse termos e condições.;Texto;1024;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;
+/data/society/products/quotas;quotas;Informações relativas às taxas da cotas praticadas para cada parcela.;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
+/data/society/products/quotas/quota;quota;Número da parcela.;Número;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;number;10;
+/data/society/products/quotas/capitalizationQuota;capitalizationQuota;Percentual da contribuição destinado à constituição de capital referente ao direito de resgate. (Resolução CNSP 384/20).;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/quotas/raffleQuota;raffleQuota;Percentual da contribuição destinado a custear os sorteios, se previstos no plano. (Resolução CNSP 384/20).;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/quotas/chargingQuota;chargingQuota;Percentual da contribuição destinado aos custos de despesas com corretagem, colocação e administração do título de capitalização, emissão, divulgação, lucro da sociedade de capitalização e eventuais despesas relativas ao custeio da contemplação obrigatória e da distribuição de bônus. (Resolução CNSP 384/20).;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/validity;validity;Período entre a data de início e a data final para constituição do capital a ser pago ao(s) titular(es) do direito de resgate. Prazo de vigência do título de capitalização em meses (Resolução CNSP 384/20).;Inteiro;;Opcional;Obrigatório;;;0;1;"";Não permitido;integer;48;
+/data/society/products/serieSize;serieSize;Os títulos de capitalização com sorteio devem ser estruturados em séries, ou seja, em sequências ou em grupos de títulos submetidos às mesmas condições e características, à exceção do valor do pagamento.;Inteiro;;Opcional;Obrigatório;;;0;1;"";Não permitido;integer;5000000;
+/data/society/products/capitalizationPeriod;capitalizationPeriod;Informações relativas ao período de capitalização.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/society/products/capitalizationPeriod/interestRate;interestRate;Taxa que remunera a parte da mensalidade destinada a formar o Capital, ou seja, a Provisão Matemática de Resgate, também chamada de saldo de capitalização. Em porcentagem ao mês (% a.m.).;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/capitalizationPeriod/updateIndex;updateIndex;"Índice utilizado na atualização dos pagamentos mensais (para títulos com mais de 12 meses de vigência) (não aplicável a pagamento único). 
+";Texto;;Opcional;Obrigatório;;"IPCA 
+IGPM 
+INPC 
+TR 
+INDICE_REMUNERACAO_DEPOSITOS_POUPANCA 
+OUTROS";0;1;"";Não permitido;string;IPCA;
+/data/society/products/capitalizationPeriod/updateIndexAdditionalInfo;updateIndexAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao índice utilizado na atualização dos pagamentos mensais. 
+
+[Restrição] Obrigatório quando ""updateIndex"" for igual 'OUTROS'.
+";Texto;200;Condicional;Opcional;;;0;1;" Obrigatório quando ""updateIndex"" for igual 'OUTROS'.
+";Não permitido;string;Informações adicionais;
+/data/society/products/capitalizationPeriod/contributionAmount;contributionAmount;;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
+/data/society/products/capitalizationPeriod/contributionAmount/periodicity;periodicity;"Intervalo de tempo regular previsto entre os sorteios. Na integração entre os sistemas OFB e OPIN, a correspondência do item 'PERIODICO' no OPIN está relacionada ao item 'OUTROS' no OFB. 
+Detalhes adicionais sobre esse cenário podem ser descritos no campo 'periodicityAdditionalInfo'.
+";Texto;;Opcional;Obrigatório;;"UNICO 
+DIARIO 
+SEMANAL 
+QUINZENAL 
+MENSAL 
+BIMESTRAL 
+TRIMESTRAL 
+QUADRIMESTRAL 
+SEMESTRAL 
+ANUAL 
+OUTROS";0;1;"";Não permitido;string;UNICO;
+/data/society/products/capitalizationPeriod/contributionAmount/periodicityAdditionalInfo;periodicityAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao intervalo de tempo regular previsto entre os sorteios.
+
+[Restrição] Obrigatório quando ""periodicity"" for igual 'OUTROS'.
+";Texto;200;Condicional;Opcional;;;0;1;" Obrigatório quando ""periodicity"" for igual 'OUTROS'.
+";Não permitido;string;Informações adicionais;
+/data/society/products/capitalizationPeriod/contributionAmount/minimum;minimum;"Valor mínimo. Para a modalidade 'TRADICIONAL' o valor mínimo correspondente ao pagamento efetuado pelo subscritor à sociedade de capitalização.
+";Texto;21;Obrigatório;Obrigatório;^(\d{1,16}\.\d{2,4})$;;1;1;"";Não permitido;string;1.2222;
+/data/society/products/capitalizationPeriod/contributionAmount/maximum;maximum;"Valor máximo. Para a modalidade 'TRADICIONAL' o valor máximo correspondente ao pagamento efetuado pelo subscritor à sociedade de capitalização.
+";Texto;21;Obrigatório;Obrigatório;^(\d{1,16}\.\d{2,4})$;;1;1;"";Não permitido;string;1.2222;
+/data/society/products/capitalizationPeriod/contributionAmount/allowedValue;allowedValue;"Valor permitido. Para a modalidade 'TRADICIONAL' o valor permitido correspondente ao pagamento efetuado pelo subscritor à sociedade de capitalização.
+";Número;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;number;5000;
+/data/society/products/capitalizationPeriod/earlyRedemptions;earlyRedemptions;Informações relativas ao resgate antecipado.;Lista;;Obrigatório;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/society/products/capitalizationPeriod/earlyRedemptions/quota;quota;Parcela relativa ao Resgate Antecipado;Número;;Obrigatório;Opcional;;;1;1;"";Não permitido;number;10;
+/data/society/products/capitalizationPeriod/earlyRedemptions/rate;rate;Taxa relativa ao Resgate Antecipado;Texto;9;Obrigatório;Opcional;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/capitalizationPeriod/redemptionPercentageEndTerm;redemptionPercentageEndTerm;Percentual mínimo da soma das contribuições efetuadas que poderá ser resgatado ao final da vigência, tendo como condição os pagamentos das parcelas nos respectivos vencimentos.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/capitalizationPeriod/gracePeriodRedemption;gracePeriodRedemption;Intervalo de tempo mínimo entre contratação e resgate do direito, em meses.;Número;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;number;48;
+/data/society/products/latePayment;latePayment;Informações relativas ao atraso de pagamento.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/society/products/latePayment/suspensionMonths;suspensionMonths;"Prazo máximo (contínuo ou intermitente) em meses que o título fica suspenso por atraso de pagamento, antes de ser cancelado, exceto pagamento único, 
+conforme as diretrizes do manual da SUSEP
+";Inteiro;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;integer;10;
+/data/society/products/latePayment/periodExtensionOption;periodExtensionOption;"Alteração do prazo de vigência original, pela suspensão, exceto pagamento único.
+";Booleano;;Opcional;Obrigatório;;;0;1;"";Não permitido;boolean;true;
+/data/society/products/contributionPayment;contributionPayment;Informações relativas ao pagamento da contribuição.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/society/products/contributionPayment/paymentMethod;paymentMethod;"Modo de pagamento utilizado para realizar o pagamento da contribuição.
+";Texto;;Opcional;Obrigatório;;"CARTAO_CREDITO 
+CARTAO_DEBITO 
+DEBITO_CONTA_CORRENTE 
+DEBITO_CONTA_POUPANCA 
+BOLETO_BANCARIO 
+PIX 
+CONSIGNACAO_FOLHA_PAGAMENTO 
+PAGAMENTO_PONTOS 
+OUTROS";0;1;"";Não permitido;string;CARTAO_CREDITO;
+/data/society/products/contributionPayment/paymentMethodAdditionalInfo;paymentMethodAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao meio de Pagamento utilizado para pagamento da contribuição.
+
+[Restrição] Obrigatório quando ""paymentMethod"" for igual 'OUTROS'.
+";Texto;200;Condicional;Opcional;;;0;1;" Obrigatório quando ""paymentMethod"" for igual 'OUTROS'.
+";Não permitido;string;Informações adicionais;
+/data/society/products/contributionPayment/updateIndex;updateIndex;"Índice utilizado na atualização dos pagamentos mensais (para títulos com mais de 12 meses de vigência) (não aplicável a pagamento único). 
+";Texto;;Opcional;Obrigatório;;"IPCA 
+IGPM 
+INPC 
+TR 
+INDICE_REMUNERACAO_DEPOSITOS_POUPANCA 
+OUTROS";0;1;"";Não permitido;string;IPCA;
+/data/society/products/contributionPayment/updateIndexAdditionalInfo;updateIndexAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao índice utilizado na atualização dos pagamentos mensais.
+
+[Restrição] Obrigatório quando ""updateIndex"" for igual 'OUTROS'.
+";Texto;200;Condicional;Opcional;;;0;1;" Obrigatório quando ""updateIndex"" for igual 'OUTROS'.
+";Não permitido;string;Informações adicionais;
+/data/society/products/finalRedemptionRate;finalRedemptionRate;Valor percentual (%) de resgate final permitido.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/draws;draws;Informações relativas aos Sorteios;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
+/data/society/products/draws/timeInterval;timeInterval;"Período de tempo regular estabelecido entre as ocorrências dos sorteios.
+";Texto;;Opcional;Obrigatório;;"UNICO 
+DIÁRIO 
+SEMANAL 
+QUINZENAL 
+MENSAL 
+BIMESTRAL 
+TRIMESTRAL 
+QUADRIMESTRAL 
+SEMESTRAL 
+ANUAL 
+OUTROS";0;1;"";Não permitido;string;UNICO;
+/data/society/products/draws/timeIntervalAdditionalInfo;timeIntervalAdditionalInfo;"Campo livre para preenchimento das informações adicionais referente ao intervalo de tempo regular previsto entre os sorteios.
+
+[Restrição] Obrigatório quando ""timeInterval"" for igual 'OUTROS'.
+";Texto;200;Condicional;Opcional;;;0;1;" Obrigatório quando ""timeInterval"" for igual 'OUTROS'.
+";Não permitido;string;Informações adicionais;
+/data/society/products/draws/quantity;quantity;Número da quantidade de sorteios previstos ao longo da vigência.;Inteiro;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;integer;10000;
+/data/society/products/draws/prizeMultiplier;prizeMultiplier;Valor dos sorteios representado por múltiplo do valor de contribuição. Por exemplo: 5 vezes valor da contribuição;Número;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;number;5;
+/data/society/products/draws/earlySettlementRaffle;earlySettlementRaffle;"Modelo de sorteio que acarreta, ao título contemplado, o seu resgate total obrigatório (Resolução Normativa 384/20).
+";Booleano;;Opcional;Obrigatório;;;0;1;"";Não permitido;boolean;true;
+/data/society/products/draws/mandatoryContemplation;mandatoryContemplation;"Indicador da possibilidade de realização de sorteio com previsão de que o título sorteado seja obrigatoriamente um título comercializado, desde que atingidos os requisitos definidos nas condições gerais do plano.
+";Booleano;;Opcional;Obrigatório;;;0;1;"";Não permitido;boolean;true;
+/data/society/products/draws/ruleDescription;ruleDescription;Campo aberto para complementar a regra dos sorteios do produto, a ser feita para cada participante.;Texto;200;Opcional;Obrigatório;;;0;1;"";Não permitido;string;Sorteios próprios às terças-feiras. Toda quarta-feira sorteios através da loteria federal.;
+/data/society/products/draws/minimumContemplationProbability;minimumContemplationProbability;Percentual da probabilidade mínima de contemplação nos sorteios.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
+/data/society/products/additionalInfo;additionalInfo;Campo livre para preenchimento das informações adicionais referente ao produto da sociedade seguradora participante do OPIN. Pode-se incluir URL.;Texto;1024;Obrigatório;Opcional;;;1;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
+/data/society/products/minimumRequirementDetails;minimumRequirementDetails;"Campo livre para preenchimento das informações adicionais referente ao requerimento mínimo. Pode-se incluir URL.
+";Texto;1024;Opcional;Obrigatório;;;0;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
+/data/society/products/targetAudience;targetAudience;"Público alvo do produto da sociedade seguradora participante do OPIN.
+";Texto;;Opcional;Obrigatório;;"PESSOA_NATURAL 
+PESSOA_JURIDICA 
+PESSOA_NATURAL_JURIDICA";0;1;"";Não permitido;string;PESSOA_NATURAL;
+/data/society/brand;brand;Nome da Marca reportada pelo participante do Open Insurance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Marca no OPIN;
