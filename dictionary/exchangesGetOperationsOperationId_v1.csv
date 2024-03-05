@@ -34,7 +34,31 @@ VENDA";1;1;"";Não permitido;string;COMPRA;
 
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). Campos de envio obrigatório no caso de operações de câmbio com liquidação futura.
 ";Texto;8;Opcional;^\d{1}\.\d{1,6}$;;0;1;"";Não permitido;string;0.12;3
-/data/deliveryForeignCurrency;deliveryForeignCurrency;Forma de entrega da moeda estrangeira.;Texto;;Obrigatório;;"CONTA_DEPOSITO_MOEDA_ESTRANGEIRA_PAIS 
+/data/deliveryForeignCurrency;deliveryForeignCurrency;"Forma de entrega da moeda estrangeira.
+
+```
+|--------|-------------------------------------------------------------|
+| Código | ENUM                                                        |
+|--------|-------------------------------------------------------------|
+|   10   | CARTA_CREDITO_A_VISTA                                       |
+|   15   | CARTA_CREDITO_A_PRAZO                                       |
+|   20   | CONTA_DEPOSITO                                              |
+|   21   | CONTA_DEPOSITO_MOEDA_ESTRANGEIRA_PAIS                       |
+|   22   | CONTA_DEPOSITO_EXPORTADOR_MANTIDA_NO_EXTERIOR               |
+|   23   | CONTA_DEPOSITO_OU_PAGAMENTO_EXPORTADOR_INSTITUICAO_EXTERIOR |
+|   25   | CONVENIO_PAGAMENTOS_E_CREDITOS_RECIPROCOS                   |
+|   30   | CHEQUE                                                      |
+|   50   | ESPECIE_CHEQUES_VIAGEM                                      |
+|   55   | CARTAO_PREPAGO                                              |
+|   65   | TELETRANSMISSAO                                             |
+|   75   | TITULOS_VALORES                                             |
+|   90   | SIMBOLICA                                                   |
+|   91   | SEM_MOVIMENTACAO_VALORES                                    |
+|   99   | DEMAIS                                                      |
+|   N/A  | OUTRO_NAO_MAPEADO_OFB                                       |
+|--------|-------------------------------------------------------------|
+```
+";Texto;;Obrigatório;;"CONTA_DEPOSITO_MOEDA_ESTRANGEIRA_PAIS 
 CONTA_DEPOSITO_OU_PAGAMENTO_EXPORTADOR_INSTITUICAO_EXTERIOR 
 ESPECIE_CHEQUES_VIAGEM 
 CARTAO_PREPAGO 
@@ -46,5 +70,8 @@ CARTA_CREDITO_A_PRAZO
 CONTA_DEPOSITO 
 CHEQUE 
 TITULOS_VALORES 
-SIMBOLICA";1;1;"";Não permitido;string;CARTA_CREDITO_A_PRAZO;
+SIMBOLICA 
+CONTA_DEPOSITO_EXPORTADOR_MANTIDA_NO_EXTERIOR 
+CONVENIO_PAGAMENTOS_E_CREDITOS_RECIPROCOS 
+OUTRO_NAO_MAPEADO_OFB";1;1;"";Não permitido;string;CARTA_CREDITO_A_PRAZO;
 /data/operationCategoryCode;operationCategoryCode;Código da natureza fato do fechamento da operação. Deve respeitar os códigos de natureza referenciados na resolução 277 ou na Circular 3690, conforme se aplicar ao contrato de câmbio.;Texto;5;Obrigatório;^\d{5}$;;1;1;"";Não permitido;string;90302;
