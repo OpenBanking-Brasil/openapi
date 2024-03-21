@@ -95,7 +95,7 @@ TITULARIDADE_INCONSISTENTE";1;1;" Esse motivo deverá ser enviado quando o campo
 - PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento;
 - PAGAMENTO_RECUSADO_DETENTORA: [descrição do motivo de recusa];
 - PAGAMENTO_RECUSADO_SPI: [código de erro conforme tabela de domínios reason PACS.002];
-- CONSENTIMENTO_INVALIDO: Consentimento inválido (status diferente de ""AUTHORISED"" ou está expirado);
+- CONSENTIMENTO_INVALIDO: Consentimento inválido (em status final);
 - FALHA_INFRAESTRUTURA_SPI: Indica uma falha no Sistema de Pagamentos Instantâneos (SPI);
 - FALHA_INFRAESTRUTURA_ICP: Indica uma falha na Infraestrutura de Chaves Públicas (ICP);
 - FALHA_INFRAESTRUTURA_PSP_RECEBEDOR: Indica uma falha na infraestrutura do Prestador de Serviço de Pagamento (PSP) que recebe o pagamento;
