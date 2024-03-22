@@ -18,8 +18,10 @@ Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letr
 ";Texto;;Obrigatório;;"CREDITO 
 DEBITO";1;1;"";Não permitido;string;DEBITO;
 /data/transactionName;transactionName;Literal usada na instituição financeira para identificar a transação. A informação apresentada precisa ser a mesma utilizada nos canais eletrônicos da instituição (extrato).;Texto;200;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;TRANSFCWAR5TXHCX5I9IDBHML8082N8NEO30M6LNNG7ANAYIJYRM00ZBZPU8;
-/data/type;type;"O campo deve classificar a transação em um dos tipos descritos. O transmissor deve classificar as transações disponíveis associando-a a um dos itens do Enum listado neste campo. 
-A opção OUTROS só deve ser utilizada para os casos em que de fato a transação compartilhada não possa ser classificada como um dos itens deste Enum.
+/data/type;type;"O campo deve classificar a transação em um dos tipos descritos. 
+O transmissor deve classificar as transações disponíveis associando-a a um dos itens do Enum listado neste campo. 
+A opção OUTROS só deve ser utilizada para os casos em que de fato a transação compartilhada não possa ser classificada como um dos itens deste Enum. 
+Por exemplo no caso de recebimento de pensão alimentícia.
 ";Texto;;Obrigatório;;"TED 
 DOC 
 PIX 
