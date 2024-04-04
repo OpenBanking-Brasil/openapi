@@ -1,5 +1,5 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;Lista de títulos de renda fixa bancária mantidos pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/referenceDateTime;referenceDateTime;"data e hora da última posição consolidada disponível a que se referem os dados transacionais do cliente disponíveis nos canais eletrônicos; Na representação data deve se considerar os minutos e segundos como zero (00:00:00Z).";Date Hora;20;Obrigatório;(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$);;1;1;"";Não permitido;string;2022-07-21T17:32:00Z;
 /data/quantity;quantity;Quantidade de títulos detidos na data da posição do cliente;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.0004;
 /data/updatedUnitPrice;updatedUnitPrice;Valor bruto unitário atualizado na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
