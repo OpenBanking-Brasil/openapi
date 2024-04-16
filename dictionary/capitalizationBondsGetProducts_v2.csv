@@ -1,8 +1,8 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Obrigatório por Regulação;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Conjunto de informações do Título de Capitalização;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
 /data/participant;participant;Conjunto de informações relativas ao participante do produto de Open Finance;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
-/data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Organização;1
-/data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Organização A1;1
+/data/participant/brand;brand;Nome da marca reportada pelo participante do Open Finance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.;Texto;80;Obrigatório;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Organização;1
+/data/participant/name;name;Nome do participante do Open Finance.;Texto;80;Obrigatório;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Organização A1;1
 /data/participant/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;;Obrigatório;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
 /data/participant/urlComplementaryList;urlComplementaryList;"Espera-se que valor de retorno, após acesso ao link ‘urlComplementaryList’, deve ser array de objeto com a estrutura abaixo:
 
@@ -14,7 +14,7 @@
 
 - Ambos obrigatórios.
 ";Texto;1024;Opcional;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
-/data/society;society;Dados sobre a seguradora participante do OPIN.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
+/data/society;society;Objeto que representa a empresa regulada pela SUSEP que oferta produtos definidos em OPIN.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Society A1;1
 /data/society/cnpjNumber;cnpjNumber;CNPJ da sociedade seguradora participante do OPIN.;Texto;;Obrigatório;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;
 /data/society/products;products;Lista de produtos da sociedade seguradora participante do OPIN.;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
@@ -45,7 +45,7 @@ PAGAMENTO_MENSAL
 PAGAMENTO_PERIODICO";0;1;"";Não permitido;string;PAGAMENTO_UNICO;
 /data/society/products/termsAndConditions;termsAndConditions;Informações relativas aos termos e condições.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
 /data/society/products/termsAndConditions/susepProcessNumber;susepProcessNumber;"Sequência numérica utilizada para consulta dos processos eletrônicos na SUSEP, com caracteres especiais, conforme campo de consulta no site da SUSEP (XXXXX.XXXXXX/XXXX-XX)<br>Observação&#58; Mascaras da SUSEP – Serão permitidos todas as máscaras de Produtos. Limitar pelos códigos das Máscaras.";Texto;30;Opcional;Obrigatório;^\d{5}\.\d{6}\/\d{4}-\d{2}$|^\d{2}\.\d{6}\/\d{2}-\d{2}$|^\d{3}-\d{5}\/\d{2}$|^\d{5}\.\d{6}\/\d{2}-\d{2}$;;0;1;"";Não permitido;string;15414.622222/2222-22;2
-/data/society/products/termsAndConditions/termsRegulations;termsRegulations;Campo aberto para representar as Condições Gerais, Condições Especiais e Condições ou Cláusulas Particulares de um mesmo produto, conforme Circular SUSEP 321/06. Pode-se incluir URL que apresenta esse termos e condições.;Texto;1024;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;
+/data/society/products/termsAndConditions/termsRegulations;termsRegulations;Campo aberto para representar as Condições Gerais, Condições Especiais e Condições ou Cláusulas Particulares de um mesmo produto, conforme Circular SUSEP 321/06. Pode-se incluir URL que apresenta esse termos e condições.;Texto;1024;Obrigatório;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;
 /data/society/products/quotas;quotas;Informações relativas às taxas da cotas praticadas para cada parcela.;Lista;;Obrigatório;Opcional;;;1;N;"";Não permitido;array;;
 /data/society/products/quotas/quota;quota;Número da parcela.;Número;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;number;10;
 /data/society/products/quotas/capitalizationQuota;capitalizationQuota;Percentual da contribuição destinado à constituição de capital referente ao direito de resgate. (Resolução CNSP 384/20).;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
@@ -158,9 +158,9 @@ OUTROS";0;1;"";Não permitido;string;UNICO;
 ";Booleano;;Opcional;Obrigatório;;;0;1;"";Não permitido;boolean;true;
 /data/society/products/draws/ruleDescription;ruleDescription;Campo aberto para complementar a regra dos sorteios do produto, a ser feita para cada participante.;Texto;200;Opcional;Obrigatório;;;0;1;"";Não permitido;string;Sorteios próprios às terças-feiras. Toda quarta-feira sorteios através da loteria federal.;
 /data/society/products/draws/minimumContemplationProbability;minimumContemplationProbability;Percentual da probabilidade mínima de contemplação nos sorteios.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
-/data/society/products/additionalInfo;additionalInfo;Campo livre para preenchimento das informações adicionais referente ao produto da sociedade seguradora participante do OPIN. Pode-se incluir URL.;Texto;1024;Obrigatório;Opcional;;;1;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
+/data/society/products/additionalDetails;additionalDetails;Campo livre para preenchimento das informações adicionais referente ao produto da sociedade seguradora participante do OPIN. Pode-se incluir URL.;Texto;1024;Opcional;Opcional;;;0;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
 /data/society/products/minimumRequirementDetails;minimumRequirementDetails;"Campo livre para preenchimento das informações adicionais referente ao requerimento mínimo. Pode-se incluir URL.
-";Texto;1024;Opcional;Obrigatório;;;0;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
+";Texto;1024;Opcional;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
 /data/society/products/targetAudience;targetAudience;"Público alvo do produto da sociedade seguradora participante do OPIN.
 ";Texto;;Opcional;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA 
