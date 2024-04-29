@@ -160,7 +160,7 @@ OUTROS";0;1;"";Não permitido;string;UNICO;
 /data/society/products/draws/minimumContemplationProbability;minimumContemplationProbability;Percentual da probabilidade mínima de contemplação nos sorteios.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/society/products/additionalDetails;additionalDetails;Campo livre para preenchimento das informações adicionais referente ao produto da sociedade seguradora participante do OPIN. Pode-se incluir URL.;Texto;1024;Opcional;Opcional;;;0;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
 /data/society/products/minimumRequirementDetails;minimumRequirementDetails;"Campo livre para preenchimento das informações adicionais referente ao requerimento mínimo. Pode-se incluir URL.
-";Texto;1024;Opcional;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais;
+";Texto;1024;Opcional;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://ACME.com/capitalizacao/tradicional/pdf/condicoes_gerais;
 /data/society/products/targetAudience;targetAudience;"Público alvo do produto da sociedade seguradora participante do OPIN.
 ";Texto;;Opcional;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA 
