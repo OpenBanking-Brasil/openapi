@@ -72,7 +72,7 @@ SOB_FORMA_RENDA";0;1;"";Não permitido;string;UNICO;1
   2. Meses
 ";Texto;;Opcional;Obrigatório;;"DIAS 
 MESES";0;1;"";Não permitido;string;MESES;
-/data/society/products/coverages/attributes/excludedRisks;excludedRisks;;Lista;50;Opcional;Obrigatório;;"ATO_RECONHECIMENTO_PERIGOSO 
+/data/society/products/coverages/attributes/excludedRisks;excludedRisks;;Lista;50;Obrigatório;Obrigatório;;"ATO_RECONHECIMENTO_PERIGOSO 
 ATO_ILICITO_DOLOSO_PRATICADO_SEGURADO 
 OPERACOES_GUERRA 
 FURACOES_CICLONES_TERREMOTOS 
@@ -81,8 +81,8 @@ DOENCAS_LESOES_PREEXISTENTES
 EPIDEMIAS_PANDEMIAS 
 SUICIDIO 
 ATO_ILICITO_DOLOSO_PRATICADO_CONTROLADOR 
-OUTROS";0;N;"";Não permitido;array;ATO_RECONHECIMENTO_PERIGOSO;1
-/data/society/products/coverages/attributes/excludedRisksURL;excludedRisksURL;Campo aberto (possibilidade de incluir URL).;Texto;1024;Obrigatório;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
+OUTROS";1;N;"";Não permitido;array;ATO_RECONHECIMENTO_PERIGOSO;1
+/data/society/products/coverages/attributes/excludedRisksURL;excludedRisksURL;Campo aberto (possibilidade de incluir URL).;Texto;1024;Opcional;Opcional;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;0;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
 /data/society/products/coverages/attributes/profitModality;profitModality;"Modalidade de pagamento da indenização.
 ";Texto;20;Opcional;Obrigatório;;"PAGAMENTO_UNICO 
 FORMA_RENDA";0;1;"";Não permitido;string;PAGAMENTO_UNICO;1
