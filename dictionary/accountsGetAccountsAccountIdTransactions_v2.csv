@@ -46,13 +46,16 @@ OUTROS";1;1;"";Não permitido;string;PIX;
 /data/transactionDateTime;transactionDateTime;"Data e hora original da transação.
 ";Texto;24;Obrigatório;(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)\.(?:[0-9]){3}Z$);;1;1;"";Não permitido;string;2016-01-29T12:29:03.374Z;
 /data/partieCnpjCpf;partieCnpjCpf;"Identificação da pessoa envolvida na transação: pagador ou recebedor (Preencher com o CPF ou CNPJ, sem formatação). Com a IN BCB nº 371, a partir de 02/05/23, o envio das informações de identificação de contraparte tornou-se obrigatória para transações de pagamento. Para maiores detalhes, favor consultar a página `Orientações - Contas`.
-";Texto;14;Opcional;^\d{11}$|^\d{14}$;;0;1;"";Não permitido;string;43908445778;
+
+[Restrição] Quando o ""type“ for preenchido com valor FOLHA_PAGAMENTO e a transmissora for a responsável pelo pagamento de salário (banco-folha), o partieCnpjCpf informado deve ser do empregador relacionado.
+";Texto;14;Condicional;^\d{11}$|^\d{14}$;;0;1;" Quando o ""type“ for preenchido com valor FOLHA_PAGAMENTO e a transmissora for a responsável pelo pagamento de salário (banco-folha), o partieCnpjCpf informado deve ser do empregador relacionado.
+";Não permitido;string;43908445778;
 /data/partiePersonType;partiePersonType;"Identificação do Tipo de Pessoa da pessoa envolvida na transação.   
 Pessoa Natural - Informar CPF no campo “payerCnpjCpf”.   
 Pessoa Jurídica - Informar CNPJ no campo “payerCnpjCpf”.
 ";Texto;;Opcional;;"PESSOA_NATURAL 
 PESSOA_JURIDICA";0;1;"";Não permitido;string;PESSOA_NATURAL;
-/data/partieCompeCode;partieCompeCode;Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas) referente à pessoa envolvida na transação. O número-código substituiu o antigo código COMPE. Todos os participantes do STR, exceto as Infraestruturas do Mercado Financeiro (IMF) e a Secretaria do Tesouro Nacional, possuem um número-código independentemente de participarem da Centralizadora da Compensação de Cheques (Compe). O campo tem a anotação “n/a” (“não se aplica”) para os participantes do STR aos quais não é atribuído um número-código;Texto;3;Opcional;^\d{3}$;;0;1;"";Não permitido;string;001;
+/data/partieCompeCode;partieCompeCode;Código identificador atribuído pelo Banco Central do Brasil às instituições participantes do STR (Sistema de Transferência de reservas) referente à pessoa envolvida na transação. O número-código substituiu o antigo código COMPE. Todos os participantes do STR, exceto as Infraestruturas do Mercado Financeiro (IMF) e a Secretaria do Tesouro Nacional, possuem um número-código independentemente de participarem da Centralizadora da Compensação de Cheques (Compe).;Texto;3;Opcional;^\d{3}$;;0;1;"";Não permitido;string;001;
 /data/partieBranchCode;partieBranchCode;Código da Agência detentora da conta da pessoa envolvida na transação. (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, no exercício de atividades da instituição, não podendo ser móvel ou transitória);Texto;4;Opcional;^\d{4}$;;0;1;"";Não permitido;string;6272;
 /data/partieNumber;partieNumber;Número da conta da pessoa envolvida na transação;Texto;20;Opcional;^\d{8,20}$;;0;1;"";Não permitido;string;67890854360;
 /data/partieCheckDigit;partieCheckDigit;Dígito da conta da pessoa envolvida na transação;Texto;1;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;4;
