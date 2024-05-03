@@ -1,6 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Conjunto de informações referentes à identificação da operação de crédito de empréstimo;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;^\d{1,100}$;;1;1;"";Não permitido;string;1324926521496;1
+/data/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;^[\w\W]{1,100}$;;1;1;"";Não permitido;string;1324926521496;1
 /data/ipocCode;ipocCode;"Número padronizado do contrato - IPOC (Identificação Padronizada da Operação de Crédito). Segundo DOC 3040, composta por:
 - **CNPJ da instituição:** 8 (oito) posições iniciais;
 - **Modalidade da operação:** 4 (quatro) posições;
@@ -10,7 +10,7 @@
   2. Para clientes pessoa jurídica com CNPJ (tipo de cliente = 2), informar as 8 (oito) posições iniciais do CNPJ;
   3. Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
 - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.
-";Texto;67;Obrigatório;^\d{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;22
+";Texto;67;Obrigatório;^[\w\W]{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;22
 /data/productName;productName;"Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente
 ";Texto;140;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;Crédito Pessoal Consignado;
 /data/productType;productType;Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;;Obrigatório;;EMPRESTIMOS;1;1;"";Não permitido;string;EMPRESTIMOS;
@@ -133,14 +133,9 @@ OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP;
 [Restrição] Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
 ";Texto;140;Condicional;[\w\W\s]*;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais;
-/data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500.
-
-O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
+/data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). Preencher o campo não aplicável ao contrato com zeros, seguindo o pattern (0.000000).
 ";Texto;9;Obrigatório;^\d{1,2}\.\d{6}$;;1;1;"";Não permitido;string;0.600000;8
-/data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito.
-
-p.ex. 0.0045 .O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros
-(representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+/data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.0045 .O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%). Preencher o campo não aplicável ao contrato com zeros, seguindo o pattern (0.000000)
 ";Texto;9;Obrigatório;^\d{1,2}\.\d{6}$;;1;1;"";Não permitido;string;0.550000;8
 /data/interestRates/additionalInfo;additionalInfo;"Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
 
