@@ -1,14 +1,18 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Conjunto de informações relativas ao processo de qualificação. Considera-se qualificação as informações que permitam as instituições apreciar, avaliar, caracterizar e classificar o cliente com a finalidade de conhecer o seu perfil de risco e sua capacidade econômico-financeira;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/updateDateTime;updateDateTime;Data e hora da atualização dos campos <_endpoint_>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/updateDateTime;updateDateTime;"Data e hora da atualização dos campos \<_endpoint_\>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.
+";Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
-Deve-se ter apenas os números do CNPJ, sem máscara";Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362000135;
-/data/occupationCode;occupationCode;Traz a relação dos códigos relativos à ocupação.;Texto;;Opcional;;"RECEITA_FEDERAL 
+Deve-se ter apenas os números do CNPJ, sem máscara
+";Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;50685362000135;
+/data/occupationCode;occupationCode;"Traz a relação dos códigos relativos à ocupação.
+";Texto;;Opcional;;"RECEITA_FEDERAL 
 CBO 
 OUTRO";0;1;"";Não permitido;string;RECEITA_FEDERAL;
-/data/occupationDescription;occupationDescription;"Campo livre, de preenchimento obrigatório. Se selecionada a opção *occupationCode* RECEITA_FEDERAL ou CBO, informar o código desta lista padronizada.   
-Se selecionada *occupationCode* OUTRO, informar o descritivo da ocupação quando a IF não segue a lista padronizada da Receita Federal e nem da CBO.";Texto;100;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;01;
-/data/informedIncome;informedIncome;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/occupationDescription;occupationDescription;"Campo livre, de preenchimento obrigatório. Se selecionada a opção *occupationCode* ""RECEITA_FEDERAL"" ou ""CBO"", informar o código desta lista padronizada.   
+Se selecionada *occupationCode* ""OUTRO"", informar o descritivo da ocupação quando a IF não segue a lista padronizada da Receita Federal e nem da CBO.
+";Texto;100;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;01;
+/data/informedIncome;informedIncome;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/informedIncome/frequency;frequency;Traz a frequência ou período da renda informada.;Texto;;Obrigatório;;"DIARIA 
 SEMANAL 
 QUINZENAL 
@@ -22,12 +26,14 @@ OUTROS";1;1;"";Não permitido;string;;
 /data/informedIncome/amount/amount;amount;"Valor total da renda informada. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais. 
 Renda primária indica os montantes a pagar ou a receber em troca do uso temporário de recursos financeiros, trabalho ou ativos não financeiros não produzidos, a saber, remuneração de trabalhadores, renda de investimentos e demais rendas primárias.
 Fazem parte da primeira a remuneração do trabalho assalariado (salários e ordenados); da segunda, renda de investimento direto, renda de investimento em carteira, renda de outros investimentos e renda de ativos de reserva; e da terceira, tributos sobre a produção e importação, subsídios e aluguéis.
-Fonte: Banco Central do Brasil – Departamento Econômico";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
+Fonte: Banco Central do Brasil – Departamento Econômico
+";Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
 /data/informedIncome/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/informedIncome/date;date;Data da renda, conforme especificação RFC-3339.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21;
-/data/informedPatrimony;informedPatrimony;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/informedPatrimony;informedPatrimony;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/informedPatrimony/amount;amount;Valor do patrimônio informado;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/informedPatrimony/amount/amount;amount;"Valor do patrimônio informado. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
-Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
+Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
+";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
 /data/informedPatrimony/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/informedPatrimony/year;year;Ano de referência da Renda, conforme especificação RFC-3339.;Número;;Obrigatório;;;1;1;"";Não permitido;number;2010;
