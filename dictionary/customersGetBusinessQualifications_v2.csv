@@ -1,12 +1,15 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Objeto que reúne as informações relativas ao processo de qualificação. Considera-se qualificação as informações que permitam as instituições apreciar, avaliar, caracterizar e classificar o cliente com a finalidade de conhecer o seu perfil de risco e sua capacidade econômico-financeira;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/updateDateTime;updateDateTime;Data e hora da atualização dos campos <_endpoint_>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.;Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/updateDateTime;updateDateTime;"Data e hora da atualização dos campos \<_endpoint_\>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.
+";Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/economicActivities;economicActivities;Lista dos demais códigos relativos às demais atividades econômicas da empresa, segundo padrão CNAE (Classificação Nacional de Atividades Econômicas). De preenchimento obrigatório, se houver;Lista;;Opcional;;;0;N;"";Não permitido;array;;
-/data/economicActivities/code;code;Traz o código do ramo da atividade principal da empresa consultada, segundo padrão CNAE (Classificação Nacional de Atividades Econômicas);Texto;7;Obrigatório;^\d{7}$;;1;1;"";Não permitido;string;8599604;2
-/data/economicActivities/isMain;isMain;Indica se é o ramo principal de atividade da empresa quando true e se é o ramo secundário quando false.;Booleano;;Condicional;;;1;1; Somente uma ocorrência relativa ao código da atividade econômica principal deve trazer o valor true.;Não permitido;boolean;true;
-/data/informedRevenue;informedRevenue;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/economicActivities/code;code;"Traz o código do ramo da atividade principal da empresa consultada, segundo padrão CNAE (Classificação Nacional de Atividades Econômicas)
+";Texto;7;Obrigatório;^\d{7}$;;1;1;"";Não permitido;string;8599604;2
+/data/economicActivities/isMain;isMain;Indica se é o ramo principal de atividade da empresa quando true e se é o ramo secundário quando false. [Restrição] Somente uma ocorrência relativa ao código da atividade econômica principal deve trazer o valor true.;Booleano;;Obrigatório;;;1;1; Somente uma ocorrência relativa ao código da atividade econômica principal deve trazer o valor true.;Não permitido;boolean;true;
+/data/informedRevenue;informedRevenue;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/informedRevenue/frequency;frequency;"Traz a frequência ou período do faturamento informado.
-O faturamento é calculado a partir de todos os benefícios que a empresa conseguiu com sua atividade econômica em um determinado período. Esses benefícios são os rendimentos ou ganhos da organização através de suas vendas ou serviços prestados.";Texto;;Opcional;;"DIARIA 
+""O faturamento é calculado a partir de todos os benefícios que a empresa conseguiu com sua atividade econômica em um determinado período. Esses benefícios são os rendimentos ou ganhos da organização através de suas vendas ou serviços prestados"".
+";Texto;;Opcional;;"DIARIA 
 SEMANAL 
 QUINZENAL 
 MENSAL 
@@ -15,16 +18,21 @@ TRIMESTRAL
 SEMESTRAL 
 ANUAL 
 OUTROS";0;1;"";Não permitido;string;DIARIA;
-/data/informedRevenue/frequencyAdditionalInfo;frequencyAdditionalInfo;Texto livre para complementar informação relativa ao patrimonio.;Texto;100;Condicional;[\w\W\s]*;;0;1;" Preencher quando frequency for igual OUTROS.
+/data/informedRevenue/frequencyAdditionalInfo;frequencyAdditionalInfo;"Texto livre para complementar informação relativa ao patrimonio.
+
+[Restrição] Preencher quando frequency for igual OUTROS.
+";Texto;100;Condicional;[\w\W\s]*;;0;1;" Preencher quando frequency for igual OUTROS.
 ";Não permitido;string;Informações adicionais;
 /data/informedRevenue/amount;amount;Valor do patrimônio informado;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/informedRevenue/amount/amount;amount;"Valor do patrimônio informado. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
-Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
+Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
+";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
 /data/informedRevenue/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/informedRevenue/year;year;Ano de referência da Renda, conforme especificação RFC-3339.;Número;;Opcional;;;0;1;"";Não permitido;number;2010;
-/data/informedPatrimony;informedPatrimony;"";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/informedPatrimony;informedPatrimony;;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
 /data/informedPatrimony/amount;amount;Valor do patrimônio informado;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/informedPatrimony/amount/amount;amount;"Valor do patrimônio informado. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.
-Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
+Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
+";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
 /data/informedPatrimony/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/informedPatrimony/date;date;Data de referência do Patrimônio, conforme especificação RFC-3339.;Data;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05-21;
