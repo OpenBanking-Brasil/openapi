@@ -61,7 +61,7 @@ CONJUNTA_SIMPLES
 CONJUNTA_SOLIDARIA";1;1;"";Não permitido;string;INDIVIDUAL;
 /data/portabilitiesReceived;portabilitiesReceived;"Lista de informações de empregador recebidos através de portabilidade de salário solicitada pelo cliente da transmissora à instituição detentora(s) de sua conta salário, ativos ou que já estiveram ativos,. Cada vínculo é associado a uma portabilidade de salário recebida pela transmissora.
 
-Obs.: a portabilidade não é explicitamente encerrada, ou seja, a IF para a qual o salário foi portado não é avisado quando a conta salário se encerra ou o salário é portado para outra IF. Não é possível garantir que os dados informados sejam de uma portabilidade ativa, nem que o vínculo com o banco folha ainda exista.
+Obs.: a portabilidade não é explicitamente encerrada, ou seja, a IF para a qual o salário foi portado não é avisado quando a conta salário se encerra ou o salário é portado para outra IF. Não é possível garantir que os dados informados sejam de uma portabilidade ativa, nem que o vínculo com o banco folha ainda exista. A transmissora terá tais informações apenas quando o pedido da portabilidade tiver sido solicitado em seus canais.
 ";Lista;;Opcional;;;0;N;"";Não permitido;array;;
 /data/portabilitiesReceived/employerName;employerName;"Nome do empregador conforme recebido pela comunicação de portabilidade.
 ";Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;;2
