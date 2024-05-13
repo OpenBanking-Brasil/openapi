@@ -150,74 +150,8 @@ OUTRO";1;1;"";Não permitido;string;FIXO;
 [Restrição] O preenchimento é obrigatório quando for diferente de 55. 
 ";Texto;4;Condicional;^\d{1,4}$;;0;1;" O preenchimento é obrigatório quando for diferente de 55. 
 ";Não permitido;string;55;
-/data/contacts/phones/areaCode;areaCode;Número de DDD (Discagem Direta à Distância) do telefone do cliente - se houver;Texto;;Obrigatório;;"11 
-12 
-13 
-14 
-15 
-16 
-17 
-18 
-19 
-21 
-22 
-24 
-27 
-28 
-31 
-32 
-33 
-34 
-35 
-37 
-38 
-41 
-42 
-43 
-44 
-45 
-46 
-47 
-48 
-49 
-51 
-53 
-54 
-55 
-61 
-62 
-63 
-64 
-65 
-66 
-67 
-68 
-69 
-71 
-73 
-74 
-75 
-77 
-79 
-81 
-82 
-83 
-84 
-85 
-86 
-87 
-88 
-89 
-91 
-92 
-93 
-94 
-95 
-96 
-97 
-98 
-99";1;1;"";Não permitido;string;19;
-/data/contacts/phones/number;number;Número de telefone do cliente;Texto;11;Obrigatório;^([0-9]{8,11})$;;1;1;"";Não permitido;string;29875132;
+/data/contacts/phones/areaCode;areaCode;Número de DDD (Discagem Direta à Distância) do telefone do cliente - se houver;Texto;3;Obrigatório;^(\d{2,3})$;;1;1;"";Não permitido;string;19;2
+/data/contacts/phones/number;number;Número de telefone do cliente;Texto;13;Obrigatório;^([0-9]{6,13})$;;1;1;"";Não permitido;string;29875132;
 /data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Opcional;^\d{1,5}$;;0;1;"";Não permitido;string;932;
 /data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/contacts/emails/isMain;isMain;Indica se o email informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
