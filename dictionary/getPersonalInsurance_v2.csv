@@ -9,7 +9,7 @@
 - 'cnpjNumber' com o valor contido no campo CNPJ ('RegistrationNumber') correspondente a esta instituição;
 - Ambos do tipo string;
 - Ambos obrigatórios. 
-";Texto;1024;Opcional;Opcional;^((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*))$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;0
+";Texto;1024;Opcional;Opcional;;;0;1;"";Não permitido;string;https://empresaa1.com/companies;0
 /data/society;society;Objeto que representa a empresa regulada pela SUSEP que oferta produtos definidos em OPIN.;Objeto;;Obrigatório;Opcional;;;1;1;"";Não permitido;object;;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Society A1;1
 /data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;Obrigatório;^(\d{14})$;;1;1;"";Não permitido;string;13456789000112;14
