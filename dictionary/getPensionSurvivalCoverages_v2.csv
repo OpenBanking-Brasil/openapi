@@ -13,7 +13,7 @@
 - Ambos do tipo string;
 
 - Ambos obrigatórios.
-";Texto;1024;Opcional;Opcional;^((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*))$;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
+";Texto;1024;Opcional;Opcional;;;0;1;"";Não permitido;string;https://empresaa1.com/companies;
 /data/society;society;Objeto que representa a empresa regulada pela SUSEP que oferta produtos definidos em OPIN;Objeto;;Opcional;Opcional;;;0;1;"";Não permitido;object;;
 /data/society/name;name;Nome da Sociedade Seguradora.;Texto;80;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;Society A1;1
 /data/society/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;14
@@ -26,16 +26,16 @@
 /data/society/products/segment;segment;"Segmento do qual se trata o produto contratado
 1. Seguro de Pessoas
 2. Previdência
-";Texto;20;Opcional;Obrigatório;;"SEGURO_PESSOAS 
-PREVIDENCIA";0;1;"";Não permitido;string;PREVIDENCIA;1
+";Texto;;Opcional;Obrigatório;;"SEGURO_PESSOAS 
+PREVIDENCIA";0;1;"";Não permitido;string;PREVIDENCIA;
 /data/society/products/modality;modality;"1. Contribuição Variável;
 2. Benefício Definido.
-";Texto;20;Opcional;Obrigatório;;"CONTRIBUICAO_VARIAVEL 
-BENEFICIO_DEFINIDO";0;1;"";Não permitido;string;BENEFICIO_DEFINIDO;1
+";Texto;;Opcional;Obrigatório;;"CONTRIBUICAO_VARIAVEL 
+BENEFICIO_DEFINIDO";0;1;"";Não permitido;string;BENEFICIO_DEFINIDO;
 /data/society/products/additionalInfo;additionalInfo;Campo aberto (possibilidade de incluir URL);Texto;1024;Opcional;Opcional;;;0;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
 /data/society/products/termsAndConditions;termsAndConditions;Conjunto de informações referente aos termos e condições conforme número do processo SUSEP;Lista;;Opcional;Opcional;;;1;2147483647;"";Não permitido;array;;
 /data/society/products/termsAndConditions/susepProcessNumber;susepProcessNumber;"Sequência numérica utilizada para consulta dos processos eletrônicos na SUSEP, com caracteres especiais, conforme campo de consulta no site da SUSEP (XXXXX.XXXXXX/XXXX-XX)<br>Observação&#58; Mascaras da SUSEP – Serão permitidos todas as máscaras de Produtos. Limitar pelos códigos das Máscaras.";Texto;30;Obrigatório;Obrigatório;^(\d{5}\.\d{6}\/\d{4}-\d{2}$|^\d{2}\.\d{6}\/\d{2}-\d{2}$|^\d{3}-\d{5}\/\d{2}$|^\d{5}\.\d{6}\/\d{2}-\d{2})$;;1;1;"";Não permitido;string;15414.622222/2222-22;1
-/data/society/products/termsAndConditions/contractTermsConditions;contractTermsConditions;Representam as Condições Gerais, Condições Especiais e Condições ou Cláusulas Particulares de um mesmo produto. (Circular SUSEP 321/06). Campo aberto (possibilidade de incluir URL);Texto;1024;Obrigatório;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
+/data/society/products/termsAndConditions/contractTermsConditions;contractTermsConditions;Representam as Condições Gerais, Condições Especiais e Condições ou Cláusulas Particulares de um mesmo produto. (Circular SUSEP 321/06). Campo aberto (possibilidade de incluir URL);Texto;1024;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
 /data/society/products/type;type;"1.  PGBL
 2.  PRGP
 3.  PAGP
@@ -49,7 +49,7 @@ BENEFICIO_DEFINIDO";0;1;"";Não permitido;string;BENEFICIO_DEFINIDO;1
 11. VRI
 12. VDR
 13. Demais produtos de Previdência.
-";Texto;80;Opcional;Obrigatório;;"PGBL 
+";Texto;;Opcional;Obrigatório;;"PGBL 
 PRGP 
 PAGP 
 PRSA 
@@ -61,16 +61,16 @@ VAGP
 VRSA 
 VRI 
 VDR 
-DEMAIS_PRODUTOS_PREVIDENCIA";0;1;"";Não permitido;string;PGBL;1
+DEMAIS_PRODUTOS_PREVIDENCIA";0;1;"";Não permitido;string;PGBL;
 /data/society/products/defferalPeriod;defferalPeriod;Período de Diferimento;Objeto;;Obrigatório;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/society/products/defferalPeriod/interestRate;interestRate;Taxa de juros mensal garantida que remunera o plano durante a fase de diferimento/acumulação.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/society/products/defferalPeriod/updateIndex;updateIndex;"Índice utilizado na atualização do prêmio e do capital segurado, caso critério de atualização por meio de índice:
 1. IPCA (IBGE);
 2. IGP-M (FGV);
 3. INPC (IBGE).
-";Texto;20;Opcional;Obrigatório;;"IPCA 
+";Texto;;Opcional;Obrigatório;;"IPCA 
 IGP_M 
-INPC";0;1;"";Não permitido;string;IPCA;1
+INPC";0;1;"";Não permitido;string;IPCA;
 /data/society/products/defferalPeriod/otherMinimumPerformanceGarantees;otherMinimumPerformanceGarantees;Para produtos do tipo PDR e VDR, indicação do índice de ampla divulgação utilizados como garantia mínima de desempenho.;Texto;12;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;SELIC;1
 /data/society/products/defferalPeriod/otherMinGuaranteesPercentage;otherMinGuaranteesPercentage;Para produtos do tipo PDR e VDR, indicação do percentual do índice de ampla divulgação utilizados como garantia mínima de desempenho. Exemplo 1.000000 igual a 100 por cento.;Texto;8;Opcional;Opcional;^(\d{1}\.\d{6})$;;0;1;"";Não permitido;string;1.000000;8
 /data/society/products/defferalPeriod/reversalFinancialResults;reversalFinancialResults;Percentual de reversão de excedente financeiro na concessão. Em %.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
@@ -122,8 +122,8 @@ NA";0;2147483647;"";Não permitido;array;CARTAO_CREDITO;
 ";Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/society/products/defferalPeriod/investmentFunds/typePerformanceFee;typePerformanceFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
    - Tipo de taxa de performance
-";Texto;20;Opcional;Obrigatório;;"DIRETAMENTE 
-INDIRETAMENTE";0;1;"";Não permitido;string;DIRETAMENTE;1
+";Texto;;Opcional;Obrigatório;;"DIRETAMENTE 
+INDIRETAMENTE";0;1;"";Não permitido;string;DIRETAMENTE;
 /data/society/products/defferalPeriod/investmentFunds/maximumPerformanceFee;maximumPerformanceFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando: 
   - Taxa Máxima de Performance - em %
 ";Texto;9;Opcional;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;0;1;"";Não permitido;string;0.019800;8
@@ -172,9 +172,9 @@ NA";0;2147483647;"";Não permitido;array;AT_2000_MALE;
 1. IPCA (IBGE);
 2. IGP-M (FGV);
 3. INPC (IBGE).
-";Texto;20;Opcional;Obrigatório;;"IPCA 
+";Texto;;Opcional;Obrigatório;;"IPCA 
 IGP_M 
-INPC";0;1;"";Não permitido;string;IPCA;1
+INPC";0;1;"";Não permitido;string;IPCA;
 /data/society/products/grantPeriodBenefit/reversalFinancialResults;reversalFinancialResults;Percentual de reversão de excedente financeiro na concessão. Em %.;Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/society/products/grantPeriodBenefit/investmentFunds;investmentFunds;Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação ou de concessão.;Lista;;Opcional;Opcional;;;0;2147483647;"";Não permitido;array;;
 /data/society/products/grantPeriodBenefit/investmentFunds/cnpjNumber;cnpjNumber;O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;13456789000112;14
@@ -186,8 +186,8 @@ INPC";0;1;"";Não permitido;string;IPCA;1
 ";Texto;9;Obrigatório;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;1;1;"";Não permitido;string;0.019800;8
 /data/society/products/grantPeriodBenefit/investmentFunds/typePerformanceFee;typePerformanceFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando:
    - Tipo de taxa de performance
-";Texto;20;Opcional;Obrigatório;;"DIRETAMENTE 
-INDIRETAMENTE";0;1;"";Não permitido;string;DIRETAMENTE;1
+";Texto;;Opcional;Obrigatório;;"DIRETAMENTE 
+INDIRETAMENTE";0;1;"";Não permitido;string;DIRETAMENTE;
 /data/society/products/grantPeriodBenefit/investmentFunds/maximumPerformanceFee;maximumPerformanceFee;"Lista com as informações do(s) Fundo(s) de Investimento(s) disponíveis para o período de diferimento/acumulação, contemplando: 
   - Taxa Máxima de Performance - em %
 ";Texto;9;Opcional;Obrigatório;^(\d{1}\.\d{6})$|^(-1.000000)$;;0;1;"";Não permitido;string;0.019800;8
@@ -221,7 +221,7 @@ INDIVIDUAL";0;1;"";Não permitido;string;COLETIVO_AVERBADO;1
 1. true
 2. false
 ";Booleano;;Opcional;Obrigatório;;;0;1;"";Não permitido;boolean;true;
-/data/society/products/minimumRequirement/contractingMinRequirement;contractingMinRequirement;Campo aberto (possibilidade de incluir URL);Texto;1024;Obrigatório;Obrigatório;^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
+/data/society/products/minimumRequirement/contractingMinRequirement;contractingMinRequirement;Campo aberto (possibilidade de incluir URL);Texto;1024;Obrigatório;Obrigatório;;;1;1;"";Não permitido;string;https://openinsurance.com.br/aaa;1
 /data/society/products/targetAudience;targetAudience;"A considerar os domínios abaixo:
 
   1. Pessoa Natural
