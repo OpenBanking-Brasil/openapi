@@ -1,0 +1,957 @@
+﻿openapi: 3.0.0
+info:
+  title: API OpenData Credit Cards do Open Finance Brasil
+  description: A API descrita neste documento é referente as API Credit Cards da fase OpenData do Open Finance Brasil.
+  version: 1.0.1
+  contact:
+    url: 'https://servicedesk.openbankingbrasil.org.br/Login.jsp?navLanguage=pt-BR'
+servers:
+  - url: 'http://api.banco.com.br/open-banking/opendata-creditcards/v1'
+tags:
+  - name: Credit Cards
+    description: Operações para listagem de cartões de crédito.
+paths:
+  /personal-credit-cards:
+    get:
+      tags:
+        - Credit Cards
+      summary: Obtém dados sobre cartões de crédito pessoa natural
+      description: Obtém dados sobre cartões de crédito pessoa natural
+      operationId: getPersonalCreditCards
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pageSize"
+      responses:
+        '200':
+          description: Dados sobre cartão de crédito pessoa natural obtidos com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalCreditCardResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+  /business-credit-cards:
+    get:
+      tags:
+        - Credit Cards
+      summary: Obtém dados sobre cartões de crédito pessoa jurídica
+      description: Obtém dados sobre cartões de crédito pessoa jurídica
+      operationId: getBusinessCreditCards
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/pageSize"
+      responses:
+        '200':
+          description: Dados sobre cartões de crédito pessoa jurídica obtidos com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessCreditCardResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+        '529':
+          $ref: '#/components/responses/SiteIsOverloaded'
+        default:
+          $ref: '#/components/responses/Default'
+components:
+  schemas:
+    ApplicationRate:
+      type: object
+      required:
+        - interval
+        - indexer
+        - customers
+      x-regulatory-required:
+        - interval
+        - indexer
+        - customers
+      properties:
+        interval:
+          $ref: '#/components/schemas/ApplicationIntervals'
+        indexer:
+          $ref: '#/components/schemas/Indexer'
+        customers:
+          $ref: '#/components/schemas/Customer'
+    Indexer:
+      type: object
+      x-regulatory-required:
+        - rate
+      properties:
+        rate:
+          type: string
+          pattern: '^\d{1}\.\d{6}$'
+          minLength: 8
+          maxLength: 8
+          description: |
+            Percentual que corresponde a mediana da taxa efetiva cobrada do cliente pela contratação do crédito, no intervalo informado. p.ex. '0,8700%'. A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+          example: '0.870000'
+    PriceIntervals:
+      type: string
+      enum:
+        - 1_FAIXA
+        - 2_FAIXA
+        - 3_FAIXA
+        - 4_FAIXA
+      description: |
+        Segundo Normativa nº 32, BCB, de 2020: Distribuição de frequência relativa dos valores de tarifas cobradas dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana em cada uma dessas faixas. Informando: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa
+      example: 1_FAIXA
+    ApplicationIntervals:
+      type: string
+      description: |
+        Faixas para cobrança da taxa efetiva aplicada pela contratação do crédito, no intervalo informado: 1ª faixa, 2ª faixa, 3ª faixa e 4ª faixa. Segundo Normativa nº32 de 2020: 'Distribuição de frequência relativa dos valores de tarifas e taxas de juros cobrados dos clientes, de que trata o § 2º do art. 3º da Circular nº 4.015, de 2020, deve dar-se com base em quatro faixas de igual tamanho, com explicitação dos valores sobre a mediana e o percentual de clientes em cada uma dessas faixas.
+      enum:
+        - 1_FAIXA
+        - 2_FAIXA
+        - 3_FAIXA
+        - 4_FAIXA
+      example: 4_FAIXA
+    CreditCardIdentification:
+      type: object
+      required:
+        - product
+        - creditCard
+      properties:
+        product:
+          type: object
+          required:
+            - type
+          x-regulatory-required:
+            - type
+            - typeAdditionalInfo
+          properties:
+            type:
+              type: string
+              enum:
+                - CLASSIC_NACIONAL
+                - CLASSIC_INTERNACIONAL
+                - GOLD
+                - PLATINUM
+                - INFINITE
+                - ELECTRON
+                - STANDARD_NACIONAL
+                - STANDARD_INTERNACIONAL
+                - ELETRONIC
+                - BLACK
+                - REDESHOP
+                - MAESTRO_MASTERCARD_MAESTRO
+                - GREEN
+                - BLUE
+                - BLUEBOX
+                - PROFISSIONAL_LIBERAL
+                - CHEQUE_ELETRONICO
+                - CORPORATIVO
+                - EMPRESARIAL
+                - COMPRAS
+                - OUTROS
+              description: 'Categoria atribuída a um cartão de pagamento, sob uma certa denominação, que lhe agrega um conjunto de vantagens, diferenciando-o de acordo com o perfil do portador. Essa categoria é definida pelo BACEN e está contida no documento de nome ''Elaboração e Remessa de Informações Relativas aos Cartões de Pagamento  Emissores'''
+              example: PLATINUM
+            typeAdditionalInfo:
+              type: string
+              maxLength: 140
+              pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+              description: |
+                Campo livre para preenchimento das informações adicionais referente ao campo "type".
+
+                [Restrição] Obrigatório quando "type" for igual "OUTROS".
+              example: 'Informações adicionais'
+        creditCard:
+          type: object
+          required:
+            - network
+          x-regulatory-required:
+            - network
+            - networkAdditionalInfo
+          properties:
+            network:
+              type: string
+              enum:
+                - VISA
+                - MASTERCARD
+                - AMERICAN_EXPRESS
+                - DINERS_CLUB
+                - HIPERCARD
+                - BANDEIRA_PROPRIA
+                - CHEQUE_ELETRONICO
+                - ELO
+                - OUTRAS
+              description: 'Categoria de Bandeiras de Cartões de Crédito (Instituidor do arranjo de pagamento). Bandeira é a detentora de todos os direitos e deveres da utilização da marca estampada no cartão, inclusive as bandeiras pertencentes aos emissores. p.ex. "American Express", "Diners Club" Essas bandeiras estão definidas em documento do BACEN de nome "Elaboração e Remessa de Informações Relativas aos Cartões de Pagamento  Emissores"'
+              example: MASTERCARD
+            networkAdditionalInfo:
+              type: string
+              maxLength: 140
+              pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+              description: |
+                Campo livre para preenchimento das informações adicionais referente ao campo "network".
+
+                [Restrição] Obrigatório quando "network" for igual "OUTROS".
+              example: 'Informações adicionais'
+    CreditCardRewardsProgram:
+      type: object
+      required:
+        - hasRewardProgram
+      x-regulatory-required:
+        - hasRewardProgram
+        - rewardProgramInfo
+      properties:
+        hasRewardProgram:
+          type: boolean
+          description: 'Indicador da existência de programa de fidelidade/recompensa associado à conta de pagamento pós-paga (cartão) true false'
+          example: false
+        rewardProgramInfo:
+          type: string
+          maxLength: 2000
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: Informações de termos e condições do programa de fidelidade/recompensa. Pode ser informada a URL referente ao endereço onde constam as condições informadas. Será de preenchimento obrigatório caso o campo hasRewardProgram esteja preenchido como true
+          example: 'https://empresaa1.com/credit_cards_rewards'
+    CreditCardTermsConditions:
+      type: object
+      required:
+        - minimumFeeRate
+        - elegibilityCriteriaInfo
+        - closingProcessInfo
+      x-regulatory-required:
+        - minimumFeeRate
+        - additionalInfo
+        - elegibilityCriteriaInfo
+        - closingProcessInfo
+      properties:
+        minimumFeeRate:
+          type: string
+          pattern: '^\d{1}\.\d{6}$'
+          description: Percentual para pagamento mínimo sobre o saldo devedor da fatura.
+          example: '0.250000'
+          minLength: 8
+          maxLength: 8
+        additionalInfo:
+          type: string
+          maxLength: 500
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: Campo aberto para detalhamento de taxas de juros
+          example: 'NA'
+        elegibilityCriteriaInfo:
+          type: string
+          maxLength: 2000
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: 'Informação sobre as condições e critérios de elegibilidade do emissor do cartão. Pode ser informada a URL referente ao endereço onde constam as condições informadas.'
+          example: 'https://empresaa1.com/creditcards_elegibility_criteria'
+        closingProcessInfo:
+          type: string
+          maxLength: 2000
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: 'Descrição dos procedimentos para encerramento da conta de pagamento pós paga. Pode ser informada a URL referente ao endereço onde constam as condições informadas.'
+          example: 'https://empresaa1.com/creditcards_closing_process'
+    CreditCardInterest:
+      type: object
+      description: Informações sobre taxas de juros
+      required:
+        - rates
+        - instalmentRates
+        - otherCredits
+      properties:
+        rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterestRate'
+          minItems: 1
+          maxItems: 20
+          description: Lista da representação que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios para crédito rotativo
+        instalmentRates:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterestRate'
+          minItems: 1
+          maxItems: 20
+          description: Lista da representação que traz o conjunto de informações necessárias para demonstrar a distribuição de frequências das taxas de juros remuneratórios para parcelamento do saldo devedor
+        otherCredits:
+          type: array
+          description: Lista de outras operações de crédito
+          items:
+            $ref:  "#/components/schemas/CreditCardInterestRate"
+          minItems: 1
+          maxItems: 3
+    RequiredWarranty:
+      type: string
+      enum:
+        - CESSAO_DIREITOS_CREDITORIOS
+        - ALIENACAO_FIDUCIARIA
+        - GARANTIA_FIDEJUSSORIA
+        - NAO_EXIGE_GARANTIA
+      description: |
+        Relação de garantias exigidas, segundo documento 3040 do Bacen:
+        - `CESSAO_DIREITOS_CREDITORIOS`: o cedente transfere ao credor/cessionário a titularidade de direitos creditórios, até a liquidação da dívida. O credor/cessionário passa a recebê-los diretamente dos devedores e credita o produto da operação para o cedente na operação que originou a cessão, até a sua liquidação
+        - `ALIENACAO_FIDUCIARIA`: transferência ao credor, ou fiduciário, da propriedade do bem
+        - `GARANTIA_FIDEJUSSORIA`: baseada na fidelidade do garantidor em cumprir as obrigações, caso o devedor não o faça
+        - `NAO_EXIGE_GARANTIA`
+      example: CESSAO_DIREITOS_CREDITORIOS
+    CreditCardInterestRate:
+      type: object
+      required:
+        - code
+      x-regulatory-required:
+        - code
+        - codeAdditionalInfo
+      properties:
+        code:
+          type: string
+          enum:
+            - SAQUE_A_CREDITO
+            - PAGAMENTOS_CONTAS
+            - OUTROS
+          description: Lista de outras operações de crédito
+          example: SAQUE_A_CREDITO
+        codeAdditionalInfo:
+          type: string
+          maxLength: 140
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: |
+            Campo livre para preenchimento das informações adicionais referente ao campo "code".
+
+            [Restrição] Obrigatório quando "code" for igual "OUTROS".
+          example: 'Informações adicionais'
+    PersonalCreditCardResponse:
+      type: object
+      required:
+        - data
+        - links
+        - meta
+      properties:
+        data:
+          type: array
+          description: Conjunto de informações referente ao produto Cartões de Crédito.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/PersonalCreditCardData'
+        links:
+          $ref: '#/components/schemas/Links'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    PersonalCreditCardData:
+      type: object
+      required:
+        - name
+        - identification
+        - rewardsProgram
+        - fees
+        - interest
+        - requiredWarranties
+        - termsConditions
+      x-regulatory-required:
+        - name
+      properties:
+        participant:
+          $ref: '#/components/schemas/Participant'
+        name:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 50
+          description: Denominação/Identificação do nome da conta (cartão de crédito)
+          example: Cartão Universitário
+        identification:
+          $ref: '#/components/schemas/CreditCardIdentification'
+        rewardsProgram:
+          $ref: '#/components/schemas/CreditCardRewardsProgram'
+        fees:
+          type: object
+          description: Objeto que reúne informações de tarifas de serviços
+          properties:
+            services:
+              type: array
+              description: |
+                Lista das Tarifas cobradas sobre Serviço.
+
+                Para melhor entendimento da regra de envio, verificar área do desenvolvedor na página de Dados Abertos a seção: tabela verdade com instruções de envio de dados por Instituições.
+              items:
+                $ref: '#/components/schemas/CreditCardService'
+              minItems: 1
+              maxItems: 9
+        interest:
+          $ref: '#/components/schemas/CreditCardInterest'
+        requiredWarranties:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequiredWarranty'
+          minItems: 1
+          maxItems: 4
+          description: Lista das garantias exigidas
+        termsConditions:
+          $ref: '#/components/schemas/CreditCardTermsConditions'
+    Participant:
+      type: object
+      description: Conjunto de informações relativas ao participante do Open Finance que oferta este produto.
+      required:
+        - brand
+        - name
+        - cnpjNumber
+      x-regulatory-required:
+        - brand
+        - name
+        - cnpjNumber
+        - urlComplementaryList
+      properties:
+        brand:
+          type: string
+          maxLength: 80
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: Nome da Marca selecionada pelas Organizações
+          example: Organização A
+        name:
+          type: string
+          description: Nome da Instituição, pertencente à marca, responsável pela modalidade de Empréstimos. p.ex.'Empresa da Organização A'
+          maxLength: 80
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          example: 'Empresa A1'
+        cnpjNumber:
+          type: string
+          pattern: '^\d{14}$'
+          minLength: 14
+          maxLength: 14
+          description: CNPJ
+          example: "50685362000135"
+        urlComplementaryList:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 1024
+          description: |
+            URL do link que conterá a lista complementar com os nomes e CNPJs agrupados sob o mesmo cnpjNumber. Os contidos nessa lista possuem as mesmas características para produtos e serviços. Endereço eletrônico de acesso ao canal. Será obrigatoriamente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada.
+            Restrição: Será obrigatorimente preenchido se houver lista complementar com os nomes e CNPJs a ser disponibilizada
+          example: 'https://empresadaorganizacaoa.com/complementarylist'
+    BusinessCreditCardResponse:
+      type: object
+      required:
+        - data
+        - links
+        - meta
+      properties:
+        data:
+          type: array
+          description: Conjunto de informações referente ao produto Cartões de Crédito.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/BusinessCreditCardData'
+        links:
+          $ref: '#/components/schemas/Links'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    BusinessCreditCardData:
+      type: object
+      required:
+        - name
+        - identification
+        - rewardsProgram
+        - fees
+        - interest
+        - requiredWarranties
+        - termsConditions
+      x-regulatory-required:
+        - name
+      properties:
+        participant:
+          $ref: '#/components/schemas/Participant'
+        name:
+          type: string
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          maxLength: 50
+          description: Denominação/Identificação do nome da conta (cartão de crédito)
+          example: Cartão Vantagens
+        identification:
+          $ref: '#/components/schemas/CreditCardIdentification'
+        rewardsProgram:
+          $ref: '#/components/schemas/CreditCardRewardsProgram'
+        fees:
+          type: object
+          description: Objeto que reúne informações de tarifas de serviços.
+          properties:
+            services:
+              type: array
+              description: |
+                Lista das Tarifas cobradas sobre Serviço.
+
+                Para melhor entendimento da regra de envio, verificar área do desenvolvedor na página de Dados Abertos a seção: tabela verdade com instruções de envio de dados por Instituições.
+              items:
+                $ref: '#/components/schemas/CreditCardService'
+              minItems: 1
+              maxItems: 9
+        interest:
+          $ref: '#/components/schemas/CreditCardInterest'
+        requiredWarranties:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequiredWarranty'
+          minItems: 1
+          maxItems: 4
+          description: Lista das garantias exigidas
+        termsConditions:
+          $ref: '#/components/schemas/CreditCardTermsConditions'
+    CreditCardService:
+      type: object
+      required:
+        - name
+        - code
+        - chargingTriggerInfo
+        - prices
+        - minimum
+        - maximum
+      x-regulatory-required:
+        - name
+        - code
+        - chargingTriggerInfo
+      properties:
+        name:
+          type: string
+          enum:
+            - ANUIDADE_CARTAO_BASICO_NACIONAL
+            - ANUIDADE_CARTAO_BASICO_INTERNACIONAL
+            - ANUIDADE_DIFERENCIADA
+            - UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_BRASIL
+            - UTILIZACAO_CANAIS_ATENDIMENTO_RETIRADA_ESPECIE_EXTERIOR
+            - AVALIACAO_EMERGENCIAL_CREDITO
+            - FORNECIMENTO_SEGUNDA_VIA_FUNCAO_CREDITO
+            - PAGAMENTO_CONTAS_UTILIZANDO_FUNCAO_CREDITO
+            - SMS
+          description: 'Denominação de Serviços relacionados à Modalidade de Contas de Pagamento Pós-Pagas (Vide ENUM)'
+          example: ANUIDADE_CARTAO_BASICO_NACIONAL
+        code:
+          type: string
+          enum:
+            - ANUIDADE_NACIONAL
+            - ANUIDADE_INTERNACIONAL
+            - ANUIDADE_DIFERENCIADA
+            - SAQUE_CARTAO_BRASIL
+            - SAQUE_CARTAO_EXTERIOR
+            - AVALIACAO_EMERGENCIAL_CREDITO
+            - EMISSAO_SEGUNDA_VIA
+            - TARIFA_PAGAMENTO_CONTAS
+            - SMS
+          description: 'Sigla de identificação do Serviço relacionado à Modalidade de Contas de Pagamento Pós-Pagas (Vide ENUM)'
+          example: ANUIDADE_NACIONAL
+        chargingTriggerInfo:
+          type: string
+          maxLength: 2000
+          pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+          description: 'Fatos geradores de cobrança que incidem sobre as Modalidades de Contas de Pagamento Pós-Pagas informada, para pessoa jurídica. (Campo Livre)'
+          example: 'Disponibilização de rede de estabelecimentos afiliados, instalada no País, para pagamentos de bens e serviços, cobrada no máximo uma vez a cada doze meses, admitido o parcelamento da cobrança'
+        prices:
+          type: array
+          description: Lista distribuição preços tarifas de serviços
+          items:
+            $ref: '#/components/schemas/Price'
+          minItems: 4
+          maxItems: 4
+        minimum:
+          $ref: '#/components/schemas/MinimumPrice'
+        maximum:
+          $ref: '#/components/schemas/MaximumPrice'
+    Price:
+      type: object
+      required:
+        - interval
+        - value
+        - currency
+        - customers
+      x-regulatory-required:
+        - interval
+        - value
+        - currency
+        - customers
+      properties:
+        interval:
+          $ref: '#/components/schemas/PriceIntervals'
+        value:
+          type: string
+          pattern: '^(\d{1,9}\.\d{2}){1}$'
+          minLength: 4
+          maxLength: 12
+          x-cds-type: AmountString
+          description: |
+            Valor da mediana de cada faixa relativa ao serviço ofertado, informado no período, conforme Res nº 32 BCB, 2020. p.ex. '45.00' (representa um valor monetário. p.ex: 1547368.92. Este valor, considerando que a moeda seja BRL, significa R$ 1.547.368,92. O único separador presente deve ser o '.' (ponto) para indicar a casa decimal. Não deve haver separador de milhar).
+
+            Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+          example: '2000.00'
+        currency:
+          $ref:  '#/components/schemas/Currency'
+        customers:
+          $ref: '#/components/schemas/Customer'
+    MinimumPrice:
+      type: object
+      required:
+        - value
+        - currency
+      x-regulatory-required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          pattern: '^(\d{1,9}\.\d{2}){1}$'
+          minLength: 4
+          maxLength: 12
+          x-cds-type: AmountString
+          description: |
+            Valor mínimo apurado para a tarifa de serviços sobre a base de clientes no mês de referência.
+
+            Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+          example: '1350.00'
+        currency:
+          $ref:  "#/components/schemas/Currency"
+    MaximumPrice:
+      type: object
+      required:
+        - value
+        - currency
+      x-regulatory-required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          pattern: '^(\d{1,9}\.\d{2}){1}$'
+          minLength: 4
+          maxLength: 12
+          x-cds-type: AmountString
+          description: |
+            Valor máximo apurado para a tarifa de serviços sobre a base de clientes no mês de referência.
+
+            Observação: Para efeito de comparação de taxas dos produtos, as instituições participantes, quando não cobram tarifas, devem enviar o valor 0.00 sinalizando que para aquela taxa não há cobrança pelo serviço.
+          example: '8800.00'
+        currency:
+          $ref:  "#/components/schemas/Currency"
+    Customer:
+      type: object
+      description: Informações relevantes para o cliente.
+      required:
+        - rate
+      x-regulatory-required:
+        - rate
+      properties:
+        rate:
+          type: string
+          description: |
+            Percentual de clientes em cada faixa.
+          pattern: '^\d{1}\.\d{6}$'
+          example: '0.150000'
+          minLength: 8
+          maxLength: 8
+    Currency:
+      type: string
+      pattern: '^(\w{3}){1}$'
+      minLength: 3
+      maxLength: 3
+      x-cds-type: CurrencyString
+      description: 'Moeda referente ao valor mínimo da Tarifa, segundo modelo ISO-4217'
+      example: BRL
+    InterestRate:
+      type: object
+      required:
+        - referentialRateIndexer
+        - rate
+        - applications
+        - minimumRate
+        - maximumRate
+      x-regulatory-required:
+        - referentialRateIndexer
+        - rate
+        - minimumRate
+        - maximumRate
+      properties:
+        referentialRateIndexer:
+          $ref: '#/components/schemas/ReferentialRateIndexer'
+        rate:
+          type: string
+          description: |
+            Percentual que incide sobre a composição das taxas de juros remuneratórios. (representa uma porcentagem Ex: 0.15 (O valor ao lado representa 15%. O valor '1 'representa 100%). A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)
+          pattern: '^\d{1}\.\d{6}$'
+          minLength: 8
+          maxLength: 8
+          example: '0.150000'
+        applications:
+          type: array
+          description: Lista distribuição percentuais relativos à taxa de juros remuneratórios
+          items:
+            $ref:   "#/components/schemas/ApplicationRate"
+          minItems: 4
+          maxItems: 4
+        minimumRate:
+          type: string
+          pattern: '^\d{1}\.\d{6}$'
+          description: 'Percentual mínimo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)'
+          minLength: 8
+          maxLength: 8
+          example: '0.045600'
+        maximumRate:
+          type: string
+          pattern: '^\d{1}\.\d{6}$'
+          description: 'Percentual máximo cobrado (taxa efetiva) no mês de referência, para o Financiamento contratado  A apuração pode acontecer com até 4 casas decimais. O preenchimento deve respeitar as 4 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%)'
+          minLength: 8
+          maxLength: 8
+          example: '0.686500'
+    ReferentialRateIndexer:
+      type: string
+      description: |
+        Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040
+      enum:
+        - SEM_INDEXADOR_TAXA
+        - PRE_FIXADO
+        - POS_FIXADO_TR_TBF
+        - POS_FIXADO_TJLP
+        - POS_FIXADO_LIBOR
+        - POS_FIXADO_TLP
+        - OUTRAS_TAXAS_POS_FIXADAS
+        - FLUTUANTES_CDI
+        - FLUTUANTES_SELIC
+        - OUTRAS_TAXAS_FLUTUANTES
+        - INDICES_PRECOS_IGPM
+        - INDICES_PRECOS_IPCA
+        - INDICES_PRECOS_IPCC
+        - OUTROS_INDICES_PRECO
+        - CREDITO_RURAL_TCR_PRE
+        - CREDITO_RURAL_TCR_POS
+        - CREDITO_RURAL_TRFC_PRE
+        - CREDITO_RURAL_TRFC_POS
+        - OUTROS_INDEXADORES
+      example: 'SEM_INDEXADOR_TAXA'
+    Links:
+      type: object
+      description: Referências para outros recursos da API requisitada.
+      properties:
+        self:
+          type: string
+          format: url
+          minLength: 5
+          maxLength: 2000
+          description: URL da página atualmente requisitada
+          example: 'https://api.banco.com.br/open-banking/opendata-creditcards/v1/resource'
+        first:
+          type: string
+          format: url
+          minLength: 5
+          maxLength: 2000
+          description: URL da primeira página de registros
+          example: 'https://api.banco.com.br/open-banking/opendata-creditcards/v1/resource'
+        prev:
+          type: string
+          format: url
+          minLength: 5
+          maxLength: 2000
+          description: URL da página anterior de registros
+          example: 'https://api.banco.com.br/open-banking/opendata-creditcards/v1/resource'
+        next:
+          type: string
+          format: url
+          minLength: 5
+          maxLength: 2000
+          description: URL da próxima página de registros
+          example: 'https://api.banco.com.br/open-banking/opendata-creditcards/v1/resource'
+        last:
+          type: string
+          format: url
+          minLength: 5
+          maxLength: 2000
+          description: URL da última página de registros
+          example: 'https://api.banco.com.br/open-banking/opendata-creditcards/v1/resource'
+    Meta:
+      type: object
+      description: Meta informações referente à API requisitada.
+      properties:
+        totalRecords:
+          type: integer
+          description: Total de registros encontrados
+          example: 1
+        totalPages:
+          type: integer
+          description: Total de páginas para os registros encontrados
+          example: 1
+      required:
+        - totalRecords
+        - totalPages
+    ResponseErrorMetaSingle:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          maxItems: 13
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                description: Código de erro específico do endpoint
+                type: string
+                pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+                maxLength: 255
+              title:
+                description: Título legível por humanos deste erro específico
+                type: string
+                pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+                maxLength: 255
+              detail:
+                description: Descrição legível por humanos deste erro específico
+                type: string
+                pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+                maxLength: 2048
+        meta:
+          type: object
+          description: Meta informações referente à API requisitada.
+          required:
+            - requestDateTime
+          properties:
+            requestDateTime:
+              description: 'Data e hora da consulta, conforme especificação RFC-3339, formato UTC.'
+              type: string
+              maxLength: 20
+              format: date-time
+              example: '2021-05-21T08:30:00Z'
+    ResponseError:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          minItems: 1
+          maxItems: 13
+          items:
+            type: object
+            required:
+              - code
+              - title
+              - detail
+            properties:
+              code:
+                description: Código de erro específico do endpoint
+                type: string
+                pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+                maxLength: 255
+              title:
+                description: Título legível por humanos deste erro específico
+                type: string
+                pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+                maxLength: 255
+              detail:
+                description: Descrição legível por humanos deste erro específico
+                type: string
+                pattern: '^(?!\s)[\w\W\s]*[^\s]$'
+                maxLength: 2048
+        meta:
+          type: object
+          description: Meta informações referente à API requisitada.
+          required:
+            - requestDateTime
+          properties:
+            requestDateTime:
+              description: Data e hora da consulta, conforme especificação RFC-3339, formato UTC.
+              type: string
+              format: date-time
+              minLength: 20
+              maxLength: 20
+              pattern: '^[2-9]\d{3}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$'
+              example: '2023-10-09T14:10:00Z'
+  securitySchemes:
+    APIKey1:
+      name: API Key
+      type: apiKey
+      in: query
+    APIKey2:
+      name: API Key
+      type: apiKey
+      in: query
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Número da página que está sendo requisitada (o valor da primeira página é 1).
+      schema:
+        type: integer
+        format: int32
+        default: 1
+        minimum: 1
+        maximum: 2147483647
+    pageSize:
+      name: page-size
+      in: query
+      description: Quantidade total de registros por páginas.
+      schema:
+        type: integer
+        format: int32
+        default: 25
+        minimum: 1
+        maximum: 1000
+  responses:
+    BadRequest:
+      description: A requisição foi malformada, omitindo atributos obrigatórios, seja no payload ou através de atributos na URL.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    NotFound:
+      description: O recurso solicitado não existe ou não foi implementado.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    MethodNotAllowed:
+      description: O consumidor tentou acessar o recurso com um método não suportado.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    TooManyRequests:
+      description: A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    InternalServerError:
+      description: Ocorreu um erro no gateway da API ou no microsserviço.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    GatewayTimeout:
+      description: GATEWAY TIMEOUT - A requisição não foi atendida dentro do tempo limite estabelecido.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    SiteIsOverloaded:
+      description: O site está sobrecarregado e a operação foi recusada, pois foi atingido o limite máximo de TPS global, neste momento.
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
+    Default:
+      description: '\-'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+        
