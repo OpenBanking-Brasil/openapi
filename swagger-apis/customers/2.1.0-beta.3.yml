@@ -986,8 +986,7 @@ components:
         - employerCnpjCpf
         - paycheckBankCnpj
         - paycheckBankIspb
-        - accountOpeningDate
-        - portabilityApprovalDate
+        - accountOpeningDate 
       properties:
         employerName:
           type: string
