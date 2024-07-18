@@ -155,4 +155,4 @@ OUTRO";1;1;"";Não permitido;string;FIXO;
 /data/contacts/phones/phoneExtension;phoneExtension;Número do ramal. De preenchimento obrigatório se fizer parte da identificação do número do telefone informado;Texto;5;Opcional;^\d{1,5}$;;0;1;"";Não permitido;string;932;
 /data/contacts/emails;emails;Lista e-mails de contato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/contacts/emails/isMain;isMain;Indica se o email informado é o principal;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
-/data/contacts/emails/email;email;Endereço de email;Texto;320;Obrigatório;^[a-z0-9.!#$&'*+\/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$;;1;1;"";Não permitido;string;karinafernandes-81@br.inter.net;
+/data/contacts/emails/email;email;Endereço de email;Texto;320;Obrigatório;;;1;1;"";Não permitido;string;karinafernandes-81@br.inter.net;
