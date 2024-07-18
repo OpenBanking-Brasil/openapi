@@ -62,9 +62,9 @@ CONJUNTA_SOLIDARIA";1;1;"";Não permitido;string;INDIVIDUAL;
 /data/portabilitiesReceived;portabilitiesReceived;"Lista de informações de empregador recebidos através de portabilidade de salário solicitada pelo cliente da transmissora à instituição detentora(s) de sua conta salário, ativos ou que já estiveram ativos,. Cada vínculo é associado a uma portabilidade de salário recebida pela transmissora.
 
 Obs.: a portabilidade não é explicitamente encerrada, ou seja, a IF para a qual o salário foi portado não é avisado quando a conta salário se encerra ou o salário é portado para outra IF. Não é possível garantir que os dados informados sejam de uma portabilidade ativa, nem que o vínculo com o banco folha ainda exista. A transmissora terá tais informações apenas quando o pedido da portabilidade tiver sido solicitado em seus canais.
-";Lista;;Opcional;;;0;N;"";Não permitido;array;;
-/data/portabilitiesReceived/employerName;employerName;"Nome do empregador conforme recebido pela comunicação de portabilidade.
-";Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;;2
+";Lista;;Opcional;;;1;N;"";Não permitido;array;;
+/data/portabilitiesReceived/employerName;employerName;"Nome do empregador conforme recebido pela comunicação de portabilidade. O empregador pode ser pessoa natural ou pessoa jurídica, quando se tratar de pessoa jurídica, deve haver o envio da razão social.
+";Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;;
 /data/portabilitiesReceived/employerCnpjCpf;employerCnpjCpf;"Número de inscrição (CPF/CNPJ) do empregador (contratante dos serviços de pagamento), conforme recebido pela comunicação de portabilidade.
 ";Texto;14;Obrigatório;^\d{14}$|^\d{11}$;;1;1;"";Não permitido;string;;
 /data/portabilitiesReceived/paycheckBankDetainerCnpj;paycheckBankDetainerCnpj;"Número de inscrição no Cadastro Nacional da Pessoa Jurídica (CNPJ) do banco folha (instituição financeira detentora da conta salário) conforme recebido pela comunicação de portabilidade.
@@ -78,9 +78,9 @@ Obs.: somente devem ser compartilhadas solicitações aprovadas, mesmo que de fo
 /data/paychecksBankLink;paychecksBankLink;"Lista de informações de contas salário relacionadas com vínculos empregatícios, existentes ou que já existiram, firmados entre o cliente pessoa natural e um ou mais empregadores. Cada vínculo é associado a uma conta salário aberta mantida no banco-folha (instituição transmissora).
 
 Obs: como empregadores antigos podem não ter solicitado o fechamento da conta salário, não é possível garantir que os dados informados sejam do empregador atual.
-";Lista;;Opcional;;;0;N;"";Não permitido;array;;
-/data/paychecksBankLink/employerName;employerName;"Nome do empregador conforme registrado na abertura da conta salário.
-";Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;;2
+";Lista;;Opcional;;;1;N;"";Não permitido;array;;
+/data/paychecksBankLink/employerName;employerName;"Nome do empregador conforme registrado na abertura da conta salário. O empregador pode ser pessoa natural ou pessoa jurídica, quando se tratar de pessoa jurídica, deve haver o envio da razão social.
+";Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;;
 /data/paychecksBankLink/employerCnpjCpf;employerCnpjCpf;"Documento do empregador (CNPJ/CPF), conforme registrado na abertura da conta salário.
 ";Texto;14;Obrigatório;^\d{14}$|^\d{11}$;;1;1;"";Não permitido;string;;
 /data/paychecksBankLink/paycheckBankCnpj;paycheckBankCnpj;"CNPJ da instituição financeira contratada para prestar serviço de pagamento de salário (banco-folha).
