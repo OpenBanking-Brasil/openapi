@@ -42,27 +42,28 @@
     <script src="../../swagger-ui-bundle.js" charset="UTF-8"> </script>
     <script src="../../swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
     <script>
-    window.onload = function() {
-      // Begin Swagger UI call region
-      const ui = SwaggerUIBundle({
-        urls: [	{"name": "1.0.0-rc6.5", "url": "./1.0.0-rc6.5.yml"},
-								{"name": "1.0.0-rc6.6", "url": "./1.0.0-rc6.6.yml"},
-								{"name": "1.0.0-rc6.7", "url": "./1.0.0-rc6.7.yml"},
-								{"name": "1.0.0", "url": "./1.0.0.yml"},
-								{"name": "1.0.1", "url": "./1.0.1.yml"},
-								{"name": "1.0.2", "url": "./1.0.2.yml"},
-								{"name": "1.0.3", "url": "./1.0.3.yml"},
-								{"name": "2.0.0-RC1.0", "url": "./2.0.0-RC1.0.yml"},
-								{"name": "2.0.0", "url": "./2.0.0.yml"},
-                {"name": "2.0.1", "url": "./2.0.1.yml"},
-								{"name": "2.1.0-beta.1", "url": "./2.1.0-beta.1.yml"},
-                {"name": "2.1.0-beta.2", "url": "./2.1.0-beta.2.yml"},
-                {"name": "2.1.0-beta.3", "url": "./2.1.0-beta.3.yml"},
-                {"name": "2.1.0-rc.1", "url": "./2.1.0-rc.1.yml"},
-                {"name": "2.1.0-rc.2", "url": "./2.1.0-rc.2.yml"}],
-        "urls.primaryName": "2.1.0-rc.2",  // default spec
-        dom_id: '#swagger-ui',
-        deepLinking: true,
+      window.onload = function() {
+        // Begin Swagger UI call region
+        const ui = SwaggerUIBundle({
+          urls: [	{"name": "1.0.0-rc6.5", "url": "./1.0.0-rc6.5.yml"},
+                  {"name": "1.0.0-rc6.6", "url": "./1.0.0-rc6.6.yml"},
+                  {"name": "1.0.0-rc6.7", "url": "./1.0.0-rc6.7.yml"},
+                  {"name": "1.0.0", "url": "./1.0.0.yml"},
+                  {"name": "1.0.1", "url": "./1.0.1.yml"},
+                  {"name": "1.0.2", "url": "./1.0.2.yml"},
+                  {"name": "1.0.3", "url": "./1.0.3.yml"},
+                  {"name": "2.0.0-RC1.0", "url": "./2.0.0-RC1.0.yml"},
+                  {"name": "2.0.0", "url": "./2.0.0.yml"},
+                  {"name": "2.0.1", "url": "./2.0.1.yml"},
+                  {"name": "2.1.0-beta.1", "url": "./2.1.0-beta.1.yml"},
+                  {"name": "2.1.0-beta.2", "url": "./2.1.0-beta.2.yml"},
+                  {"name": "2.1.0-beta.3", "url": "./2.1.0-beta.3.yml"},
+                  {"name": "2.1.0-rc.1", "url": "./2.1.0-rc.1.yml"},
+                  {"name": "2.1.0-rc.2", "url": "./2.1.0-rc.2.yml"},
+                  {"name": "2.1.0", "url": "./2.1.0.yml"}],
+          "urls.primaryName": "2.1.0",  // default spec
+          dom_id: '#swagger-ui',
+          deepLinking: true,
         showExtensions:true,
         supportedSubmitMethods:[],
         presets: [
