@@ -17,8 +17,8 @@ Deve-se ter apenas os números do CNPJ, sem máscara
 /data/otherDocuments/number;number;Número do outro documento. De preenchimento obrigatório, para a Pessoa jurídica com domicílio ou sede no exterior, desobrigada de inscrição no CNPJ;Texto;20;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;128328453;
 /data/otherDocuments/country;country;Pais de emissão do tipo de documento informado. Código do pais de acordo com o código alpha3 do ISO-3166;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;CAN;
 /data/otherDocuments/expirationDate;expirationDate;Data vigência do tipo de  documento informado, conforme especificação RFC-3339.;Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2021-05-21;
-/data/parties;parties;"Lista relativa às informações das partes envolvidas, como: sócio e /ou administrador
-";Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/parties;parties;"Lista relativa às informações das partes envolvidas, como: sócio e/ou administrador. Objeto de envio obrigatório para todos os CNPJs que possuam sócios e/ou administradores no cadastro do QSA (Quadro de Sócios e Administradores)
+";Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/parties/personType;personType;Indica se a pessoa da parte envolvida é uma pessoa natural ou juridica;Texto;;Obrigatório;;"PESSOA_NATURAL 
 PESSOA_JURIDICA";1;1;"";Não permitido;string;;
 /data/parties/type;type;"Indica o perfil de atuação na empresa. Vide Enum
