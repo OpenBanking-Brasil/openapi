@@ -51,8 +51,13 @@ FUNDS_READ
 VARIABLE_INCOMES_READ 
 TREASURE_TITLES_READ 
 EXCHANGES_READ";1;N;"";Não permitido;array;;
-/data/expirationDateTime;expirationDateTime;"Data e hora de expiração da permissão. Reflete a data limite de validade do consentimento. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC (UTC time format). 
+/data/expirationDateTime;expirationDateTime;"Data e hora de expiração da permissão. Reflete a data limite de validade do consentimento.
+Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC (UTC time format).
 
-[Restrição] De preenchimento obrigatório nos casos em que houver validade determinada. Em casos de consentimento com prazo indeterminado o campo não deve ser enviado.
-";Date Hora;20;Condicional;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;" De preenchimento obrigatório nos casos em que houver validade determinada. Em casos de consentimento com prazo indeterminado o campo não deve ser enviado.
+[Restrição] De preenchimento obrigatório nos casos em que houver validade determinada.
+Em casos de consentimento com prazo indeterminado o campo não deve ser enviado. 
+Quando preenchido, o valor do campo não pode ultrapassar 12 meses.
+";Date Hora;20;Condicional;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;" De preenchimento obrigatório nos casos em que houver validade determinada.
+Em casos de consentimento com prazo indeterminado o campo não deve ser enviado. 
+Quando preenchido, o valor do campo não pode ultrapassar 12 meses.
 ";Não permitido;string;2021-05-21T08:30:00Z;
