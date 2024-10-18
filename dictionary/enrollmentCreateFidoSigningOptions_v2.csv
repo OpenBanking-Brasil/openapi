@@ -1,4 +1,4 @@
-Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Objeto que contém as informações necessárias para assinatura com uma credencial FIDO2 previamente registrada.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/challenge;challenge;Sequência de bytes aleatórios gerados pelo servidor FIDO2. Deve ser o valor em formato base64url sem padding.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/timeout;timeout;Expiração, em milissegundos, do challenge.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;;

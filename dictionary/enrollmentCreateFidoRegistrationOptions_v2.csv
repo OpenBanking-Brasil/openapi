@@ -1,4 +1,4 @@
-Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Objeto que contém as informações necessárias para registro de uma nova credencial FIDO2.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/enrollmentId;enrollmentId;"Identificador único do vínculo de conta criado para a iniciação de pagamento solicitada. Deverá ser um URN - Uniform Resource Name.
 Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource
@@ -15,7 +15,7 @@ Informações mais detalhadas sobre a construção de namespaces devem ser consu
 /data/rp/name;name;Nome amigável da Relying Party para exibição aos usuários. Pode ser obtido através do Software Statement Assertion, atributo software_client_name.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user;user;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/user/id;id;"Identificador único do usuário sob registro em formato base64. A conversão deste valor para o formato original (BufferSource ou ArrayBuffer) não deve ultrapassar 64 bytes. 
-O identificador único deve ser opaco, ou seja, não deve carregar pessoais sobre o usuário, por exemplo (não exaustivo) um UUID RFC4122 cumpre com os requisitos desse campo
+O identificador único deve ser opaco, ou seja, não deve carregar dados pessoais sobre o usuário, por exemplo (não exaustivo) um UUID RFC4122 cumpre com os requisitos desse campo
 ";Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user/name;name;Identificador do usuário human-readable.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user/displayName;displayName;Identificador do usuário para fins de apresentação.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
