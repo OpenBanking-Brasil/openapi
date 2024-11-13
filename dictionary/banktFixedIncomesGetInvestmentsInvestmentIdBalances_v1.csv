@@ -23,13 +23,13 @@
 /data/purchaseUnitPrice;purchaseUnitPrice;Valor unitário negociado com o cliente na data de aquisição;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/purchaseUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;
 /data/purchaseUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/preFixedRate;preFixedRate;"Taxa de remuneração acordada com o cliente na contratação. 
-Em casos de produtos progressivos, considerar taxa vigente. p.ex. 0.014500. 
+/data/preFixedRate;preFixedRate;"Taxa de remuneração acordada com o cliente na contratação. Em casos de produtos progressivos, considerar a taxa máxima contratada. 
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
-Este valor representa 15%. O valor 1 representa 100%). É esperado que o preenchimento deste campo pelas participantes seja enviado de acordo com o campo preFixedRate do endpoint /investment/{investmentId}.
+Este valor representa 15%. O valor 1 representa 100%). 
+É esperado que o preenchimento deste campo pelas participantes seja enviado conforme foi acordado no momento da contratação.
 ";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.300000;8
-/data/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador acordado com o cliente na contratação. 
-Em casos de produtos progressivos, considerar taxa vigente. p.ex. 0.014500. 
+/data/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador acordado com o cliente na contratação. Em casos de produtos progressivos, considerar a taxa máxima contratada. 
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
-Este valor representa 15%. O valor 1 representa 100%). É esperado que o preenchimento deste campo pelas participantes seja enviado de acordo com o campo postFixedIndexerPercentage do endpoint /investment/{investmentId}.
+Este valor representa 15%. O valor 1 representa 100%). 
+É esperado que o preenchimento deste campo pelas participantes seja enviado conforme foi acordado no momento da contratação.
 ";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;1.000000;8
