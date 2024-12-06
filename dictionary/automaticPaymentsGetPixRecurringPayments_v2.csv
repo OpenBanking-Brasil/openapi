@@ -72,6 +72,8 @@ Motivo da rejeição do pagamento. Informações complementares sobre o motivo d
 - LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO: O valor da transação ultrapassar o limite de valor por transação
 - CONSENTIMENTO_REVOGADO
 - LIMITE_TENTATIVAS_EXCEDIDO
+- FORA_PRAZO_PERMITIDO
+- DETALHE_TENTATIVA_INVALIDO
 
 [Restrição] Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
 ";Texto;;Obrigatório;;"SALDO_INSUFICIENTE 
@@ -92,7 +94,9 @@ TITULARIDADE_INCONSISTENTE
 LIMITE_VALOR_TOTAL_CONSENTIMENTO_EXCEDIDO 
 LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO 
 CONSENTIMENTO_REVOGADO 
-LIMITE_TENTATIVAS_EXCEDIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
+LIMITE_TENTATIVAS_EXCEDIDO 
+FORA_PRAZO_PERMITIDO 
+DETALHE_TENTATIVA_INVALIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
 ";Não permitido;string;SALDO_INSUFICIENTE;
 /data/rejectionReason/detail;detail;"Detalhe sobre o código identificador do motivo de rejeição.
 
@@ -115,6 +119,8 @@ LIMITE_TENTATIVAS_EXCEDIDO";1;1;" Esse motivo deverá ser enviado quando o campo
 - LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO: O valor da transação ultrapassar o limite de valor por transação.
 - CONSENTIMENTO_REVOGADO: O pagamento estava associado a um consentimento que foi revogado.
 - LIMITE_TENTATIVAS_EXCEDIDO: O máximo de tentativas de liquidação permitidas pelo arranjo foi atingido
+- FORA_PRAZO_PERMITIDO: O horário ou período da requisição não permite o agendamento pelo detentor.
+- DETALHE_TENTATIVA_INVALIDO : O parâmetro [nome_do(s)_campo(s)] inseridos para a nova tentativa de pagamento não condizem com o pagamento original que falhou e não são permitidos na nova tentativa de pagamento.
 ";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;;
 /data/payment;payment;Objeto contendo as informações do pagamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/payment/amount;amount;"Valor da transação com 2 casas decimais.
@@ -126,17 +132,73 @@ LIMITE_TENTATIVAS_EXCEDIDO";1;1;" Esse motivo deverá ser enviado quando o campo
 /data/transactionIdentification;transactionIdentification;"Trata-se de um identificador de transação que deve ser retransmitido intacto pelo PSP do pagador ao gerar a ordem de pagamento. 
 Essa informação permitirá ao recebedor identificar e correlacionar a transferência, quando recebida, com a apresentação das instruções ao pagador. 
 Os caracteres permitidos no contexto do Pix para o campo txid (EMV 62-05) são:Letras minúsculas, de 'a' a 'z' Letras maiúsculas, de 'A' a 'z' Dígitos decimais, de '0' a '9'.
-";Texto;35;Opcional;^[a-zA-Z0-9]{1,35}$;;0;1;"";Não permitido;string;E00038166201907261559y6j6;
+
+[Restrição] Preenchimento condicional de acordo com o conteúdo do campo “localInstrument”:
+
+MANU - O campo transactionIdentification não deve ser preenchido;  
+DICT - O campo transactionIdentification não deve ser preenchido;  
+INIC - O campo transactionIdentification deve ser preenchido obrigatoriamente e deve conter até 25 caracteres alfanuméricos ([a-z|A-Z|0-9]).
+";Texto;35;Condicional;^[a-zA-Z0-9]{1,35}$;;0;1;" Preenchimento condicional de acordo com o conteúdo do campo “localInstrument”:
+
+MANU - O campo transactionIdentification não deve ser preenchido;  
+DICT - O campo transactionIdentification não deve ser preenchido;  
+INIC - O campo transactionIdentification deve ser preenchido obrigatoriamente e deve conter até 25 caracteres alfanuméricos ([a-z|A-Z|0-9]).
+";Não permitido;string;E00038166201907261559y6j6;
 /data/document;document;Informações do documento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/document/identification;identification;Número do documento de identificação oficial do titular pessoa natural ou jurídica.;Texto;14;Obrigatório;^(?:\d{11}|\d{14})$;;1;1;"";Não permitido;string;11111111111111;11
 /data/document/rel;rel;Tipo do documento de identificação oficial do titular pessoa natural ou jurídica.;Texto;;Obrigatório;;"CPF 
 CNPJ";1;1;"";Não permitido;string;CNPJ;
-/data/lastRetryRecurringPaymentIds;lastRetryRecurringPaymentIds;"Conjunto de recurringPaymentIds correspondentes às tentativas de pagamentos anteriores.
+/data/originalRecurringPaymentId;originalRecurringPaymentId;"Campo que contém o código ou o identificador da tentativa original de pagamento que falhou. 
+A tentativa de pagamento original é a primeira tentativa (Intradia – Primeira Tentativa, vide documentação) realizada para o pagamento de uma determinada recorrência. 
+Código ou identificador único informado pela instituição detentora da conta para representar a iniciação de pagamento. 
+O recurringPaymentId deve ser diferente do endToEndId. 
+Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.
 
-[Restrições]
-Este campo é de preenchimento obrigatório pela detentora quando for uma tentativa de pagamento com erro ou falha.
-Este campo é de envio obrigatório pela iniciadora quando for uma tentativa de pagamento que falhou anteriormente.
-";Lista;100;Condicional;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;0;4;"
-Este campo é de preenchimento obrigatório pela detentora quando for uma tentativa de pagamento com erro ou falha.
-Este campo é de envio obrigatório pela iniciadora quando for uma tentativa de pagamento que falhou anteriormente.
-";Não permitido;array;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
+[Restrição] Este campo é de envio obrigatório pela Iniciadora quando for uma nova tentativa de liquidação de pagamento que falhou anteriormente.
+";Texto;100;Condicional;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;0;1;" Este campo é de envio obrigatório pela Iniciadora quando for uma nova tentativa de liquidação de pagamento que falhou anteriormente.
+";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
+/data/paymentReference;paymentReference;"[Restrição]
+Campo de preenchimento obrigatório caso seja um pagamento de Pix automático, caso não respeitado, a instituição detentora deve retornar erro HTTP 422 com o código DETALHE_PAGAMENTO_INVALIDO.
+
+- Primeiro pagamento: Se for o pagamento inicial especificado em “/data/firstPayment”, preencha o campo com a string fixa “zero”.
+- Semanal: Preencha com W$numSemana-$ano, onde $numSemana representa o número da semana no ano. Exemplo: ""W50-2024"".
+- Mensal: Use M$mês-$ano, onde $mês representa o mês com dois dígitos. Exemplo: ""M09-2024"".
+- Trimestral: Utilize Q$trimestre-$ano, onde $trimestre indica o trimestre do ano (1 a 4).
+  - Janeiro a Março: Q1-$ano (ex.: ""Q1-2024"").
+  - Abril a Junho: Q2-$ano (ex.: ""Q2-2024"").
+  - Julho a Setembro: Q3-$ano (ex.: ""Q3-2024"").
+  - Outubro a Dezembro: Q4-$ano (ex.: ""Q4-2024"").
+- Semestral: Utilize $semestre-$ano, onde $semestre indica o semestre do ano (1 para janeiro a junho e 2 para julho a dezembro).
+  - Janeiro a Junho: S1-$ano (ex.: ""S1-2024"").
+  - Julho a Dezembro: S2-$ano (ex.: ""S2-2024"").
+- Anual: Use Y$ano, apenas com o ano. Exemplo: ""Y2024"".
+  - Exemplo de Formatos:
+    - Primeiro pagamento: ""zero""
+    - Semanal: ""W50-2024""
+    - Mensal: ""M09-2024""
+    - Trimestral: ""Q3-2024""
+    - Semestral: ""S2-2024""
+    - Anual: ""Y2024""
+";Texto;10;Condicional;;;0;1;"
+Campo de preenchimento obrigatório caso seja um pagamento de Pix automático, caso não respeitado, a instituição detentora deve retornar erro HTTP 422 com o código DETALHE_PAGAMENTO_INVALIDO.
+
+- Primeiro pagamento: Se for o pagamento inicial especificado em “/data/firstPayment”, preencha o campo com a string fixa “zero”.
+- Semanal: Preencha com W$numSemana-$ano, onde $numSemana representa o número da semana no ano. Exemplo: ""W50-2024"".
+- Mensal: Use M$mês-$ano, onde $mês representa o mês com dois dígitos. Exemplo: ""M09-2024"".
+- Trimestral: Utilize Q$trimestre-$ano, onde $trimestre indica o trimestre do ano (1 a 4).
+  - Janeiro a Março: Q1-$ano (ex.: ""Q1-2024"").
+  - Abril a Junho: Q2-$ano (ex.: ""Q2-2024"").
+  - Julho a Setembro: Q3-$ano (ex.: ""Q3-2024"").
+  - Outubro a Dezembro: Q4-$ano (ex.: ""Q4-2024"").
+- Semestral: Utilize $semestre-$ano, onde $semestre indica o semestre do ano (1 para janeiro a junho e 2 para julho a dezembro).
+  - Janeiro a Junho: S1-$ano (ex.: ""S1-2024"").
+  - Julho a Dezembro: S2-$ano (ex.: ""S2-2024"").
+- Anual: Use Y$ano, apenas com o ano. Exemplo: ""Y2024"".
+  - Exemplo de Formatos:
+    - Primeiro pagamento: ""zero""
+    - Semanal: ""W50-2024""
+    - Mensal: ""M09-2024""
+    - Trimestral: ""Q3-2024""
+    - Semestral: ""S2-2024""
+    - Anual: ""Y2024""
+";Não permitido;string;;

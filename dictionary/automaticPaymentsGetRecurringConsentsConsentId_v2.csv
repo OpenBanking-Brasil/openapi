@@ -45,11 +45,6 @@ O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou tra
 /data/creditors/name;name;"Em caso de pessoa natural deve ser informado o nome completo do titular da conta do recebedor.  
 Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.
 ";Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ,.@:&*+_<>()!?/\\$%\d' -]+)$;;1;1;"";Não permitido;string;Marco Antonio de Brito;
-/data/startDateTime;startDateTime;"Data e hora em que o consentimento deve passar a ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
-
-[Restrição] Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime. Caso o campo /data/startDateTime enviado seja anterior ao valor do campo /data/creationDateTime, o detentor deve substituir o valor do campo /data/startDateTime pelo valor do campo /data/creationDateTime. 
-";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;" Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime. Caso o campo /data/startDateTime enviado seja anterior ao valor do campo /data/creationDateTime, o detentor deve substituir o valor do campo /data/startDateTime pelo valor do campo /data/creationDateTime. 
-";Não permitido;string;2021-05-21T08:30:00Z;
 /data/creationDateTime;creationDateTime;Data e hora em que o consentimento foi criado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/expirationDateTime;expirationDateTime;Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/additionalInformation;additionalInformation;Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional no consentimento;Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Minha recorrência;
@@ -179,50 +174,23 @@ REVOGADO_RECEBEDOR";1;1;"";Não permitido;string;REVOGADO_RECEBEDOR;
 [Restrição] Excludente com o campo “/data/recurringConfiguration/automatic/fixedAmount”
 ";Texto;19;Condicional;^((\d{1,16}\.\d{2}))$;;0;1;" Excludente com o campo “/data/recurringConfiguration/automatic/fixedAmount”
 ";Não permitido;string;1000000.12;4
-/data/recurringConfiguration/automatic/period;period;"Define a periodicidade permitida para realização de transações
+/data/recurringConfiguration/automatic/interval;interval;"Define a periodicidade permitida para realização de transações
 - SEMANAL
 - MENSAL
 - ANUAL
 - SEMESTRAL
 - TRIMESTRAL
-";Texto;;Obrigatório;;"SEMANAL 
+";Texto;;Opcional;;"SEMANAL 
 MENSAL 
 ANUAL 
 SEMESTRAL 
-TRIMESTRAL";1;1;"";Não permitido;string;SEMANAL;
-/data/recurringConfiguration/automatic/month;month;"Mês previstos para ocorrer transações. Caso consentimento seja para pagamentos trimestrais ou semestrais, o campo representa o mês da primeira cobrança.
-- JANEIRO
-- FEVEREIRO
-- MARCO
-- ABRIL
-- MAIO
-- JUNHO
-- JULHO
-- AGOSTO
-- SETEMBRO
-- OUTUBRO
-- NOVEMBRO
-- DEZEMBRO
-
-[Restrição] Campo deve ser enviado quando o campo `/data/recurringConfiguration/automatic/period` for igual a TRIMESTRAL, SEMESTRAL ou ANUAL
-";Texto;;Condicional;;"JANEIRO 
-FEVEREIRO 
-MARCO 
-ABRIL 
-MAIO 
-JUNHO 
-JULHO 
-AGOSTO 
-SETEMBRO 
-OUTUBRO 
-NOVEMBRO 
-DEZEMBRO";0;1;" Campo deve ser enviado quando o campo `/data/recurringConfiguration/automatic/period` for igual a TRIMESTRAL, SEMESTRAL ou ANUAL
-";Não permitido;string;JANEIRO;
+TRIMESTRAL";0;1;"";Não permitido;string;SEMANAL;
 /data/recurringConfiguration/automatic/contractDebtor;contractDebtor;Informações sobre o cliente devedor do contrato.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/recurringConfiguration/automatic/contractDebtor/name;name;Em caso de pessoa natural deve ser informado o nome completo do titular devedor do contrato.;Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ,.@:&*+_<>()!?/\\$%\d' -]+)$;;1;1;"";Não permitido;string;Policarpo Quaresma;
 /data/recurringConfiguration/automatic/contractDebtor/document;document;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/recurringConfiguration/automatic/contractDebtor/document/identification;identification;Número do documento de identificação oficial do cliente devedor do contrato.;Texto;14;Obrigatório;^\d{14}$;;1;1;"";Não permitido;string;11111111111111;
-/data/recurringConfiguration/automatic/contractDebtor/document/rel;rel;Tipo do documento de identificação oficial do cliente devedor do contrato.;Texto;4;Obrigatório;^[A-Z]{4}$;;1;1;"";Não permitido;string;CNPJ;
+/data/recurringConfiguration/automatic/contractDebtor/document/identification;identification;Número do documento de identificação oficial do cliente devedor do contrato.;Texto;14;Obrigatório;^(?:\d{11}|\d{14})$;;1;1;"";Não permitido;string;11111111111111;
+/data/recurringConfiguration/automatic/contractDebtor/document/rel;rel;Tipo do documento de identificação oficial do cliente devedor do contrato.;Texto;;Obrigatório;;"CPF 
+CNPJ";1;1;"";Não permitido;string;;
 /data/recurringConfiguration/automatic/firstPayment;firstPayment;"Definições para o primeiro pagamento. É considerado como o pagamento da adesão ao serviço pelo usuário pagador.
 
 - A conta de crédito informada deve pertencer ao mesmo CNPJ informado no campo “/data/creditors/cpfCnpj”
@@ -250,7 +218,7 @@ Todos os valores monetários informados estão representados com a moeda vigente
 no exercício de atividades da instituição, não podendo ser móvel ou transitória).
 
 [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
-";Texto;4;Obrigatório;^[0-9]{1,4}$;;1;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+";Texto;4;Condicional;^[0-9]{1,4}$;;0;1;" Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
 ";Não permitido;string;1774;1
 /data/recurringConfiguration/automatic/firstPayment/creditorAccount/number;number;"Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), 
 se houver valor alfanumérico, este deve ser convertido para 0.
@@ -272,6 +240,9 @@ Não pode ser preenchido nas autorizações de valor fixo.
 ";Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/automatic/isRetryAccepted;isRetryAccepted;Indica se é permitido pelo cliente recebedor fazer tentativas de pagamento (extradia), conforme as regras estabelecidas no arranjo Pix.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false;
 /data/recurringConfiguration/automatic/useOverdraftLimit;useOverdraftLimit;Indica se o usuário pagador autorizou a utilização de limite pré-aprovado (cheque especial) na sua conta para realização de pagamentos, caso o cliente possua o produto.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
+/data/recurringConfiguration/automatic/referenceStartDateTime;referenceStartDateTime;"Representa a data prevista para a primeira ocorrência de um pagamento associado a recorrência. 
+Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+";Date Hora;;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2023-05-21T08:30:00Z;
 /data/recurringConfiguration/sweeping;sweeping;Definição da configuração de recorrência para transferências automáticas de fundos.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/recurringConfiguration/sweeping/totalAllowedAmount;totalAllowedAmount;Valor máximo a ser atingido pelo somatório de todas as transações que utilizam o consentimento autorizado pelo cliente. Caso o valor seja superado, a detentora de conta deve negar a transação solicitada pela iniciadora.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/sweeping/transactionLimit;transactionLimit;Valor máximo para cada transação de pagamento associada a esse consentimento. Caso valor do pagamento seja maior que esse limite, a detentora de contas deve rejeitar a transação de pagamento.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;1000000.12;4
@@ -305,6 +276,12 @@ Não pode ser preenchido nas autorizações de valor fixo.
 /data/recurringConfiguration/sweeping/periodicLimits/year/quantityLimit;quantityLimit;Quantidade limite de transações permitidas para ocorrer durante um ano.;Inteiro;;Opcional;;;0;1;"";Não permitido;integer;100;1
 /data/recurringConfiguration/sweeping/periodicLimits/year/transactionLimit;transactionLimit;Valor máximo a ser transacionado por um ano, a partir da data definida no campo `/data/startDateTime`.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/sweeping/useOverdraftLimit;useOverdraftLimit;Indica se o usuário pagador autorizou a utilização de limite pré-aprovado (cheque especial) na sua conta para realização de pagamentos, caso o cliente possua o produto.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
+/data/recurringConfiguration/sweeping/startDateTime;startDateTime;"Description: Data e hora em que o consentimento deve passar a ser válido. 
+Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+
+[Restrição] Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime.
+";Date Hora;;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;" Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime.
+";Não permitido;string;2023-05-21T08:30:00Z;
 /data/recurringConfiguration/vrp;vrp;Definição da configuração de recorrência para realização de transações de valores variáveis;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/recurringConfiguration/vrp/transactionLimit;transactionLimit;Limite máximo de valor permitido para cada transação de pagamento.;Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/vrp/globalLimits;globalLimits;"Limite transacional máximo para pagamentos, após atingir este valor, o consentimento deve ir para o status ""CONSUMED"".";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
@@ -389,3 +366,8 @@ No iOS, conforme documentação App Attest [iOS](https://developer.apple.com/doc
 [Restrição] Campo de envio obrigatório quando consentimento transitar para AUTHORISED.
 ";Date Hora;20;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;" Campo de envio obrigatório quando consentimento transitar para AUTHORISED.
 ";Não permitido;string;2021-05-21T08:30:00Z;20
+/data/updatedAtDateTime;updatedAtDateTime;"Data e hora em que o consentimento foi atualizado pelo usuário pagador. 
+O campo deve ser atualizado pelo detentor sempre que o consentimento for editado. 
+Caso a edição seja realizada a partir do iniciador, o detentor deve preencher com a data e hora (UTC) em que recebeu a solicitação de edição. 
+A edição só é permitida para o produto Pix automático.
+";Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z;20
