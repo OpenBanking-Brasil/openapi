@@ -12,13 +12,13 @@ Informações mais detalhadas sobre a construção de namespaces devem ser consu
 ";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;urn:bancoex:C1DD33123;
 /data/rp;rp;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/rp/id;id;Identificador único da Relying Party. Esse campo deve ser preenchido com o valor que é enviado na requisição no campo /data/rp.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
-/data/rp/name;name;Nome amigável da Relying Party para exibição aos usuários. Pode ser obtido através do Software Statement Assertion, atributo software_client_name.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/rp/name;name;Nome amigável da Relying Party para exibição aos usuários. Deve ser obtido através do Software Statement Assertion, atributo software_client_name.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user;user;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/user/id;id;"Identificador único do usuário sob registro em formato base64. A conversão deste valor para o formato original (BufferSource ou ArrayBuffer) não deve ultrapassar 64 bytes. 
 O identificador único deve ser opaco, ou seja, não deve carregar dados pessoais sobre o usuário, por exemplo (não exaustivo) um UUID RFC4122 cumpre com os requisitos desse campo
 ";Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/user/name;name;Identificador do usuário human-readable.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
-/data/user/displayName;displayName;Identificador do usuário para fins de apresentação.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
+/data/user/displayName;displayName;Identificador do usuário para fins de apresentação. Deve ser formado pelo nome social, se existente, ou nome e sobrenome do cadastro do cliente no detentor de contas.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/challenge;challenge;Sequência de bytes aleatórios gerados pelo servidor FIDO2. Deve ser o valor em formato base64url sem padding.;Texto;;Obrigatório;;;1;1;"";Não permitido;string;;
 /data/pubKeyCredParams;pubKeyCredParams;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
 /data/pubKeyCredParams/alg;alg;Identificador do algoritmo (COSE);Inteiro;;Obrigatório;;;1;1;"";Não permitido;integer;-7;
