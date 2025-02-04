@@ -1,0 +1,211 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/recurringPaymentId;recurringPaymentId;"Código ou identificador único informado pela instituição detentora da conta para representar a iniciação de pagamento. O `recurringPaymentId` deve ser diferente do `endToEndId`. 
+Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;1;1;"";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
+/data/recurringConsentId;recurringConsentId;"Identificador único do consentimento criado para a iniciação de pagamento solicitada. Deverá ser um URN - Uniform Resource Name.
+Um URN, conforme definido na [RFC8141](https://tools.ietf.org/html/rfc8141) é um Uniform Resource
+Identifier - URI - que é atribuído sob o URI scheme ""urn"" e um namespace URN específico, com a intenção de que o URN
+seja um identificador de recurso persistente e independente da localização.
+Considerando a string urn:bancoex:C1DD33123 como exemplo para `recurringConsentId` temos:
+- o namespace(urn)
+- o identificador associado ao namespace da instituição transmissora (bancoex)
+- o identificador específico dentro do namespace (C1DD33123).
+Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://tools.ietf.org/html/rfc8141).
+
+[Restrição] Este campo é de preenchimento obrigatório quando o valor do campo authorisationFlow for igual a FIDO_FLOW.
+";Texto;256;Condicional;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;0;1;" Este campo é de preenchimento obrigatório quando o valor do campo authorisationFlow for igual a FIDO_FLOW.
+";Não permitido;string;urn:bancoex:C1DD33123;
+/data/endToEndId;endToEndId;"Trata-se de um identificador único, gerado na instituição iniciadora de pagamento e recebido na instituição detentora de conta, permeando toda a jornada do pagamento Pix.
+
+[Restrição] A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora.
+
+No caso de Pix Automático, a iniciadora deverá, no que tange á composição do endToEndId, utilizar a data para a qual o Pix está sendo agendado e horário fixo 15:00 UTC, que dará para a detentora a janela de efetivação de 00:00 e 23:59 do horário de Brasília, mesmo a janela sendo, para o detentor, até as 21h.
+";Texto;32;Obrigatório;^([E])([0-9]{8})([0-9]{4})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(2[0-3]|[01][0-9])([0-5][0-9])([a-zA-Z0-9]{11})$;;1;1;" A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora.
+
+No caso de Pix Automático, a iniciadora deverá, no que tange á composição do endToEndId, utilizar a data para a qual o Pix está sendo agendado e horário fixo 15:00 UTC, que dará para a detentora a janela de efetivação de 00:00 e 23:59 do horário de Brasília, mesmo a janela sendo, para o detentor, até as 21h.
+";Não permitido;string;E9040088820210128000800123873170;32
+/data/date;date;Data em que o pagamento será realizado.;Texto;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2023-10-10;
+/data/creationDateTime;creationDateTime;"Data e hora em que o pagamento foi criado. 
+Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), 
+sempre com a utilização de timezone UTC(UTC time format).
+";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/statusUpdateDateTime;statusUpdateDateTime;"Data e hora em que o pagamento teve o status atualizado. 
+Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), 
+sempre com a utilização de timezone UTC(UTC time format).
+";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/status;status;"Estado atual do pagamento. O estado evolui na seguinte ordem:
+- RCVD (Received) - Indica que a requisição de pagamento foi recebida com sucesso pela detentora, mas ainda há validações a serem feitas antes de ser submetida para liquidação.
+- CANC (Cancelled) - Indica que a transação Pix pendente foi cancelada com sucesso pelo usuário antes que fosse confirmada (ACCP) ou rejeitada (RJCT) pela detentora.
+- ACCP( Accepted Customer Profile) - Indica que todas as verificações necessárias já foram realizadas pela detentora e que a transação está pronta para ser enviada para liquidação (no SPI se for Pix para outra instituição ou internamente se for para outra conta na mesma instituição).
+- ACPD (Accepted Clearing Processed) - Indica que a detentora já submeteu a transação para liquidação, mas ainda não tem a confirmação se foi liquidada ou rejeitada.
+- RJCT (Rejected) Indica que a transação foi rejeitada pela detentora ou pelo SPI.
+- ACSC (Accepted Settlement Completed Debitor Account) - Indica que a transação foi efetivada pela detentora ou pelo SPI.
+- PDNG (Pending) - Indica que a detentora reteve temporariamente a transação Pix para análise. Não se aplica para Transferências inteligentes.
+- SCHD (Scheduled) - Indica que a transação Pix foi agendada com sucesso na detentora.  
+Em caso insucesso:
+- RJCT (REJECTED) - Instrução de pagamento rejeitada.
+";Texto;;Obrigatório;;"RCVD 
+CANC 
+ACCP 
+ACPD 
+RJCT 
+ACSC 
+PDNG 
+SCHD";1;1;"";Não permitido;string;PDNG;
+/data/rejectionReason;rejectionReason;"Objeto contendo o motivo de rejeição assíncrono
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/rejectionReason/code;code;"Código identificador do motivo de rejeição.
+Motivo da rejeição do pagamento. Informações complementares sobre o motivo do status.
+- SALDO_INSUFICIENTE
+- VALOR_ACIMA_LIMITE
+- VALOR_INVALIDO
+- NAO_INFORMADO
+- PAGAMENTO_DIVERGENTE_CONSENTIMENTO
+- PAGAMENTO_RECUSADO_DETENTORA
+- PAGAMENTO_RECUSADO_SPI
+- CONSENTIMENTO_INVALIDO
+- FALHA_INFRAESTRUTURA_SPI
+- FALHA_INFRAESTRUTURA_ICP
+- FALHA_INFRAESTRUTURA_PSP_RECEBEDOR
+- FALHA_INFRAESTRUTURA_DETENTORA
+- LIMITE_PERIODO_VALOR_EXCEDIDO
+- LIMITE_PERIODO_QUANTIDADE_EXCEDIDO
+- TITULARIDADE_INCONSISTENTE
+- LIMITE_VALOR_TOTAL_CONSENTIMENTO_EXCEDIDO
+- LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO: O valor da transação ultrapassar o limite de valor por transação
+- CONSENTIMENTO_REVOGADO
+- LIMITE_TENTATIVAS_EXCEDIDO
+- FORA_PRAZO_PERMITIDO
+- DETALHE_TENTATIVA_INVALIDO
+- DETALHE_PAGAMENTO_INVALIDO
+
+[Restrição] Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
+";Texto;;Obrigatório;;"SALDO_INSUFICIENTE 
+VALOR_ACIMA_LIMITE 
+VALOR_INVALIDO 
+NAO_INFORMADO 
+PAGAMENTO_DIVERGENTE_CONSENTIMENTO 
+PAGAMENTO_RECUSADO_DETENTORA 
+PAGAMENTO_RECUSADO_SPI 
+CONSENTIMENTO_INVALIDO 
+FALHA_INFRAESTRUTURA_SPI 
+FALHA_INFRAESTRUTURA_ICP 
+FALHA_INFRAESTRUTURA_PSP_RECEBEDOR 
+FALHA_INFRAESTRUTURA_DETENTORA 
+LIMITE_PERIODO_VALOR_EXCEDIDO 
+LIMITE_PERIODO_QUANTIDADE_EXCEDIDO 
+TITULARIDADE_INCONSISTENTE 
+LIMITE_VALOR_TOTAL_CONSENTIMENTO_EXCEDIDO 
+LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO 
+CONSENTIMENTO_REVOGADO 
+LIMITE_TENTATIVAS_EXCEDIDO 
+FORA_PRAZO_PERMITIDO 
+DETALHE_TENTATIVA_INVALIDO 
+DETALHE_PAGAMENTO_INVALIDO";1;1;" Esse motivo deverá ser enviado quando o campo `/data/status` for igual a RJCT (REJECTED).
+";Não permitido;string;SALDO_INSUFICIENTE;
+/data/rejectionReason/detail;detail;"Detalhe sobre o código identificador do motivo de rejeição.
+
+- SALDO_INSUFICIENTE: A conta selecionada não possui saldo suficiente para realizar o pagamento;
+- VALOR_ACIMA_LIMITE: Valida se o valor ultrapassa o limite estabelecido [na instituição (conta ou canal)/no arranjo] para permitir a realização de transações pelo cliente;
+- VALOR_INVALIDO: O valor enviado não é válido; 
+- NAO_INFORMADO: Não reportado/identificado pela instituição detentora de conta;
+- PAGAMENTO_DIVERGENTE_CONSENTIMENTO: Dados do pagamento divergentes dos dados do consentimento;
+- PAGAMENTO_RECUSADO_DETENTORA: [descrição do motivo de recusa];
+- PAGAMENTO_RECUSADO_SPI: [código de erro conforme tabela de domínios reason PACS.002];
+- CONSENTIMENTO_INVALIDO: Consentimento inválido (em status final);
+- FALHA_INFRAESTRUTURA_SPI: Indica uma falha no Sistema de Pagamentos Instantâneos (SPI);
+- FALHA_INFRAESTRUTURA_ICP: Indica uma falha na Infraestrutura de Chaves Públicas (ICP);
+- FALHA_INFRAESTRUTURA_PSP_RECEBEDOR: Indica uma falha na infraestrutura do Prestador de Serviço de Pagamento (PSP) que recebe o pagamento;
+- FALHA_INFRAESTRUTURA_DETENTORA: indica uma falha na infraestrutura da instituição detentora das informações ou recursos;
+- LIMITE_PERIODO_VALOR_EXCEDIDO – A transação não pode ser realizada pois o valor parametrizado no consentimento foi excedido.
+- LIMITE_PERIODO_QUANTIDADE_EXCEDIDO – A transação não pode ser realizada pois a quantidade parametrizada no consentimento foi excedida.
+- TITULARIDADE_INCONSISTENTE: Conta atualmente não associada ao CPF/CNPJ do consentimento de longa duração.
+- LIMITE_VALOR_TOTAL_CONSENTIMENTO_EXCEDIDO: O valor da transação excede o limite global do consentimento.
+- LIMITE_VALOR_TRANSACAO_CONSENTIMENTO_EXCEDIDO: O valor da transação ultrapassar o limite de valor por transação.
+- CONSENTIMENTO_REVOGADO: O pagamento estava associado a um consentimento que foi revogado.
+- LIMITE_TENTATIVAS_EXCEDIDO: O máximo de tentativas de liquidação permitidas pelo arranjo foi atingido
+- FORA_PRAZO_PERMITIDO: O horário ou período da requisição não permite o agendamento pelo detentor.
+- DETALHE_TENTATIVA_INVALIDO: O parâmetro [nome_do(s)_campo(s)] inseridos para a nova tentativa de pagamento não condizem com o pagamento original que falhou e não são permitidos na nova tentativa de pagamento.
+- DETALHE_PAGAMENTO_INVALIDO: Valida se determinado parâmetro informado obedece as regras de negócio
+";Texto;2048;Obrigatório;[\w\W\s]*;;1;1;"";Não permitido;string;;
+/data/payment;payment;Objeto contendo as informações do pagamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/payment/amount;amount;"Valor da transação com 2 casas decimais.
+";Texto;19;Obrigatório;^((\d{1,16}\.\d{2}))$;;1;1;"";Não permitido;string;100000.12;4
+/data/payment/currency;currency;"Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'. Todos os valores monetários informados estão representados com a moeda vigente do Brasil.
+";Texto;3;Obrigatório;^([A-Z]{3})$;;1;1;"";Não permitido;string;BRL;
+/data/remittanceInformation;remittanceInformation;"Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional em um pagamento, a ser enviada ao recebedor.
+";Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Pagamento da nota RSTO035-002.;
+/data/transactionIdentification;transactionIdentification;"Trata-se de um identificador de transação que deve ser retransmitido intacto pelo PSP do pagador ao gerar a ordem de pagamento. 
+Essa informação permitirá ao recebedor identificar e correlacionar a transferência, quando recebida, com a apresentação das instruções ao pagador. 
+Os caracteres permitidos no contexto do Pix para o campo txid (EMV 62-05) são:Letras minúsculas, de 'a' a 'z' Letras maiúsculas, de 'A' a 'z' Dígitos decimais, de '0' a '9'.
+
+[Restrição] Preenchimento condicional de acordo com o conteúdo do campo “localInstrument”:
+
+MANU - O campo transactionIdentification não deve ser preenchido;  
+DICT - O campo transactionIdentification não deve ser preenchido;  
+INIC - O campo transactionIdentification deve ser preenchido obrigatoriamente e deve conter até 25 caracteres alfanuméricos ([a-z|A-Z|0-9]).
+";Texto;35;Condicional;^[a-zA-Z0-9]{1,35}$;;0;1;" Preenchimento condicional de acordo com o conteúdo do campo “localInstrument”:
+
+MANU - O campo transactionIdentification não deve ser preenchido;  
+DICT - O campo transactionIdentification não deve ser preenchido;  
+INIC - O campo transactionIdentification deve ser preenchido obrigatoriamente e deve conter até 25 caracteres alfanuméricos ([a-z|A-Z|0-9]).
+";Não permitido;string;E00038166201907261559y6j6;
+/data/document;document;Informações do documento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/document/identification;identification;Número do documento de identificação oficial do titular pessoa natural ou jurídica.;Texto;14;Obrigatório;^(?:\d{11}|\d{14})$;;1;1;"";Não permitido;string;11111111111111;11
+/data/document/rel;rel;Tipo do documento de identificação oficial do titular pessoa natural ou jurídica.;Texto;;Obrigatório;;"CPF 
+CNPJ";1;1;"";Não permitido;string;CNPJ;
+/data/originalRecurringPaymentId;originalRecurringPaymentId;"Campo que contém o código ou o identificador da tentativa original de pagamento que falhou. 
+A tentativa de pagamento original é a primeira tentativa (Intradia – Primeira Tentativa, vide documentação) realizada para o pagamento de uma determinada recorrência. 
+Código ou identificador único informado pela instituição detentora da conta para representar a iniciação de pagamento. 
+O recurringPaymentId deve ser diferente do endToEndId. 
+Este é o identificador que deverá ser utilizado na consulta ao status da iniciação de pagamento efetuada.
+
+[Restrição] Este campo é de envio obrigatório pela Iniciadora quando for uma nova tentativa de liquidação de pagamento que falhou anteriormente.
+";Texto;100;Condicional;^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$;;0;1;" Este campo é de envio obrigatório pela Iniciadora quando for uma nova tentativa de liquidação de pagamento que falhou anteriormente.
+";Não permitido;string;TXpRMU9UQTROMWhZV2xSU1FUazJSMDl;1
+/data/paymentReference;paymentReference;"[Restrição]
+Campo de preenchimento obrigatório caso seja um pagamento de Pix automático, caso não respeitado, a instituição detentora deve retornar erro HTTP 422 com o código DETALHE_PAGAMENTO_INVALIDO.
+
+- Primeiro pagamento: Se for o pagamento inicial especificado em “/data/firstPayment”, preencha o campo com a string fixa “zero”.
+- Semanal: Preencha com W$numSemana-$ano, onde $numSemana representa o número da semana no ano. Exemplo: ""W50-2024"".
+- Mensal: Use M$mês-$ano, onde $mês representa o mês com dois dígitos. Exemplo: ""M09-2024"".
+- Trimestral: Utilize Q$trimestre-$ano, onde $trimestre indica o trimestre do ano (1 a 4).
+  - Janeiro a Março: Q1-$ano (ex.: ""Q1-2024"").
+  - Abril a Junho: Q2-$ano (ex.: ""Q2-2024"").
+  - Julho a Setembro: Q3-$ano (ex.: ""Q3-2024"").
+  - Outubro a Dezembro: Q4-$ano (ex.: ""Q4-2024"").
+- Semestral: Utilize $semestre-$ano, onde $semestre indica o semestre do ano (1 para janeiro a junho e 2 para julho a dezembro).
+  - Janeiro a Junho: S1-$ano (ex.: ""S1-2024"").
+  - Julho a Dezembro: S2-$ano (ex.: ""S2-2024"").
+- Anual: Use Y$ano, apenas com o ano. Exemplo: ""Y2024"".
+  - Exemplo de Formatos:
+    - Primeiro pagamento: ""zero""
+    - Semanal: ""W50-2024""
+    - Mensal: ""M09-2024""
+    - Trimestral: ""Q3-2024""
+    - Semestral: ""S2-2024""
+    - Anual: ""Y2024""
+";Texto;10;Condicional;;;0;1;"
+Campo de preenchimento obrigatório caso seja um pagamento de Pix automático, caso não respeitado, a instituição detentora deve retornar erro HTTP 422 com o código DETALHE_PAGAMENTO_INVALIDO.
+
+- Primeiro pagamento: Se for o pagamento inicial especificado em “/data/firstPayment”, preencha o campo com a string fixa “zero”.
+- Semanal: Preencha com W$numSemana-$ano, onde $numSemana representa o número da semana no ano. Exemplo: ""W50-2024"".
+- Mensal: Use M$mês-$ano, onde $mês representa o mês com dois dígitos. Exemplo: ""M09-2024"".
+- Trimestral: Utilize Q$trimestre-$ano, onde $trimestre indica o trimestre do ano (1 a 4).
+  - Janeiro a Março: Q1-$ano (ex.: ""Q1-2024"").
+  - Abril a Junho: Q2-$ano (ex.: ""Q2-2024"").
+  - Julho a Setembro: Q3-$ano (ex.: ""Q3-2024"").
+  - Outubro a Dezembro: Q4-$ano (ex.: ""Q4-2024"").
+- Semestral: Utilize $semestre-$ano, onde $semestre indica o semestre do ano (1 para janeiro a junho e 2 para julho a dezembro).
+  - Janeiro a Junho: S1-$ano (ex.: ""S1-2024"").
+  - Julho a Dezembro: S2-$ano (ex.: ""S2-2024"").
+- Anual: Use Y$ano, apenas com o ano. Exemplo: ""Y2024"".
+  - Exemplo de Formatos:
+    - Primeiro pagamento: ""zero""
+    - Semanal: ""W50-2024""
+    - Mensal: ""M09-2024""
+    - Trimestral: ""Q3-2024""
+    - Semestral: ""S2-2024""
+    - Anual: ""Y2024""
+";Não permitido;string;;
