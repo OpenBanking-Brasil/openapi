@@ -230,8 +230,9 @@ Segue descrição de cada valor do ENUM.
 SVGS 
 TRAN";1;1;"";Não permitido;string;CACC;
 /data/recurringConfiguration/automatic/minimumVariableAmount;minimumVariableAmount;"Valor definido pelo usuário recebedor. 
-Se o usuário pagador atribuir um valor máximo para os pagamentos daquela autorização, ele não poderá ser inferior ao valor mínimo (piso) definido pelo usuário recebedor. 
-Não pode ser preenchido nas autorizações de valor fixo.
+Se o usuário pagador atribuir um valor máximo para os pagamentos daquela autorização (campo “maximumVariableAmount”), ele não poderá ser inferior ao piso definido pelo usuário recebedor.
+Não pode ser preenchido nas autorizações de valor fixo, ou seja, com campo “/data/recurringConfiguration/automatic/fixedAmount”. 
+Não representa um valor mínimo de cobrança para o pagamento.
 ";Texto;19;Opcional;^((\d{1,16}\.\d{2}))$;;0;1;"";Não permitido;string;100000.12;4
 /data/recurringConfiguration/automatic/isRetryAccepted;isRetryAccepted;Indica se é permitido pelo cliente recebedor fazer tentativas de pagamento (extradia), conforme as regras estabelecidas no arranjo Pix.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;false;
 /data/recurringConfiguration/automatic/useOverdraftLimit;useOverdraftLimit;Indica se o usuário pagador autorizou a utilização de limite pré-aprovado (cheque especial) na sua conta para realização de pagamentos, caso o cliente possua o produto.;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
