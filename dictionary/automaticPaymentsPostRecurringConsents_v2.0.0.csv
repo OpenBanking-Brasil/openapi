@@ -6,11 +6,8 @@ Considerando a string urn:bancoex:C1DD33123 como exemplo para `recurringConsentI
 - o identificador associado ao namespace da instituição transmissora (bancoex)  
 - o identificador específico dentro do namespace (C1DD33123). Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na [RFC8141](https://datatracker.ietf.org/doc/html/rfc8141).
 ";Texto;256;Obrigatório;"^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$";;1;1;"";Não permitido;string;;
-/data/statusUpdateDateTime;statusUpdateDateTime;"Data e hora em que o consentimento deve passar a ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format). 
-
-[Restrição] Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime. Caso o campo /data/startDateTime enviado seja anterior ao valor do campo /data/creationDateTime, o detentor deve substituir o valor do campo /data/startDateTime pelo valor do campo /data/creationDateTime
-";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;" Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime. Caso o campo /data/startDateTime enviado seja anterior ao valor do campo /data/creationDateTime, o detentor deve substituir o valor do campo /data/startDateTime pelo valor do campo /data/creationDateTime
-";Não permitido;string;2021-05-21T08:30:00Z;
+/data/statusUpdateDateTime;statusUpdateDateTime;"Data e hora em que o consentimento teve o status atualizado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
 /data/loggedUser;loggedUser;Usuário (pessoa natural) que encontra-se logado na instituição Iniciadora de Pagamento.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/loggedUser/document;document;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/loggedUser/document/identification;identification;Número do documento de identificação oficial do usuário.;Texto;11;Obrigatório;^\d{11}$;;1;1;"";Não permitido;string;11111111111;
@@ -49,10 +46,16 @@ O CNPJ será utilizado com 14 números e deverá ser informado sem pontos ou tra
 Em caso de pessoa jurídica deve ser informada a razão social ou o nome fantasia da conta do recebedor.
 ";Texto;120;Obrigatório;^([A-Za-zÀ-ÖØ-öø-ÿ,.@:&*+_<>()!?/\\$%\d' -]+)$;;1;1;"";Não permitido;string;Marco Antonio de Brito;
 /data/creationDateTime;creationDateTime;Data e hora em que o consentimento foi criado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
-/data/expirationDateTime;expirationDateTime;Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).;Date Hora;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2021-05-21T08:30:00Z;
+/data/expirationDateTime;expirationDateTime;"Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC (UTC time format).
+
+[Restrição] Caso o consentimento seja para Pix Automático (""automatic"" selecionado no oneOf ""/data/recurringConfiguration/"") o horário de expiração do consentimento precisa ser às 23:59:59 (UTC).
+";Date Hora;20;Condicional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;" Caso o consentimento seja para Pix Automático (""automatic"" selecionado no oneOf ""/data/recurringConfiguration/"") o horário de expiração do consentimento precisa ser às 23:59:59 (UTC).
+";Não permitido;string;2021-05-21T08:30:00Z;
 /data/additionalInformation;additionalInformation;Deve ser preenchido sempre que o usuário pagador inserir alguma informação adicional no consentimento;Texto;140;Opcional;[\w\W\s]*;;0;1;"";Não permitido;string;Minha recorrência;
-/data/debtorAccount;debtorAccount;"Objeto que contém a identificação da conta de origem do pagador. As informações quanto à conta de origem do pagador poderão ser trazidas no consentimento para a detentora, caso a iniciadora tenha coletado essas informações do cliente. 
-Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.
+/data/debtorAccount;debtorAccount;"Objeto que contém a identificação da conta de origem do pagador. 
+- Caso a ITP tenha coletado as informações de conta do usuário pagador, essas poderão ser enviadas no consentimento para a detentora neste objeto, ou; 
+- Se não coletado pelo ITP, o usuário pagador precisará definir durante a autorização do consentimento. 
+- Mesmo se enviado pela ITP, o usuário pagador pode alterar durante a autorização do consentimento.
 
 [Restrições]
 - Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
@@ -190,8 +193,11 @@ TRIMESTRAL";1;1;"";Não permitido;string;SEMANAL;
 /data/recurringConfiguration/automatic/contractDebtor/document/identification;identification;Número do documento de identificação oficial do cliente devedor do contrato.;Texto;14;Obrigatório;^(?:\d{11}|\d{14})$;;1;1;"";Não permitido;string;11111111111111;
 /data/recurringConfiguration/automatic/contractDebtor/document/rel;rel;Tipo do documento de identificação oficial do cliente devedor do contrato.;Texto;;Obrigatório;;"CPF 
 CNPJ";1;1;"";Não permitido;string;;
-/data/recurringConfiguration/automatic/firstPayment;firstPayment;"Definições para o primeiro pagamento. É considerado como o pagamento da adesão ao serviço pelo usuário pagador. Para casos em que conta recebedora e conta pagadora pertencem ao mesmo detentor, este deve garantir que a conta de crédito informada pertence ao titular do CNPJ enviado no campo “/data/creditors/cpfCnpj”. A conta de crédito informada no momento do primeiro pagamento deve ser a mesma informada dentro deste objeto. Caso não respeitado, o detentor deve rejeitar o pagamento com o motivo DETALHE_PAGAMENTO_INVALIDO, sincronamente (HTTP 422) ou assincronamente (HTTP 200). 
-";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/recurringConfiguration/automatic/firstPayment;firstPayment;"Definições para o primeiro pagamento. É considerado como o pagamento da adesão ao serviço pelo usuário pagador.
+
+[Restrição] Para casos em que conta recebedora e conta pagadora pertencem ao mesmo detentor (/data/debtorAccount/ispb = /data/recurringConfiguration/automatic/firstPayment/creditorAccount/ispb), o detentor deve garantir que a conta de crédito informada pertence ao titular do CNPJ enviado no campo “/data/creditors/cpfCnpj”.
+";Objeto;;Condicional;;;0;1;" Para casos em que conta recebedora e conta pagadora pertencem ao mesmo detentor (/data/debtorAccount/ispb = /data/recurringConfiguration/automatic/firstPayment/creditorAccount/ispb), o detentor deve garantir que a conta de crédito informada pertence ao titular do CNPJ enviado no campo “/data/creditors/cpfCnpj”.
+";Não permitido;object;;
 /data/recurringConfiguration/automatic/firstPayment/type;type;"Este campo define o tipo de pagamento que será iniciado após a autorização do consentimento.
 ";Texto;;Obrigatório;;PIX;1;1;"";Não permitido;string;PIX;
 /data/recurringConfiguration/automatic/firstPayment/date;date;"Define a data alvo da liquidação do pagamento.
