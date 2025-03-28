@@ -47,6 +47,7 @@ info:
     - Caso o usuário pagador tenha agendado recorrências para os dias 29, 30 ou 31 de cada mês e o dia previsto não exista no respectivo mês, o iniciador deve enviar a ordem de pagamento para liquidação com o endToEndId representando o dia seguinte à data prevista para a liquidação. 
     Se identificado pelo detentor que a data enviada no endToEndId corresponde a um dia inexistente, ele deve rejeitar o pagamento
     - Caso a data de liquidação do pagamento seja superior ao prazo de expiração do consentimento, a solicitação deve ser rejeitada com o motivo FORA_PRAZO_PERMITIDO e, no detalhe, uma descrição da causa.
+    - Para permitir a segunda janela de liquidação para os pagamentos já agendados no detentor, os consentimentos de Pix Automático ("automatic" selecionado no oneOf "/data/recurringConfiguration/"), precisam obrigatoriamente ter o horário de expiração do consentimento definido para 23:59:59h (UTC).
 
     ## Validações
  
@@ -319,6 +320,7 @@ paths:
         - O envio do item "/data/creditors/name" atualizará o nome do recebedor em todos os elementos do array.
         - Caso consentimento seja de valor fixo (campo “/data/recurringConfiguration/automatic/fixedAmount” preenchido) não é permitida a edição do campo “/data/recurringConfiguration/automatic/maximumVariableAmount”.
         - Caso o recebedor tenha definido um piso para o limite a ser estipulado pelo pagador (campo “/data/recurringConfiguration/automatic/minimumVariableAmount” preenchido), o valor máximo de limite por transação definido pelo usuário pagador (campo “/data/recurringConfiguration/automatic/maximumVariableAmount”) não pode ser menor que o valor estipulado pelo recebedor.
+        - Caso o seja editado o prazo de expiração do consentimento e já existam pagamentos agendados para dias posteriores a nova data definida, estes pagamentos devem ser cancelados.
 
         3 - Informações sobre a rejeição:  
         - Caso haja necessidade de cancelamento de um consentimento ainda não autorizado, o iniciador poderá chamar o endpoint para mover o consentimento para REJECTED.
@@ -353,7 +355,7 @@ paths:
         '406':
           $ref: '#/components/responses/NotAcceptable'
         '422':
-          $ref: '#/components/responses/UnprocessableEntityRecurringConsents'
+          $ref: '#/components/responses/UnprocessableEntityPatch'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -569,7 +571,7 @@ paths:
         '406':
           $ref: '#/components/responses/NotAcceptable'
         '422':
-          $ref: '#/components/responses/UnprocessableEntityRecurringPaymentsPaymentId'
+          $ref: '#/components/responses/UnprocessableEntityPixPatch'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -699,6 +701,8 @@ components:
                   - PERMISSAO_INSUFICIENTE
                   - DETALHE_EDICAO_INVALIDO
                   - FALTAM_SINAIS_OBRIGATORIOS_PLATAFORMA
+                  - PARAMETRO_INVALIDO
+                  - PARAMETRO_NAO_INFORMADO
                 example: CAMPO_NAO_PERMITIDO
               title:
                 type: string
@@ -707,11 +711,13 @@ components:
                 example: O pagamento está com status que não permite o cancelamento.
                 description: |
                   Título específico do erro reportado, de acordo com o código enviado:  
-                  - CONSENTIMENTO_NAO_PERMITE_CANCELAMENTO: O status do consentimento não permite a realização do cancelamento (em status "CONSUMED" ou "REJECTED")
+                  - CONSENTIMENTO_NAO_PERMITE_CANCELAMENTO: O status do consentimento não permite a realização do cancelamento (em status "CONSUMED" ou "REJECTED").
                   - CAMPO_NAO_PERMITIDO: O(s) campo(s) solicitado(s) para edição não podem ser editados.
-                  - Permissão insuficiente para edição.
+                  - PERMISSAO_INSUFICIENTE: Consentimento possui múltiplas alçadas aprovadoras e não permite a edição pelo usuário atual.
                   - DETALHE_EDICAO_INVALIDO: A tentativa de edição do consentimento não respeitou as regras de negócio descritas nos campos.
                   - FALTAM_SINAIS_OBRIGATORIOS_PLATAFORMA: Os sinais obrigatórios para a plataforma do usuário não foram enviados em sua totalidade.
+                  - PARAMETRO_INVALIDO: Os parâmetros informados não obedecem a formatação especificada.
+                  - PARAMETRO_NAO_INFORMADO: Algum ou todos os campos obrigatórios não foram informados.
               detail:
                 type: string
                 maxLength: 2048
@@ -724,6 +730,8 @@ components:
                   - PERMISSAO_INSUFICIENTE: Consentimento possui múltiplas alçadas aprovadoras e não permite a edição pelo usuário atual.
                   - DETALHE_EDICAO_INVALIDO: A tentativa de edição do consentimento não respeitou as regras de negócio descritas nos campos.
                   - FALTAM_SINAIS_OBRIGATORIOS_PLATAFORMA: Os sinais obrigatórios para a plataforma do usuário não foram enviados em sua totalidade.
+                  - PARAMETRO_INVALIDO: Os parâmetros informados não obedecem a formatação especificada.
+                  - PARAMETRO_NAO_INFORMADO: Algum ou todos os campos obrigatórios não foram informados.
         meta:
           $ref: '#/components/schemas/Meta'
     422ResponseErrorCreatePixRecurringPayment:
@@ -865,26 +873,34 @@ components:
                 enum:
                   - PAGAMENTO_NAO_PERMITE_CANCELAMENTO
                   - CANCELAMENTO_FORA_PERIODO_PERMITIDO
+                  - PARAMETRO_INVALIDO
+                  - PARAMETRO_NAO_INFORMADO
                 example: PAGAMENTO_NAO_PERMITE_CANCELAMENTO
                 description: |
-                  - PAGAMENTO_NAO_PERMITE_CANCELAMENTO: Pagamento está com um status que não permite cancelamento
+                  - PAGAMENTO_NAO_PERMITE_CANCELAMENTO: Pagamento está com um status que não permite cancelamento.
                   - CANCELAMENTO_FORA_PERIODO_PERMITIDO: O usuário solicitou o cancelamento fora da janela de tempo permitido.
+                  - PARAMETRO_INVALIDO: Os parâmetros informados não obedecem a formatação especificada.
+                  - PARAMETRO_NAO_INFORMADO: Algum ou todos os campos obrigatórios não foram informados.
               title:
                 type: string
                 maxLength: 255
                 pattern: '[\w\W\s]*'
                 example: O pagamento está com um status que não permite o cancelamento.
                 description: |
-                  - PAGAMENTO_NAO_PERMITE_CANCELAMENTO: Pagamento está com um status que não permite cancelamento
+                  - PAGAMENTO_NAO_PERMITE_CANCELAMENTO: Pagamento está com um status que não permite cancelamento.
                   - CANCELAMENTO_FORA_PERIODO_PERMITIDO: O usuário solicitou o cancelamento fora da janela de tempo permitido.
+                  - PARAMETRO_INVALIDO: Os parâmetros informados não obedecem a formatação especificada.
+                  - PARAMETRO_NAO_INFORMADO: Algum ou todos os campos obrigatórios não foram informados.
               detail:
                 type: string
                 maxLength: 2048
                 pattern: '[\w\W\s]*'
                 example: O pagamento está com um status que não permite o cancelamento.
                 description: |
-                  - PAGAMENTO_NAO_PERMITE_CANCELAMENTO: Pagamento está com um status que não permite cancelamento
+                  - PAGAMENTO_NAO_PERMITE_CANCELAMENTO: Pagamento está com um status que não permite cancelamento.
                   - CANCELAMENTO_FORA_PERIODO_PERMITIDO: O usuário solicitou o cancelamento fora da janela de tempo permitido.
+                  - PARAMETRO_INVALIDO: Os parâmetros informados não obedecem a formatação especificada.
+                  - PARAMETRO_NAO_INFORMADO: Algum ou todos os campos obrigatórios não foram informados.
         meta:
           $ref: '#/components/schemas/Meta'
     BusinessEntity:
@@ -934,7 +950,10 @@ components:
             creditors:
               $ref: '#/components/schemas/Creditors'
             expirationDateTime:
-              description: Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+              description: |
+                Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC (UTC time format).
+
+                [Restrição] Caso o consentimento seja para Pix Automático ("automatic" selecionado no oneOf "/data/recurringConfiguration/") o horário de expiração do consentimento precisa ser às 23:59:59 (UTC).
               type: string
               format: date-time
               example: '2021-05-21T08:30:00Z'
@@ -949,8 +968,10 @@ components:
             debtorAccount:
               type: object
               description: |
-                Objeto que contém a identificação da conta de origem do pagador.  
-                As informações quanto à conta de origem do pagador poderão ser trazidas no consentimento para a detentora, caso a iniciadora tenha coletado essas informações do cliente. Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.
+                Objeto que contém a identificação da conta de origem do pagador. 
+                - Caso a ITP tenha coletado as informações de conta do usuário pagador, essas poderão ser enviadas no consentimento para a detentora neste objeto, ou; 
+                - Se não coletado pelo ITP, o usuário pagador precisará definir durante a autorização do consentimento. 
+                - Mesmo se enviado pela ITP, o usuário pagador pode alterar durante a autorização do consentimento.
               required:
                 - ispb
                 - number
@@ -1041,7 +1062,47 @@ components:
         payment:
           $ref: '#/components/schemas/PaymentPix'
         creditorAccount:
-          $ref: '#/components/schemas/CreditorAccount'
+          type: object
+          description: |
+            Objeto que contém a identificação da conta de destino do beneficiário/recebedor.
+
+            [Restrição] - Se /data/paymentReference = "zero", as informações da conta de crédito enviadas (/data/creditorAccount) devem ser iguais as presentes na conta de crédito informada na criação do consentimento(`/data/recurringConfiguration/automatic/firstPayment/creditorAccount`)
+          required:
+            - ispb
+            - number
+            - accountType
+          properties:
+            ispb:
+              type: string
+              minLength: 8
+              maxLength: 8
+              pattern: '^[0-9]{8}$'
+              example: '12345678'
+              description: |
+                Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
+            issuer:
+              type: string
+              minLength: 1
+              maxLength: 4
+              pattern: '^[0-9]{1,4}$'
+              example: '1774'
+              description: |
+                Código da Agência emissora da conta sem dígito. 
+                (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+                no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+                
+                [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+            number:
+              type: string
+              minLength: 1
+              maxLength: 20
+              pattern: '^[0-9]{1,20}$'
+              example: '1234567890'
+              description: |
+                Deve ser preenchido com o número da conta transacional do usuário recebedor, com dígito verificador (se este existir),
+                se houver valor alfanumérico, este deve ser convertido para 0.
+            accountType:
+              $ref: '#/components/schemas/EnumAccountTypePayments'
         remittanceInformation:
           type: string
           maxLength: 140
@@ -1473,7 +1534,9 @@ components:
       description: |
         Sinais de risco para iniciação de pagamentos automáticos
 
-        [Restrição] Deve ser enviado quando o consentimento for para o produto Pix Automático (O objeto "/data/recurringConfiguration/automatic" usado no oneOf). Só estará presente após a primeira edição do consentimento de longa duração.
+        [Restrição] Deve ser enviado quando o consentimento for para o produto Pix Automático (O objeto "/data/recurringConfiguration/automatic" usado no oneOf). 
+        Só estará presente após a primeira edição do consentimento de longa duração. 
+        Objeto de envio obrigatório para a edição dos parâmetros do consentimento, exceto para o caso de edição exclusiva do campo “/data/creditors/name”.
       properties:
         deviceId:
           type: string
@@ -1734,7 +1797,6 @@ components:
         As informações quanto à conta de origem do pagador poderão ser trazidas no consentimento para a detentora, caso a iniciadora tenha coletado essas informações do cliente. Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.
       required:
         - ispb
-        - issuer
         - number
         - accountType
       properties:
@@ -1769,60 +1831,6 @@ components:
             se houver valor alfanumérico, este deve ser convertido para 0.
         accountType:
           $ref: '#/components/schemas/EnumAccountTypeConsents'
-    ConsentsDebtorAccount:
-      type: object
-      description: |
-        Objeto que contém a identificação da conta de origem do pagador. As informações quanto à conta de origem do pagador poderão ser trazidas no consentimento para a detentora, caso a iniciadora tenha coletado essas informações do cliente. 
-        Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.
-
-        [Restrições]
-        - Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
-      required:
-        - ispb
-        - number
-        - accountType
-      properties:
-        ispb:
-          type: string
-          minLength: 8
-          maxLength: 8
-          pattern: '^[0-9]{8}$'
-          example: '12345678'
-          description: |
-            Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
-        issuer:
-          type: string
-          minLength: 1
-          maxLength: 4
-          pattern: '^[0-9]{1,4}$'
-          example: '1774'
-          description: |
-            Código da Agência emissora da conta sem dígito. 
-            (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
-            no exercício de atividades da instituição, não podendo ser móvel ou transitória).
-            
-            [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
-        number:
-          type: string
-          minLength: 1
-          maxLength: 20
-          pattern: '^[0-9]{1,20}$'
-          example: '1234567890'
-          description: |
-            Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), se houver valor alfanumérico, este deve ser convertido para 0.
-        accountType:
-          $ref: '#/components/schemas/EnumAccountTypeConsents'
-        ibgeTownCode:
-          type: string
-          minLength: 7
-          maxLength: 7
-          pattern: '^\d{7}$'
-          example: '5300108'
-          description: |
-            Campo utilizado pela iniciadora para cálculo do dia útil de liquidação do pagamento (vide especificação do endToEndId) baseado no município de cadastro do usuário pagador no detentor.
-
-            [Restrições]
-            Campo de preenchimento obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”, e o consentimento passar pelo estado AUTHORISED.
     originalRecurringPaymentId: 
       type: string
       description: |
@@ -2307,7 +2315,6 @@ components:
     ConsentEdition:
       type: object
       required:
-        - riskSignals
         - creditors
       properties:
         riskSignals:
@@ -2318,9 +2325,22 @@ components:
           items:
             type: object
             description: |
-              Objeto contendo os dados do recebedor (creditor).
+             Objeto contendo os dados do recebedor (creditor).
 
-              [Restrição] Caso o consentimento de longa duração seja para o produto Pix Automático (“automatic” selecionado no oneOf do objeto “/data/recurringConfiguration”), apenas um recebedor é permitido e esse deve ser pessoa jurídica.
+              **Regras para Transferências inteligentes:**
+
+              1. Para clientes pessoa física/natural: 
+              - Deve aceitar apenas um item no array; e; 
+              - O CPF informado deve ser o mesmo do `/data/loggedUser/document/identification`.
+
+              2. Para clientes pessoa jurídica: 
+              - Não há limite para quantidade de itens no array; e; 
+              - O(s) CNPJ informado deve possuir a mesma raiz do CNPJ enviado no campo `/data/businessEntity/document/identification`.
+
+              **Regras para Pix Automático:**
+
+              - Apenas um item é permitido no array; e; 
+              - O documento informado deve ser de um recebedor pessoa jurídica.
             properties:
               name:
                 type: string
@@ -2336,7 +2356,7 @@ components:
             
             [Restrição] Caso esse campo não seja enviado, a instituição detentora deve considerar a extensão do prazo para um período indeterminado; ou; 
             
-            Caso enviado, esse campo deve ser, no mínimo, D, sendo D o dia da requisição.
+            Caso enviado, esse campo deve ser, no mínimo, D, sendo D o dia da requisição e o horário deve ser às 23:59:59 (UTC).
           type: string
           format: date-time
           example: '2021-05-21T08:30:00Z'
@@ -2381,15 +2401,14 @@ components:
                 identification:
                   type: string
                   maxLength: 11
-                  description: Número do documento de identificação oficial do pagador ou recebedor, pessoa natural ou jurídica.
+                  description: Número do documento de identificação oficial do usuário logado na instituição iniciadora.
                   example: '11111111111'
-                  pattern: '^(?:\d{11}|\d{14})$'
+                  pattern: '^\d{11}$'
                 rel:
                   type: string
-                  description: Tipo de documento de identificação oficial do pagador ou recebedor, pessoa natural ou jurídica.
+                  description: Tipo do documento de identificação oficial do usuário logado na instituição iniciadora.
                   enum:
                     - CPF
-                    - CNPJ
         businessEntity:
           type: object
           description: |
@@ -2705,7 +2724,9 @@ components:
     FirstPayment:
       type: object
       description: |
-        Definições para o primeiro pagamento. É considerado como o pagamento da adesão ao serviço pelo usuário pagador. Para casos em que conta recebedora e conta pagadora pertencem ao mesmo detentor, este deve garantir que a conta de crédito informada pertence ao titular do CNPJ enviado no campo “/data/creditors/cpfCnpj”. A conta de crédito informada no momento do primeiro pagamento deve ser a mesma informada dentro deste objeto. Caso não respeitado, o detentor deve rejeitar o pagamento com o motivo DETALHE_PAGAMENTO_INVALIDO, sincronamente (HTTP 422) ou assincronamente (HTTP 200). 
+        Definições para o primeiro pagamento. É considerado como o pagamento da adesão ao serviço pelo usuário pagador.
+        
+        [Restrição] Para casos em que conta recebedora e conta pagadora pertencem ao mesmo detentor (/data/debtorAccount/ispb = /data/recurringConfiguration/automatic/firstPayment/creditorAccount/ispb), o detentor deve garantir que a conta de crédito informada pertence ao titular do CNPJ enviado no campo “/data/creditors/cpfCnpj”.
       required:
         - type
         - date
@@ -2964,9 +2985,22 @@ components:
       items:
         type: object
         description: |
-          Objeto contendo os dados do recebedor (creditor). Em casos de transferências inteligentes para clientes PJ, os CNPJs informados devem possuir a mesma raiz do CNPJ enviado no campo /data/businessEntity/document/identification. Em casos de transferências inteligentes para clientes PN, deve-se aceitar apenas um item no array e este item deve conter as informações do recebedor. O CPF informado deve ser o mesmo do /data/loggedUser/document/identification. Caso alguma das regras mencionadas não sejam seguidas, o detentor deve rejeitar a solicitação (sincronamente) com o erro DETALHE_PAGAMENTO_INVALIDO, e o detalhe deve ser preenchido com a informação referente ao erro.
+          Objeto contendo os dados do recebedor (creditor).
 
-          [Restrição] Caso o consentimento de longa duração seja para o produto Pix Automático (“automatic” selecionado no oneOf do objeto “/data/recurringConfiguration”), apenas um recebedor é permitido e esse deve ser pessoa jurídica.
+          **Regras para Transferências inteligentes:**
+
+          1. Para clientes pessoa física/natural: 
+          - Deve aceitar apenas um item no array; e; 
+          - O CPF informado deve ser o mesmo do `/data/loggedUser/document/identification`.
+
+          2. Para clientes pessoa jurídica: 
+          - Não há limite para quantidade de itens no array; e; 
+          - O(s) CNPJ informado deve possuir a mesma raiz do CNPJ enviado no campo `/data/businessEntity/document/identification`.
+
+          **Regras para Pix Automático:**
+
+          - Apenas um item é permitido no array; e; 
+          - O documento informado deve ser de um recebedor pessoa jurídica.
         required:
           - personType
           - cpfCnpj
@@ -3101,7 +3135,7 @@ components:
                   properties:
                     identification:
                       type: string
-                      maxLength: 11
+                      maxLength: 14
                       description: Número do documento de identificação oficial do pagador ou recebedor, pessoa natural ou jurídica
                       example: '11111111111'
                       pattern: '^(?:\d{11}|\d{14})$'
@@ -3149,7 +3183,7 @@ components:
               properties:
                 identification:
                   type: string
-                  maxLength: 11
+                  maxLength: 14
                   description: Número do documento de identificação oficial do pagador ou recebedor, pessoa natural ou jurídica.
                   example: '11111111111'
                   pattern: '^(?:\d{11}|\d{14})$'
@@ -3238,9 +3272,7 @@ components:
               pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
               maxLength: 20
               description: |
-                Data e hora em que o consentimento deve passar a ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format). 
-
-                [Restrição] Caso esse campo não seja enviado pelo iniciador na requisição, o detentor deve preencher esse campo com o mesmo valor atribuído ao campo /data/creationDateTime. Caso o campo /data/startDateTime enviado seja anterior ao valor do campo /data/creationDateTime, o detentor deve substituir o valor do campo /data/startDateTime pelo valor do campo /data/creationDateTime
+                Data e hora em que o consentimento teve o status atualizado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
             loggedUser:
               $ref: '#/components/schemas/LoggedUser'
             businessEntity:
@@ -3257,7 +3289,10 @@ components:
               pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
               maxLength: 20
             expirationDateTime:
-              description: Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+              description: |
+                Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC (UTC time format).
+
+                [Restrição] Caso o consentimento seja para Pix Automático ("automatic" selecionado no oneOf "/data/recurringConfiguration/") o horário de expiração do consentimento precisa ser às 23:59:59 (UTC).
               type: string
               format: date-time
               example: '2021-05-21T08:30:00Z'
@@ -3272,8 +3307,10 @@ components:
             debtorAccount:
               type: object
               description: |
-                Objeto que contém a identificação da conta de origem do pagador. As informações quanto à conta de origem do pagador poderão ser trazidas no consentimento para a detentora, caso a iniciadora tenha coletado essas informações do cliente. 
-                Do contrário, será coletada na detentora e trazida para a iniciadora como resposta à criação do pagamento.
+                Objeto que contém a identificação da conta de origem do pagador. 
+                - Caso a ITP tenha coletado as informações de conta do usuário pagador, essas poderão ser enviadas no consentimento para a detentora neste objeto, ou; 
+                - Se não coletado pelo ITP, o usuário pagador precisará definir durante a autorização do consentimento. 
+                - Mesmo se enviado pela ITP, o usuário pagador pode alterar durante a autorização do consentimento.
 
                 [Restrições]
                 - Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
@@ -3463,7 +3500,10 @@ components:
               pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
               maxLength: 20
             expirationDateTime:
-              description: Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+              description: |
+                Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC (UTC time format).
+
+                [Restrição] Caso o consentimento seja para Pix Automático ("automatic" selecionado no oneOf "/data/recurringConfiguration/") o horário de expiração do consentimento precisa ser às 23:59:59 (UTC).
               type: string
               format: date-time
               example: '2021-05-21T08:30:00Z'
@@ -3476,7 +3516,61 @@ components:
               pattern: '[\w\W\s]*'
               maxLength: 140
             debtorAccount:
-              $ref: '#/components/schemas/ConsentsDebtorAccount'
+              type: object
+              description: |
+                Objeto que contém a identificação da conta de origem do pagador. 
+                - Caso a ITP tenha coletado as informações de conta do usuário pagador, essas poderão ser enviadas no consentimento para a detentora neste objeto, ou; 
+                - Se não coletado pelo ITP, o usuário pagador precisará definir durante a autorização do consentimento. 
+                - Mesmo se enviado pela ITP, o usuário pagador pode alterar durante a autorização do consentimento.
+
+                [Restrições]
+                - Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
+              required:
+                - ispb
+                - number
+                - accountType
+              properties:
+                ispb:
+                  type: string
+                  minLength: 8
+                  maxLength: 8
+                  pattern: '^[0-9]{8}$'
+                  example: '12345678'
+                  description: |
+                    Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
+                issuer:
+                  type: string
+                  minLength: 1
+                  maxLength: 4
+                  pattern: '^[0-9]{1,4}$'
+                  example: '1774'
+                  description: |
+                    Código da Agência emissora da conta sem dígito. 
+                    (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+                    no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+                    
+                    [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+                number:
+                  type: string
+                  minLength: 1
+                  maxLength: 20
+                  pattern: '^[0-9]{1,20}$'
+                  example: '1234567890'
+                  description: |
+                    Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), se houver valor alfanumérico, este deve ser convertido para 0.
+                accountType:
+                  $ref: '#/components/schemas/EnumAccountTypeConsents'
+                ibgeTownCode:
+                  type: string
+                  minLength: 7
+                  maxLength: 7
+                  pattern: '^\d{7}$'
+                  example: '5300108'
+                  description: |
+                    Campo utilizado pela iniciadora para cálculo do dia útil de liquidação do pagamento (vide especificação do endToEndId) baseado no município de cadastro do usuário pagador no detentor.
+
+                    [Restrições]
+                    Campo de preenchimento obrigatório quando o oneOf utilizado do recurringConfiguration for “automatic”, e o consentimento passar pelo estado AUTHORISED.
             rejection:
               $ref: '#/components/schemas/Rejection'
             revocation:
@@ -3639,7 +3733,10 @@ components:
               pattern: '^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$'
               maxLength: 20
             expirationDateTime:
-              description: Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+              description: |
+                Data e hora em que o consentimento deve deixar de ser válido. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC (UTC time format).
+
+                [Restrição] Caso o consentimento seja para Pix Automático ("automatic" selecionado no oneOf "/data/recurringConfiguration/") o horário de expiração do consentimento precisa ser às 23:59:59 (UTC).
               type: string
               format: date-time
               example: '2021-05-21T08:30:00Z'
@@ -3652,7 +3749,51 @@ components:
               pattern: '[\w\W\s]*'
               maxLength: 140
             debtorAccount:
-              $ref: '#/components/schemas/ConsentsDebtorAccount'
+              type: object
+              description: |
+                Objeto que contém a identificação da conta de origem do pagador. 
+                - Caso a ITP tenha coletado as informações de conta do usuário pagador, essas poderão ser enviadas no consentimento para a detentora neste objeto, ou; 
+                - Se não coletado pelo ITP, o usuário pagador precisará definir durante a autorização do consentimento. 
+                - Mesmo se enviado pela ITP, o usuário pagador pode alterar durante a autorização do consentimento.
+
+                [Restrições]
+                - Objeto obrigatório que deverá ser retornado quando o consentimento estiver ou passar pelo status AUTHORISED;
+              required:
+                - ispb
+                - number
+                - accountType
+              properties:
+                ispb:
+                  type: string
+                  minLength: 8
+                  maxLength: 8
+                  pattern: '^[0-9]{8}$'
+                  example: '12345678'
+                  description: |
+                    Deve ser preenchido com o ISPB (Identificador do Sistema de Pagamentos Brasileiros) do participante do SPI (Sistema de pagamentos instantâneos) somente com números.
+                issuer:
+                  type: string
+                  minLength: 1
+                  maxLength: 4
+                  pattern: '^[0-9]{1,4}$'
+                  example: '1774'
+                  description: |
+                    Código da Agência emissora da conta sem dígito. 
+                    (Agência é a dependência destinada ao atendimento aos clientes, ao público em geral e aos associados de cooperativas de crédito, 
+                    no exercício de atividades da instituição, não podendo ser móvel ou transitória).
+                    
+                    [Restrição] Preenchimento obrigatório para os seguintes tipos de conta: CACC (CONTA_DEPOSITO_A_VISTA) e SVGS (CONTA_POUPANCA).
+                number:
+                  type: string
+                  minLength: 1
+                  maxLength: 20
+                  pattern: '^[0-9]{1,20}$'
+                  example: '1234567890'
+                  description: |
+                    Deve ser preenchido com o número da conta transacional do usuário pagador, com dígito verificador (se este existir), 
+                    se houver valor alfanumérico, este deve ser convertido para 0.
+                accountType:
+                  $ref: '#/components/schemas/EnumAccountTypeConsents'
             rejection:
               type: object
               description: |
@@ -4904,7 +5045,7 @@ components:
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/XFapiInteractionId'
-    UnprocessableEntityRecurringPaymentsPaymentId:
+    UnprocessableEntityPixPatch:
       description: Seguir as orientações presentes na descrição do endpoint
       content:
         application/jwt:
@@ -4923,7 +5064,7 @@ components:
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/XFapiInteractionId'
-    UnprocessableEntityRecurringConsents:
+    UnprocessableEntityPatch:
       description: Seguir as orientações presentes na descrição deste endpoint
       content:
         application/jwt:
@@ -4951,7 +5092,7 @@ components:
         x-fapi-interaction-id:
           $ref: '#/components/headers/XFapiInteractionId'
     RecurringConsentsConsentId:
-      description: Objeto contendo as informações de consentimento para a iniciação de pagamento individual.
+      description: Objeto contendo as informações de consentimento para iniciação de pagamento automático.
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/XFapiInteractionId'
@@ -4962,7 +5103,7 @@ components:
           schema:
             $ref: '#/components/schemas/ResponseRecurringConsent'
     RecurringConsentsConsentIdPatch:
-      description: Objeto contendo as informações de consentimento para a iniciação de pagamento individual.
+      description: Objeto contendo as informações de consentimento para iniciação de pagamento automático.
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/XFapiInteractionId'
@@ -4973,7 +5114,7 @@ components:
           schema:
             $ref: '#/components/schemas/ResponseRecurringConsentPatch'
     RecurringConsentsPost:
-      description: Objeto contendo as informações de consentimento para a iniciação de pagamento individual.
+      description: Objeto contendo as informações de consentimento para iniciação de pagamento automático.
       headers:
         x-fapi-interaction-id:
           $ref: '#/components/headers/XFapiInteractionId'
