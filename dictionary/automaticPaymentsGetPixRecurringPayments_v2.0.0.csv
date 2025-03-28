@@ -24,8 +24,8 @@ No caso de Pix Automático, a iniciadora deverá, no que tange á composição d
 ";Texto;32;Obrigatório;^([E])([0-9]{8})([0-9]{4})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(2[0-3]|[01][0-9])([0-5][0-9])([a-zA-Z0-9]{11})$;;1;1;" A detentora deve obrigatoriamente retornar o campo com o mesmo valor recebido da iniciadora.
 
 No caso de Pix Automático, a iniciadora deverá, no que tange á composição do endToEndId, utilizar a data para a qual o Pix está sendo agendado e horário fixo 15:00 UTC, que dará para a detentora a janela de efetivação de 00:00 e 23:59 do horário de Brasília, mesmo a janela sendo, para o detentor, até as 21h.
-";Não permitido;string;E9040088820210128000800123873170;32
-/data/date;date;Data em que o pagamento será realizado.;Texto;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2023-10-10;
+";Não permitido;string;E9040088820241225150000123873170;32
+/data/date;date;Data em que o pagamento será realizado. Uma string com a utilização de timezone UTC-3 (UTC time format).;Texto;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2023-10-10;
 /data/creationDateTime;creationDateTime;"Data e hora em que o pagamento foi criado. 
 Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), 
 sempre com a utilização de timezone UTC(UTC time format).
