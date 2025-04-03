@@ -1,0 +1,27 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Objeto para notificar a respeito da liquidação efetuada pela proponente a Credora.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/rejectedBy;rejectedBy;"Informar usuário responsável pela rejeição da proposta, onde:
+
+`PROPONETE ` - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
+
+`USUARIO` - Indica que o cliente cancelou o pedido de portabilidade de crédito.
+";Texto;;Opcional;;"PROPONENTE 
+USUARIO";0;1;"";Não permitido;string;;
+/data/reason;reason;Motivo de recusa do pedido de portabilidade;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/reason/type;type;"Motivo de recusa do pedido de portabilidade, onde:
+
+`CANCELADO_PELO_CLIENTE` - Cliente desiste do pedido da portabilidade
+
+`SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE` - Saldo devedor atualizado divergente (superior a 15%) do informado inicialmente
+
+`POLITICA_DE_CREDITO` - Proponente desiste da oferta ao cliente por políticas internas
+
+`OUTROS` - Motivo da rejeição não se encaixa nas opções disponíveis
+";Texto;;Obrigatório;;"CANCELADO_PELO_CLIENTE 
+SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE 
+POLITICA_DE_CREDITO 
+OUTROS";1;1;"";Não permitido;string;;
+/data/reason/typeAdditionalInfo;typeAdditionalInfo;"Informação adicional sobre rejeição de portabilidade de crédito. Ao utilizar essa opção, é fortemente recomendável enviar um ticket como sugestão para estrutura Open Finance para discussão e mapeamento em futuras versões.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `type` for igual a `OUTROS`
+";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
