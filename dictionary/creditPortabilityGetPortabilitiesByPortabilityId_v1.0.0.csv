@@ -1,0 +1,348 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Conjunto de informações referentes à Proposta de Portabilidade de Crédito da Proponente para a Credora;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/portabilityId;portabilityId;Código identificador do pedido de portabilidade realizado.;Texto;100;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;54d5348c-1a3f-4ff4-a8a8-d0724fb806c6;1
+/data/customerContact;customerContact;Dados de contato do cliente.;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;
+/data/customerContact/type;type;Tipo do contato do cliente.;Texto;;Obrigatório;;"TELEFONE 
+EMAIL";1;1;"";Não permitido;string;;
+/data/customerContact/value;value;;Texto;;Obrigatório;^([1-9]{2}(?:[2-8]|9[0-9])[0-9]{3}[0-9]{4})|([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,})$;;1;1;"";Não permitido;string;11999999999;
+/data/institution;institution;Informações sobre proponente e credora participantes do presente pedido de portabilidade de crédito.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/institution/creditor;creditor;Informações sobre a instituição credora.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/institution/creditor/companyName;companyName;Nome da Instituição Credora.;Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Instituição Credora;
+/data/institution/creditor/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;21128159000166;
+/data/institution/proposing;proposing;Informações sobre a instituição proponente;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/institution/proposing/companyName;companyName;Nome da Instituição Proponente;Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Instituição Proponente;
+/data/institution/proposing/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;21128159000166;
+/data/institution/proposing/contact;contact;;Lista;;Opcional;;;1;N;"";Não permitido;array;;
+/data/institution/proposing/contact/type;type;Tipo do contato da Instituição Proponente.;Texto;;Opcional;;"EMAIL 
+TELEFONE";0;1;"";Não permitido;string;;
+/data/institution/proposing/contact/value;value;;Texto;;Opcional;^([1-9]{2}(?:[2-8]|9[0-9])[0-9]{3}[0-9]{4})|([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,})$;;0;1;"";Não permitido;string;contato@instituicaoproponente.com.br;
+/data/contractIdentification;contractIdentification;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/contractIdentification/contractId;contractId;Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;1
+/data/contractIdentification/contractNumber;contractNumber;Número do contrato dado pela instituição contratante.;Texto;100;Obrigatório;^[\w\W]{1,100}$;;1;1;"";Não permitido;string;1324926521496;1
+/data/contractIdentification/ipocCode;ipocCode;"Número padronizado do contrato - IPOC (Identificação Padronizada da Operação de Crédito). Segundo DOC 3040, composta por:
+
+
+CNPJ da instituição: 8 (oito) posições iniciais;
+Modalidade da operação: 4 (quatro) posições;
+Tipo do cliente: 1 (uma) posição( 1 = pessoa natural - CPF, 2= pessoa jurídica
+
+– CNPJ, 3 = pessoa física no exterior, 4 = pessoa jurídica no exterior, 5 = pessoa natural sem CPF e 6 = pessoa jurídica sem CNPJ);
+
+- Código do cliente: O número de posições varia conforme o tipo do cliente:
+Para clientes pessoa física com CPF (tipo de cliente = 1), informar as 11 (onze) posições do CPF;
+Para clientes pessoa jurídica com CNPJ (tipo de cliente = 2), informar as 8 (oito) posições iniciais do CNPJ;
+Para os demais clientes (tipos de cliente 3, 4, 5 e 6), informar 14 (catorze) posições com complemento de zeros à esquerda se a identificação tiver tamanho inferior;
+
+- Código do contrato: 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.
+";Texto;67;Obrigatório;^[\w\W]{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;22
+/data/proposedContract;proposedContract;Proposta da Proponente para Portabilidade de Crédito.;Objeto;;Obrigatório;;;1;;"";Não permitido;object;;
+/data/proposedContract/cet;cet;"CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas).
+
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
+
+Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. O campo poderá ser preenchido com 0.00 em cenários nos quais a casa não tenha a informação de CET (Custo efetivo total) apenas para as exceções listadas abaixo: 
+
+- Em contratos anteriores a 2008 (para o público PF); 
+- Em contratos anteriores a 2011 (para o público PJ); 
+- Público PJ de médio ou grande porte. 
+";Texto;13;Obrigatório;^\d{1,6}\.\d{6}$;;1;1;"";Não permitido;string;0.290000;8
+/data/proposedContract/amortizationScheduled;amortizationScheduled;"Sistema de amortização (Vide Enum):
+- SAC (Sistema de Amortização Constante) - É aquele em que o valor da amortização permanece igual até o final. Os juros cobrados sobre o parcelamento não entram nesta conta.
+- PRICE (Sistema Francês de Amortização) - As parcelas são fixas do início ao fim do contrato. Ou seja, todas as parcelas terão o mesmo valor, desde a primeira até a última. Nos primeiros pagamentos, a maior parte do valor da prestação corresponde aos juros. Ao longo do tempo, a taxa de juros vai decrescendo. Como o valor da prestação é fixo, com o passar das parcelas, o valor de amortização vai aumentando.
+- SAM (Sistema de Amortização Misto) - Cada prestação (pagamento) é a média aritmética das prestações respectivas no Sistemas Price e no Sistema de Amortização Constante (SAC).
+- SEM SISTEMA DE AMORTIZAÇÃO
+";Texto;;Obrigatório;;"SAC 
+PRICE 
+SAM 
+SEM_SISTEMA_AMORTIZACAO 
+OUTROS";1;1;"";Não permitido;string;SAC;
+/data/proposedContract/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;"Informação relativa ao complemento da amortização
+
+[Restrição] Campo de preenchimento obrigatório quando o campo amortizationScheduled for igual `OUTROS`
+";Texto;200;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Campo de preenchimento obrigatório quando o campo amortizationScheduled for igual `OUTROS`
+";Não permitido;string;Informações complementares relativa à amortização do tipo `OUTROS`;
+/data/proposedContract/interestRates;interestRates;"Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.  
+Caso o contrato não possua taxas de juros, deve ser compartilhada uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 de forma explícita.
+";Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/proposedContract/interestRates/taxType;taxType;"""Tipo de Taxa (vide  Enum)
+- NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
+- EFETIVA (É a taxa de juros em que a unidade referencial coincide com a unidade de tempo da capitalização. Como as unidades de medida de tempo da taxa de juros e dos períodos de capitalização são iguais, usa-se exemplos simples como 1% ao mês, 60% ao ano)""
+";Texto;;Obrigatório;;"NOMINAL 
+EFETIVA";1;1;"";Não permitido;string;EFETIVA;
+/data/proposedContract/interestRates/interestRateType;interestRateType;"""Tipo de Juros  (vide  Enum)
+- SIMPLES (aplicada/cobrada sempre sobre o capital inicial, que é o valor emprestado/investido. Não há cobrança de juros sobre juros acumulados no(s) período(s) anterior(es). Exemplo: em um empréstimo de R$1.000, com taxa de juros simples de 8% a.a., com duração de 2 anos, o total de juros será R$80 no primeiro ano e R$ 80 no segundo ano. Ao final do contrato, o tomador irá devolver o principal e os juros simples de cada ano: R$1.000+R$80+R$80=R$1.160)
+- COMPOSTO (para cada período do contrato (diário, mensal, anual etc.), há um “novo capital” para a cobrança da taxa de juros contratada. Esse “novo capital” é a soma do capital e do juro cobrado no período anterior. Exemplo: em um empréstimo de R$1.000, com taxa de juros composta de 8% a.a., com duração de 2 anos, o total de juros será R$80 no primeiro ano. No segundo ano, os juros vão ser somados ao capital (R$1.000 + R$ 80 = R$ 1.080), resultando em juros de R$ 86 (8%de R$ 1.080))""
+";Texto;;Obrigatório;;"SIMPLES 
+COMPOSTO";1;1;"";Não permitido;string;SIMPLES;
+/data/proposedContract/interestRates/EnumContractReferentialRateIndexerSubType;EnumContractReferentialRateIndexerSubType;"""Sub tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040""
+";Texto;;Opcional;;"SEM_SUB_TIPO_INDEXADOR 
+PRE_FIXADO 
+TR_TBF 
+TJLP 
+LIBOR 
+TLP 
+OUTRAS_TAXAS_POS_FIXADAS 
+CDI 
+SELIC 
+OUTRAS_TAXAS_FLUTUANTES 
+IGPM 
+IPCA 
+IPCC 
+OUTROS_INDICES_PRECO 
+TCR_PRE 
+TCR_POS 
+TRFC_PRE 
+TRFC_POS 
+OUTROS_INDEXADORES";0;1;"";Não permitido;string;TJLP;
+/data/proposedContract/interestRates/taxPeriodicity;taxPeriodicity;"""Periodicidade da taxa . (Vide  Enum)
+a.m - ao mês
+a.a. - ao ano""
+";Texto;;Obrigatório;;"AM 
+AA";1;1;"";Não permitido;string;AA;
+/data/proposedContract/interestRates/calculation;calculation;Base de cálculo;Texto;;Obrigatório;;"21/252 
+30/360 
+30/365";1;1;"";Não permitido;string;21/252;
+/data/proposedContract/interestRates/referentialRateIndexerType;referentialRateIndexerType;"""Tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040""
+";Texto;;Obrigatório;;"SEM_TIPO_INDEXADOR 
+PRE_FIXADO 
+POS_FIXADO 
+FLUTUANTES 
+INDICES_PRECOS 
+CREDITO_RURAL 
+OUTROS_INDEXADORES";1;1;"";Não permitido;string;PRE_FIXADO;
+/data/proposedContract/interestRates/referentialRateIndexerSubType;referentialRateIndexerSubType;"""Sub tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040""
+";Texto;;Opcional;;"SEM_SUB_TIPO_INDEXADOR 
+PRE_FIXADO 
+TR_TBF 
+TJLP 
+LIBOR 
+TLP 
+OUTRAS_TAXAS_POS_FIXADAS 
+CDI 
+SELIC 
+OUTRAS_TAXAS_FLUTUANTES 
+IGPM 
+IPCA 
+IPCC 
+OUTROS_INDICES_PRECO 
+TCR_PRE 
+TCR_POS 
+TRFC_PRE 
+TRFC_POS 
+OUTROS_INDE";0;1;"";Não permitido;string;;
+/data/proposedContract/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;"Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.
+[Restrição] Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionado o tipo ou subtipo `OUTRO`.
+";Texto;140;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionado o tipo ou subtipo `OUTRO`.
+";Não permitido;string;Informações adicionais;
+/data/proposedContract/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). Preencher o campo não aplicável ao contrato com zeros, seguindo o pattern (0.000000).
+";Texto;9;Obrigatório;^\d{1,2}\.\d{6}$;;1;1;"";Não permitido;string;0.600000;8
+/data/proposedContract/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.0045 .O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%). Preencher o campo não aplicável ao contrato com zeros, seguindo o pattern (0.000000)
+";Texto;9;Obrigatório;^\d{1,2}\.\d{6}$;;1;1;"";Não permitido;string;0.550000;8
+/data/proposedContract/interestRates/additionalInfo;additionalInfo;"Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
+
+[Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
+";Texto;1200;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
+";Não permitido;string;Informações adicionais;
+/data/proposedContract/contractedFees;contractedFees;Lista que traz as informações das tarifas pactuadas no contrato.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/proposedContract/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Renovação de cadastro;
+/data/proposedContract/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;CADASTRO;
+/data/proposedContract/contractedFees/feeChargeType;feeChargeType;Tipo de cobrança para a tarifa pactuada no contrato.;Texto;;Obrigatório;;"UNICA 
+POR_PARCELA";1;1;"";Não permitido;string;UNICA;
+/data/proposedContract/contractedFees/feeCharge;feeCharge;"""Forma de cobrança relativa a tarifa pactuada no contrato. (Vide Enum)
+- Mínimo
+- Máximo
+- Fixo
+- Percentual""
+";Texto;;Obrigatório;;"MINIMO 
+MAXIMO 
+FIXO 
+PERCENTUAL";1;1;"";Não permitido;string;MINIMO;
+/data/proposedContract/contractedFees/feeAmount;feeAmount;"Objeto para representar o valor monetário da tarifa pactuada no contrato.
+
+[Restrição] Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
+";Objeto;;Condicional;;;1;;" Preenchimento obrigatório quando a forma de cobrança for diferente de Percentual.
+";Não permitido;object;;
+/data/proposedContract/contractedFees/feeAmount/amount;amount;Valor monetário da tarifa pactuada no contrato.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/proposedContract/contractedFees/feeAmount/currency;currency;Moeda referenciada ao campo `amount`, segundo modelo ISO-4217.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;3
+/data/proposedContract/contractedFees/feeRate;feeRate;"É o valor da tarifa em percentual pactuada no contrato.
+
+[Restrição] Preenchimento obrigatório quando a forma de cobrança for Percentual.
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Preenchimento obrigatório quando a forma de cobrança for Percentual.
+";Não permitido;string;0.062000;8
+/data/proposedContract/contractedFinanceCharges;contractedFinanceCharges;Lista que traz os encargos pactuados no contrato;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/proposedContract/contractedFinanceCharges/chargeType;chargeType;Tipo de encargo pactuado no contrato.;Texto;;Obrigatório;;"JUROS_REMUNERATORIOS_POR_ATRASO 
+MULTA_ATRASO_PAGAMENTO 
+JUROS_MORA_ATRASO 
+IOF_CONTRATACAO 
+IOF_POR_ATRASO 
+SEM_ENCARGO 
+OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO;
+/data/proposedContract/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;"Campo para informações adicionais.
+
+[Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+";Texto;140;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+";Não permitido;string;Informações adicionais sobre encargos.;
+/data/proposedContract/contractedFinanceCharges/chargeRate;chargeRate;"Representa o valor do encargo em percentual pactuado no contrato.
+
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
+";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.070000;8
+/data/proposedContract/digitalSignatureProof;digitalSignatureProof;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/proposedContract/digitalSignatureProof/documentId;documentId;Código identificador do Documento assinado na instituição proponente.;Texto;100;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;54d5348c-1a3f-4ff4-a8a8-d0724fb806c6;1
+/data/proposedContract/digitalSignatureProof/signatureDateTime;signatureDateTime;"Data e hora em que o contrato foi assinado pelo cliente  no canal digital da Instituição Proponente
+";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/proposedContract/totalNumberOfInstallments;totalNumberOfInstallments;total de parcelas, segundo a periodicidade regular das parcelas referente à Modalidade de Crédito informada.;Número;;Obrigatório;;;1;1;"";Não permitido;number;30;
+/data/proposedContract/installmentPeriodicity;installmentPeriodicity;Informação relativa à periodicidade regular das parcelas. (Vide Enum) sem periodicidade regular, diario, semanal, quinzenal, mensal, bimestral, trimestral, semestral, anual.;Texto;;Obrigatório;;"SEM_PERIODICIDADE_REGULAR 
+DIARIO 
+SEMANAL 
+QUINZENAL 
+MENSAL 
+BIMESTRAL 
+TRIMESTRAL 
+SEMESTRAL 
+ANUAL";1;1;"";Não permitido;string;SEM_PERIODICIDADE_REGULAR;
+/data/proposedContract/installmentAmount;installmentAmount;Objeto para representar o Valor da parcela regular da operação após portabilidade.;Objeto;;Opcional;;;1;;"";Não permitido;object;;
+/data/proposedContract/installmentAmount/amount;amount;Valor da parcela regular da operação após portabilidade. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/proposedContract/installmentAmount/currency;currency;Moeda referenciada ao campo `amount`, segundo modelo ISO-4217.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;3
+/data/proposedContract/dueDate;dueDate;Prazo (data de vencimento final) da operação. Especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339);Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
+/data/status;status;"Informação sobre o status de um pedido de portabilidade de crédito, onde:
+
+`RECEIVED` - Estado inicial. Indica que o pedido de portabilidade foi solicitado junto a instituição credora. O pedido deve permanecer neste estado até que o próximo dia útil (D+1) aonde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá  ser movido para PENDING.
+
+`PENDING` - Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora.
+
+`ACCEPTED_SETTLEMENT_IN_PROCESS` - Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
+
+`ACCEPTED_SETTLEMENT_COMPLETED` - Indica que a instituição proponente já liquidou o contrato e comunicou a respeito a credora que está validando os dados do contratos bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo).
+
+`PORTABILITY_COMPLETED` - Indica que o pedido de portabilidade foi concluído com sucesso
+
+`REJECTED` - Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
+
+`CANCELED` - Indica que o cliente cancelou o pedido de portabilidade de crédito.
+
+`PAYMENT_ISSUE` - Indica que a portabilidade foi cancelada por inconsistência relacionada no pagamento da Instituição Proponente a Instituição Credora.
+";Texto;;Obrigatório;;"RECEIVED 
+PENDING 
+ACCEPTED_SETTLEMENT_IN_PROCESS 
+ACCEPTED_SETTLEMENT_COMPLETED 
+PORTABILITY_COMPLETED 
+REJECTED 
+CANCELED 
+PAYMENT_ISSUE";1;1;"";Não permitido;string;;
+/data/statusUpdateDateTime;statusUpdateDateTime;"Data e hora em que o contrato teve o status atualizado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/statusReason;statusReason;"Motivo de recusa do pedido de portabilidade
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `status` for igual a `REJECTED` ou `CANCELADO` ou `PAYMENT_ISSUE`
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/statusReason/reasonType;reasonType;"Motivo de recusa do pedido de portabilidade, onde:
+
+`CANCELADO_PELO_CLIENTE` - Cliente desiste do pedido da portabilidade 
+
+`SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE` - Saldo devedor atualizado divergente (superior a 15%) do informado inicialmente 
+
+`POLITICA_DE_CREDITO` - Proponente desiste da oferta ao cliente por políticas internas 
+
+`RETENCAO_DO_CLIENTE` - Cliente aceitou contraproposta da instituição credora (dentro do prazo)
+
+`CONTRATO_JA_LIQUIDADO` - Contrato liquidado pelo cliente. 
+
+`DIVERGENCIA_DE_PAGAMENTO_EFETUADO` - Proponente realizou a liquidação com valor divergente 
+
+`DECURSO_DO_PRAZO_PARA_PAGAMENTO` - Proponente realizou a liquidação fora do prazo 
+
+`PORTABILIDADE_CANCELADA_POR_FALTA_DE_LIQUIDACAO` - Proponente não realizou a liquidação do contrato 
+
+`PORTABILIDADE_EM_ANDAMENTO` - Posteriormente à efetivação do pedido de portabilidade, a IF credora identificou que o cliente já possui outro pedido de portabilidade em andamento para o mesmo contrato. 
+
+`CLIENTE_COM_ACAO_JUDICIAL` - Possui ação judicial 
+
+`MODALIDADE_DA_OPERACAO_INCOMPATIVEL` - Modalidade divergente da indicada pela instituição proponente
+
+`OUTROS` - Motivo da rejeição não se encaixa nas opções disponíveis
+";Texto;;Opcional;;"CANCELADO_PELO_CLIENTE 
+SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE 
+POLITICA_DE_CREDITO 
+RETENCAO_DO_CLIENTE 
+CONTRATO_JA_LIQUIDADO 
+DIVERGENCIA_DE_PAGAMENTO_EFETUADO 
+DECURSO_DO_PRAZO_PARA_PAGAMENTO 
+PORTABILIDADE_CANCELADA_POR_FALTA_DE_LIQUIDACAO 
+PORTABILIDADE_EM_ANDAMENTO 
+CLIENTE_COM_ACAO_JUDICIAL 
+MODALIDADE_DA_OPERACAO_INCOMPATIVEL 
+OUTROS";0;1;"";Não permitido;string;;
+/data/statusReason/reasonTypeAdditionalInfo;reasonTypeAdditionalInfo;"Informação sobre a disponibilidade ou não de um contrato para a portabilidade de crédito.
+Ao utilizar essa opção, é fortemente recomendável enviar um ticket como sugestão da estrutura Open Finance 
+para discussão e mapeamento em futuras versões.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `reasonType` for igual `OUTROS`
+";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
+/data/statusReason/digitalSignatureProof;digitalSignatureProof;"Comprovante de assinatura da contraproposta
+
+[RESTRIÇÃO] Objeto de preenchimento obrigatório quando campo `reasonType` for igual a `RETENCAO_DO_CLIENTE`
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/statusReason/digitalSignatureProof/documentId;documentId;Código identificador do Documento assinado na instituição proponente.;Texto;100;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;54d5348c-1a3f-4ff4-a8a8-d0724fb806c6;1
+/data/statusReason/digitalSignatureProof/signatureDateTime;signatureDateTime;"Data e hora em que o contrato foi assinado pelo cliente  no canal digital da Instituição Proponente
+";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/statusReason/paymentIssueDetail;paymentIssueDetail;"Detalhes da inconsistência encontrada pela Instituição Credora na etapa de validação da liquidação do pedido de portabilidade de crédito. Devem ser mensagens claras, detalhadas, para compreensão entre Proponente e Credora, principalmente em casos que demandam ação por uma das partes.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `status` for igual `PAYMENT_ISSUE`
+";Texto;200;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Valor disponibilizado é menor que o valor total a ser quitado. Credora está devolvendo o valor, e solicita pagamento do valor correto até o fim do dia.;
+/data/creationDateTime;creationDateTime;"Data e hora em que a Proponente registrou a presente proposta (chamada ao POST /portabilities).
+Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC-0 (UTC time format).
+";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
+/data/rejection;rejection;"Objeto contendo detalhes do cancelamento do pedido de portabilidade de crédito junto a Instituição Credora.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando `status` for igual a `REJECTED` ou `CANCELED`
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/rejection/rejectedBy;rejectedBy;"Informar usuário responsável pela rejeição da proposta, onde:
+PROPONENTE - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a
+proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
+USUARIO - Indica que o cliente cancelou o pedido de portabilidade de crédito.
+CREDORA- Indica que a Instituição Credora cancelou o contrato por retenção do cliente ou outros motivos
+conforme motivo de recusa.
+";Texto;;Obrigatório;;"PROPONENTE 
+USUARIO 
+CREDORA";1;1;"";Não permitido;string;PROPONENTE;
+/data/rejection/reason;reason;Motivo de recusa do pedido de portabilidade de crédito.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/rejection/reason/type;type;"Motivo de recusa do pedido de portabilidade, onde:
+CANCELADO_PELO_CLIENTE - Cliente desiste do pedido da portabilidade;   
+SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE - Saldo devedor atualizado divergente (superior a 15%) do informado inicialmente;   
+POLITICA_DE_CREDITO - Proponente desiste da oferta ao cliente por políticas internas;   
+RETENCAO_DO_CLIENTE - Cliente aceitou contraproposta da instituição credora (dentro do prazo);   
+CONTRATO_JA_LIQUIDADO - Contrato liquidado pelo cliente;   
+DIVERGENCIA_DE_PAGAMENTO_EFETUADO - Proponente realizou a liquidação com valor divergente;   
+DECURSO_DO_PRAZO_PARA_PAGAMENTO - Proponente realizou a liquidação fora do prazo;   
+PORTABILIDADE_CANCELADA_POR_FALTA_DE_LIQUIDACAO - Proponente não realizou a liquidação da Portabilidade;   
+PORTABILIDADE_EM_ANDAMENTO - Posteriormente à efetivação do pedido de portabilidade, a IF credora identificou que o cliente já possui outro pedido de portabilidade em andamento para o mesmo contrato;   
+CLIENTE_COM_ACAO_JUDICIAL - Possui ação judicial;   
+MODALIDADE_DA_OPERACAO_INCOMPATIVEL - Modalidade divergente da indicada pela instituição proponente;  
+OUTROS - Motivo da rejeição não se encaixa nas opções disponíveis.  
+";Texto;;Obrigatório;;"CANCELADO_PELO_CLIENTE 
+SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE 
+POLITICA_DE_CREDITO 
+RETENCAO_DO_CLIENTE 
+CONTRATO_JA_LIQUIDADO 
+DIVERGENCIA_DE_PAGAMENTO_EFETUADO 
+DECURSO_DO_PRAZO_PARA_PAGAMENTO 
+PORTABILIDADE_CANCELADA_POR_FALTA_DE_LIQUIDACAO 
+PORTABILIDADE_EM_ANDAMENTO 
+CLIENTE_COM_ACAO_JUDICIAL 
+MODALIDADE_DA_OPERACAO_INCOMPATIVEL 
+OUTROS";1;1;"";Não permitido;string;CANCELADO_PELO_CLIENTE;
+/data/rejection/reason/typeAdditionalInfo;typeAdditionalInfo;"Informação sobre a disponibilidade ou não de um contrato para a portabilidade de crédito. 
+Ao utilizar essa opção, é fortemente recomendável enviar um ticket como sugestão da estrutura Open Finance para discussão e mapeamento em futuras versões.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando campo type for igual a OUTROS.
+";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
+/data/receipt;receipt;"Objeto contendo o recibo de quitação do contrato original de empréstimo após finalizado o
+pedido de portabilidade de crédito com sucesso junto a Instituição Credora.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando `status` for igual a `PORTABILITY_COMPLETED`
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/receipt/settlementDateTime;settlementDateTime;Data e hora em que a instituição credora realizou a quitação do contrato de empréstimo.;Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
+/data/receipt/settlementAmount;settlementAmount;Objeto para representar o valor pago para liquidação do contrato de empréstimo.;Objeto;;Obrigatório;;;1;;"";Não permitido;object;;
+/data/receipt/settlementAmount/amount;amount;Valor pago para liquidação do contrato de empréstimo.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/receipt/settlementAmount/currency;currency;Moeda referenciada ao campo `amount`, segundo modelo ISO-4217.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;3
+/data/receipt/transactionId;transactionId;Identificador da transação utilizado para liquidar o contrato de empréstimo. No contexto de STR0047, utilizar o valor do campo de retorno NumCtrlSTR (Número de Controle da STR).;Texto;20;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,20}$;;1;1;"";Não permitido;string;STR20181108000000013;1
