@@ -11,8 +11,8 @@
 [RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
 ";Texto;14;Opcional;\d{14}$;;0;1;"";Não permitido;string;21128159000166;14
 /data/strCode/branchCode;branchCode;Número da Agência creditada a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.;Número;;Obrigatório;;;1;1;"";Não permitido;number;1;
-/data/strCode/hasfinancialAgent;hasfinancialAgent;Instituição trabalha com agente financeiro ao invés da conta reserva?;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
+/data/strCode/hasFinancialAgent;hasFinancialAgent;Instituição trabalha com agente financeiro ao invés da conta reserva?;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
 /data/strCode/accountNumber;accountNumber;"Número da conta bancária da credora a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
 
 [RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
-";Número;;Obrigatório;;;1;1;"";Não permitido;number;12345678;
+";Número;;Opcional;;;0;1;"";Não permitido;number;12345678;
