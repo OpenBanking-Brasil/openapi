@@ -1,0 +1,19 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;"Conjunto de informações das Contas de: depósito à vista, poupança e de pagamento pré-paga
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/availableAmount;availableAmount;Saldo disponível para utilização imediata. No caso de conta de depósito a vista, sem considerar cheque especial e investimentos atrelados a conta. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/availableAmount/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/availableAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/blockedAmount;blockedAmount;Saldo bloqueado, não disponível para utilização imediata, por motivo de bloqueio apresentado para o cliente nos canais eletrônicos. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/blockedAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/automaticallyInvestedAmount;automaticallyInvestedAmount;Saldo disponível com aplicação automática - corresponde a soma do saldo disponível acrescido do valor obtido a partir da aplicação automática. Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/automaticallyInvestedAmount/amount;amount;Valor relacionado ao objeto.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/automaticallyInvestedAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/updateDateTime;updateDateTime;"Data e hora da última atualização do saldo. É esperado que a instituição informe a última vez que capturou o saldo para compartilhamento no Open Finance. Dessa forma, é possível que:
+- Caso a instituição capture dados de forma síncrona essa informação seja de poucos momentos;
+- Caso a instituição capture dados de forma assíncrona essa informação seja de horas ou dias no passado;
+- Quando não existente uma data vinculada especificamente ao bloco, se assume a data e hora de atualização do cadastro como um todo.
+
+De toda forma, é preciso continuar respeitando o prazo máximo de tempestividade da API de Contas.
+";Date Hora;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
