@@ -7,7 +7,7 @@ Uma string com data e hora conforme especificação [RFC-3339](https://datatrack
 /data/paymentAmount;paymentAmount;Objeto para representar o valor pago para liquidação do contrato de empréstimo.;Objeto;;Obrigatório;;;1;;"";Não permitido;object;;
 /data/paymentAmount/amount;amount;Valor pago para liquidação do contrato de empréstimo.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/paymentAmount/currency;currency;Moeda referenciada ao campo `amount`, segundo modelo ISO-4217.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;3
-/data/transactionId;transactionId;"Identificador da transação utilizada para Proponente liquidar portabilidade de crédito com a Credora.
+/data/transactionId;transactionId;"Identificador da transação utilizada para proponente liquidar a portabilidade de crédito com a credora.
 
-No contexto de STR0047, utilizar o valor do campo de retorno NumCtrlSTR (Numero de Controle da STR)"".
+No contexto da STR0052, utilizar o valor do campo de retorno NumCtrlSTR (Numero de Controle da STR)
 ";Texto;20;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;STR20181108000000013;1

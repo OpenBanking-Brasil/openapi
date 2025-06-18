@@ -8,10 +8,10 @@ EMAIL";1;1;"";Não permitido;string;;
 /data/institution;institution;Informações sobre proponente e credora participantes do presente pedido de portabilidade de crédito.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/institution/creditor;creditor;Informações sobre a instituição credora.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/institution/creditor/companyName;companyName;Nome da Instituição Credora.;Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Instituição Credora;
-/data/institution/creditor/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;21128159000166;
+/data/institution/creditor/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^[0-9A-Z]{12}[0-9]{2}$;;1;1;"";Não permitido;string;21128159000166;
 /data/institution/proposing;proposing;Informações sobre a instituição proponente;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/institution/proposing/companyName;companyName;Nome da Instituição Proponente;Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Instituição Proponente;
-/data/institution/proposing/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;\d{14}$;;1;1;"";Não permitido;string;21128159000166;
+/data/institution/proposing/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^[0-9A-Z]{12}[0-9]{2}$;;1;1;"";Não permitido;string;21128159000166;
 /data/institution/proposing/contact;contact;;Lista;;Opcional;;;1;N;"";Não permitido;array;;
 /data/institution/proposing/contact/type;type;Tipo do contato da Instituição Proponente.;Texto;;Opcional;;"EMAIL 
 TELEFONE";0;1;"";Não permitido;string;;
@@ -171,7 +171,7 @@ O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas
 /data/proposedContract/digitalSignatureProof/signatureDateTime;signatureDateTime;"Data e hora em que o contrato foi assinado pelo cliente  no canal digital da Instituição Proponente
 ";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
 /data/proposedContract/totalNumberOfInstallments;totalNumberOfInstallments;total de parcelas, segundo a periodicidade regular das parcelas referente à Modalidade de Crédito informada.;Número;;Obrigatório;;;1;1;"";Não permitido;number;30;
-/data/proposedContract/installmentPeriodicity;installmentPeriodicity;Informação relativa à periodicidade regular das parcelas. (Vide Enum) sem periodicidade regular, diario, semanal, quinzenal, mensal, bimestral, trimestral, semestral, anual.;Texto;;Obrigatório;;"SEM_PERIODICIDADE_REGULAR 
+/data/proposedContract/instalmentPeriodicity;instalmentPeriodicity;Informação relativa à periodicidade regular das parcelas. (Vide Enum) sem periodicidade regular, diario, semanal, quinzenal, mensal, bimestral, trimestral, semestral, anual.;Texto;;Obrigatório;;"SEM_PERIODICIDADE_REGULAR 
 DIARIO 
 SEMANAL 
 QUINZENAL 
@@ -186,17 +186,17 @@ ANUAL";1;1;"";Não permitido;string;SEM_PERIODICIDADE_REGULAR;
 /data/proposedContract/dueDate;dueDate;Prazo (data de vencimento final) da operação. Especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339);Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
 /data/status;status;"Informação sobre o status de um pedido de portabilidade de crédito, onde:
 
-- RECEIVED: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto a instituição credora. O pedido deve permanecer neste estado até que o próximo dia útil (D+1) aonde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING
-- PENDING: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
-- ACCEPTED_SETTLEMENT_IN_PROCESS: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado
-- ACCEPTED_SETTLEMENT_COMPLETED: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito a credora que está validando os dados do contratos bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
-- PORTABILITY_COMPLETED: Indica que o pedido de portabilidade foi concluído com sucesso
-- REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
-- CANCELLED: Indica que o cliente cancelou o pedido de portabilidade de crédito
-- PAYMENT_ISSUE: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendencia antes do cancelamento do pedido de portabilidade de crédito
+- `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto a instituição credora. O pedido deve permanecer neste estado até que o próximo dia útil (D+1) aonde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING
+- `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
+- `ACCEPTED_SETTLEMENT_IN_PROGRESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado
+- `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito a credora que está validando os dados do contratos bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
+- `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso
+- `REJECTED`: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
+- `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito
+- `PAYMENT_ISSUE`: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendencia antes do cancelamento do pedido de portabilidade de crédito
 ";Texto;;Obrigatório;;"RECEIVED 
 PENDING 
-ACCEPTED_SETTLEMENT_IN_PROCESS 
+ACCEPTED_SETTLEMENT_IN_PROGRESS 
 ACCEPTED_SETTLEMENT_COMPLETED 
 PORTABILITY_COMPLETED 
 REJECTED 
@@ -258,10 +258,6 @@ para discussão e mapeamento em futuras versões.
 /data/statusReason/digitalSignatureProof/documentId;documentId;Código identificador do Documento assinado na instituição proponente.;Texto;100;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;54d5348c-1a3f-4ff4-a8a8-d0724fb806c6;1
 /data/statusReason/digitalSignatureProof/signatureDateTime;signatureDateTime;"Data e hora em que o contrato foi assinado pelo cliente  no canal digital da Instituição Proponente
 ";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
-/data/statusReason/paymentIssueDetail;paymentIssueDetail;"Detalhes da inconsistência encontrada pela Instituição Credora na etapa de validação da liquidação do pedido de portabilidade de crédito. Devem ser mensagens claras, detalhadas, para compreensão entre Proponente e Credora, principalmente em casos que demandam ação por uma das partes.
-
-[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `status` for igual `PAYMENT_ISSUE`
-";Texto;200;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Valor disponibilizado é menor que o valor total a ser quitado. Credora está devolvendo o valor, e solicita pagamento do valor correto até o fim do dia.;
 /data/creationDateTime;creationDateTime;"Data e hora em que a Proponente registrou a presente proposta (chamada ao POST /portabilities).
 Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC-0 (UTC time format).
 ";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
@@ -309,13 +305,16 @@ Ao utilizar essa opção, é fortemente recomendável enviar um ticket como suge
 
 [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo type for igual a OUTROS.
 ";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
-/data/receipt;receipt;"Objeto contendo o recibo de quitação do contrato original de empréstimo após finalizado o
+/data/loanSettlementInstruction;loanSettlementInstruction;"Objeto contendo o recibo de quitação do contrato original de empréstimo após finalizado o
 pedido de portabilidade de crédito com sucesso junto a Instituição Credora.
 
 [RESTRIÇÃO] Campo de preenchimento obrigatório quando `status` for igual a `PORTABILITY_COMPLETED`
 ";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
-/data/receipt/settlementDateTime;settlementDateTime;Data e hora em que a instituição credora realizou a quitação do contrato de empréstimo.;Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
-/data/receipt/settlementAmount;settlementAmount;Objeto para representar o valor pago para liquidação do contrato de empréstimo.;Objeto;;Obrigatório;;;1;;"";Não permitido;object;;
-/data/receipt/settlementAmount/amount;amount;Valor pago para liquidação do contrato de empréstimo.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
-/data/receipt/settlementAmount/currency;currency;Moeda referenciada ao campo `amount`, segundo modelo ISO-4217.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;3
-/data/receipt/transactionId;transactionId;Identificador da transação utilizado para liquidar o contrato de empréstimo. No contexto de STR0047, utilizar o valor do campo de retorno NumCtrlSTR (Número de Controle da STR).;Texto;20;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,20}$;;1;1;"";Não permitido;string;STR20181108000000013;1
+/data/loanSettlementInstruction/settlementDateTime;settlementDateTime;Data e hora em que a instituição credora realizou a quitação do contrato de empréstimo.;Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;20
+/data/loanSettlementInstruction/settlementAmount;settlementAmount;Objeto para representar o valor pago para liquidação do contrato de empréstimo.;Objeto;;Obrigatório;;;1;;"";Não permitido;object;;
+/data/loanSettlementInstruction/settlementAmount/amount;amount;Valor pago para liquidação do contrato de empréstimo.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/loanSettlementInstruction/settlementAmount/currency;currency;Moeda referenciada ao campo `amount`, segundo modelo ISO-4217.;Texto;3;Obrigatório;^(\w{3}){1}$;;1;1;"";Não permitido;string;BRL;3
+/data/loanSettlementInstruction/transactionId;transactionId;"Identificador da transação utilizada para proponente liquidar a portabilidade de crédito com a credora.
+
+No contexto da STR0052, utilizar o valor do campo de retorno NumCtrlSTR (Numero de Controle da STR)
+";Texto;20;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{1,20}$;;1;1;"";Não permitido;string;STR20181108000000013;1
