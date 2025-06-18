@@ -5,8 +5,8 @@
 `PROPONENTE ` - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
 
 `USUARIO` - Indica que o cliente cancelou o pedido de portabilidade de crédito.
-";Texto;;Opcional;;"PROPONENTE 
-USUARIO";0;1;"";Não permitido;string;;
+";Texto;;Obrigatório;;"PROPONENTE 
+USUARIO";1;1;"";Não permitido;string;;
 /data/reason;reason;Motivo de recusa do pedido de portabilidade;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/reason/type;type;"Motivo de recusa do pedido de portabilidade, onde:
 
