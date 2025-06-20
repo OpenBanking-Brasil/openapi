@@ -1,7 +1,7 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Dados para realização do pagamento da operação via TED;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/strCode;strCode;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/strCode/ispb;ispb;Número do ISPB da Instituição credora a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.;Texto;;Obrigatório;^[0-9A-Z]{8}$;;1;1;"";Não permitido;string;22896431;
+/data/strCode/ispb;ispb;Número do ISPB da Instituição credora a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.;Texto;8;Obrigatório;^[0-9A-Z]{8}$;;1;1;"";Não permitido;string;22896431;8
 /data/strCode/name;name;"Nome do proprietário da conta a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
 
 [RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
