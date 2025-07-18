@@ -1,0 +1,6 @@
+﻿data,,,,,,,,,,,,,,,,links,meta
+paidInstalments,contractOutstandingBalance,lastUpdatedContractOutstandingBalance,totalRemainingAmount,releases,,,,,,,,,,,,self,requestDateTime
+,,,,paymentId,isOverParcelPayment,instalmentId,paidDate,currency,paidAmount,overParcel,,,,,,,
+,,,,,,,,,,fees,,,charges,,,,
+,,,,,,,,,,feeName,feeCode,feeAmount,chargeType,chargeAdditionalInfo,chargeAmount,,
+73,1000.0400,2021-05-21T08:30:03.374Z,1000.0400,XlthLXpBLVowLTldW2EtekEtWjAtOVwtXXswLDk5fSQ,TRUE,WGx0aExYcEJMVm93TFRsZFcyRXRla0V0V2pBdE9Wd3RYWH,2021-05-21,BRL,1000.0400,Reavaliação periódica do bem,aval_bem,100000.0400,JUROS_REMUNERATORIOS_POR_ATRASO,Informações adicionais,1000.0400,https://api.banco.com.br/open-banking/api/v1/resource,2021-05-21T08:30:00Z
