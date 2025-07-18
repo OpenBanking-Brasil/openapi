@@ -12,7 +12,7 @@
 - **Código do contrato:** 1 (uma) até 40 (quarenta) posições, sem complemento de caracteres.
 ";Texto;67;Obrigatório;^[\w\W]{22,67}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;22
 /data/productName;productName;"Denominação/Identificação do nome da Modalidade da Operação de Crédito divulgado ao cliente
-";Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Crédito Pessoal Consignado;
+";Texto;140;Obrigatório;^[^\s](.*[^\s])?$;;1;1;"";Não permitido;string;Crédito Pessoal Consignado;
 /data/productType;productType;Tipo da modalidade de crédito contratada, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;;Obrigatório;;EMPRESTIMOS;1;1;"";Não permitido;string;EMPRESTIMOS;
 /data/productSubType;productSubType;Sub tipo da modalidades de crédito Empréstimos contratadas, conforme  circular 4.015 e descrição do DOC3040 do SCR).;Texto;;Obrigatório;;"HOME_EQUITY 
 CHEQUE_ESPECIAL 
@@ -23,14 +23,20 @@ CREDITO_PESSOAL_COM_CONSIGNACAO
 MICROCREDITO_PRODUTIVO_ORIENTADO 
 CAPITAL_GIRO_PRAZO_VENCIMENTO_ATE_365_DIAS 
 CAPITAL_GIRO_PRAZO_VENCIMENTO_SUPERIOR_365_DIAS";1;1;"";Não permitido;string;CREDITO_PESSOAL_COM_CONSIGNACAO;
-/data/productSubTypeCategory;productSubTypeCategory;"Categoria para classificação específica relacionada com a submodalidade do produto. Atenção: o preenchimento com o enum CREDITO_PESSOAL_CLEAN, quando aplicável, será obrigatório à partir da publicação da versão 2.5.0 da API Empréstimos, já o enum CONSIGNADO_SIAPE passará a ser de envio obrigatório em data posterior. Demais submodalidades devem ser classificadas na opção OUTROS
+/data/productSubTypeCategory;productSubTypeCategory;"Categoria destinada à classificação específica relacionada à submodalidade do produto.
+As orientações a seguir devem ser observadas para o correto preenchimento deste campo:
+* O preenchimento com o enum `CREDITO_PESSOAL_CLEAN` será obrigatório, a partir da publicação da versão 2.5.0 da API Empréstimos, **para contratos em aberto**, quando aplicável;
+* O enum `CONSIGNADO_SIAPE`, **que engloba todos os contratos consignados sob a regulamentação do Sistema Integrado de Administração de Recursos Humanos (Siape), apresentando informações de servidores estatutários, temporários, celetistas (CLT), entre outros**, será de envio obrigatório, a partir do início do piloto para crédito consignado;
+* Contratos liquidados até a entrada em produção (go live) da versão 2.5.0 poderão ser preenchidos com a opção OUTRO;
+* As demais submodalidades devem ser classificadas na opção `OUTRO`.
 ";Texto;;Obrigatório;;"CREDITO_PESSOAL_CLEAN 
 CONSIGNADO_SIAPE 
 OUTRO";1;1;"";Não permitido;string;CREDITO_PESSOAL_CLEAN;
-/data/contractDate;contractDate;Data de contratação da operação de crédito. Especificação RFC-3339;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05;
+/data/contractDate;contractDate;"Data de contratação da operação de crédito. Especificação RFC-3339. Para produtos rotativos, productSubType `CHEQUE_ESPECIAL` e `CONTA_GARANTIDA`, caso tenha-se múltiplas contratações do mesmo produto, deve-se enviar à última data disponível.
+";Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-01-05;
 /data/disbursementDates;disbursementDates;"Lista que traz as Datas de Desembolso do valor contratado.
 ";Lista;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;N;"";Não permitido;array;2018-01-15;
-/data/settlementDate;settlementDate;"Data de liquidação da operação.
+/data/settlementDate;settlementDate;"Data de liquidação da operação. Data do cancelamento do contrato para casos em que não há saldo devedor restante. No caso de cancelamento com saldo devedor, a data só deve ser preenchida quando o mesmo for liquidado.
 ";Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-01-15;
 /data/contractAmount;contractAmount;"Valor contratado da operação. Não incluir valores de taxas, tarifas, encargos e seguros. 
 Expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais. 
@@ -39,8 +45,7 @@ Nos casos em que não houver este valor explícito no contrato do produto, envia
 /data/currency;currency;"Moeda referente ao valor da garantia, segundo modelo ISO-4217. p.ex. 'BRL'
 Todos os valores monetários informados estão representados com a moeda vigente do Brasil
 ";Texto;3;Opcional;^(\w{3}){1}$;;0;1;"";Não permitido;string;BRL;
-/data/dueDate;dueDate;"Data do último vencimento da operação, seguindo a especificação RFC-3339.
-Informação deve ser enviada caso ela exista. Especialmente para contratos repactuados, deve-se alterar a data para a do último vencimento.
+/data/dueDate;dueDate;"Data do último vencimento da operação, seguindo a especificação RFC-3339. Informação deve ser enviada caso ela exista. Especialmente para contratos repactuados, deve-se alterar a data para a do último vencimento. Para produtos rotativos, productSubType `CHEQUE_ESPECIAL` e `CONTA_GARANTIDA`, o campo representa a data fim da renovação para contratos ativos ou data do cancelamento para contratos cancelados ou vencidos.
 ";Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2028-01-15;2
 /data/instalmentPeriodicity;instalmentPeriodicity;"""Informação relativa à periodicidade regular das parcelas. (Vide Enum)
 sem periodicidade regular, semanal, quinzenal, mensal, bimestral, trimestral, semestral, anual""
@@ -54,7 +59,7 @@ SEMESTRAL
 ANUAL 
 OUTROS";1;1;"";Não permitido;string;SEMANAL;
 /data/instalmentPeriodicityAdditionalInfo;instalmentPeriodicityAdditionalInfo;"Campo obrigatório para complementar a informação relativa à periodicidade de pagamento regular quando tiver a opção OUTROS.
-";Texto;50;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações adicionais sobre periodicidade;
+";Texto;50;Opcional;^[^\s](.*[^\s])?$;;0;1;"";Não permitido;string;Informações adicionais sobre periodicidade;
 /data/firstInstalmentDueDate;firstInstalmentDueDate;"Data de vencimento primeira parcela do principal.
 Informação deve ser enviada caso ela exista.
 ";Data;10;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;0;1;"";Não permitido;string;2018-02-15;
@@ -84,17 +89,18 @@ SAM
 SEM_SISTEMA_AMORTIZACAO 
 OUTROS";1;1;"";Não permitido;string;SAC;
 /data/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;"Campo obrigatório para complementar a informação relativa à amortização quando selecionada a opção OUTROS.
-";Texto;200;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações complementares relativa à amortização do tipo 'OUTROS';
+";Texto;200;Opcional;^[^\s](.*[^\s])?$;;0;1;"";Não permitido;string;Informações complementares relativa à amortização do tipo 'OUTROS';
 /data/cnpjConsignee;cnpjConsignee;"CNPJ do consignante (CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica). 
 
-Deve-se ter apenas os números do CNPJ, sem máscara. 
+Deve-se ter apenas a representação alfanumérica do CNPJ, sem máscara.
 
 [Restrição] Informação adicional específica para quando o productSubType for igual a CREDITO_PESSOAL_COM_CONSIGNACAO
-";Texto;14;Condicional;^\d{14}$;;0;1;" Informação adicional específica para quando o productSubType for igual a CREDITO_PESSOAL_COM_CONSIGNACAO
+";Texto;14;Condicional;^[0-9A-Z]{12}[0-9]{2}$;;0;1;" Informação adicional específica para quando o productSubType for igual a CREDITO_PESSOAL_COM_CONSIGNACAO
 ";Não permitido;string;60500998000135;
 /data/interestRates;interestRates;"Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito. 
 Caso o contrato não possua taxas de juros, deve ser compartilhada uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 de forma explícita. 
-Para contratos em renegociação a taxa de empréstimo compartilhada  deve se manter a taxa do contrato vigente, sendo alterada para a renegociada ao fim do processo de renegociação.
+Para contratos em renegociação, a taxa de empréstimo compartilhada deve se manter a taxa do contrato vigente, sendo alterada para a renegociada ao fim do processo de renegociação. 
+Para o produto CPC (campo `productSubTypeCategory` preenchido com `CREDITO_PESSOAL_CLEAN`) deve-se obrigatoriamente conter a taxa nominal e a taxa efetiva (campo `taxPeriodicity`) com periodicidade a.a. (ao ano), podendo adicionalmente conter, além das taxas nominal e efetiva ao ano, outras com outra periodicidade.
 ";Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
 /data/interestRates/taxType;taxType;"""Tipo de Taxa (vide  Enum)
 - NOMINAL (taxa nominal é uma taxa de juros em que a unidade referencial não coincide com a unidade de tempo da capitalização. Ela é sempre fornecida em termos anuais, e seus períodos de capitalização podem ser diários, mensais, trimestrais ou semestrais. p.ex. Uma taxa de 12% ao ano com capitalização mensal)
@@ -106,7 +112,7 @@ EFETIVA";1;1;"";Não permitido;string;EFETIVA;
 - COMPOSTO (para cada período do contrato (diário, mensal, anual etc.), há um “novo capital” para a cobrança da taxa de juros contratada. Esse “novo capital” é a soma do capital e do juro cobrado no período anterior. Exemplo: em um empréstimo de R$1.000, com taxa de juros composta de 8% a.a., com duração de 2 anos, o total de juros será R$80 no primeiro ano. No segundo ano, os juros vão ser somados ao capital (R$1.000 + R$ 80 = R$ 1.080), resultando em juros de R$ 86 (8%de R$ 1.080))""
 ";Texto;;Obrigatório;;"SIMPLES 
 COMPOSTO";1;1;"";Não permitido;string;SIMPLES;
-/data/interestRates/taxPeriodicity;taxPeriodicity;"""Periodicidade da taxa . (Vide  Enum)
+/data/interestRates/taxPeriodicity;taxPeriodicity;"""Periodicidade da taxa. (Vide  Enum)
 a.m - ao mês
 a.a. - ao ano""
 ";Texto;;Obrigatório;;"AM 
@@ -147,14 +153,14 @@ OUTROS_INDEXADORES";0;1;" Caso no campo postFixedRate seja informado um valor ap
 ";Não permitido;string;TJLP;
 /data/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;"Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.
 [Restrição] Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
-";Texto;140;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
+";Texto;140;Condicional;^[^\s](.*[^\s])?$;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionada o tipo ou subtipo OUTRO.
 ";Não permitido;string;Informações adicionais;
 /data/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
 
 [Restrição] Este campo é de envio obrigatório caso não seja enviado o campo postFixedRate.
 ";Texto;9;Condicional;^\d{1,2}\.\d{6}$;;0;1;" Este campo é de envio obrigatório caso não seja enviado o campo postFixedRate.
 ";Não permitido;string;0.600000;8
-/data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.0045 .O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%). Para taxas pós fixadas necessário informar o indexador (campo referentialRateIndexerSubType).
+/data/interestRates/postFixedRate;postFixedRate;"Taxa pós fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.0045.O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.1500. Este valor representa 15%. O valor 1 representa 100%). Para taxas pós fixadas necessário informar o indexador (campo referentialRateIndexerSubType).
 
 [Restrição] Este campo é de envio obrigatório caso não seja enviado o campo preFixedRate.
 ";Texto;9;Condicional;^\d{1,2}\.\d{6}$;;0;1;" Este campo é de envio obrigatório caso não seja enviado o campo preFixedRate.
@@ -162,11 +168,11 @@ OUTROS_INDEXADORES";0;1;" Caso no campo postFixedRate seja informado um valor ap
 /data/interestRates/additionalInfo;additionalInfo;"Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
 
 [Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
-";Texto;1200;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
+";Texto;1200;Condicional;^[^\s](.*[^\s])?$;;0;1;" Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
 ";Não permitido;string;Informações adicionais;
 /data/contractedFees;contractedFees;Lista que traz as informações das tarifas pactuadas no contrato.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
-/data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Renovação de cadastro;
-/data/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;CADASTRO;
+/data/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;^[^\s](.*[^\s])?$;;1;1;"";Não permitido;string;Renovação de cadastro;
+/data/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;^[^\s](.*[^\s])?$;;1;1;"";Não permitido;string;CADASTRO;
 /data/contractedFees/feeChargeType;feeChargeType;Tipo de cobrança para a tarifa pactuada no contrato.;Texto;;Obrigatório;;"UNICA 
 POR_PARCELA";1;1;"";Não permitido;string;UNICA;
 /data/contractedFees/feeCharge;feeCharge;"""Forma de cobrança relativa a tarifa pactuada no contrato. (Vide Enum)
@@ -199,12 +205,13 @@ OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO;
 /data/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;"Campo para informações adicionais.
 
 [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
-";Texto;140;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+";Texto;140;Condicional;^[^\s](.*[^\s])?$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos.;
 /data/contractedFinanceCharges/chargeRate;chargeRate;"Representa o valor do encargo em percentual pactuado no contrato.
 
 O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
 ";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.070000;8
-/data/nextInstalmentAmount;nextInstalmentAmount;"Informa o valor da próxima parcela à vencer. Para contratos liquidados, retornar zero, seguindo o pattern.   [Restrição]   O envio do campo será obrigatório para CPC (campo “productSubTypeCategory” preenchido com CREDITO_PESSOAL_CLEAN).
-";Texto;20;Condicional;^\d{1,15}\.\d{2,4}$;;0;1;"   O envio do campo será obrigatório para CPC (campo “productSubTypeCategory” preenchido com CREDITO_PESSOAL_CLEAN).
+/data/nextInstalmentAmount;nextInstalmentAmount;"Informa o valor de face (corresponde ao valor da parcela no vencimento). Para contratos liquidados, retornar zero, seguindo o pattern.
+[Restrição]  O envio do campo será obrigatório para CPC (campo “productSubTypeCategory” preenchido com `CREDITO_PESSOAL_CLEAN`).
+";Texto;20;Condicional;^\d{1,15}\.\d{2,4}$;;0;1;"  O envio do campo será obrigatório para CPC (campo “productSubTypeCategory” preenchido com `CREDITO_PESSOAL_CLEAN`).
 ";Não permitido;string;1000.0400;4
