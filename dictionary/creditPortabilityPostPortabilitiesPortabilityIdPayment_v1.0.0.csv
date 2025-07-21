@@ -1,6 +1,6 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
 /data;data;Objeto para notificar a respeito da liquidação efetuada pela proponente a credora;Objeto;;Obrigatório;;;0;;"";Não permitido;object;;
-/data/portabilityId;portabilityId;Código identificador do pedido de portabilidade realizado.;Texto;100;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;54d5348c-1a3f-4ff4-a8a8-d0724fb806c6;1
+/data/portabilityId;portabilityId;Código identificador do pedido de portabilidade realizado.;Texto;36;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;54d5348c-1a3f-4ff4-a8a8-d0724fb806c6;36
 /data/paymentDateTime;paymentDateTime;"Data e hora em que o pagamento à instituição credora foi realizado pela instituição proponente. 
 Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC-0 (UTC time format)
 ";Texto;20;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;1;1;"";Não permitido;string;2020-07-21T08:30:00Z;
