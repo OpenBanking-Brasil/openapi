@@ -1,0 +1,70 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/type;type;"Tipo de movimentação na visão de investimento​:
+
+ENTRADA: COMPRA, CANCELAMENTO, TRANSFERENCIA_TITULARIDADE, TRANSFERENCIA_CUSTODIA, OUTROS​.
+
+SAIDA: VENDA, CANCELAMENTO, VENCIMENTO, PAGAMENTO_JUROS, AMORTIZACAO, PREMIO, TRANSFERENCIA_TITULARIDADE, TRANSFERENCIA_CUSTODIA, MULTA, MORA, OUTROS. ​
+
+Por exemplo, para movimentação de CANCELAMENTO, tipicamente, será o type contrário ao evento originário. Ou seja, para cancelamento de COMPRA, considera-se type SAIDA; para cancelamento de VENDA, considera-se type ENTRADA.
+";Texto;;Obrigatório;;"ENTRADA 
+SAIDA";1;1;"";Não permitido;string;ENTRADA;
+/data/transactionType;transactionType;Compra, venda, cancelamento, vencimento, pagamento de juros, amortização, prêmio, transferência de titularidade, transferência de custódia, multa, mora e outros. Para movimentos de transferência (titularidade ou custódia) deve ser considerado o preço unitário (transactionUnitPrice) da aquisição do título.;Texto;;Obrigatório;;"COMPRA 
+VENDA 
+CANCELAMENTO 
+VENCIMENTO 
+PAGAMENTO_JUROS 
+AMORTIZACAO 
+PREMIO 
+TRANSFERENCIA_TITULARIDADE 
+TRANSFERENCIA_CUSTODIA 
+MULTA 
+MORA 
+OUTROS";1;1;"";Não permitido;string;COMPRA;
+/data/transactionTypeAdditionalInfo;transactionTypeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio  
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'OUTROS' no campo 'transactionType'.
+";Texto;100;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'OUTROS' no campo 'transactionType'.
+";Não permitido;string;;
+/data/transactionDate;transactionDate;Data da movimentação;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;
+/data/transactionUnitPrice;transactionUnitPrice;"Valor unitário negociado com o cliente na data de aquisição. Em transferências de custódia, quando o PU original (da instituição de origem) não estiver disponível para a transmissora, deve ser informado o PU marcado pela instituição na data de transferência.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo `transactionType` for preenchido com os valores `COMPRA`, `VENDA` ou `VENCIMENTO`.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo `transactionType` for preenchido com os valores `COMPRA`, `VENDA` ou `VENCIMENTO`.
+";Não permitido;object;;
+/data/transactionUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;4
+/data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/transactionQuantity;transactionQuantity;"Quantidade de títulos envolvidos na movimentação
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA', 'VENCIMENTO', 'TRANSFERENCIA_TITULARIDADE' ou 'TRANSFERENCIA_CUSTODIA'.
+";Texto;24;Condicional;^\d{1,15}\.\d{2,8}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'transactionType' for preenchido com os valores 'COMPRA', 'VENDA', 'VENCIMENTO', 'TRANSFERENCIA_TITULARIDADE' ou 'TRANSFERENCIA_CUSTODIA'.
+";Não permitido;string;42.25;
+/data/transactionGrossValue;transactionGrossValue;Valor bruto da transação (Preço unitário da movimentação x Quantidade);Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionGrossValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;4
+/data/transactionGrossValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/incomeTax;incomeTax;"Valor do imposto de renda recolhido na transação.               
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Não permitido;object;;
+/data/incomeTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;4
+/data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/financialTransactionTax;financialTransactionTax;"Valor do IOF recolhido na transação.                  
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'. 
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'. 
+";Não permitido;object;;
+/data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;4
+/data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/transactionNetValue;transactionNetValue;Valor líquido da transação;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionNetValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;4
+/data/transactionNetValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/remunerationTransactionRate;remunerationTransactionRate;"Taxa de remuneração acordada com o cliente na contratação. 
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto prefixado ou híbrido.
+";Texto;9;Condicional;^-?\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto prefixado ou híbrido.
+";Não permitido;string;0.300000;8
+/data/indexerPercentage;indexerPercentage;"Percentual máximo do indexador na transação acordado com o cliente na contratação. 
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto pós-fixado ou híbrido.
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto pós-fixado ou híbrido.
+";Não permitido;string;1.100000;8
+/data/transactionId;transactionId;"Código ou identificador único prestado pela instituição para individualizar o movimento.  
+";Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;ABCD2126019929279212650822221989319253344;
