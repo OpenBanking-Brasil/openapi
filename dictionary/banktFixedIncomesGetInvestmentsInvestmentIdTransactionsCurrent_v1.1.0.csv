@@ -1,0 +1,61 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/type;type;"Tipo de movimentação na visão de investimento
+
+- ENTRADA: APLICACAO, CANCELAMENTO, TRANSFERENCIA_TITULARIDADE, TRANSFERENCIA_CUSTODIA, OUTROS.
+
+- SAIDA: RESGATE, CANCELAMENTO, VENCIMENTO, PAGAMENTO_JUROS, AMORTIZACAO, TRANSFERENCIA_TITULARIDADE, TRANSFERENCIA_CUSTODIA, OUTROS.
+
+Por exemplo, para movimentação de CANCELAMENTO, tipicamente, será o type contrário ao evento originário. Ou seja, para cancelamento de APLICACAO, considera-se type SAIDA; para cancelamento de RESGATE, considera-se type ENTRADA.
+";Texto;;Obrigatório;;"ENTRADA 
+SAIDA";1;1;"";Não permitido;string;ENTRADA;
+/data/transactionType;transactionType;Aplicação, resgate, cancelamento, vencimento, pagamento de juros, amortização, transferência de titularidade, transferência de custódia e outros. Para movimentos de transferência (titularidade ou custódia) deve ser considerado o preço unitário (transactionUnitPrice) da aquisição do título.;Texto;;Obrigatório;;"APLICACAO 
+RESGATE 
+CANCELAMENTO 
+VENCIMENTO 
+PAGAMENTO_JUROS 
+AMORTIZACAO 
+TRANSFERENCIA_TITULARIDADE 
+TRANSFERENCIA_CUSTODIA 
+OUTROS";1;1;"";Não permitido;string;APLICACAO;
+/data/transactionTypeAdditionalInfo;transactionTypeAdditionalInfo;"Informação adicional do tipo de movimentação, para preenchimento no caso de movimentações não delimitadas no domínio.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo Motivo da movimentação.
+";Texto;100;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo Motivo da movimentação.
+";Não permitido;string;;
+/data/transactionDate;transactionDate;Data da movimentação.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;10
+/data/transactionUnitPrice;transactionUnitPrice;Preço unitário bruto negociado nas transferências de custódia, quando o PU original (da instituição de origem) não estiver disponível para a transmissora, deve ser informado o PU marcado pela instituição na data de transferência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionUnitPrice/amount;amount;;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.04;
+/data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/transactionQuantity;transactionQuantity;Quantidade de títulos envolvidos na movimentação.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;42.25;
+/data/transactionGrossValue;transactionGrossValue;Valor bruto da transação (Preço unitário da movimentação x Quantidade).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionGrossValue/amount;amount;;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/transactionGrossValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/incomeTax;incomeTax;"Valor do imposto de renda recolhido na transação.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Não permitido;object;;
+/data/incomeTax/amount;amount;;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/financialTransactionTax;financialTransactionTax;"Valor do IOF recolhido na transação.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+";Não permitido;object;;
+/data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/transactionNetValue;transactionNetValue;Valor líquido da transação.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionNetValue/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
+/data/transactionNetValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/remunerationTransactionRate;remunerationTransactionRate;"Taxa de remuneração da transação.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto prefixado ou híbrido.
+";Texto;9;Condicional;^-?\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto prefixado ou híbrido.
+";Não permitido;string;0.300000;8
+/data/indexerPercentage;indexerPercentage;"Percentual máximo do indexador acordado com o cliente na contratação.
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto pós-fixado ou híbrido.
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'ENTRADA' e se tratar de produto pós-fixado ou híbrido.
+";Não permitido;string;1.100000;8
+/data/transactionId;transactionId;Código ou identificador único prestado pela instituição que mantém a representação individual do movimento.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;ABCD2126019929279212650822221989319253344;

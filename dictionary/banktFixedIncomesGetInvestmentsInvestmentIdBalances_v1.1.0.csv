@@ -1,0 +1,43 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/referenceDateTime;referenceDateTime;"Data e hora da última posição consolidada a que se referem os dados transacionais do cliente disponíveis nos canais eletrônicos.
+Deve respeitar o prazo máximo de tempestividade da API, conforme a página [""Orientações""](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/102957060).
+Na representação data deve se considerar os minutos e segundos como zero (00:00:00Z).
+
+No preenchimento do campo é esperado que a instituição informe a última vez que capturou a posição para compartilhamento no Open Finance. Dessa forma, é possível que:
+- Caso a instituição capture dados de forma síncrona, essa informação seja de até uma hora atrás;
+- Caso a instituição capture dados de forma assíncrona, essa informação seja de horas ou dias atrás;
+- Quando a posição for zerada: mesmo conteúdo do campo requestDateTime  
+";Date Hora;20;Obrigatório;(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$);;1;1;"";Não permitido;string;2022-07-21T17:32:00Z;
+/data/quantity;quantity;Quantidade de títulos detidos na data da posição do cliente;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.0004;
+/data/updatedUnitPrice;updatedUnitPrice;Valor bruto unitário atualizado na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/updatedUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;
+/data/updatedUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/grossAmount;grossAmount;"Valor do investimento que se refere a quantidade multiplicado pelo PU atualizado na data de referência;";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/grossAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/grossAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/netAmount;netAmount;Valor do investimento atualizado na data de referência, posterior a dedução de impostos (IOF e IR).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/netAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/netAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/incomeTax;incomeTax;Valor do imposto de renda provisionado considerando a alíquota vigente na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/incomeTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/financialTransactionTax;financialTransactionTax;Valor do imposto (IOF) provisionado considerando a alíquota vigente na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/blockedBalance;blockedBalance;Valor não disponível para movimentação naquele momento por qualquer motivo (bloqueio judicial, bloqueio em garantia, entre outros). Prazo de carência não é considerado como bloqueio.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/blockedBalance/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0004;
+/data/blockedBalance/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/purchaseUnitPrice;purchaseUnitPrice;Valor unitário negociado com o cliente na data de aquisição;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/purchaseUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;
+/data/purchaseUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/preFixedRate;preFixedRate;"Taxa de remuneração acordada com o cliente na contratação. Em casos de produtos progressivos, considerar a taxa máxima contratada. 
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
+Este valor representa 15%. O valor 1 representa 100%). 
+É esperado que o preenchimento deste campo pelas participantes seja enviado conforme foi acordado no momento da contratação.
+";Texto;9;Opcional;^-?\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.300000;8
+/data/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador acordado com o cliente na contratação. Em casos de produtos progressivos, considerar a taxa máxima contratada. 
+O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. 
+Este valor representa 15%. O valor 1 representa 100%). 
+É esperado que o preenchimento deste campo pelas participantes seja enviado conforme foi acordado no momento da contratação.
+";Texto;9;Opcional;^-?\d{1}\.\d{6}$;;0;1;"";Não permitido;string;1.000000;8
