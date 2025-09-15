@@ -504,9 +504,9 @@ components:
         cnpjCpfNumber:
           type: string
           maxLength: 14
-          pattern: '^[0-9]{11}|[0-9A-Z]{12}[0-9]{2}$'
+          pattern: '^([0-9]{11}|[0-9A-Z]{12}[0-9]{2})$'
           example: '73677831148'
-          description: Identificação do Representante Legal ou Procurador. Número do cadastro nas Receita Federal  (Preencher com CPF ou CNPJ sem formatação)
+          description: Identificação do Representante Legal ou Procurador. Registro do cadastro na Receita Federal (Preencher com CPF ou CNPJ sem formatação).
         civilName:
           type: string
           maxLength: 70
@@ -968,22 +968,22 @@ components:
             Nome do empregador conforme recebido pela comunicação de portabilidade. O empregador pode ser pessoa natural ou pessoa jurídica, quando se tratar de pessoa jurídica, deve haver o envio da razão social.
         employerCnpjCpf:
           type: string
-          pattern: '^[0-9]{11}|[0-9A-Z]{12}[0-9]{2}$'
+          pattern: '^([0-9]{11}|[0-9A-Z]{12}[0-9]{2})$'
           maxLength: 14
           description: |
-            Número de inscrição (CPF/CNPJ) do empregador (contratante dos serviços de pagamento), conforme recebido pela comunicação de portabilidade.
+            Registro de inscrição (CPF/CNPJ) do empregador (contratante dos serviços de pagamento), conforme recebido pela comunicação de portabilidade.
         paycheckBankDetainerCnpj:
           type: string
           pattern: '^[0-9A-Z]{12}[0-9]{2}$'
           maxLength: 14
           description: |
-            Número de inscrição no Cadastro Nacional da Pessoa Jurídica (CNPJ) do banco folha (instituição financeira detentora da conta salário) conforme recebido pela comunicação de portabilidade.
+            Registro de inscrição no Cadastro Nacional da Pessoa Jurídica (CNPJ) do banco folha (instituição detentora da conta salário) conforme recebido pela comunicação de portabilidade.
         paycheckBankDetainerIspb:
           type: string
-          pattern: '^[0-9]{8}$'
+          pattern: '^[0-9A-Z]{8}$'
           maxLength: 8
           description: |
-            Número do ISPB do Banco Folha (instituição financeira detentora da conta salário) conforme recebido pela comunicação de portabilidade.
+            Registro do ISPB do Banco Folha (instituição detentora da conta salário) conforme recebido pela comunicação de portabilidade.
         portabilityApprovalDate:
           type: string
           format: date
@@ -1010,7 +1010,7 @@ components:
             Nome do empregador conforme registrado na abertura da conta salário. O empregador pode ser pessoa natural ou pessoa jurídica, quando se tratar de pessoa jurídica, deve haver o envio da razão social.
         employerCnpjCpf:
           type: string
-          pattern: '^[0-9]{11}|[0-9A-Z]{12}[0-9]{2}$'
+          pattern: '^([0-9]{11}|[0-9A-Z]{12}[0-9]{2})$'
           maxLength: 14
           description: |
             Documento do empregador (CNPJ/CPF), conforme registrado na abertura da conta salário.
@@ -1022,10 +1022,10 @@ components:
             CNPJ da instituição financeira contratada para prestar serviço de pagamento de salário (banco-folha).
         paycheckBankIspb:
           type: string
-          pattern: '^[0-9]{8}$'
+          pattern: '^[0-9A-Z]{8}$'
           maxLength: 8
           description: |
-            Número ISPB (Identificador do Sistema de Pagamentos Brasileiros) do instituição financeira contratada para prestar serviço de pagamento de salário (banco-folha).
+            Registro ISPB (Identificador do Sistema de Pagamentos Brasileiros) da instituição contratada para prestar serviço de pagamento de salário (banco-folha).
         accountOpeningDate:
           type: string
           format: date
@@ -1936,8 +1936,7 @@ components:
           maxLength: 14
           example: '50685362000135'
           description: |
-            Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
-            Deve-se ter apenas os números do CNPJ, sem máscara
+            Representação alfanumérica completa do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde a representação alfanumérica de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os caracteres do CNPJ, sem máscara.
         occupationCode:
           $ref: '#/components/schemas/EnumOccupationMainCodeType'
         occupationDescription:
@@ -1955,7 +1954,7 @@ components:
         employerCnpjCpf:
           type: string
           description: Número de inscrição (CPF/CNPJ) do empregador com o qual o cliente possua vínculo empregatício.
-          pattern: '^[0-9]{11}|[0-9A-Z]{12}[0-9]{2}$'
+          pattern: '^([0-9]{11}|[0-9A-Z]{12}[0-9]{2})$'
           example: '30386566000164'
         employerName:
           type: string
