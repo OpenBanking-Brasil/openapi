@@ -1,0 +1,43 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Lista de caixinhas/reservas;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
+/data/reservedName;reservedName;Nome dado pelo usuário para a reserva;Texto;248;Opcional;^[^\s][\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Caixinha Paras Férias;5
+/data/reservedIndentification;reservedIndentification;Identificador único da reserva;Texto;36;Obrigatório;^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$;;1;1;"";Não permitido;string;d78fc4e5-37ca-4da3-adf2-9b082bf92280;1
+/data/availableAmount;availableAmount;Saldo que se encontra disponível na reserva;Lista;;Obrigatório;;;1;N;"";Não permitido;array;;1
+/data/availableAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
+/data/availableAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
+/data/availableAmount/remuneration;remuneration;Remuneração aplicada a reserva;Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/availableAmount/remuneration/preFixedRate;preFixedRate;"Taxa de remuneração pré fixada para a reserva de saldo. p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). 
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando campo `postFixedIndexerPercentage` não for preenchido
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando campo `postFixedIndexerPercentage` não for preenchido
+";Não permitido;string;0.300000;8
+/data/availableAmount/remuneration/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador pós fixado para a reserva de saldo. p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). 
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando campo `preFixedRate` não for preenchido
+";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando campo `preFixedRate` não for preenchido
+";Não permitido;string;0.300000;8
+/data/availableAmount/remuneration/rateType;rateType;Tipo da taxa de remuneração (linear ou exponencial);Texto;;Obrigatório;;"LINEAR 
+EXPONENCIAL";1;1;"";Não permitido;string;LINEAR;
+/data/availableAmount/remuneration/indexer;indexer;Índice utilizado como referência para remuneração da reserva;Texto;;Obrigatório;;"CDI 
+DI 
+TR 
+IPCA 
+IGP_M 
+IGP_DI 
+INPC 
+BCP 
+TLC 
+SELIC 
+PRE_FIXADO 
+OUTROS";1;1;"";Não permitido;string;CDI;
+/data/availableAmount/remuneration/calculation;calculation;Base de cálculo (dias úteis ou dias corridos);Texto;;Obrigatório;;"DIAS_UTEIS 
+DIAS_CORRIDOS";1;1;"";Não permitido;string;DIAS_UTEIS;
+/data/availableAmount/remuneration/ratePeriodicity;ratePeriodicity;Periodicidade da taxa de remuneração (mensal, anual, diário, semestral);Texto;;Obrigatório;;"MENSAL 
+ANUAL 
+DIARIO 
+SEMESTRAL";1;1;"";Não permitido;string;MENSAL;
+/data/availableAmount/remuneration/indexerAdditionalInfo;indexerAdditionalInfo;"Informações adicionais do indexador
+
+[Restrição] Campo de preenchimento obrigatório pelas participantes quando houver `Outros` no campo `indexer`
+";Texto;50;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver `Outros` no campo `indexer`
+";Não permitido;string;Dólar;
