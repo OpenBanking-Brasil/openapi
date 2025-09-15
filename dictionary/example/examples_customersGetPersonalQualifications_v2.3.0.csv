@@ -1,0 +1,5 @@
+﻿data,,,,,,,,,,,,,links,,,,,meta
+updateDateTime,companyCnpj,occupationCode,occupationDescription,informedIncome,,,,informedPatrimony,,,employerCnpjCpf,employerName,self,first,prev,next,last,requestDateTime
+,,,,frequency,amount,,date,amount,,year,,,,,,,,
+,,,,,amount,currency,,amount,currency,,,,,,,,,
+2021-05-21T08:30:00Z,5.06854E+13,RECEITA_FEDERAL,01,DIARIA,100000.0400,BRL,2021-05-21,100000.0400,BRL,2010,3.03866E+13,Organização A,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,2021-05-21T08:30:00Z
