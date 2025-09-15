@@ -2,8 +2,7 @@
 /data;data;Conjunto de informações relativas ao processo de qualificação. Considera-se qualificação as informações que permitam as instituições apreciar, avaliar, caracterizar e classificar o cliente com a finalidade de conhecer o seu perfil de risco e sua capacidade econômico-financeira;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/updateDateTime;updateDateTime;"Data e hora da atualização dos campos \<_endpoint_\>, conforme especificação RFC-3339, formato UTC. Quando não existente uma data vinculada especificamente ao bloco, assumir a data e hora de atualização do cadastro como um todo.
 ";Date Hora;20;Obrigatório;;;1;1;"";Não permitido;string;2021-05-21T08:30:00Z;
-/data/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
-Deve-se ter apenas os números do CNPJ, sem máscara
+/data/companyCnpj;companyCnpj;"Representação alfanumérica completa do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde a representação alfanumérica de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os caracteres do CNPJ, sem máscara.
 ";Texto;14;Obrigatório;^[0-9A-Z]{12}[0-9]{2}$;;1;1;"";Não permitido;string;50685362000135;
 /data/occupationCode;occupationCode;"Traz a relação dos códigos relativos à ocupação.
 ";Texto;;Opcional;;"RECEITA_FEDERAL 
@@ -37,5 +36,5 @@ Patrimônio é o conjunto de bens vinculado a uma pessoa ou a uma entidade.
 ";Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;100000.0400;4
 /data/informedPatrimony/amount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/informedPatrimony/year;year;Ano de referência da Renda, conforme especificação RFC-3339.;Número;9999;Obrigatório;;;1;1;"";Não permitido;number;2010;
-/data/employerCnpjCpf;employerCnpjCpf;Número de inscrição (CPF/CNPJ) do empregador com o qual o cliente possua vínculo empregatício.;Texto;;Opcional;^[0-9]{11}|[0-9A-Z]{12}[0-9]{2}$;;0;1;"";Não permitido;string;30386566000164;
+/data/employerCnpjCpf;employerCnpjCpf;Número de inscrição (CPF/CNPJ) do empregador com o qual o cliente possua vínculo empregatício.;Texto;;Opcional;^([0-9]{11}|[0-9A-Z]{12}[0-9]{2})$;;0;1;"";Não permitido;string;30386566000164;
 /data/employerName;employerName;Nome do empregador ou Razão social do empregador com o qual o cliente possua vínculo empregatício.;Texto;;Opcional;^[^\s](.*[^\s])?$;;0;1;"";Não permitido;string;Organização A;
