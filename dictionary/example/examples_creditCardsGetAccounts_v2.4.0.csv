@@ -1,0 +1,3 @@
+﻿data,,,,,,,,links,,,,,meta,,
+creditCardAccountId,brandName,companyCnpj,name,productType,productAdditionalInfo,creditCardNetwork,networkAdditionalInfo,self,first,prev,next,last,totalRecords,totalPages,requestDateTime
+XXZTR3459087,Organização A,2.11282E+13,Cartão Universitário,OUTROS,<{rnd6&[b>)1cf`i&Z.T%(X,VISA,AURA CARD,https://api.banco.com.br/open-banking/api/v2/resource,https://api.banco.com.br/open-banking/api/v2/resource,https://api.banco.com.br/open-banking/api/v2/resource,https://api.banco.com.br/open-banking/api/v2/resource,https://api.banco.com.br/open-banking/api/v2/resource,1,1,2021-05-21T08:30:00Z
