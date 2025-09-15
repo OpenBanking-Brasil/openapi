@@ -1,0 +1,4 @@
+﻿data,,,,,,,,,,,,links,,,,,meta
+updateDateTime,startDate,productsServicesType,procurators,,,,accounts,,,,,self,first,prev,next,last,requestDateTime
+,,,type,cnpjCpfNumber,civilName,socialName,compeCode,branchCode,number,checkDigit,type,,,,,,
+2020-07-21T08:30:00Z,2020-07-21T08:30:00Z,SEGURO,PROCURADOR,73677831148,Elza Milena Stefany Teixeira,Stefany Teixeirass,001,6272,24550245,4,CONTA_DEPOSITO_A_VISTA,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,https://api.banco.com.br/open-banking/api/v1/resource,2021-05-21T08:30:00Z
