@@ -10,4 +10,4 @@ Uma string com data e hora conforme especificação [RFC-3339](https://datatrack
 /data/transactionId;transactionId;"Identificador da transação utilizada para proponente liquidar a portabilidade de crédito com a credora.
 
 No contexto da STR0052, utilizar o valor do campo de retorno NumCtrlSTR (Numero de Controle da STR)
-";Texto;20;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;STR20181108000000013;1
+";Texto;20;Obrigatório;^[^\s](?:.*[^\s])?$;;1;1;"";Não permitido;string;STR20181108000000013;1
