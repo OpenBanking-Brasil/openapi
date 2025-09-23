@@ -7,10 +7,10 @@ EMAIL";1;1;"";Não permitido;string;;
 /data/customerContact/value;value;;Texto;;Obrigatório;^([1-9]{2}(?:[2-8]|9[0-9])[0-9]{3}[0-9]{4})|([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,})$;;1;1;"";Não permitido;string;11999999999;
 /data/institution;institution;Informações sobre proponente e credora participantes do presente pedido de portabilidade de crédito.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/institution/creditor;creditor;Informações sobre a instituição credora.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/institution/creditor/companyName;companyName;Nome da Instituição Credora.;Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Instituição Credora;
+/data/institution/creditor/companyName;companyName;Nome da Instituição Credora.;Texto;80;Obrigatório;^[^\s](?:.*[^\s])?$;;1;1;"";Não permitido;string;Instituição Credora;
 /data/institution/creditor/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^[0-9A-Z]{12}[0-9]{2}$;;1;1;"";Não permitido;string;21128159000166;
 /data/institution/proposing;proposing;Informações sobre a instituição proponente;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
-/data/institution/proposing/companyName;companyName;Nome da Instituição Proponente;Texto;80;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Instituição Proponente;
+/data/institution/proposing/companyName;companyName;Nome da Instituição Proponente;Texto;80;Obrigatório;^[^\s](?:.*[^\s])?$;;1;1;"";Não permitido;string;Instituição Proponente;
 /data/institution/proposing/companyCnpj;companyCnpj;Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.;Texto;14;Obrigatório;^[0-9A-Z]{12}[0-9]{2}$;;1;1;"";Não permitido;string;21128159000166;
 /data/institution/proposing/contact;contact;;Lista;;Opcional;;;1;N;"";Não permitido;array;;
 /data/institution/proposing/contact/type;type;Tipo do contato da Instituição Proponente.;Texto;;Opcional;;"EMAIL 
@@ -59,7 +59,7 @@ OUTROS";1;1;"";Não permitido;string;SAC;
 /data/proposedContract/amortizationScheduledAdditionalInfo;amortizationScheduledAdditionalInfo;"Informação relativa ao complemento da amortização
 
 [Restrição] Campo de preenchimento obrigatório quando o campo amortizationScheduled for igual `OUTROS`
-";Texto;200;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Campo de preenchimento obrigatório quando o campo amortizationScheduled for igual `OUTROS`
+";Texto;200;Condicional;^[^\s](?:.*[^\s])?$;;0;1;" Campo de preenchimento obrigatório quando o campo amortizationScheduled for igual `OUTROS`
 ";Não permitido;string;Informações complementares relativa à amortização do tipo `OUTROS`;
 /data/proposedContract/interestRates;interestRates;"Objeto que traz o conjunto de informações necessárias para demonstrar a composição das taxas de juros remuneratórios da Modalidade de crédito.  
 Caso o contrato não possua taxas de juros, deve ser compartilhada uma lista vazia. Caso o contrato possua uma taxa de juros com valor 0, deve ser compartilhado um objeto com o valor 0 de forma explícita.
@@ -112,7 +112,7 @@ CREDITO_RURAL
 OUTROS_INDEXADORES";1;1;"";Não permitido;string;PRE_FIXADO;
 /data/proposedContract/interestRates/referentialRateIndexerAdditionalInfo;referentialRateIndexerAdditionalInfo;"Campo livre para complementar a informação relativa ao Tipo de taxa referencial ou indexador.
 [Restrição] Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionado o tipo ou subtipo `OUTRO`.
-";Texto;140;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionado o tipo ou subtipo `OUTRO`.
+";Texto;140;Condicional;^[^\s](?:.*[^\s])?$;;0;1;" Obrigatório para complementar a informação relativa ao Tipo de taxa referencial ou indexador, quando selecionado o tipo ou subtipo `OUTRO`.
 ";Não permitido;string;Informações adicionais;
 /data/proposedContract/interestRates/preFixedRate;preFixedRate;"Taxa pré fixada aplicada sob o contrato da modalidade crédito. p.ex. 0.014500. O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%). Preencher o campo não aplicável ao contrato com zeros, seguindo o pattern (0.000000).
 ";Texto;9;Obrigatório;^\d{1,2}\.\d{6}$;;1;1;"";Não permitido;string;0.600000;8
@@ -121,11 +121,11 @@ OUTROS_INDEXADORES";1;1;"";Não permitido;string;PRE_FIXADO;
 /data/proposedContract/interestRates/additionalInfo;additionalInfo;"Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
 
 [Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
-";Texto;1200;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
+";Texto;1200;Condicional;^[^\s](?:.*[^\s])?$;;0;1;" Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
 ";Não permitido;string;Informações adicionais;
 /data/proposedContract/contractedFees;contractedFees;Lista que traz as informações das tarifas pactuadas no contrato.;Lista;;Obrigatório;;;0;N;"";Não permitido;array;;
-/data/proposedContract/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;Renovação de cadastro;
-/data/proposedContract/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;1;1;"";Não permitido;string;CADASTRO;
+/data/proposedContract/contractedFees/feeName;feeName;Denominação da Tarifa pactuada;Texto;140;Obrigatório;^[^\s](?:.*[^\s])?$;;1;1;"";Não permitido;string;Renovação de cadastro;
+/data/proposedContract/contractedFees/feeCode;feeCode;Sigla identificadora da tarifa pactuada;Texto;140;Obrigatório;^[^\s](?:.*[^\s])?$;;1;1;"";Não permitido;string;CADASTRO;
 /data/proposedContract/contractedFees/feeChargeType;feeChargeType;Tipo de cobrança para a tarifa pactuada no contrato.;Texto;;Obrigatório;;"UNICA 
 POR_PARCELA";1;1;"";Não permitido;string;UNICA;
 /data/proposedContract/contractedFees/feeCharge;feeCharge;"""Forma de cobrança relativa a tarifa pactuada no contrato. (Vide Enum)
@@ -160,7 +160,7 @@ OUTROS";1;1;"";Não permitido;string;JUROS_REMUNERATORIOS_POR_ATRASO;
 /data/proposedContract/contractedFinanceCharges/chargeAdditionalInfo;chargeAdditionalInfo;"Campo para informações adicionais.
 
 [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
-";Texto;140;Condicional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+";Texto;140;Condicional;^[^\s](?:.*[^\s])?$;;0;1;" Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
 ";Não permitido;string;Informações adicionais sobre encargos.;
 /data/proposedContract/contractedFinanceCharges/chargeRate;chargeRate;"Representa o valor do encargo em percentual pactuado no contrato.
 
@@ -253,7 +253,7 @@ Ao utilizar essa opção, é fortemente recomendável enviar um ticket como suge
 para discussão e mapeamento em futuras versões.
 
 [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `reasonType` for igual `OUTROS`
-";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
+";Texto;144;Opcional;^[^\s](?:.*[^\s])?$;;0;1;"";Não permitido;string;Informações Adicionais;
 /data/statusReason/digitalSignatureProof;digitalSignatureProof;"Comprovante de assinatura da contraproposta
 
 [RESTRIÇÃO] Objeto de preenchimento obrigatório quando campo `reasonType` for igual a `RETENCAO_DO_CLIENTE`
@@ -307,7 +307,7 @@ OUTROS";1;1;"";Não permitido;string;CANCELADO_PELO_CLIENTE;
 Ao utilizar essa opção, é fortemente recomendável enviar um ticket como sugestão da estrutura Open Finance para discussão e mapeamento em futuras versões.
 
 [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo type for igual a OUTROS.
-";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
+";Texto;144;Opcional;^[^\s](?:.*[^\s])?$;;0;1;"";Não permitido;string;Informações Adicionais;
 /data/loanSettlementInstruction;loanSettlementInstruction;"Objeto contendo o recibo de quitação do contrato original de empréstimo após finalizado o
 pedido de portabilidade de crédito com sucesso junto a Instituição Credora.
 

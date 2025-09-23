@@ -5,7 +5,7 @@
 /data/strCode/name;name;"Nome do proprietário da conta a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
 
 [RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
-";Texto;80;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Instituicao Credora;1
+";Texto;80;Opcional;^[^\s](?:.*[^\s])?$;;0;1;"";Não permitido;string;Instituicao Credora;1
 /data/strCode/companyCnpj;companyCnpj;"CNPJ do proprietário da conta a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
 
 [RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
