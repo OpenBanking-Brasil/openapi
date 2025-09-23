@@ -25,4 +25,4 @@ OUTROS";1;1;"";Não permitido;string;;
 Ao utilizar essa opção, é fortemente recomendável enviar um ticket para o GT de Portabilidade de Crédito como sugestão para estrutura Open Finance para discussão e mapeamento em futuras versões.
 
 [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `type` for igual a `OUTROS`.
-";Texto;144;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Informações Adicionais;
+";Texto;144;Opcional;^[^\s](?:.*[^\s])?$;;0;1;"";Não permitido;string;Informações Adicionais;
