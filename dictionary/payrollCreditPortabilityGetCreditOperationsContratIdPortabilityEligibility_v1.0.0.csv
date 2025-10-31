@@ -1,0 +1,51 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Conjunto de informações de contratos de empréstimos/financiamentos mantidos pelo cliente na instituição credora e para os quais ele tenha fornecido consentimento;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/contractId;contractId;Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.;Texto;100;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$;;1;1;"";Não permitido;string;92792126019929279212650822221989319252576;1
+/data/portability;portability;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/portability/isEligible;isEligible;Sinaliza se as características do contrato é elegível para pedido de portabilidade de crédito via OFB (sem considerar a disponibilidade da portabilidade de crédito);Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;;
+/data/portability/ineligible;ineligible;"Objeto para auxiliar a Instituição Proponente a entender o porque um contrato está inelegivel para pedido de portabilidade de crédito
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `isEligible` for igual a `FALSE`
+";Objeto;;Opcional;;;0;1;"";Não permitido;object;;
+/data/portability/ineligible/reasonType;reasonType;"Informação sobre a disponibilidade ou não de um contrato para a portabilidade de crédito
+Informação sobre o motivo de inelegibilidade
+-`CONTRATO_LIQUIDADO`: Contrato liquidado pelo cliente.
+-`CLIENTE_COM_ACAO_JUDICIAL`: Cliente possui ação judicial
+-`MODALIDADE_OPERACAO_INCOMPATIVEL`: Caso o contrato tenha uma modalidade diferente do praticado no escopo de modalidades disponiveis para portabilidade de crédito
+-`FLUXO_COM_PARCELA_IRREGULAR`: Empréstimos com fluxo de pagamento irregular
+-`TIPO_PESSOA_INVALIDO`: Empréstimo pertence a um tipo de pessoa diferente de pessoa natural 
+-`OUTROS`: Caso exista algum motivo de recusa que não se encaixa nas opções disponiveis de `reasonType`, o campo `reasonTypeAdditionalInfo` deverá ser preenchido com o motivo da inelegibilidade.
+";Texto;;Obrigatório;;"CONTRATO_LIQUIDADO 
+CLIENTE_COM_ACAO_JUDICIAL 
+MODALIDADE_OPERACAO_INCOMPATIVEL 
+FLUXO_COM_PARCELA_IRREGULAR 
+TIPO_PESSOA_INVALIDO 
+OUTROS";1;1;"";Não permitido;string;CLIENTE_COM_ACAO_JUDICIAL;
+/data/portability/ineligible/reasonTypeAdditionalInfo;reasonTypeAdditionalInfo;"Informação sobre a disponibilidade ou não de um contrato para a portabilidade de crédito. Deve ser preenchido como uma proposta para inclusão nas definições, exemplo `MOTIVO_NAO_MAPEADO`: descrição de usar esse motivo específico. Ao utilizar essa opção, é obrigatório enviar um ticket para a estrutura open finance para mapeamento em futuras versões.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `reasonType` for igual a `OUTROS`.
+";Texto;;Opcional;;;0;1;"";Não permitido;string;;
+/data/portability/status;status;"Informação sobre a disponibilidade ou não de um contrato para a portabilidade de crédito
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `isEligible` for igual a `TRUE`
+";Texto;;Opcional;;"DISPONIVEL 
+EM_ANDAMENTO";0;1;"";Não permitido;string;;
+/data/portability/statusUpdateDateTime;statusUpdateDateTime;"Data e hora em que o contrato teve o status atualizado. Uma string com data e hora conforme especificação [RFC-3339](https://datatracker.ietf.org/doc/html/rfc3339), sempre com a utilização de timezone UTC(UTC time format).
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `isEligible` for igual a `TRUE`
+";Texto;20;Opcional;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$;;0;1;"";Não permitido;string;2020-07-21T08:30:00Z;
+/data/portability/channel;channel;"Informação sobre a disponibilidade ou não de um contrato para a portabilidade de crédito
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `status` for igual a `EM_ANDAMENTO`
+";Texto;;Opcional;;"OFB 
+REGISTRADORA";0;1;"";Não permitido;string;;
+/data/portability/companyName;companyName;"Nome da Instituição Proponente responsável pelo pedido de portabilidade de credito anterior a atual consulta p.ex.Empresa A.
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `status` for igual a `EM_ANDAMENTO`         
+";Texto;80;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Empresa da Organização A;
+/data/portability/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição
+O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica.
+Deve-se ter apenas números do CNPJ, sem máscara
+
+[RESTRIÇÃO] Campo de preenchimento obrigatório quando o campo `status` for igual a `EM_ANDAMENTO`
+";Texto;14;Opcional;^[0-9A-Z]{12}[0-9]{2}$;;0;1;"";Não permitido;string;21128159000166;14

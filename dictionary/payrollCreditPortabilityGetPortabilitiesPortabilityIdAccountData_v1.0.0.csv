@@ -1,0 +1,18 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Dados para realização do pagamento da operação via TED;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/strCode;strCode;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/strCode/ispb;ispb;Número do ISPB da Instituição credora a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.;Texto;8;Obrigatório;^[0-9A-Z]{8}$;;1;1;"";Não permitido;string;22896431;8
+/data/strCode/name;name;"Nome do proprietário da conta a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
+
+[RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
+";Texto;80;Opcional;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Instituicao Credora;1
+/data/strCode/companyCnpj;companyCnpj;"CNPJ do proprietário da conta a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
+
+[RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
+";Texto;14;Opcional;^[0-9A-Z]{12}[0-9]{2}$;;0;1;"";Não permitido;string;21128159000166;14
+/data/strCode/branchCode;branchCode;Número da Agência creditada a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.;Número;;Obrigatório;;;1;1;"";Não permitido;number;1;
+/data/strCode/hasFinancialAgent;hasFinancialAgent;Instituição trabalha com agente financeiro ao invés da conta reserva?;Booleano;;Obrigatório;;;1;1;"";Não permitido;boolean;true;
+/data/strCode/accountNumber;accountNumber;"Número da conta bancária da credora a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
+
+[RESTRIÇÃO] campo de preenchimento obrigatório quando campo `hasFinancialAgent` for igual a true
+";Número;;Opcional;;;0;1;"";Não permitido;number;12345678;
