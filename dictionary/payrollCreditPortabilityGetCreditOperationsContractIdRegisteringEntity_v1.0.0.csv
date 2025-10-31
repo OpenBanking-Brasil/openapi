@@ -1,0 +1,6 @@
+﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
+/data;data;Dados para identificação do contrato a ser portado junto a averbadora;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/payrollData;payrollData;Dados do contrato de empréstimo consignado.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/payrollData/contractId;contractId;Número do contrato dado pela instituição contratante no sistema da averbadora.;Texto;20;Obrigatório;^[a-zA-Z0-9][a-zA-Z0-9-]{0,19}$;;1;1;"";Não permitido;string;12346579841058798Asq;1
+/data/payrollData/registeringEntity;registeringEntity;"Nome da averbadora do empréstimo consignado.
+";Texto;;Obrigatório;;SERPRO;1;1;"";Não permitido;string;SERPRO;
