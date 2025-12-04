@@ -1,0 +1,31 @@
+# ===========================
+# 🔧 Git Attributes Config
+# For OpenAPI / Swagger Specs
+# Enforces UTF-8 + LF endings
+# ===========================
+
+# --- Text files: UTF-8 and LF ---
+*.yml     text eol=lf working-tree-encoding=UTF-8
+*.yaml    text eol=lf working-tree-encoding=UTF-8
+*.json    text eol=lf working-tree-encoding=UTF-8
+*.csv     text eol=lf working-tree-encoding=UTF-8
+*.md      text eol=lf working-tree-encoding=UTF-8
+*.txt     text eol=lf working-tree-encoding=UTF-8
+*.html    text eol=lf working-tree-encoding=UTF-8
+
+# --- Optional: Normalize JS/CSS if present ---
+*.js      text eol=lf working-tree-encoding=UTF-8
+*.css     text eol=lf working-tree-encoding=UTF-8
+
+# --- Binary formats (never alter) ---
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.ico     binary
+*.pdf     binary
+*.zip     binary
+
+# --- Prevent GitHub Pages (Jekyll) from altering files ---
+# Combine this with a .nojekyll file in the root
+# to ensure .yml and other static files are served raw
