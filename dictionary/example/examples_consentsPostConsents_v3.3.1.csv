@@ -1,0 +1,7 @@
+﻿data,,,,,,
+loggedUser,,businessEntity,,permissions,expirationDateTime,isLinked
+document,,document,,,,
+identification,rel,identification,rel,,,
+11111111111,CPF,1.11111E+13,CNPJ,ACCOUNTS_READ,2021-05-21T08:30:00Z,TRUE
+,,,,ACCOUNTS_OVERDRAFT_LIMITS_READ,,
+,,,,RESOURCES_READ,,
