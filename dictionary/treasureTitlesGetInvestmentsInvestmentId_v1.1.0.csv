@@ -31,7 +31,7 @@ OUTROS";1;1;"";Não permitido;string;CDI;
 /data/remuneration/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador da aquisição do contrato.
 
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo `indexer` for preenchido de forma diferente de `PRE_FIXADO` ou quando se tratar de produto com remuneração híbrida.
-";Texto;9;Condicional;^-?\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo `indexer` for preenchido de forma diferente de `PRE_FIXADO` ou quando se tratar de produto com remuneração híbrida.
+";Texto;10;Condicional;^-?\d{1,2}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo `indexer` for preenchido de forma diferente de `PRE_FIXADO` ou quando se tratar de produto com remuneração híbrida.
 ";Não permitido;string;1.100000;8
 /data/remuneration/ratePeriodicity;ratePeriodicity;Periodicidade da taxa de remuneração (mensal, anual, diário e semestral);Texto;;Obrigatório;;"MENSAL 
 ANUAL 

@@ -4,12 +4,11 @@
 /data/updatedUnitPrice;updatedUnitPrice;Valor bruto unitário atualizado (a mercado) na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/updatedUnitPrice/amount;amount;Valor relacionado ao objeto.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.000004;
 /data/updatedUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/grossAmount;grossAmount;"Valor do investimento anterior à dedução de impostos, taxas e
-tarifas (se houver), atualizado (a mercado) na data de referência.
+/data/grossAmount;grossAmount;"Valor do investimento anterior à dedução de impostos, taxas e tarifas (se houver), atualizado (a mercado) na data de referência. Importante: Apenas o imposto e o IOF são compartilhados na versão atual da especificação, porém outras taxas podem ser aplicáveis no cálculo desse valor.   
 ";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/grossAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/grossAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
-/data/netAmount;netAmount;Valor do investimento posterior a dedução de impostos, taxas e tarifas (se houver), atualizado (a mercado) na data de referência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/netAmount;netAmount;Valor do investimento posterior a dedução de impostos, taxas e tarifas (se houver), atualizado (a mercado) na data de referência. Importante: Apenas o imposto e o IOF são compartilhados na versão atual da especificação, porém outras taxas podem ser aplicáveis no cálculo desse valor.  ;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/netAmount/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/netAmount/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/incomeTax;incomeTax;"Valor do imposto de renda provisionado considerando a alíquota vigente na data de referência.
