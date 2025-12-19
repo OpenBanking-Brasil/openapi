@@ -21,7 +21,7 @@ NAO";1;1;"";Não permitido;string;SIM;
 /data/remuneration;remuneration;;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/remuneration/preFixedRate;preFixedRate;"Valor da taxa de emissão do contrato.         
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'PRE_FIXADO' no campo 'indexer' ou quando se tratar de produto com remuneração híbrida.
-";Texto;8;Condicional;^\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'PRE_FIXADO' no campo 'indexer' ou quando se tratar de produto com remuneração híbrida.
+";Texto;9;Condicional;^-?\d{1}\.\d{6}$;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'PRE_FIXADO' no campo 'indexer' ou quando se tratar de produto com remuneração híbrida.
 ";Não permitido;string;0.300000;
 /data/remuneration/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador de emissão do contrato.    
 [Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'indexer' for preenchido de forma diferente de 'PRE_FIXADO' ou quando se tratar de produto com remuneração híbrida.

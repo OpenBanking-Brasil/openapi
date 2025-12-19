@@ -27,7 +27,7 @@
 /data/purchaseUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/preFixedRate;preFixedRate;"Taxa de remuneração acordada com o cliente na contratação. Em casos de produtos progressivos, considerar a taxa máxima contratada. 
 É esperado que o preenchimento deste campo pelas participantes seja enviado conforme foi acordado no momento da contratação.
-";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.300000;8
+";Texto;9;Opcional;^-?\d{1}\.\d{6}$;;0;1;"";Não permitido;string;0.300000;8
 /data/postFixedIndexerPercentage;postFixedIndexerPercentage;"Percentual do indexador acordado com o cliente na contratação. Em casos de produtos progressivos, considerar a taxa máxima contratada. 
 É esperado que o preenchimento deste campo pelas participantes seja enviado conforme foi acordado no momento da contratação.
 ";Texto;8;Opcional;^\d{1}\.\d{6}$;;0;1;"";Não permitido;string;1.100000;8
