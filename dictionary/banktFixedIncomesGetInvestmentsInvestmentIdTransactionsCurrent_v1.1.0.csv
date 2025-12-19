@@ -24,7 +24,7 @@ OUTROS";1;1;"";Não permitido;string;APLICACAO;
 ";Texto;100;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo Motivo da movimentação.
 ";Não permitido;string;;
 /data/transactionDate;transactionDate;Data da movimentação.;Data;10;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$;;1;1;"";Não permitido;string;2018-02-15;10
-/data/transactionUnitPrice;transactionUnitPrice;Preço unitário bruto negociado nas transferências de custódia, quando o PU original (da instituição de origem) não estiver disponível para a transmissora, deve ser informado o PU marcado pela instituição na data de transferência.;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/transactionUnitPrice;transactionUnitPrice;Preço unitário bruto negociado na transação. Para os casos de `transactionType` definido como `TRANSFERENCIA_CUSTODIA`, quando o PU original (da instituição de origem) não estiver disponível para a transmissora, deve ser informado o PU da data de transferência. Para os demais casos vale o preço unitário original (da instituição de origem).;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/transactionUnitPrice/amount;amount;;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;1000.04;
 /data/transactionUnitPrice/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/transactionQuantity;transactionQuantity;Quantidade de títulos envolvidos na movimentação.;Texto;24;Obrigatório;^\d{1,15}\.\d{2,8}$;;1;1;"";Não permitido;string;42.25;
@@ -33,15 +33,15 @@ OUTROS";1;1;"";Não permitido;string;APLICACAO;
 /data/transactionGrossValue/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/incomeTax;incomeTax;"Valor do imposto de renda recolhido na transação.
 
-[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
-";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+[Restrição] Campo de preenchimento obrigatório para os produtos aos quais essa taxa se aplica quando o campo `type` for preenchido com o valor `SAIDA`.
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório para os produtos aos quais essa taxa se aplica quando o campo `type` for preenchido com o valor `SAIDA`.
 ";Não permitido;object;;
 /data/incomeTax/amount;amount;;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/incomeTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
 /data/financialTransactionTax;financialTransactionTax;"Valor do IOF recolhido na transação.
 
-[Restrição] Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
-";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório pelas participantes quando o campo 'type' for preenchido com o valor 'SAIDA'.
+[Restrição] Campo de preenchimento obrigatório para os produtos aos quais essa taxa se aplica quando o campo `type` for preenchido com o valor `SAIDA`.  
+";Objeto;;Condicional;;;0;1;" Campo de preenchimento obrigatório para os produtos aos quais essa taxa se aplica quando o campo `type` for preenchido com o valor `SAIDA`.  
 ";Não permitido;object;;
 /data/financialTransactionTax/amount;amount;Valor relacionado ao objeto.;Texto;20;Obrigatório;^\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.04;
 /data/financialTransactionTax/currency;currency;Moeda referente ao valor monetário, seguindo o modelo ISO-4217.;Texto;3;Obrigatório;^[A-Z]{3}$;;1;1;"";Não permitido;string;BRL;
